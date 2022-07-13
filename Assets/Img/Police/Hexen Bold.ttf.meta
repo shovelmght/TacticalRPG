@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ef1a314d12f7a8f4d9d411dd725ea933
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Hexen
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: aad8fb6c207e31c4f8f5175b02d1c710, type: 3}
+  - {fileID: 12800000, guid: b9cf9b49e6a42124296bd9214c4db31a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

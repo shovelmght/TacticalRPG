@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02eca42fb408ac44ba4f20578d174bdf, type: 3}
+  m_Name: TileManagerDataStoneType1
+  m_EditorClassIdentifier: 
+  <Column>k__BackingField: 15
+  <Row>k__BackingField: 20
+  <TileGap>k__BackingField: 1.05
+  <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 9a83b3add70658840ab78f3ffa5ea9a2, type: 2}
+  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: b2b9569c66147424fa3645cd2e6ae10d, type: 2}
+  <DecorsPrefab>k__BackingField:
+  - {fileID: 1221223343915000744, guid: 54c4f10c9f438c248996ebbefdeec087, type: 3}
+  - {fileID: 1221223343915000744, guid: a65a131b52d1cff47a9f0cf7a03351e2, type: 3}
+  - {fileID: 1207176169130477968, guid: 67e9c1326f9a14f4fa5b66ca686d693a, type: 3}
+  - {fileID: 1207176169130477968, guid: 6d44ae46f17789f46800e9ed50bba9d1, type: 3}
+  - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
+  - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
+  - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
+  <SmallRockPrefab>k__BackingField:
+  - {fileID: 2921842315418363760, guid: d9cbbc77271ed494eaf733e414a87b7b, type: 3}
+  - {fileID: 2921842315418363760, guid: 250445bfe1d0ede458fca6c03237a250, type: 3}
+  - {fileID: 2921842315418363760, guid: df1a8f31bfd51124c8c9eb15e5a8ceb9, type: 3}
+  - {fileID: 2921842315418363760, guid: d7bfe9af27c9e0545a046613ca5fe465, type: 3}
+  - {fileID: 2921842315418363760, guid: edceeb8fd48ed9f4b84934d909adc699, type: 3}
+  - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
+  - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
+  <NumberOfDecor>k__BackingField: 4
+  <NumberOfSmallRock>k__BackingField: 10
+  <NumberGroundBackgroundTilesRow>k__BackingField: 30
+  <NumberGroundBackgroundTilesColumn>k__BackingField: 20
+  <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
+  <BoardTileHeight>k__BackingField: 6
+  <TilePrefab>k__BackingField: {fileID: 8767883242349988876, guid: b94b6e49325a2444fb968972877a221f, type: 3}
+  <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
+  <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
+  <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
+  <HeightChance>k__BackingField: 20
+  <WaterChance>k__BackingField: 0
+  <WaterChanceBackgroundTiles>k__BackingField: 1
+  <HeightChanceBackgroundTiles>k__BackingField: 40
+  <decorsChanceBackgroundTiles>k__BackingField: 0
+  <WantColumn>k__BackingField: 0
