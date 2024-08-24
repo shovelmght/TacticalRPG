@@ -306,25 +306,38 @@ public class Character : MonoBehaviour
     }
 
     private bool GetIsBlock()
-    {
+    { 
+        float randomChange = Random.Range(0f, 100.0f);
+     
         switch (_attackTarget._attackDirection)
         {
+
             case GetAttackDirection.AttackDirection.None:
                 break;
             case GetAttackDirection.AttackDirection.Font:
-                if ( Random.Range(0f, 100.0f) <= (100 - _frontHitSuccesChance))
+
+                float frontHitSuccesChance = 100 - _frontHitSuccesChance;
+                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + frontHitSuccesChance);
+        
+                if ( randomChange <= frontHitSuccesChance)
                 {
                     return true;
                 }
                 break;
             case GetAttackDirection.AttackDirection.Behind:
-                if ( Random.Range(0f, 100.0f) <= (100 - _behindHitSuccesChance))
+                
+                float behindHitSuccesChance = 100 - _behindHitSuccesChance;
+                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + behindHitSuccesChance);
+                if ( Random.Range(0f, 100.0f) <= behindHitSuccesChance)
                 {
                     return true;
                 }
                 break;
             case GetAttackDirection.AttackDirection.Side:
-                if ( Random.Range(0f, 100.0f) <= (100 - _sideHitSuccesChance))
+                
+                float sideHitSuccesChance = 100 - _sideHitSuccesChance;
+                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + sideHitSuccesChance);
+                if ( Random.Range(0f, 100.0f) <= sideHitSuccesChance)
                 {
                     return true;
                 }

@@ -19,6 +19,8 @@ public class StateAttackCharacter : State
         {
             if (tile.CharacterReference == _characterAttactedSelected)
             {
+                attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
+                    _characterAttactedSelected.transform);
                 _gameManager.CurrentCharacter.Attack(tile, false, attackDirection);
                 _gameManager.DesableAttackCharacterUIButtons();
                 _characterAttactedSelected = null;

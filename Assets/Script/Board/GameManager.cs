@@ -143,6 +143,10 @@ public class GameManager : MonoBehaviour
         {
             NextCharacterTurn();
         }
+        else
+        {
+           _tileManager.SetValidSpawnTiles();
+        }
     }
 
     private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.CharactersAbility1 characterAbility1, Character.Team team, Vector3 direction)
@@ -168,19 +172,19 @@ public class GameManager : MonoBehaviour
         character.transform.Rotate(rotation);
         _characterCount++;
         character.name = "Character" + _characterCount;
-        Character characterReverence = character.GetComponent<Character>();
-        characterReverence.CurrentTile = tile;
-        characterReverence.CurrentTeam = team;
+        Character characterReference = character.GetComponent<Character>();
+        characterReference.CurrentTile = tile;
+        characterReference.CurrentTeam = team;
         switch (ability1)
         {
             case DataCharacterSpawner.CharactersAbility1.None:
                 break;
             case DataCharacterSpawner.CharactersAbility1.AounterAttack:
-                new CounterAbility(characterReverence, this);
+                new CounterAbility(characterReference, this);
                 break;
         }
-        CharacterList.Add(characterReverence);
-        tile.SetCharacter(characterReverence);
+        CharacterList.Add(characterReference);
+        tile.SetCharacter(characterReference);
         return true;
     }
 
@@ -411,4 +415,6 @@ public class GameManager : MonoBehaviour
             character.SetRemaininTimeTurn();
         }
     }
+
+  
 }

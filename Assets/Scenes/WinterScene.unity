@@ -487,15 +487,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterAIData:
   - {fileID: 11400000, guid: 3d385258b94a4094098596cb63dcfb77, type: 2}
-  - {fileID: 11400000, guid: 86493ee3f4d89ef4a83a5148e74acdc9, type: 2}
   CharacterPlayerData:
+  - {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   - {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   CharacterPrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   CharacterAIPrefab: {fileID: 4996426552043041044, guid: 4dc80ce3464c75246979533e41fe1fcd, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   <BoardCamera>k__BackingField: {fileID: 2038934547}
   <MaxDistanceEnemiesSpawn>k__BackingField: 4
-  <MaxCharacterPlayerCanBePlace>k__BackingField: 0
+  <MaxCharacterPlayerCanBePlace>k__BackingField: 3
   <CameraSpeed>k__BackingField: 0.3
   CharacterList: []
   _Enemiesdirection: 2

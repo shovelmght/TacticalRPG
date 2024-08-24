@@ -14,6 +14,7 @@ public class Tile
     public int CoordY { get; }
     public bool IsOccupied { get;  set; }
     public bool CanInteract { get;  set; }
+    public bool IsValidSpawnTile { get;  set; }
     public bool IsWater { get; set; }
     public int Height { get;  set; }
     public int WaterLenghtNorthSouth { get;  set; }
@@ -182,5 +183,11 @@ public class Tile
         { 
             DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthWest] = tilesManager.GetTile(CoordX - 1 , CoordY + 1);
         }
+    }
+
+    private void SetValidSpawnTile()
+    {
+        IsValidSpawnTile = true;
+        
     }
 }

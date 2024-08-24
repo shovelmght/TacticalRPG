@@ -783,4 +783,28 @@ public class TilesManager: MonoBehaviour
             Vector3 newTileLocation =  new Vector3(0, HEIGHT_GAP, 0);
             tile.Position += (newTileLocation + new Vector3(0, HEIGHT_GAP, 0));
         }
+        
+        public void SetValidSpawnTiles()
+        {
+            foreach (var tile in _boardTiles)
+            {
+                if (tile.CoordY == 0 || tile.CoordY == 1 || tile.CoordY == 2)
+                {
+                    tile.IsValidSpawnTile = true;
+                    tile.SetTopMaterial(MoveTileMaterial);
+                }
+            }
+        }
+        
+        public void UnselectValidSpawnTiles()
+        {
+            foreach (var tile in _boardTiles)
+            {
+                if (tile.CoordY == 0 || tile.CoordY == 1 || tile.CoordY == 2)
+                {
+                    tile.IsValidSpawnTile = true;
+                    tile.ResetSetTopMaterial();
+                }
+            }
+        }
 }

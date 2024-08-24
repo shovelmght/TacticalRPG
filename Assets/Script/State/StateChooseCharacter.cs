@@ -14,7 +14,7 @@ public  class StateChooseCharacter : State
    public override void SelectTile(Tile tile)
    {
       _gameManager.NeedResetTiles = false;
-         if (tile.CharacterReference != null) { return;}
+         if (tile.CharacterReference != null || !tile.IsValidSpawnTile) { return;}
          _numberOfCharactersToInstantiate--;
          _tilesManager.DeselectTiles();
          _gameManager.TileSelected = tile;
@@ -23,6 +23,7 @@ public  class StateChooseCharacter : State
          _gameManager.SpawnCharacter(_gameManager.CharacterPrefab, tile, Vector3.zero, Character.Team.Team1,_dataSpawner.Ability1);
          if (_numberOfCharactersToInstantiate <= 0)
          {
+            _tilesManager.UnselectValidSpawnTiles();
             _gameManager.CurrentState = _gameManager.StateNavigation;
             _gameManager.NextCharacterTurn();
          }
