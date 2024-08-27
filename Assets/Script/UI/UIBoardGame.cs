@@ -75,7 +75,7 @@ public class UIBoardGame : MonoBehaviour
         AudioSource.Play();
         if (_canWait && !_boardManager.Wait)
         {
-            StartCoroutine(_boardManager.EndOfCharacterTurn());
+            StartCoroutine(_boardManager.EndOfCharacterTurn(0));
         }
     }
     

@@ -137,7 +137,7 @@ public class Character : MonoBehaviour
         CurrentTile = tile;
         if (HaveAttacked)
         {
-            StartCoroutine(_gameManager.EndOfCharacterTurn());
+            StartCoroutine(_gameManager.EndOfCharacterTurn(1.5f));
         }
         HaveMoved = true;
         _gameManager.Wait = false;
@@ -247,7 +247,7 @@ public class Character : MonoBehaviour
         {
             if (!_isCounterAttack)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn());
+                StartCoroutine(_gameManager.EndOfCharacterTurn(1.5f));
             }
         }
             

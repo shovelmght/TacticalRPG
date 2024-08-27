@@ -281,7 +281,7 @@ public class GameManager : MonoBehaviour
             CurrentCharacterTurn = CheckCharacterTime();
         }
         
-        CameraIsMoving = true;
+        //CameraIsMoving = true;
         
         if (CurrentCharacter)
         {
@@ -296,9 +296,10 @@ public class GameManager : MonoBehaviour
     }
 
     //Spawn Arrows for chose a Direction (end of character turn)
-    public IEnumerator EndOfCharacterTurn()
+    public IEnumerator EndOfCharacterTurn(float waitingTime)
     {
         yield return new WaitUntil(() => !Wait);
+        yield return new WaitForSeconds(waitingTime);
 
         if (CurrentCharacter)
         {
@@ -312,9 +313,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Transform transformtest;
+    public Vector3 Vector3test;
+    
+    [ContextMenu("MoveBoardCamera")]
+    public void MoveBoardCamera(Vector3 destination)
+    {
+        StartCoroutine(MoveCamera(destination));
+    }
+
+    [ContextMenu("MoveBoardCameraVector")]
+    public void MoveBoardCameraVector()
+    {
+        StartCoroutine(MoveCamera(Vector3test));
+    }
+
+ 
     //Lerp Camera location to a new destination
     private IEnumerator MoveCamera(Transform destination)
     {
+        if (CameraIsMoving) { yield break; }
+
+        CameraIsMoving = true;
         Vector3 startPosition = BoardCamera.position;
         Quaternion startRotation = BoardCamera.rotation;
         float elapsedTime = 0;
@@ -329,6 +349,28 @@ public class GameManager : MonoBehaviour
         }
 
         BoardCamera.SetPositionAndRotation(destination.position, destination.rotation);
+        CameraIsMoving = false;
+    }
+    
+    private IEnumerator MoveCamera(Vector3 destination)
+    {
+        if (CameraIsMoving) { yield break; }
+
+        CameraIsMoving = true;
+        Vector3 startPosition = BoardCamera.position;
+        Quaternion startRotation = BoardCamera.rotation;
+        float elapsedTime = 0;
+        while (elapsedTime < CameraSpeed)
+        {
+            BoardCamera.SetPositionAndRotation(
+                Vector3.Lerp(startPosition, destination, elapsedTime / CameraSpeed),
+                Quaternion.Slerp(startRotation, BoardCamera.rotation, elapsedTime / CameraSpeed)
+            );
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        BoardCamera.SetPositionAndRotation(destination,BoardCamera.rotation);
         CameraIsMoving = false;
     }
 

@@ -1,4 +1,7 @@
 
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
+
 public class StateAttackCharacter : State
 {
     private Tile _tileSelected;
@@ -15,10 +18,15 @@ public class StateAttackCharacter : State
         _gameManager.NeedResetTiles = false;
 
         GetAttackDirection.AttackDirection attackDirection = GetAttackDirection.AttackDirection.None;
+       
         if (tile.CharacterReference)
         {
+            
             if (tile.CharacterReference == _characterAttactedSelected)
             {
+                Vector3 midCameraPosition = (tile.Position + _gameManager.CurrentCharacter.CurrentTile.Position) / 2;
+                midCameraPosition = new Vector3(midCameraPosition.x + 5, 5, midCameraPosition.z);
+                _gameManager.MoveBoardCamera(midCameraPosition);
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
                 _gameManager.CurrentCharacter.Attack(tile, false, attackDirection);

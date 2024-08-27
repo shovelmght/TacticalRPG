@@ -1650,9 +1650,9 @@ MonoBehaviour:
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
-  _frontHitSuccesChance: 0
-  _sideHitSuccesChance: 0
-  _behindHitSuccesChance: 0
+  _frontHitSuccesChance: 35
+  _sideHitSuccesChance: 60
+  _behindHitSuccesChance: 85
 --- !u!82 &3426357763241722636
 AudioSource:
   m_ObjectHideFlags: 0

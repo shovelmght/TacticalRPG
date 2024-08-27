@@ -101,7 +101,7 @@ public class CharacterAI : Character
                     _gameManager.PossibleTileIsFinished = false;
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 }
-                StartCoroutine(_gameManager.EndOfCharacterTurn());
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 _gameManager.SelectTile(GetNearestTile());
