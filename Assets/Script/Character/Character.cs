@@ -19,6 +19,8 @@ public class Character : MonoBehaviour
     public AudioClip SwordHit;
     public AudioClip SwordSoft;
     public AudioClip BlockSound;
+    public GameObject VCamLeft;
+    public GameObject VCamRight;
 
     [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public int Strength { get; private set; }
@@ -158,6 +160,12 @@ public class Character : MonoBehaviour
     
     public void Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
+        StartCoroutine(RotateAndAttack(tile, isAcounterAttack, attackDirection));
+    }
+
+    public IEnumerator RotateAndAttack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
+    {
+        yield return new WaitForSeconds(1);
         if (tile.CharacterReference)
         {
             _attackTarget = tile.CharacterReference;
@@ -166,6 +174,7 @@ public class Character : MonoBehaviour
         _gameManager.Wait = true;
         CharacterAnimator.SetTrigger(Attack1);
         StartCoroutine(RotateTo(tile.Position));
+        yield return new WaitForSeconds(1);
         _isCounterAttack = isAcounterAttack;
     }
     

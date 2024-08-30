@@ -21,14 +21,12 @@ public class StateAttackCharacter : State
        
         if (tile.CharacterReference)
         {
-            
             if (tile.CharacterReference == _characterAttactedSelected)
             {
-                Vector3 midCameraPosition = (tile.Position + _gameManager.CurrentCharacter.CurrentTile.Position) / 2;
-                midCameraPosition = new Vector3(midCameraPosition.x + 5, 5, midCameraPosition.z);
-                _gameManager.MoveBoardCamera(midCameraPosition);
+               
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
+                _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection));
                 _gameManager.CurrentCharacter.Attack(tile, false, attackDirection);
                 _gameManager.DesableAttackCharacterUIButtons();
                 _characterAttactedSelected = null;
@@ -39,8 +37,8 @@ public class StateAttackCharacter : State
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
                 _characterAttactedSelected.ShowCharacterHitSuccess((int)tile.CharacterReference.GetHitSuccess(attackDirection));
+                _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.RotateTo(tile.Position));
             }
-
         }
         else
         {

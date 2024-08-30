@@ -351,6 +351,76 @@ public class GameManager : MonoBehaviour
         BoardCamera.SetPositionAndRotation(destination.position, destination.rotation);
         CameraIsMoving = false;
     }
+
+
+    public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection)
+    {
+        Debug.Log("attackDirection = " + attackDirection);
+        float vCamLeftdistance = Vector3.Distance(BoardCamera.transform.position, theAttacker.VCamLeft.transform.position);
+        float vCamRightdistance = Vector3.Distance(BoardCamera.transform.position, theAttacker.VCamRight.transform.position);
+
+
+        bool vCamLeftIsNear = vCamLeftdistance < vCamRightdistance;
+
+        if (vCamLeftIsNear)
+        {
+            if (attackDirection == GetAttackDirection.AttackDirection.Font)
+            {
+                theAttacker.VCamLeft.SetActive(true);
+                yield return new WaitForSeconds(1);
+                
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamLeft.SetActive(false);
+                    theAttacked.VCamRight.SetActive(true);
+                    yield return new WaitForSeconds(1);
+                    theAttacked.VCamRight.SetActive(false);
+                }
+            }
+            else if (attackDirection == GetAttackDirection.AttackDirection.Behind)
+            {
+                theAttacker.VCamLeft.SetActive(true);
+                yield return new WaitForSeconds(1);
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamLeft.SetActive(false);
+                    theAttacked.VCamLeft.SetActive(true);
+                    yield return new WaitForSeconds(1);
+                    theAttacked.VCamLeft.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (attackDirection == GetAttackDirection.AttackDirection.Font)
+            {
+                theAttacker.VCamRight.SetActive(true);
+                yield return new WaitForSeconds(1);
+                
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamRight.SetActive(false);
+                    theAttacked.VCamLeft.SetActive(true);
+                    yield return new WaitForSeconds(1);
+                    theAttacked.VCamLeft.SetActive(false);
+                }
+            }
+            else if (attackDirection == GetAttackDirection.AttackDirection.Behind)
+            {
+                theAttacker.VCamRight.SetActive(true);
+                yield return new WaitForSeconds(1);
+                
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamRight.SetActive(false);
+                    theAttacked.VCamRight.SetActive(true);
+                    yield return new WaitForSeconds(1);
+                    theAttacked.VCamRight.SetActive(false);
+                }
+            }
+
+        }
+    }
     
     private IEnumerator MoveCamera(Vector3 destination)
     {

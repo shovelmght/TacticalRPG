@@ -1763,6 +1763,7 @@ MonoBehaviour:
   SwordHit: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
   SwordSoft: {fileID: 8300000, guid: e032da58aec479d45973fa5288f6fa64, type: 3}
   BlockSound: {fileID: 8300000, guid: e973ba423b2c57b43a988d6f63cad5ca, type: 3}
+  BattleCamera: {fileID: 0}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 25
   <MovementPoint>k__BackingField: 5
@@ -1780,6 +1781,7 @@ MonoBehaviour:
   _frontHitSuccesChance: 35
   _sideHitSuccesChance: 60
   _behindHitSuccesChance: 85
+  _TimePathFinding: 1.25
 --- !u!82 &7240921655878213958
 AudioSource:
   m_ObjectHideFlags: 0
