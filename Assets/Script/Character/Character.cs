@@ -21,6 +21,8 @@ public class Character : MonoBehaviour
     public AudioClip BlockSound;
     public GameObject VCamLeft;
     public GameObject VCamRight;
+    public GameObject VCamFront;
+    public GameObject VCamBehind;
 
     [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public int Strength { get; private set; }
@@ -165,16 +167,18 @@ public class Character : MonoBehaviour
 
     public IEnumerator RotateAndAttack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
-        yield return new WaitForSeconds(1);
+        _gameManager.Wait = true;
+        StartCoroutine(RotateTo(tile.Position));
+        yield return new WaitForSeconds(1f);
+        
         if (tile.CharacterReference)
         {
             _attackTarget = tile.CharacterReference;
             _attackTarget._attackDirection = attackDirection;
         }
-        _gameManager.Wait = true;
+
         CharacterAnimator.SetTrigger(Attack1);
-        StartCoroutine(RotateTo(tile.Position));
-        yield return new WaitForSeconds(1);
+        Debug.Log("Character RotateAndAttack Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
     }
     
@@ -203,6 +207,7 @@ public class Character : MonoBehaviour
 
     private void IsAttacked(int damage, bool isAcounterAttack)
     {
+        Debug.Log("Character IsAttacked Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
         HitParticleSystem.startColor = Color.red;
             HitParticleSystem.Play();
@@ -229,6 +234,7 @@ public class Character : MonoBehaviour
             {
                 AudioSource.clip = BlockSound;
                 _attackTarget.CharacterAnimator.SetTrigger(Block);
+                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
                 _attackTarget._isCounterAttack = _isCounterAttack;
                 _attackTarget.OnHealthPctChange(0, 0, 0);
                 CharacterAnimator.SetTrigger(HandUp);
@@ -246,10 +252,12 @@ public class Character : MonoBehaviour
             AudioSource.clip = SwordSoft;
             HaveAttacked = true;
             _gameManager.Wait = false;
+            Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
         }
         
         if (_attackTarget && !_attackTarget.HaveCounterAbility)
         {
+            Debug.Log("Character Hit Set _gameManager.Wait(false) 111");
             _gameManager.Wait = false;
         }
         if (HaveMoved)
@@ -268,21 +276,39 @@ public class Character : MonoBehaviour
     //THIS METHODE IS CALLED BY ANIMATOR (TakeHit/Block)
     public void Counter()
     {
+        StartCoroutine(CheckIfCanCounterAttack());
+    }
+
+    private IEnumerator CheckIfCanCounterAttack()
+    {
         RemoveUIPopUpCharacterInfo(false);
-        
+        Debug.Log("Character Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
         if (!_isCounterAttack)
         {
             if (HaveCounterAbility)
             {
+                GetAttackDirection.AttackDirection attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position, transform);
+                yield return new WaitForSeconds(0.25f);
+                StartCoroutine(RotateTo(_gameManager.CurrentCharacter.transform.position));
+                if (attackDirection != GetAttackDirection.AttackDirection.Front)
+                {
+                    yield return new WaitForSeconds(0.15f);
+                }
+                else
+                { Debug.Log("Character Counter check for Is in front GO = " + gameObject.name);
+                
+                }
                 CounterAttack();
             }
             else
             {
+                Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 000");
                 _gameManager.Wait = false;
             }
         }
         else
         {
+            Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 111");
             _gameManager.Wait = false;
         }
     }
@@ -323,7 +349,7 @@ public class Character : MonoBehaviour
 
             case GetAttackDirection.AttackDirection.None:
                 break;
-            case GetAttackDirection.AttackDirection.Font:
+            case GetAttackDirection.AttackDirection.Front:
 
                 float frontHitSuccesChance = 100 - _frontHitSuccesChance;
                 Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + frontHitSuccesChance);
@@ -342,7 +368,7 @@ public class Character : MonoBehaviour
                     return true;
                 }
                 break;
-            case GetAttackDirection.AttackDirection.Side:
+            default:
                 
                 float sideHitSuccesChance = 100 - _sideHitSuccesChance;
                 Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + sideHitSuccesChance);
@@ -362,13 +388,13 @@ public class Character : MonoBehaviour
         {
             case GetAttackDirection.AttackDirection.None:
                 break;
-            case GetAttackDirection.AttackDirection.Font:
+            case GetAttackDirection.AttackDirection.Front:
                 return _frontHitSuccesChance;
 
             case GetAttackDirection.AttackDirection.Behind:
                 return _behindHitSuccesChance;
 
-            case GetAttackDirection.AttackDirection.Side:
+            default:
                 return _sideHitSuccesChance;
         }
 

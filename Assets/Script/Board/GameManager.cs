@@ -1,19 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Transform TempBoardVCam;
+    [SerializeField] private Transform _CurrentCamera;
+    [SerializeField] private CinemachineBrain _CinemachineBrain;
+    [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
+    [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
+    [SerializeField] private Animator _ZommEffectAnimator;
     public List<DataCharacterSpawner> CharacterAIData;
     public List<DataCharacterSpawner> CharacterPlayerData;
-    
     public GameObject CharacterPrefab;
     public GameObject CharacterAIPrefab;
     public GameObject ArrowsPrefab;
-
-    
     [field: SerializeField] public Transform BoardCamera { get; private set; }
     [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
     [field: SerializeField] public  int MaxCharacterPlayerCanBePlace { get; private set; }
@@ -32,6 +36,7 @@ public class GameManager : MonoBehaviour
     public bool CameraIsMoving { get; private set; }
     public bool IsCameraNear { get; set ; }
     public bool PossibleTileIsFinished { get; set;}
+    public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
     public Tile[] OccupiedTiles{ get; private set; }
 
@@ -190,12 +195,15 @@ public class GameManager : MonoBehaviour
 
     public void SelectTile(GameObject gameObjectTile)
     {
+        if (_wait) {return;}
         Tile tile = _tileManager.GetTile(gameObjectTile);
         SelectTile(tile);
     }
-    
+
     public void SelectTile(Tile tile)
     {
+        if (_wait) {return;}
+
         NeedResetTiles = true;
         CurrentState.SelectTile(tile);
          
@@ -352,74 +360,112 @@ public class GameManager : MonoBehaviour
         CameraIsMoving = false;
     }
 
-
-    public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection)
+    public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection, bool isCounter)
     {
-        Debug.Log("attackDirection = " + attackDirection);
-        float vCamLeftdistance = Vector3.Distance(BoardCamera.transform.position, theAttacker.VCamLeft.transform.position);
-        float vCamRightdistance = Vector3.Distance(BoardCamera.transform.position, theAttacker.VCamRight.transform.position);
-
-
-        bool vCamLeftIsNear = vCamLeftdistance < vCamRightdistance;
-
+        TempBoardVCam.gameObject.SetActive(false);
+        Vector3 vCamLeftPosition = theAttacker.VCamLeft.transform.position;
+        Vector3 vCamRightPosition = theAttacker.VCamRight.transform.position;
+        float vCamLeftDistance = Vector3.Distance(_CurrentCamera.position, vCamLeftPosition);
+        float vCamRightDistance = Vector3.Distance(_CurrentCamera.position, vCamRightPosition);
+        bool vCamLeftIsNear = vCamLeftDistance < vCamRightDistance;
+        Debug.Log("SetBattleCamera attackDirection = " + attackDirection + " vCamLeftdistance = " + vCamLeftDistance + "  vCamRightdistance = " + vCamRightDistance);
+        _CinemachineBrain.m_DefaultBlend.m_Time = _CinemachineBlendTimeZoomBattle;
+        
+        if (!isCounter)
+        {
+            _ZommEffectAnimator.SetTrigger(Zoom);
+        }
+        
         if (vCamLeftIsNear)
         {
-            if (attackDirection == GetAttackDirection.AttackDirection.Font)
+            theAttacker.VCamLeft.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            _CinemachineBrain.m_DefaultBlend.m_Time = _CinemachineBlendTimeMovementBattle;
+            if (attackDirection == GetAttackDirection.AttackDirection.Front)
             {
-                theAttacker.VCamLeft.SetActive(true);
-                yield return new WaitForSeconds(1);
-                
                 if (theAttacked != null)
                 {
                     theAttacker.VCamLeft.SetActive(false);
-                    theAttacked.VCamRight.SetActive(true);
-                    yield return new WaitForSeconds(1);
-                    theAttacked.VCamRight.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamRight.transform.position,  theAttacked.VCamRight.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
                 }
             }
             else if (attackDirection == GetAttackDirection.AttackDirection.Behind)
             {
-                theAttacker.VCamLeft.SetActive(true);
-                yield return new WaitForSeconds(1);
                 if (theAttacked != null)
                 {
                     theAttacker.VCamLeft.SetActive(false);
-                    theAttacked.VCamLeft.SetActive(true);
-                    yield return new WaitForSeconds(1);
-                    theAttacked.VCamLeft.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamLeft.transform.position,  theAttacked.VCamLeft.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
+                }
+            }
+            else if (attackDirection == GetAttackDirection.AttackDirection.LeftSide)
+            {
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamLeft.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamBehind.transform.position,  theAttacked.VCamBehind.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamLeft.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamFront.transform.position, theAttacked.VCamFront.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
                 }
             }
         }
         else
         {
-            if (attackDirection == GetAttackDirection.AttackDirection.Font)
+            theAttacker.VCamRight.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            _CinemachineBrain.m_DefaultBlend.m_Time = _CinemachineBlendTimeMovementBattle;
+            if (attackDirection == GetAttackDirection.AttackDirection.Front)
             {
-                theAttacker.VCamRight.SetActive(true);
-                yield return new WaitForSeconds(1);
-                
                 if (theAttacked != null)
                 {
                     theAttacker.VCamRight.SetActive(false);
-                    theAttacked.VCamLeft.SetActive(true);
-                    yield return new WaitForSeconds(1);
-                    theAttacked.VCamLeft.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamLeft.transform.position, theAttacked.VCamLeft.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
                 }
+                
             }
             else if (attackDirection == GetAttackDirection.AttackDirection.Behind)
             {
-                theAttacker.VCamRight.SetActive(true);
-                yield return new WaitForSeconds(1);
-                
                 if (theAttacked != null)
                 {
                     theAttacker.VCamRight.SetActive(false);
-                    theAttacked.VCamRight.SetActive(true);
-                    yield return new WaitForSeconds(1);
-                    theAttacked.VCamRight.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamRight.transform.position, theAttacked.VCamRight.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
                 }
             }
-
+            else if (attackDirection == GetAttackDirection.AttackDirection.LeftSide)
+            {
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamRight.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamFront.transform.position, theAttacked.VCamFront.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                if (theAttacked != null)
+                {
+                    theAttacker.VCamRight.SetActive(false);
+                    TempBoardVCam.transform.SetPositionAndRotation(theAttacked.VCamBehind.transform.position, theAttacked.VCamBehind.transform.rotation);
+                    TempBoardVCam.gameObject.SetActive(true);
+                }
+            }
         }
+        
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => !Wait);
+        Debug.Log("SetBattleCamera end of waiting ");
+        TempBoardVCam.gameObject.SetActive(false);
     }
     
     private IEnumerator MoveCamera(Vector3 destination)
@@ -528,5 +574,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-  
+    //-------------------------------DEBUG---------------------------------
+    public GameObject objectToSpawn;
+    public int itterationobjectToSpawn;
+    private static readonly int Zoom = Animator.StringToHash("Zoom");
+
+    public  void SpawnObject(Vector3 spawnPosition, string name)
+    {
+        if (objectToSpawn != null)
+        {
+            // Instantiate the prefab at the specified position and rotation
+            GameObject go = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+            go.name = name + itterationobjectToSpawn;
+            itterationobjectToSpawn++;
+        }
+
+    }
 }

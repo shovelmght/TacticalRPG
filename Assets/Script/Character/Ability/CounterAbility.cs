@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 public class CounterAbility
 {
 
@@ -16,6 +18,7 @@ public class CounterAbility
 
     private void Counter()
     {
-        _character.Attack( _gameManager.CurrentCharacterTurn.CurrentTile, true, GetAttackDirection.AttackDirection.Font);
+        _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_character, _gameManager.CurrentCharacter, GetAttackDirection.AttackDirection.Front, true));
+        _character.Attack( _gameManager.CurrentCharacterTurn.CurrentTile, true, GetAttackDirection.AttackDirection.Front);
     }
 }

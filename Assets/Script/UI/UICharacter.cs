@@ -110,8 +110,12 @@ public class UICharacter : MonoBehaviour
     
     private void ShowPopUpCharacterInfo(bool isRight, bool isQuick)
     {
-        _popUpCharacterInfoAnimator.SetBool(OpenLeft, false);
-        _popUpCharacterInfoAnimator.SetBool(Close, false);
+        if (_popUpCharacterInfoAnimator.gameObject.activeInHierarchy)
+        {
+            _popUpCharacterInfoAnimator.SetBool(OpenLeft, false);
+            _popUpCharacterInfoAnimator.SetBool(Close, false);
+        }
+
         _canClose = false;
 
         _popUpCharacterInfoGameObject.SetActive(true);
