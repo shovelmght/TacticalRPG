@@ -20,6 +20,7 @@ public  class StateChooseCharacter : State
          _tilesManager.AddSelectedTile(tile);
          tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
          _gameManager.SpawnCharacter(_gameManager.CharacterPrefab, tile, Vector3.zero, Character.Team.Team1,_dataSpawner.Ability1);
+         AudioManager._Instance.SpawnSound( AudioManager._Instance._SpawnCharacter);
          if (_numberOfCharactersToInstantiate <= 0)
          {
             _tilesManager.DeselectTiles();

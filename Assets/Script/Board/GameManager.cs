@@ -373,6 +373,7 @@ public class GameManager : MonoBehaviour
         
         if (!isCounter)
         {
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._ZoomSFX);
             _ZommEffectAnimator.SetTrigger(Zoom);
         }
         

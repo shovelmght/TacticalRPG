@@ -13,6 +13,12 @@ public class CharacterAI : Character
         _gameManager = GameManager.Instance;
         CurrentHealth = MaxHealth;
         IsAI = true;
+        
+        if (_RandomMaterial)
+        {
+            int randomMaterialIndex = Random.Range(0, _Materials.Length);
+            _SkinnedMeshRenderer.material = _Materials[randomMaterialIndex];
+        }
 
     }
     

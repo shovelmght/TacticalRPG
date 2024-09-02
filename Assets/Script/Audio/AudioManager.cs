@@ -1,17 +1,36 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private GameObject _PrefabAudioSource;
-    [SerializeField] private int _AudioPoolLength;
+    [SerializeField] private int _AudioPoolLength = 10; // Default value
     private int _IndexAudioPool;
     private List<AudioPoolObject> _AudioPool;
-    private float _MainVolume = 0.5f;
+    public float _MainVolume = 0.5f;
+    
+    public SfxClass _ZoomSFX;
+    public SfxClass _SwordHit;
+    public SfxClass _SwordSoft;
+    public SfxClass _BlockSound;
+    public SfxClass _ClickSfx;
+    public SfxClass _StartGameGuitSfx;
+    public SfxClass _SpawnCharacter;
+    public static AudioManager _Instance { get; private set; } // Singleton instance
 
     private void Awake()
     {
+        if (_Instance != null && _Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        
+        _Instance = this;
+
         DontDestroyOnLoad(gameObject);
 
         _AudioPool = new List<AudioPoolObject>(_AudioPoolLength);
@@ -25,24 +44,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void SpawnSound(AudioClip audioClip, float pitch, float volume)
+    public void SpawnSound(SfxClass Sfx)
     {
-
         _IndexAudioPool = (_IndexAudioPool + 1) % _AudioPool.Count;
         AudioPoolObject poolObject = _AudioPool[_IndexAudioPool];
 
         // Set up audio properties
         poolObject._GameObject.SetActive(true);
-        poolObject._AudioSource.clip = audioClip;
-        poolObject._AudioSource.pitch = pitch;
-        poolObject._AudioSource.volume = _MainVolume * volume;
+        poolObject._AudioSource.clip = Sfx._AudioClip;
+        float randomPitch = Random.Range(Sfx._MinRandomPitch, Sfx._MaxRandomPitch);
+        poolObject._AudioSource.pitch = randomPitch;
+        poolObject._AudioSource.volume = _MainVolume * Sfx._RelativeVolume;
         poolObject._AudioSource.Play();
-
 
         StartCoroutine(DeactivateAfterPlay(poolObject));
     }
 
-    private IEnumerator<WaitForSeconds> DeactivateAfterPlay(AudioPoolObject poolObject)
+    private IEnumerator DeactivateAfterPlay(AudioPoolObject poolObject)
     {
         yield return new WaitForSeconds(poolObject._AudioSource.clip.length / poolObject._AudioSource.pitch);
         poolObject._GameObject.SetActive(false);
@@ -59,5 +77,14 @@ public class AudioManager : MonoBehaviour
             _GameObject = gameObject;
             _AudioSource = audioSource;
         }
+    }
+    
+    [Serializable]
+    public class SfxClass
+    {
+        public AudioClip _AudioClip;
+        public float _RelativeVolume;
+        public float _MinRandomPitch;
+        public float _MaxRandomPitch;
     }
 }

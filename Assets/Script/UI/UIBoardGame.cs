@@ -9,7 +9,6 @@ public class UIBoardGame : MonoBehaviour
     public Button CameraRotateRightButton;
     public Button CameraRotateLeftButton;
     public Animator Animator;
-    public AudioSource AudioSource;
 
     [SerializeField] private Color _normalColor;
     [SerializeField] private Color _pressesColor;
@@ -39,7 +38,7 @@ public class UIBoardGame : MonoBehaviour
 
     private void ShowTilesMove()
     {
-        AudioSource.Play();
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
         if (!_boardManager.CurrentCharacter.HaveMoved && _boardManager.TileSelected != null && !_boardManager.Wait)
         {
@@ -55,12 +54,11 @@ public class UIBoardGame : MonoBehaviour
 
     private void ShowTilesAttack()
     {
-        AudioSource.Play();
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
+        
+        if (!_boardManager.CurrentCharacter.HaveAttacked && _boardManager.TileSelected != null && !_boardManager.Wait)
         {
-            if (!_boardManager.CurrentCharacter.HaveAttacked && _boardManager.TileSelected != null && !_boardManager.Wait)
-            {
-                _boardManager.ShowPossibleAttack(GameManager.Instance.TileSelected, false);
-            }
+            _boardManager.ShowPossibleAttack(GameManager.Instance.TileSelected, false);
         }
     }
     
@@ -72,7 +70,8 @@ public class UIBoardGame : MonoBehaviour
 
     private void WaitActionCharacter()
     {
-        AudioSource.Play();
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
+        
         if (_canWait && !_boardManager.Wait)
         {
             StartCoroutine(_boardManager.EndOfCharacterTurn(0));
@@ -120,13 +119,13 @@ public class UIBoardGame : MonoBehaviour
 
     private void RotateCameraRight()
     {
-        AudioSource.Play();
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraRight();
     }
     
     private void RotateCameraLeft()
     {
-        AudioSource.Play();
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraLeft();
     }
    

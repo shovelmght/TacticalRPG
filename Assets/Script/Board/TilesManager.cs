@@ -74,6 +74,7 @@ public class TilesManager: MonoBehaviour
 
     public IEnumerator SetBoardTiles()
     {
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._StartGameGuitSfx);
         _gameManager = GameManager.Instance;
         _tiles = new Tile[TileManagerData.Column * TileManagerData.Row];
         _boardTiles = new Tile[TileManagerData.Column,TileManagerData.Row];

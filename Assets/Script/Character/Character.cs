@@ -15,39 +15,39 @@ public class Character : MonoBehaviour
     }
 
     public ParticleSystem HitParticleSystem;
-    public AudioSource AudioSource;
-    public AudioClip SwordHit;
-    public AudioClip SwordSoft;
-    public AudioClip BlockSound;
     public GameObject VCamLeft;
     public GameObject VCamRight;
     public GameObject VCamFront;
     public GameObject VCamBehind;
 
-    [field: SerializeField] public int MaxHealth { get; private set; }
-    [field: SerializeField] public int Strength { get; private set; }
-    [field: SerializeField] public int MovementPoint { get; private set; }
-    [field: SerializeField] public int AttackLenght { get; private set; }
-    [field: SerializeField] public int Speed { get; private set; }
+    [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
+    [field: SerializeField] public int Strength { get; private set; }  = 25;
+    [field: SerializeField] public int MovementPoint { get; private set; } = 4;
+    [field: SerializeField] public int AttackLenght { get; private set; } = 1;
+    [field: SerializeField] public int Speed { get; private set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
-    [field: SerializeField] public float MovingSpeed { get; private set; }
-    [field: SerializeField] public float DyingMoveSpeed { get; private set; }
-    [field: SerializeField] public float WaitToDeselectedTiles { get; private set; }
-    [field: SerializeField] public float DeathGapZPosition { get; private set; }
+    [field: SerializeField] public float MovingSpeed { get; private set; } = 0.1f;
+    [field: SerializeField] public float DyingMoveSpeed { get; private set; } = 1.0f;
+    [field: SerializeField] public float WaitToDeselectedTiles { get; private set; } = 0.5f;
+    [field: SerializeField] public float DeathGapZPosition { get; private set; } = 0.4f;
+
+    [SerializeField] protected bool _RandomMaterial;
+    [SerializeField] protected SkinnedMeshRenderer _SkinnedMeshRenderer;
+    [SerializeField] protected Material[] _Materials;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
-    private int _rotationSpeed;
+    private int _rotationSpeed  = 10;
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
-    private int _lerpScalingSpeed;
+    private int _lerpScalingSpeed  = 5;
 
 
     [SerializeField] [Header("This should be not 0")]
-    private float DownDistanceWhenDie;
+    private float DownDistanceWhenDie  = 1;
 
     [SerializeField] [Header("This should be not 0")]
-    private float ForwardDistanceWhenDie;
+    private float ForwardDistanceWhenDie  = 0.6f;
 
     public float TurnTimeRemaining { get; protected set; } = 100;
     public Tile CurrentTile { get; set; }
@@ -74,9 +74,9 @@ public class Character : MonoBehaviour
     protected TilesManager _tileManager;
     protected const float START_TIME_TURN = 100;
 
-    [SerializeField] private float _frontHitSuccesChance;
-    [SerializeField] private float _sideHitSuccesChance;
-    [SerializeField] private float _behindHitSuccesChance;
+    [SerializeField] private float _frontHitSuccesChance  = 35;
+    [SerializeField] private float _sideHitSuccesChance = 60;
+    [SerializeField] private float _behindHitSuccesChance = 85f;
 
     private GetAttackDirection.AttackDirection _attackDirection;
     private Character _attackTarget;
@@ -98,6 +98,12 @@ public class Character : MonoBehaviour
         _tileManager = TilesManager.Instance;
         HitParticleSystem.startColor = Color.blue;
         CurrentHealth = MaxHealth;
+
+        if (_RandomMaterial)
+        {
+            int randomMaterialIndex = Random.Range(0, _Materials.Length);
+            _SkinnedMeshRenderer.material = _Materials[randomMaterialIndex];
+        }
     }
     
     public virtual void ResetCharacterTurn()
@@ -232,7 +238,7 @@ public class Character : MonoBehaviour
         {
             if (GetIsBlock())
             {
-                AudioSource.clip = BlockSound;
+                AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
                 _attackTarget.CharacterAnimator.SetTrigger(Block);
                 Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
                 _attackTarget._isCounterAttack = _isCounterAttack;
@@ -242,14 +248,14 @@ public class Character : MonoBehaviour
             }
             else
             {
-                AudioSource.clip = SwordHit;
+                AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordHit);
                 _attackTarget.IsAttacked(Strength, _isCounterAttack);
             }
             
         }
         else
         {
-            AudioSource.clip = SwordSoft;
+            AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordSoft);
             HaveAttacked = true;
             _gameManager.Wait = false;
             Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
@@ -269,7 +275,6 @@ public class Character : MonoBehaviour
         }
             
         _tileManager.DeselectTiles();
-        AudioSource.Play();
         HaveAttacked = true;
     }
 
