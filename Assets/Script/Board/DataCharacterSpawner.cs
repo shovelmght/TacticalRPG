@@ -17,7 +17,9 @@ public class DataCharacterSpawner : ScriptableObject
     {
         None = 0,
         Character = 1,
-        CharacterAI = 2
+        CharacterAI = 2,
+        Squire = 3,
+        Dragon = 4
     }
     
     public enum CharactersAbility1

@@ -16,9 +16,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private Animator _ZommEffectAnimator;
     public List<DataCharacterSpawner> CharacterAIData;
-    public List<DataCharacterSpawner> CharacterPlayerData;
+    public List<DataCharacterSpawner.DataSpawner> CharacterPlayerData;
+    public DataCharacterSpawner.DataSpawner _CurrentCharacterDataSpawner;
+    [SerializeField] private GameObject _CharacterList;
     public GameObject CharacterPrefab;
     public GameObject CharacterAIPrefab;
+    public GameObject SquireAIPrefab;
+    public GameObject SquirePrefab;
+    public GameObject DragonPrefab;
+    public GameObject DragonAIPrefab;
     public GameObject ArrowsPrefab;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
     [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
@@ -102,7 +108,7 @@ public class GameManager : MonoBehaviour
         }
 
         StateTurnCharacter = new StateTurnCharacter(this);
-        StateChooseCharacter = new StateChooseCharacter(this,MaxCharacterPlayerCanBePlace, CharacterPlayerData[0].DataSpawn[0]);
+        StateChooseCharacter = new StateChooseCharacter(this,MaxCharacterPlayerCanBePlace, CharacterPlayerData);
         StateAttackCharacter = new StateAttackCharacter(this);
         StateMoveCharacter = new StateMoveCharacter(this);
         StateNavigation = new StateNavigation(this);
@@ -129,17 +135,7 @@ public class GameManager : MonoBehaviour
             foreach (var character in characterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
-                if (character.Team == Character.Team.Team2)
-                {
-                    SpawnAICharacter(
-                        _tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn),
-                        _tileManager.TileManagerData.Row, character.Ability1, Character.Team.Team2, _enemiesDirection);
-                }
-                else
-                {
-                    SpawnAICharacter(
-                        0 , _tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn, character.Ability1, Character.Team.Team1, Vector3.zero);
-                }   
+                SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character);
             }
         }
             
@@ -154,9 +150,16 @@ public class GameManager : MonoBehaviour
         {
            _tileManager.SetValidSpawnTiles();
         }
+        
+        _CharacterList.SetActive(true);
     }
 
-    private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.CharactersAbility1 characterAbility1, Character.Team team, Vector3 direction)
+    private void SetCurrentCharacterDataSpawner(DataCharacterSpawner.DataSpawner characterDataSpawner)
+    {
+        _CurrentCharacterDataSpawner = characterDataSpawner;
+    }
+
+    private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
         bool isCharacterIsSpawned = false;
         while (!isCharacterIsSpawned)
@@ -164,25 +167,34 @@ public class GameManager : MonoBehaviour
             int coordX = Random.Range(0, _tileManager.TileManagerData.Column);
             int coordY = Random.Range(minCoordY, maxCoordY);
         
-            if (SpawnCharacter(CharacterAIPrefab, _tileManager.GetTile(coordX, coordY), direction,
-                    team, characterAbility1))
+            if (SpawnCharacter( _tileManager.GetTile(coordX, coordY), _enemiesDirection, dataCharacterSpawner))
             {
                 isCharacterIsSpawned = true;
             }
         }
     }
     
-    public bool SpawnCharacter(GameObject characterPrefab, Tile tile, Vector3 rotation, Character.Team team, DataCharacterSpawner.CharactersAbility1 ability1)
+    public bool SpawnCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
         if (tile.IsOccupied) {return false;}
-        GameObject character = Instantiate(characterPrefab, tile.Position, Quaternion.identity);
+
+        GameObject character = null;
+        if (dataCharacterSpawner.CharactersPrefab == global::DataCharacterSpawner.CharactersPrefab.Squire)
+        {
+            character = Instantiate(SquirePrefab, tile.Position, Quaternion.identity);
+        }
+        else if (dataCharacterSpawner.CharactersPrefab == global::DataCharacterSpawner.CharactersPrefab.Dragon)
+        {
+            character = Instantiate(DragonPrefab, tile.Position, Quaternion.identity);
+        }
+        
         character.transform.Rotate(rotation);
         _characterCount++;
         character.name = "Character" + _characterCount;
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
-        characterReference.CurrentTeam = team;
-        switch (ability1)
+        characterReference.CurrentTeam = dataCharacterSpawner.Team;
+        switch (dataCharacterSpawner.Ability1)
         {
             case DataCharacterSpawner.CharactersAbility1.None:
                 break;

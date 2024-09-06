@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public  class StateChooseCharacter : State
 {
    private int _numberOfCharactersToInstantiate;
-   private DataCharacterSpawner.DataSpawner _dataSpawner ;
-   public StateChooseCharacter(GameManager gameManager, int numberOfCharactersToInstantiate, DataCharacterSpawner.DataSpawner dataSpawner)
+   private List<DataCharacterSpawner.DataSpawner> _dataSpawner;
+
+   public StateChooseCharacter(GameManager gameManager, int numberOfCharactersToInstantiate,  List<DataCharacterSpawner.DataSpawner> dataSpawner)
    {
       _gameManager = gameManager;
       _tilesManager = TilesManager.Instance;
@@ -19,7 +21,7 @@ public  class StateChooseCharacter : State
          _gameManager.TileSelected = tile;
          _tilesManager.AddSelectedTile(tile);
          tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
-         _gameManager.SpawnCharacter(_gameManager.CharacterPrefab, tile, Vector3.zero, Character.Team.Team1,_dataSpawner.Ability1);
+         _gameManager.SpawnCharacter(tile, Vector3.zero, _gameManager._CurrentCharacterDataSpawner);
          AudioManager._Instance.SpawnSound( AudioManager._Instance._SpawnCharacter);
          if (_numberOfCharactersToInstantiate <= 0)
          {
