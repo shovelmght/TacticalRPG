@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,6 +20,7 @@ public class Character : MonoBehaviour
     public GameObject VCamRight;
     public GameObject VCamFront;
     public GameObject VCamBehind;
+    [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
 
     [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
     [field: SerializeField] public int Strength { get; private set; }  = 25;
@@ -34,6 +36,8 @@ public class Character : MonoBehaviour
     [SerializeField] protected bool _RandomMaterial;
     [SerializeField] protected SkinnedMeshRenderer _SkinnedMeshRenderer;
     [SerializeField] protected Material[] _Materials;
+    [SerializeField] private Transform _StartPositionProjectile;
+    [SerializeField] private float _ProjectileSpeed = 10f;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -59,6 +63,7 @@ public class Character : MonoBehaviour
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
 
+    [SerializeField] private Attack _Attack;
 
 
     public event Action<int, int, int> OnHealthPctChange = delegate { };
@@ -68,8 +73,6 @@ public class Character : MonoBehaviour
     public Action<bool> RemoveUIPopUpCharacterInfo;
     public Action<int> ShowUIHitSuccess;
     
-
-    
     protected GameManager _gameManager;
     protected TilesManager _tileManager;
     protected const float START_TIME_TURN = 100;
@@ -78,11 +81,11 @@ public class Character : MonoBehaviour
     [SerializeField] private float _sideHitSuccesChance = 60;
     [SerializeField] private float _behindHitSuccesChance = 85f;
 
-    private GetAttackDirection.AttackDirection _attackDirection;
-    private Character _attackTarget;
+    public GetAttackDirection.AttackDirection _attackDirection;
+    public Character _attackTarget;
     
     private bool _turn;
-    private bool _isCounterAttack;
+    public bool _isCounterAttack;
     private const float ROATION_TIME = 1;
     
     private static readonly int Move = Animator.StringToHash("Move");
@@ -166,16 +169,35 @@ public class Character : MonoBehaviour
         transform.position = destination;
     }
     
-    public void Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
-    {
-        StartCoroutine(RotateAndAttack(tile, isAcounterAttack, attackDirection));
-    }
-
-    public IEnumerator RotateAndAttack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
+    public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
         _gameManager.Wait = true;
-        StartCoroutine(RotateTo(tile.Position));
         yield return new WaitForSeconds(1f);
+        _Attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
+        
+    }
+    
+    
+    public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab)
+    {
+        yield return new WaitForSeconds(delay);
+       GameObject gameObjectProjectile = Instantiate(projectilePrefab, _StartPositionProjectile.position, _StartPositionProjectile.rotation);
+
+       float speed = _ProjectileSpeed;
+       while (Vector3.Distance(gameObjectProjectile.transform.position, endPositionProjectile) > 0.1f)
+       {
+           gameObjectProjectile.transform.position = Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
+           yield return null;
+       }
+       Destroy(gameObjectProjectile);
+       Hit();
+    }
+
+    /*public IEnumerator RotateAndAttack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
+    {
+    
+ 
+        StartCoroutine(RotateTo(tile.Position));
         
         if (tile.CharacterReference)
         {
@@ -186,7 +208,7 @@ public class Character : MonoBehaviour
         CharacterAnimator.SetTrigger(Attack1);
         Debug.Log("Character RotateAndAttack Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
-    }
+    }*/
     
     public IEnumerator RotateTo(Vector3 destinationTile)
     {
@@ -213,6 +235,8 @@ public class Character : MonoBehaviour
 
     private void IsAttacked(int damage, bool isAcounterAttack)
     {
+        _gameManager.StartCinemachineImpulseSource();
+        StartCinemachineImpulseSource();
         Debug.Log("Character IsAttacked Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
         HitParticleSystem.startColor = Color.red;
@@ -231,7 +255,7 @@ public class Character : MonoBehaviour
     }
 
     //Impact Time when this character hit another gameObject
-    //THIS METHODE IS CALLED BY ANIMATOR (ATTACK)
+    //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 
     public void Hit()
     {
         if (_attackTarget)
@@ -404,6 +428,20 @@ public class Character : MonoBehaviour
         }
 
         return 0;
+    }
+    
+    [ContextMenu("StartCinemachineImpulseSource")]
+    public void StartCinemachineImpulseSource()
+    {
+        Debug.Log("StartCinemachineImpulseSource");
+        foreach (var cinemachineImpulseSources in _CinemachineImpulseSources)
+        {
+            if (cinemachineImpulseSources.gameObject.activeInHierarchy)
+            {
+                cinemachineImpulseSources.GenerateImpulse();
+            }
+        }
+        
     }
 
     public void ShowCharacterHitSuccess(int pct)

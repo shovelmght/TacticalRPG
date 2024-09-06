@@ -27,7 +27,7 @@ public class StateAttackCharacter : State
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
                 _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection, false));
-                _gameManager.CurrentCharacter.Attack(tile, false, attackDirection);
+                _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection));
                 _gameManager.DesableAttackCharacterUIButtons();
                 _characterAttactedSelected = null;
             }
@@ -43,7 +43,7 @@ public class StateAttackCharacter : State
         else
         {
             _gameManager.IsCharactersAttacking = true;
-            _gameManager.CurrentCharacter.Attack(tile, false, attackDirection);
+            _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection));
         }
     }
 

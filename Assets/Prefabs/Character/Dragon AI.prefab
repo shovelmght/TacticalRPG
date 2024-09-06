@@ -62,7 +62,7 @@ PrefabInstance:
     - target: {fileID: 4369926658065928478, guid: 033db4223190419428478b229d190b3b, type: 3}
       propertyPath: _SkinnedMeshRenderer
       value: 
-      objectReference: {fileID: 126604937007979082}
+      objectReference: {fileID: 0}
     - target: {fileID: 4369926658065928478, guid: 033db4223190419428478b229d190b3b, type: 3}
       propertyPath: _Materials.Array.size
       value: 7
@@ -111,6 +111,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1309858833111411832 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 279221548384583580, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_PrefabInstance: {fileID: 1293222692477703140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1481309808407706121 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 395428652879899117, guid: 033db4223190419428478b229d190b3b, type: 3}
@@ -136,14 +141,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100185087782078910, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &5381075455193452107 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6584008333709712815, guid: 033db4223190419428478b229d190b3b, type: 3}
+--- !u!4 &3150114351046876556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4198770336769625704, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &126604937007979082 stripped
+--- !u!137 &3633616947929969661 stripped
 SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1167480872940620206, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2566841175955726361, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8668977177851017136
@@ -168,26 +173,31 @@ MonoBehaviour:
   <MovementPoint>k__BackingField: 4
   <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
-  CharacterAnimator: {fileID: 5381075455193452107}
+  CharacterAnimator: {fileID: 1309858833111411832}
   <MovingSpeed>k__BackingField: 0.2
   <DyingMoveSpeed>k__BackingField: 1
   <WaitToDeselectedTiles>k__BackingField: 0.5
   <DeathGapZPosition>k__BackingField: 0.4
   _RandomMaterial: 1
-  _SkinnedMeshRenderer: {fileID: 126604937007979082}
+  _SkinnedMeshRenderer: {fileID: 3633616947929969661}
   _Materials:
   - {fileID: 2100000, guid: 657c293799d729944a5cdde2f6dc53ee, type: 2}
   - {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
-  - {fileID: 2100000, guid: 0bb6c016790392c42a521dd3c77e34c4, type: 2}
   - {fileID: 2100000, guid: 9a83b3add70658840ab78f3ffa5ea9a2, type: 2}
   - {fileID: 2100000, guid: 62dbc09cac2853f41b8d07c303a7b2d9, type: 2}
   - {fileID: 2100000, guid: a87596ff758bfcb408d2aa8b39f3f724, type: 2}
   - {fileID: -6478536213147159724, guid: 9c154850e805bc0458eafab8d992f7da, type: 3}
+  _StartPositionProjectile: {fileID: 3150114351046876556}
+  _ProjectileSpeed: 10
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
-  _frontHitSuccesChance: 35
-  _sideHitSuccesChance: 60
-  _behindHitSuccesChance: 85
+  _Attack: {fileID: 11400000, guid: 4173e1585cd4cf2459a03a6dfbd15d04, type: 2}
+  _frontHitSuccesChance: 75
+  _sideHitSuccesChance: 85
+  _behindHitSuccesChance: 95
+  _attackDirection: 0
+  _attackTarget: {fileID: 0}
+  _isCounterAttack: 0
   _TimePathFinding: 1.25

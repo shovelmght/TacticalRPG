@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private CinemachineImpulseSource _TempVcamCinemachineImpulseSource;
+    [SerializeField] private CinemachineImpulseSource _CinemachineImpulseSource;
     [SerializeField] private Transform TempBoardVCam;
     [SerializeField] private Transform _CurrentCamera;
     [SerializeField] private CinemachineBrain _CinemachineBrain;
@@ -573,6 +575,14 @@ public class GameManager : MonoBehaviour
         {
             character.SetRemaininTimeTurn();
         }
+    }
+
+    [ContextMenu("StartCinemachineImpulseSource")]
+    public void StartCinemachineImpulseSource()
+    {
+        _TempVcamCinemachineImpulseSource.GenerateImpulse();
+        _CinemachineImpulseSource.GenerateImpulse();
+        CurrentCharacter.StartCinemachineImpulseSource();
     }
 
     //-------------------------------DEBUG---------------------------------
