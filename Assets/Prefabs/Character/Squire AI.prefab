@@ -213,7 +213,7 @@ MonoBehaviour:
   <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 3517565114822063637}
-  <MovingSpeed>k__BackingField: 0.1
+  <MovingSpeed>k__BackingField: 0.2
   <DyingMoveSpeed>k__BackingField: 1
   <WaitToDeselectedTiles>k__BackingField: 0.5
   <DeathGapZPosition>k__BackingField: 0.4

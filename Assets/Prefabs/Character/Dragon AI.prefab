@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 312234888168432684, guid: 033db4223190419428478b229d190b3b, type: 3}
@@ -105,10 +106,16 @@ PrefabInstance:
       objectReference: {fileID: 8668977177851017136}
     m_RemovedComponents:
     - {fileID: 4369926658065928478, guid: 033db4223190419428478b229d190b3b, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8668977177851017136}
   m_SourcePrefab: {fileID: 100100000, guid: 033db4223190419428478b229d190b3b, type: 3}
---- !u!1 &2228407130458205554 stripped
+--- !u!1 &1193910068011162202 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 100185087782078910, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1309858833111411832 stripped
@@ -116,14 +123,14 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 279221548384583580, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1420819613080517932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 163731329795092168, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_PrefabInstance: {fileID: 1293222692477703140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1481309808407706121 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 395428652879899117, guid: 033db4223190419428478b229d190b3b, type: 3}
-  m_PrefabInstance: {fileID: 1293222692477703140}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5880933978130327825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4642988446760057589, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1494740337823579125 stripped
@@ -131,24 +138,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 381699056804587537, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1420819613080517932 stripped
+--- !u!1 &2228407130458205554 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 163731329795092168, guid: 033db4223190419428478b229d190b3b, type: 3}
-  m_PrefabInstance: {fileID: 1293222692477703140}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1193910068011162202 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100185087782078910, guid: 033db4223190419428478b229d190b3b, type: 3}
-  m_PrefabInstance: {fileID: 1293222692477703140}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3150114351046876556 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4198770336769625704, guid: 033db4223190419428478b229d190b3b, type: 3}
-  m_PrefabInstance: {fileID: 1293222692477703140}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &3633616947929969661 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2566841175955726361, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
   m_PrefabInstance: {fileID: 1293222692477703140}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8668977177851017136
@@ -168,10 +160,11 @@ MonoBehaviour:
   VCamRight: {fileID: 5880933978130327825}
   VCamFront: {fileID: 1420819613080517932}
   VCamBehind: {fileID: 1193910068011162202}
+  _CinemachineImpulseSources: []
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 25
   <MovementPoint>k__BackingField: 4
-  <AttackLenght>k__BackingField: 1
+  <AttackLenght>k__BackingField: 2
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 1309858833111411832}
   <MovingSpeed>k__BackingField: 0.2
@@ -201,3 +194,18 @@ MonoBehaviour:
   _attackTarget: {fileID: 0}
   _isCounterAttack: 0
   _TimePathFinding: 1.25
+--- !u!4 &3150114351046876556 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4198770336769625704, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_PrefabInstance: {fileID: 1293222692477703140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3633616947929969661 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2566841175955726361, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_PrefabInstance: {fileID: 1293222692477703140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5880933978130327825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4642988446760057589, guid: 033db4223190419428478b229d190b3b, type: 3}
+  m_PrefabInstance: {fileID: 1293222692477703140}
+  m_PrefabAsset: {fileID: 0}

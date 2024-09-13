@@ -60,7 +60,6 @@ public class UICharacter : MonoBehaviour
     public void Start()
     {
         _Character.OnHealthPctChange += HandleHealthChanged;//It adds event callback
-        _Character.DestroyUI += RemoveUI;
         _Character.ShowUIPopUpCharacterInfo += ShowPopUpCharacterInfo;
         _Character.ShowUIHitSuccess += ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
@@ -69,7 +68,6 @@ public class UICharacter : MonoBehaviour
     private void OnDestroy()
     {
         _Character.OnHealthPctChange -= HandleHealthChanged;//It adds event callback
-        _Character.DestroyUI -= RemoveUI;
         _Character.ShowUIPopUpCharacterInfo -= ShowPopUpCharacterInfo;
         _Character.ShowUIHitSuccess -= ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
@@ -176,11 +174,6 @@ public class UICharacter : MonoBehaviour
         }
         _popUpCharacterInfoAnimator.SetBool(Close, true);
         Invoke(nameof(DeactivatePopUpCharacterInfo), 0.5f);
-    }
-
-    private void RemoveUI()
-    {
-        Destroy(this.gameObject);
     }
 
     //THIS METHODE IS CALLED BY ANIMATOR (UICharacterPopUpClose)

@@ -68,7 +68,6 @@ public class Character : MonoBehaviour
 
 
     public event Action<int, int, int> OnHealthPctChange = delegate { };
-    public Action DestroyUI;
     public Action CounterAttack;
     public Action<bool, bool> ShowUIPopUpCharacterInfo;
     public Action<bool> RemoveUIPopUpCharacterInfo;
@@ -196,23 +195,6 @@ public class Character : MonoBehaviour
        Hit();
     }
 
-    /*public IEnumerator RotateAndAttack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
-    {
-    
- 
-        StartCoroutine(RotateTo(tile.Position));
-        
-        if (tile.CharacterReference)
-        {
-            _attackTarget = tile.CharacterReference;
-            _attackTarget._attackDirection = attackDirection;
-        }
-
-        CharacterAnimator.SetTrigger(Attack1);
-        Debug.Log("Character RotateAndAttack Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
-        _isCounterAttack = isAcounterAttack;
-    }*/
-    
     public IEnumerator RotateTo(Vector3 destinationTile)
     {
         _turn = true;
@@ -319,9 +301,9 @@ public class Character : MonoBehaviour
         {
             if (HaveCounterAbility)
             {
-                yield return _tileManager.GetAttackTiles(AttackLenght, null, CurrentTile, null, false);
+                yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false);
 
-                yield return new WaitForSeconds(1.15f);
+                yield return new WaitForSeconds(.15f);
                 bool canAttackIncomingAttacker = false;
                 foreach (var occupiedTile in _gameManager.OccupiedTiles)
                 {
@@ -368,16 +350,23 @@ public class Character : MonoBehaviour
     
     private IEnumerator Vanish()
     {
+        Character tempCurrentCharacter = _gameManager.CurrentCharacter;
         _gameManager.RemoveCharacter(this);
         CharacterAnimator.SetTrigger(Die);
         yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
         CurrentTile.ActivateFloorParticleSystem();
         StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
         yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, DyingMoveSpeed));
-        DestroyUI();
         _gameManager.Wait = false;
+
         yield return MoveTo(transform.position + Vector3.down * DownDistanceWhenDie,DyingMoveSpeed);
-        Destroy(this.gameObject);
+        
+        if (!IsAI == tempCurrentCharacter == this)
+        {
+            Debug.Log("Character _gameManager.CurrentCharacter == this");
+            _gameManager.NextCharacterTurn();
+        }
+        
     }
 
     private IEnumerator LerpScale(Vector3 scaleWanted, float speed)

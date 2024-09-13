@@ -145,64 +145,64 @@ public class TilesManager: MonoBehaviour
     
     public IEnumerator GetMoveTiles(int numberOfTimes, Tile previousTile, Tile currentTile)
     {
-        Debug.Log("0");
+        //Debug.Log("0");
         if (previousTile != null)
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
             {
                 currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
             }
-            Debug.Log("2");
+            //Debug.Log("2");
             currentTile.AddPreviousMoveTile(previousTile);
             if(currentTile.IsOccupied)
             {
-                Debug.Log("3");
+                //Debug.Log("3");
                 bool tileIsAlreadyInList = false;
                 
                 for (int i = 0; i <  _gameManager.IndexOccupiedTiles; i++)
                 {
                     if (_gameManager.OccupiedTiles[i] == currentTile)
                     {
-                        Debug.Log("4");
+                        //Debug.Log("4");
                         tileIsAlreadyInList = true;
                     }
                 }
                 if (!tileIsAlreadyInList)
                 {
-                    Debug.Log("5");
+                    //Debug.Log("5");
                     _gameManager.OccupiedTiles[_gameManager.IndexOccupiedTiles] = currentTile;
                     _gameManager.IndexOccupiedTiles++;
                 }
             }
         }
 
-        Debug.Log("6");
+        //Debug.Log("6");
         if (previousTile == null || !currentTile.IsOccupied)
         {
-            Debug.Log("7");
+           // Debug.Log("7");
             currentTile.SetTopMaterial(MoveTileMaterial);
-            Debug.Log("8");
+           // Debug.Log("8");
             AddSelectedTile(currentTile);
             currentTile.CanInteract = true;
             yield return new WaitForSeconds(_timePathFinding);
      
             if (numberOfTimes > 0)
             {
-                Debug.Log("9");
+                //Debug.Log("9");
                 foreach (var sideTile in currentTile.SideTiles)
                 {
                     if (sideTile is { CanInteract: false })
                     {
                         StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, sideTile)) ;
-                        Debug.Log("++branchPath = " + BranchPath);
+                        //Debug.Log("++branchPath = " + BranchPath);
                         BranchPath++;
                     }
                 }
             }
             else
             {
-                Debug.Log("10");
+                //Debug.Log("10");
                 _gameManager.PossibleTileIsFinished = true;
             }
         }
@@ -210,12 +210,12 @@ public class TilesManager: MonoBehaviour
         {
             if (currentTile.IsOccupied)
             {
-                Debug.Log("--branchPath = " + BranchPath);
+                //Debug.Log("--branchPath = " + BranchPath);
                 BranchPath--;
-                Debug.Log("11");
+                //Debug.Log("11");
                 if(BranchPath == 0)
                 {
-                    Debug.Log("12");
+                    //Debug.Log("12");
                     _gameManager.PossibleTileIsFinished = true;
                 }
             }

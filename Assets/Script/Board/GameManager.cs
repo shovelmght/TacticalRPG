@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public int IndexOccupiedTiles{ get; set; }
     public Tile[] OccupiedTiles{ get; private set; }
 
-    private void Update()
+    /*private void Update()
     {
         foreach (var occupiedTile in OccupiedTiles)
         {
@@ -56,10 +56,8 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log(occupiedTile.CharacterReference.gameObject.name);
             }
-            
         }
-       
-    }
+    }*/
 
     public Character CurrentCharacter { get; set; }
     public Character CurrentCharacterTurn { get; private set; }

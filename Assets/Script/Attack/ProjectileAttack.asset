@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ProjectileAttack
   m_EditorClassIdentifier: 
   Power: 10
+  AttackLenght: 2
   _ProjectilePrefab: {fileID: 5575048724471938769, guid: 3c8d44ed16f3ae94799128a89571c9d4, type: 3}
   _SpawnProjectileDelay: 0.5
   _HeightGabToAdd: 0.5
