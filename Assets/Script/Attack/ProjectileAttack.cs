@@ -15,7 +15,6 @@ public class ProjectileAttack : Attack
     {
         character.StartCoroutine(character.RotateTo(tile.Position));
         
-        
         if (tile.CharacterReference)
         {
             character._attackTarget = tile.CharacterReference;
@@ -24,30 +23,14 @@ public class ProjectileAttack : Attack
 
         character.CharacterAnimator.SetTrigger(Attack);
         character._isCounterAttack = isAcounterAttack;
-        if (character == null)
-        {
-            Debug.LogError("character == null");
-        }
-        
+
         if (tile.CharacterReference == null)
         {
-            Debug.LogError("tile.CharacterReference == null");  //   this one
+            character.StartCoroutine(character.ThrowProjectile((tile.Position + new Vector3(0,_HeightGabToAdd,0)), _SpawnProjectileDelay, _ProjectilePrefab));
+            return;
         }
         
-        if (tile.CharacterReference.gameObject == null)
-        {
-            Debug.LogError("tile.CharacterReference.gameObject == null");
-        }
-        
-        if (tile.CharacterReference.gameObject.transform == null)
-        {
-            Debug.LogError("tile.CharacterReference.gameObject.transform == null");
-        }
-        
-        if (_ProjectilePrefab == null)
-        {
-            Debug.LogError("_ProjectilePrefab == null");
-        }
+        tile.CharacterReference._IncomingAttacker = character;
         character.StartCoroutine(character.ThrowProjectile((tile.CharacterReference.gameObject.transform.position + new Vector3(0,_HeightGabToAdd,0)), _SpawnProjectileDelay, _ProjectilePrefab));
     }
 }

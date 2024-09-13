@@ -60,6 +60,7 @@ public class Character : MonoBehaviour
     public int CurrentHealth { get; set; }
     public bool IsAI { get; set; }
     public bool HaveCounterAbility { get; set; }
+    public Character _IncomingAttacker{ get; set; }
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
 
@@ -83,7 +84,8 @@ public class Character : MonoBehaviour
 
     public GetAttackDirection.AttackDirection _attackDirection;
     public Character _attackTarget;
-    
+
+
     private bool _turn;
     public bool _isCounterAttack;
     private const float ROATION_TIME = 1;
@@ -115,6 +117,7 @@ public class Character : MonoBehaviour
         HaveAttacked = false;
         _gameManager.CurrentCharacter = this;
         _attackTarget = null;
+        _IncomingAttacker = null;
         TurnTimeRemaining = START_TIME_TURN ;
     }
 
@@ -316,8 +319,29 @@ public class Character : MonoBehaviour
         {
             if (HaveCounterAbility)
             {
+                yield return _tileManager.GetAttackTiles(AttackLenght, null, CurrentTile, null, false);
+
+                yield return new WaitForSeconds(1.15f);
+                bool canAttackIncomingAttacker = false;
+                foreach (var occupiedTile in _gameManager.OccupiedTiles)
+                {
+                    if (occupiedTile != null)
+                    {
+                        if (occupiedTile.CharacterReference != null && occupiedTile.CharacterReference == _IncomingAttacker)
+                        {
+                            canAttackIncomingAttacker = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!canAttackIncomingAttacker)
+                {
+                    _gameManager.Wait = false;
+                    yield break;
+                }
                 GetAttackDirection.AttackDirection attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position, transform);
-                yield return new WaitForSeconds(0.25f);
+               
                 StartCoroutine(RotateTo(_gameManager.CurrentCharacter.transform.position));
                 if (attackDirection != GetAttackDirection.AttackDirection.Front)
                 {

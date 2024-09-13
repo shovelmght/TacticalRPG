@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public List<DataCharacterSpawner> CharacterAIData;
     public List<DataCharacterSpawner.DataSpawner> CharacterPlayerData;
     public DataCharacterSpawner.DataSpawner _CurrentCharacterDataSpawner;
-    [SerializeField] private GameObject _CharacterList;
+    public CharacterSelectable _PlayerCharacterSpawnerList;
     public GameObject CharacterPrefab;
     public GameObject CharacterAIPrefab;
     public GameObject SquireAIPrefab;
@@ -47,6 +47,19 @@ public class GameManager : MonoBehaviour
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
     public Tile[] OccupiedTiles{ get; private set; }
+
+    private void Update()
+    {
+        foreach (var occupiedTile in OccupiedTiles)
+        {
+            if(occupiedTile != null && occupiedTile.CharacterReference != null)
+            {
+                Debug.Log(occupiedTile.CharacterReference.gameObject.name);
+            }
+            
+        }
+       
+    }
 
     public Character CurrentCharacter { get; set; }
     public Character CurrentCharacterTurn { get; private set; }
@@ -130,11 +143,14 @@ public class GameManager : MonoBehaviour
         _enemiesDirection = SetEnemiesDirection();
         yield return _tileManager.SetBoardTiles();
         
+        Debug.Log("CharactersPrefab AI 0 = " + CharacterAIData[0].DataSpawn[0].CharactersPrefab);
+        Debug.Log("CharactersPrefab AI 1 = " + CharacterAIData[0].DataSpawn[1].CharactersPrefab);
         foreach (var characterSpawner in CharacterAIData)
         {
             foreach (var character in characterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
+                Debug.Log("CharactersPrefab AI = " + character.CharactersPrefab);
                 SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character);
             }
         }
@@ -151,10 +167,10 @@ public class GameManager : MonoBehaviour
            _tileManager.SetValidSpawnTiles();
         }
         
-        _CharacterList.SetActive(true);
+        _PlayerCharacterSpawnerList.gameObject.SetActive(true);
     }
 
-    private void SetCurrentCharacterDataSpawner(DataCharacterSpawner.DataSpawner characterDataSpawner)
+    public void SetCurrentCharacterDataSpawner(DataCharacterSpawner.DataSpawner characterDataSpawner)
     {
         _CurrentCharacterDataSpawner = characterDataSpawner;
     }
@@ -173,21 +189,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
     public bool SpawnCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
         if (tile.IsOccupied) {return false;}
 
-        GameObject character = null;
-        if (dataCharacterSpawner.CharactersPrefab == global::DataCharacterSpawner.CharactersPrefab.Squire)
-        {
-            character = Instantiate(SquirePrefab, tile.Position, Quaternion.identity);
-        }
-        else if (dataCharacterSpawner.CharactersPrefab == global::DataCharacterSpawner.CharactersPrefab.Dragon)
-        {
-            character = Instantiate(DragonPrefab, tile.Position, Quaternion.identity);
-        }
-        
+        GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, tile.Position);
         character.transform.Rotate(rotation);
         _characterCount++;
         character.name = "Character" + _characterCount;
@@ -205,6 +212,31 @@ public class GameManager : MonoBehaviour
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         return true;
+    }
+
+    public GameObject InstantiateCharacter(DataCharacterSpawner.CharactersPrefab charactersPrefab, Vector3 position)
+    {
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Squire)
+        {
+            return Instantiate(SquirePrefab, position, Quaternion.identity);
+        }
+
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Dragon)
+        {
+            return Instantiate(DragonPrefab, position, Quaternion.identity);
+        }
+
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.SquireAI)
+        {
+            return Instantiate(SquireAIPrefab, position, Quaternion.identity);
+        }
+
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.DragonAI)
+        {
+            return Instantiate(DragonAIPrefab, position, Quaternion.identity);
+        }
+
+        return null;
     }
 
     public void SelectTile(GameObject gameObjectTile)

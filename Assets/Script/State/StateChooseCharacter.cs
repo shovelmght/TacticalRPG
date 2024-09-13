@@ -21,14 +21,17 @@ public  class StateChooseCharacter : State
          _gameManager.TileSelected = tile;
          _tilesManager.AddSelectedTile(tile);
          tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
-         _gameManager.SpawnCharacter(tile, Vector3.zero, _gameManager._CurrentCharacterDataSpawner);
+         _gameManager.SpawnCharacter(tile, Vector3.zero, _gameManager._PlayerCharacterSpawnerList.SpawnCurrentCharacterSelected());
+         _gameManager._PlayerCharacterSpawnerList.NextCharacter();
          AudioManager._Instance.SpawnSound( AudioManager._Instance._SpawnCharacter);
-         if (_numberOfCharactersToInstantiate <= 0)
+         
+         if (_numberOfCharactersToInstantiate <= 0 || !_gameManager._PlayerCharacterSpawnerList.HasRemainingCharacters())
          {
             _tilesManager.DeselectTiles();
             _tilesManager.UnselectValidSpawnTiles();
             _gameManager.CurrentState = _gameManager.StateNavigation;
             _gameManager.NextCharacterTurn();
+            _gameManager._PlayerCharacterSpawnerList.gameObject.SetActive(false);
          }
    }
 }

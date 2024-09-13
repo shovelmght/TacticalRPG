@@ -11,15 +11,16 @@ public class DataCharacterSpawner : ScriptableObject
         public CharactersPrefab CharactersPrefab;
         public Character.Team Team;
         public CharactersAbility1 Ability1;
+        public string Name;
+        public string Class;
     }
     
     public enum CharactersPrefab
     {
-        None = 0,
-        Character = 1,
-        CharacterAI = 2,
-        Squire = 3,
-        Dragon = 4
+        Squire = 0,
+        Dragon = 1,        
+        SquireAI = 2,
+        DragonAI = 3
     }
     
     public enum CharactersAbility1

@@ -14,6 +14,7 @@ public class SwordAttack : Attack
         
         if (tile.CharacterReference)
         {
+            tile.CharacterReference._IncomingAttacker = character;
             character._attackTarget = tile.CharacterReference;
             character._attackTarget._attackDirection = attackDirection;
         }

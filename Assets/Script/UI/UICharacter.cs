@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,13 +57,22 @@ public class UICharacter : MonoBehaviour
     private static readonly int OpenLeft = Animator.StringToHash("OpenLeft");
     private static readonly int OpenLeftQuick = Animator.StringToHash("OpenLeftQuick");
 
-    public virtual void Awake()
+    public void Start()
     {
         _Character.OnHealthPctChange += HandleHealthChanged;//It adds event callback
         _Character.DestroyUI += RemoveUI;
         _Character.ShowUIPopUpCharacterInfo += ShowPopUpCharacterInfo;
         _Character.ShowUIHitSuccess += ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
+    }
+
+    private void OnDestroy()
+    {
+        _Character.OnHealthPctChange -= HandleHealthChanged;//It adds event callback
+        _Character.DestroyUI -= RemoveUI;
+        _Character.ShowUIPopUpCharacterInfo -= ShowPopUpCharacterInfo;
+        _Character.ShowUIHitSuccess -= ShowHitSuccessPct;
+        _Character.RemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
     }
 
     //make ui element face to the camera

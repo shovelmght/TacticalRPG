@@ -236,7 +236,12 @@ public class TilesManager: MonoBehaviour
                 }
                 currentTile.AddPreviousMoveTile(previousTile);
             }
-            currentTile.SetTopMaterial(material);
+
+            if (material != null)
+            {
+                currentTile.SetTopMaterial(material);
+            }
+           
             AddSelectedTile(currentTile);
             currentTile.CanInteract = true;
             yield return new WaitForSeconds(_timePathFinding);
