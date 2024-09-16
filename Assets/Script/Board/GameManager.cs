@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public bool IsCameraNear { get; set ; }
     public bool MenuIsOpen { get; set; } = false;
     public bool IsController { get; set; } = false;
+    public bool IsAIChatacterTurn { get; set; } = false;
     public bool PossibleTileIsFinished { get; set;}
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
@@ -250,15 +251,13 @@ public class GameManager : MonoBehaviour
 
     public void SelectTile(Tile tile)
     {
-        Debug.Log("Bug Controller wait SelectTile 11 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
         if (_wait) {return;}
+        
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         TilePreSelected = tile;
-
         NeedResetTiles = true;
         CurrentState.SelectTile(tile);
-         
-        Debug.Log("Bug Controller wait SelectTile 22 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
+        
         if(NeedResetTiles)
         {
             if (CurrentCharacter)
@@ -273,7 +272,6 @@ public class GameManager : MonoBehaviour
             CurrentState = StateNavigation;
             TileSelected = tile;
             StateAttackCharacter.ResetAttackData();
-            Debug.Log("Bug Controller wait SelectTile 33 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
         }
     }
 
@@ -354,8 +352,6 @@ public class GameManager : MonoBehaviour
     //Select with color possible direction (end character turn) tile
     private void ShowPossibleTileDirection(Tile tile)
     {
-
-        Debug.Log("Bug Controller wait ShowPossibleTileDirection 11 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
         _tileManager.DeselectTiles();
         StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false));
         CurrentState = StateTurnCharacter;
@@ -388,6 +384,16 @@ public class GameManager : MonoBehaviour
         }
         
         //Reset Move/Attack character
+        if (CurrentCharacterTurn.IsAI)
+        {
+            IsAIChatacterTurn = true;
+            UIBoardGame.Instance.HideMenuUI();
+        }
+        else
+        {
+            IsAIChatacterTurn = false;
+            UIBoardGame.Instance.UnHideMenuUI();
+        }
         CurrentCharacterTurn.ResetCharacterTurn();
 
         CurrentState = StateNavigation;
@@ -397,16 +403,13 @@ public class GameManager : MonoBehaviour
     //Spawn Arrows for chose a Direction (end of character turn)
     public IEnumerator EndOfCharacterTurn(float waitingTime)
     {
-        Debug.Log("Bug Controller wait EndOfCharacterTurn 11 tile = ");
         yield return new WaitUntil(() => !Wait);
         yield return new WaitForSeconds(waitingTime);
-
-        Debug.Log("Bug Controller wait EndOfCharacterTurn 22 tile = ");
+        
         if (CurrentCharacter)
         {
             /*ArrowsDirection.SetActive(true);
             ArrowsDirection.transform.position = TileSelected.Position;*/
-            Debug.Log("Bug Controller wait EndOfCharacterTurn 33 tile = ");
             ShowPossibleTileDirection(CurrentCharacter.CurrentTile);
             if (IsController)
             {
@@ -415,8 +418,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
-            Debug.Log("Bug Controller wait EndOfCharacterTurn 44 tile = ");
             NextCharacterTurn();
         }
     }

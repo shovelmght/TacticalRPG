@@ -12,7 +12,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private CheckIfButtonIsSelect[] _ButtonsCanBeSelect;
     [SerializeField] private Button _SecondSelecableButton;
     [SerializeField] private Button _ConfirmButton;
-    [SerializeField] private int _TreshHoldItteration = 25;
+    private int _TreshHoldItteration = 2;
     private bool Canselect;
     private bool _OneOfButtonIsSelected;
     private int _Itteration = 0;
@@ -59,6 +59,8 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
@@ -76,6 +78,58 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileDown()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
+        if (_gameManager.MenuIsOpen)
+        {
+            bool oneIsSelected = false;
+            foreach (var button in _ButtonsCanBeSelect)
+            {
+                if (button._IsSelected)
+                {
+                    oneIsSelected = true;
+                    _OneOfButtonIsSelected = true;
+                    break;
+                }
+            }
+
+            if (!oneIsSelected)
+            {
+                _OneOfButtonIsSelected = false;
+            }
+
+            if (Canselect && !_OneOfButtonIsSelected)
+            {
+                if (_ConfirmButton.gameObject.activeInHierarchy)
+                {
+                    _ConfirmButton.Select();
+                }
+                else
+                {
+                    _SecondSelecableButton.Select();
+                }
+                
+                Debug.Log(" _ConfirmButton.Select();");
+            }
+            else if (!Canselect && !_OneOfButtonIsSelected)
+            {
+                Debug.Log("_Itteration = " + _Itteration);
+                _Itteration++;
+                if (_Itteration > _TreshHoldItteration)
+                {
+                    _Itteration = 0;
+                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    {
+                        _ConfirmButton.Select();
+                    }
+                    else
+                    {
+                        _SecondSelecableButton.Select();
+                    }
+                }
+            }
+        }
+        
         int tileIndex = 0;
         
         if (_gameManager._direction == GameManager.Direction.North)
@@ -109,6 +163,178 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileUp()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
+        if (_gameManager.MenuIsOpen)
+        {
+            bool oneIsSelected = false;
+            foreach (var button in _ButtonsCanBeSelect)
+            {
+                if (button._IsSelected)
+                {
+                    oneIsSelected = true;
+                    _OneOfButtonIsSelected = true;
+                    break;
+                }
+            }
+
+            if (!oneIsSelected)
+            {
+                _OneOfButtonIsSelected = false;
+            }
+
+            if (Canselect && !_OneOfButtonIsSelected)
+            {
+                if (_ConfirmButton.gameObject.activeInHierarchy)
+                {
+                    _ConfirmButton.Select();
+                }
+                else
+                {
+                    _SecondSelecableButton.Select();
+                }
+                
+                Debug.Log(" _ConfirmButton.Select();");
+            }
+            else if (!Canselect && !_OneOfButtonIsSelected)
+            {
+                Debug.Log("_Itteration = " + _Itteration);
+                _Itteration++;
+                if (_Itteration > _TreshHoldItteration)
+                {
+                    _Itteration = 0;
+                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    {
+                        _ConfirmButton.Select();
+                    }
+                    else
+                    {
+                        _SecondSelecableButton.Select();
+                    }
+                }
+            }
+        }
+        
+        int tileIndex = 1;
+        
+        if (_gameManager._direction == GameManager.Direction.North)
+        {
+            tileIndex = 0;
+        }
+        else if (_gameManager._direction == GameManager.Direction.Est)
+        {
+            tileIndex = 3;
+        }
+        else if (_gameManager._direction == GameManager.Direction.West)
+        {
+            tileIndex = 2;
+        }
+        
+        _gameManager.IsController = true;
+        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+      
+        if (_TempSelectTileMaterial != null)
+        {
+            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+        }
+        
+        _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
+        Debug.Log("SelectTileController tile NavigateControllerTileUp  SideTiles[tileIndex]= " +_gameManager.TilePreSelected.SideTiles[tileIndex].CoordX + "  " +_gameManager.TilePreSelected.SideTiles[tileIndex].CoordY + " TilePreSelected = " + _gameManager.TilePreSelected.CoordX + "  " + _gameManager.TilePreSelected.CoordY);
+        _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
+        _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
+
+        
+        Debug.Log("_gameManager._direction = " + _gameManager._direction);
+    }
+
+    private void NavigateControllerTileRight()
+    {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
+        if (_gameManager.MenuIsOpen)
+        {
+            bool oneIsSelected = false;
+            foreach (var button in _ButtonsCanBeSelect)
+            {
+                if (button._IsSelected)
+                {
+                    oneIsSelected = true;
+                    _OneOfButtonIsSelected = true;
+                    break;
+                }
+            }
+
+            if (!oneIsSelected)
+            {
+                _OneOfButtonIsSelected = false;
+            }
+
+            if (Canselect && !_OneOfButtonIsSelected)
+            {
+                if (_ConfirmButton.gameObject.activeInHierarchy)
+                {
+                    _ConfirmButton.Select();
+                }
+                else
+                {
+                    _SecondSelecableButton.Select();
+                }
+                
+                Debug.Log(" _ConfirmButton.Select();");
+            }
+            else if (!Canselect && !_OneOfButtonIsSelected)
+            {
+                Debug.Log("_Itteration = " + _Itteration);
+                _Itteration++;
+                if (_Itteration > _TreshHoldItteration)
+                {
+                    _Itteration = 0;
+                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    {
+                        _ConfirmButton.Select();
+                    }
+                    else
+                    {
+                        _SecondSelecableButton.Select();
+                    }
+                }
+            }
+        }
+        
+        int tileIndex = 2;
+        
+        if (_gameManager._direction == GameManager.Direction.North)
+        {
+            tileIndex = 3;
+        }
+        else if (_gameManager._direction == GameManager.Direction.Est)
+        {
+            tileIndex = 1;
+        }
+        else if (_gameManager._direction == GameManager.Direction.West)
+        {
+            tileIndex = 0;
+        }
+        
+        _gameManager.IsController = true;
+        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+   
+        if (_TempSelectTileMaterial != null)
+        {
+            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+        }
+        
+        _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
+        _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
+        _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
+        
+        Debug.Log("_gameManager._direction = " + _gameManager._direction);
+    }
+    
+    private void NavigateControllerTileLeft()
+    {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if (_gameManager.MenuIsOpen)
         {
             bool oneIsSelected = false;
@@ -160,72 +386,7 @@ public class InputManager : MonoBehaviour
             
             
         }
-        int tileIndex = 1;
         
-        if (_gameManager._direction == GameManager.Direction.North)
-        {
-            tileIndex = 0;
-        }
-        else if (_gameManager._direction == GameManager.Direction.Est)
-        {
-            tileIndex = 3;
-        }
-        else if (_gameManager._direction == GameManager.Direction.West)
-        {
-            tileIndex = 2;
-        }
-        
-        _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
-      
-        if (_TempSelectTileMaterial != null)
-        {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
-        }
-        
-        _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
-        Debug.Log("SelectTileController tile NavigateControllerTileUp  SideTiles[tileIndex]= " +_gameManager.TilePreSelected.SideTiles[tileIndex].CoordX + "  " +_gameManager.TilePreSelected.SideTiles[tileIndex].CoordY + " TilePreSelected = " + _gameManager.TilePreSelected.CoordX + "  " + _gameManager.TilePreSelected.CoordY);
-        _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
-        _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
-
-        
-        Debug.Log("_gameManager._direction = " + _gameManager._direction);
-    }
-
-    private void NavigateControllerTileRight()
-    {
-        int tileIndex = 2;
-        
-        if (_gameManager._direction == GameManager.Direction.North)
-        {
-            tileIndex = 3;
-        }
-        else if (_gameManager._direction == GameManager.Direction.Est)
-        {
-            tileIndex = 1;
-        }
-        else if (_gameManager._direction == GameManager.Direction.West)
-        {
-            tileIndex = 0;
-        }
-        
-        _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
-   
-        if (_TempSelectTileMaterial != null)
-        {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
-        }
-        
-        _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
-        _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
-        _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
-        
-        Debug.Log("_gameManager._direction = " + _gameManager._direction);
-    }
-    
-    private void NavigateControllerTileLeft()
-    {
         int tileIndex = 3;
         
         if (_gameManager._direction == GameManager.Direction.North)
@@ -258,6 +419,8 @@ public class InputManager : MonoBehaviour
     
     private void SelectTile()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if (!_gameManager.MenuIsOpen)
         {
             _gameManager.SelectTile(_gameManager.TilePreSelected);
@@ -266,6 +429,8 @@ public class InputManager : MonoBehaviour
     
     private void Back()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if (!_gameManager.MenuIsOpen)
         {
             _gameManager.SelectCharacter?.Invoke();
@@ -278,6 +443,8 @@ public class InputManager : MonoBehaviour
     
     private void RotateCameraRight()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if (_NextSelectableCharaterSpawn.gameObject.activeInHierarchy)
         {
             _NextSelectableCharaterSpawn.onClick.Invoke();
@@ -289,6 +456,8 @@ public class InputManager : MonoBehaviour
     
     private void RotateCameraLeft()
     {
+        if (_gameManager.IsAIChatacterTurn) { return; }
+        
         if (_PreviousSelectableCharaterSpawn.gameObject.activeInHierarchy)
         {
             _PreviousSelectableCharaterSpawn.onClick.Invoke();

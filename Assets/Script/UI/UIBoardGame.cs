@@ -51,6 +51,8 @@ public class UIBoardGame : MonoBehaviour
 
     private void ShowTilesMove()
     {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
         if (!_boardManager.CurrentCharacter.HaveMoved && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
@@ -71,6 +73,8 @@ public class UIBoardGame : MonoBehaviour
 
     private void ShowTilesAttack()
     {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
@@ -91,13 +95,13 @@ public class UIBoardGame : MonoBehaviour
 
     private void WaitActionCharacter()
     {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
         WaitButton.interactable = false;
-        Debug.Log("Bug Controller wait WaitActionCharacter 11 t");
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
         if (_canWait && !_boardManager.Wait)
         {
-            Debug.Log("Bug Controller wait WaitActionCharacter 22 t");
             StartCoroutine(_boardManager.EndOfCharacterTurn(0));
             if (_boardManager.IsController)
             {
@@ -162,24 +166,26 @@ public class UIBoardGame : MonoBehaviour
 
     private void RotateCameraRight()
     {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraRight();
     }
     
     private void RotateCameraLeft()
     {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraLeft();
     }
-
-    [ContextMenu("HideMenuUI")]
-    private void HideMenuUI()
+    
+    public void HideMenuUI()
     {
         transform.rotation = Quaternion.Euler(0,90,0);
     }
     
-    [ContextMenu("UnHideMenuUI")]
-    private void UnHideMenuUI()
+    public void UnHideMenuUI()
     {
         transform.rotation = Quaternion.identity;
     }
