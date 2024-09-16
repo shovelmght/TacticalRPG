@@ -34,6 +34,7 @@ public class UIBoardGame : MonoBehaviour
         _boardManager.DesableAttackCharacterUIButtons += DeactivateAttackButton;
         _boardManager.ActivateUIButtonCharacter += ReactivateUICharacterButton;
         _boardManager.DeactivateUIButtonCharacter += DeactivateUICharacterButton;
+        _boardManager.SetInteractableWaitButton += SetInteractableWaitButton;
     }
 
     private void ShowTilesMove()
@@ -43,6 +44,10 @@ public class UIBoardGame : MonoBehaviour
         if (!_boardManager.CurrentCharacter.HaveMoved && _boardManager.TileSelected != null && !_boardManager.Wait)
         {
             _boardManager.ShowPossibleMove(GameManager.Instance.TileSelected);
+            if (_boardManager.IsController)
+            {
+                RemoveUICharacter();
+            }
         }
     }
 
@@ -59,6 +64,10 @@ public class UIBoardGame : MonoBehaviour
         if (!_boardManager.CurrentCharacter.HaveAttacked && _boardManager.TileSelected != null && !_boardManager.Wait)
         {
             _boardManager.ShowPossibleAttack(GameManager.Instance.TileSelected, false);
+            if (_boardManager.IsController)
+            {
+                RemoveUICharacter();
+            }
         }
     }
     
@@ -70,11 +79,18 @@ public class UIBoardGame : MonoBehaviour
 
     private void WaitActionCharacter()
     {
+        WaitButton.interactable = false;
+        Debug.Log("Bug Controller wait WaitActionCharacter 11 t");
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
         if (_canWait && !_boardManager.Wait)
         {
+            Debug.Log("Bug Controller wait WaitActionCharacter 22 t");
             StartCoroutine(_boardManager.EndOfCharacterTurn(0));
+            if (_boardManager.IsController)
+            {
+                RemoveUICharacter();
+            }
         }
     }
     
@@ -82,18 +98,19 @@ public class UIBoardGame : MonoBehaviour
     {
         WaitButton.image.color = _pressesColor;
         _canWait = false;
-
     }
 
     private void ShowUICharacter()
     {
         ReactivateUICharacterButton();
         Animator.SetBool(Open, true);
+        GameManager.Instance.MenuIsOpen = true;
     }
 
     private void RemoveUICharacter()
     {
         Animator.SetBool(Open, false);
+        GameManager.Instance.MenuIsOpen = false;
     }
     
     public void ReactivateUICharacterButton()
@@ -104,9 +121,8 @@ public class UIBoardGame : MonoBehaviour
             AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
             WaitButton.image.color = _normalColor;
             _canWait = true;
+            MoveButton.Select();
         }
-
-
     }
 
     public void DeactivateUICharacterButton()
@@ -116,6 +132,11 @@ public class UIBoardGame : MonoBehaviour
         DeactivateWaitButton();
     }
     
+    
+    public void SetInteractableWaitButton()
+    {
+        WaitButton.interactable = true;
+    }
 
     private void RotateCameraRight()
     {

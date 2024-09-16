@@ -11,6 +11,7 @@ public class TilesManager: MonoBehaviour
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
     [field: SerializeField] public Material AttackTileMaterial { get; private set; }
     [field: SerializeField] public Material PathTileMaterial { get; private set; }
+    [field: SerializeField] public Material SelectTileMaterial { get; private set; }
     [field: SerializeField] public Material WoodTileMaterial { get; private set; }
     public int BranchPath { get;  set; } = 0;
     

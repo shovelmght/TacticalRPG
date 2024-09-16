@@ -120,7 +120,7 @@ public class Tile
             meshRenderer.materials = materials;
         }
     }
-    
+
     public void ResetSetTopMaterial()
     {
         foreach (var meshRenderer in MeshRenderer)
@@ -139,6 +139,18 @@ public class Tile
 
             meshRenderer.materials = materials;
         }
+    }
+
+    public Material GetTopMaterial()
+    {
+        var materials = MeshRenderer[0].materials;
+        if (materials.Length > 1)
+        {
+            return materials[1];
+        }
+
+        return materials[0];
+
     }
 
     public void SetSideTiles()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public List<Character> CharacterList = new List<Character>();
     public Tile TileSelected { get;  set; } = null;
+    public Tile TilePreSelected { get;  set; } = null;
     public  GameObject ArrowsDirection { get;  set; }
     public  State CurrentState { get;  set; }
     public  StateChooseCharacter StateChooseCharacter { get; private set; }
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
     public bool NeedResetTiles { get; set; }
     public bool CameraIsMoving { get; private set; }
     public bool IsCameraNear { get; set ; }
+    public bool MenuIsOpen { get; set; } = false;
+    public bool IsController { get; set; } = false;
     public bool PossibleTileIsFinished { get; set;}
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
@@ -82,7 +86,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Direction _Enemiesdirection;
     
-    private Direction _direction;
+    public Direction _direction;
     private Vector3 _enemiesDirection;
     
     private int _characterCount;
@@ -96,8 +100,10 @@ public class GameManager : MonoBehaviour
     public Action ActivateUIButtonCharacter;
     public Action DesableMoveCharacterUIButtons;
     public Action DesableAttackCharacterUIButtons;
-    
-    private enum Direction
+    public Action SetInteractableWaitButton;
+
+
+    public enum Direction
     {
         None = 0,
         South = 1,
@@ -125,7 +131,7 @@ public class GameManager : MonoBehaviour
         StateNavigation = new StateNavigation(this);
         CurrentState = StateChooseCharacter;
     }
-    
+
     void Start()
     {
         StartCoroutine(InitializeGame());
@@ -136,25 +142,23 @@ public class GameManager : MonoBehaviour
         _tileManager = TilesManager.Instance;
         OccupiedTiles = new Tile[MAX_OCCUPIED_TILES];
         _direction = Direction.South;
-        ArrowsDirection = Instantiate(ArrowsPrefab, Vector3.zero, Quaternion.identity);
-        ArrowsDirection.SetActive(false);
+        //ArrowsDirection = Instantiate(ArrowsPrefab, Vector3.zero, Quaternion.identity);
+        //ArrowsDirection.SetActive(false);
         _enemiesDirection = SetEnemiesDirection();
         yield return _tileManager.SetBoardTiles();
         
-        Debug.Log("CharactersPrefab AI 0 = " + CharacterAIData[0].DataSpawn[0].CharactersPrefab);
-        Debug.Log("CharactersPrefab AI 1 = " + CharacterAIData[0].DataSpawn[1].CharactersPrefab);
         foreach (var characterSpawner in CharacterAIData)
         {
             foreach (var character in characterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
-                Debug.Log("CharactersPrefab AI = " + character.CharactersPrefab);
                 SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character);
             }
         }
-            
-        
-        StartCoroutine(MoveCamera(_tileManager.GetTile(_tileManager.TileManagerData.Column / 2, _tileManager.TileManagerData.Row / 2).GetCameraTransform((int)_direction,false))) ;
+
+        Tile tile = _tileManager.GetTile(_tileManager.TileManagerData.Column / 2, _tileManager.TileManagerData.Row / 2);
+        TilePreSelected = tile;
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction,false))) ;
         
         if (MaxCharacterPlayerCanBePlace == 0)
         {
@@ -246,7 +250,50 @@ public class GameManager : MonoBehaviour
 
     public void SelectTile(Tile tile)
     {
+        Debug.Log("Bug Controller wait SelectTile 11 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
         if (_wait) {return;}
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+        TilePreSelected = tile;
+
+        NeedResetTiles = true;
+        CurrentState.SelectTile(tile);
+         
+        Debug.Log("Bug Controller wait SelectTile 22 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
+        if(NeedResetTiles)
+        {
+            if (CurrentCharacter)
+            { 
+                CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
+            }
+            _tileManager.DeselectTiles();
+            _tileManager.AddSelectedTile(tile);
+            
+            tile.SetTopMaterial(_tileManager.MoveTileMaterial);
+            RemoveUICharacter();
+            CurrentState = StateNavigation;
+            TileSelected = tile;
+            StateAttackCharacter.ResetAttackData();
+            Debug.Log("Bug Controller wait SelectTile 33 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
+        }
+    }
+
+    public void SelectTileController(Tile tile)
+    {
+        Debug.Log("SelectTileController tile = " +tile.CoordX + "  " +tile.CoordY);
+        if (_wait)
+        {
+            return;
+        }
+
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+        tile.SetTopMaterial(_tileManager.SelectTileMaterial);
+    }
+
+    /*public void SelectTileController(Tile tile)
+    {
+        if (_wait) {return;}
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+
 
         NeedResetTiles = true;
         CurrentState.SelectTile(tile);
@@ -266,18 +313,16 @@ public class GameManager : MonoBehaviour
             TileSelected = tile;
             StateAttackCharacter.ResetAttackData();
         }
-        
-        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
-    }
+    }*/
 
     //Select with color possible move tile
     public void ShowPossibleMove(Tile tile)
     {
         StateAttackCharacter.ResetAttackData();
-        if (ArrowsDirection.activeSelf)
+        /*if (ArrowsDirection.activeSelf)
         {
             ArrowsDirection.SetActive(false);
-        }
+        }*/
         IndexOccupiedTiles = 0;
         PossibleTileIsFinished = false;
         _tileManager.DeselectTiles();
@@ -290,10 +335,10 @@ public class GameManager : MonoBehaviour
     //Select with color possible attack tile
     public void ShowPossibleAttack(Tile tile, bool isAICheck)
     {
-        if (ArrowsDirection.activeSelf)
+        /*if (ArrowsDirection.activeSelf)
         {
             ArrowsDirection.SetActive(false);
-        }
+        }*/
         IndexOccupiedTiles = 0;
         PossibleTileIsFinished = false;
         if (!isAICheck)
@@ -310,6 +355,7 @@ public class GameManager : MonoBehaviour
     private void ShowPossibleTileDirection(Tile tile)
     {
 
+        Debug.Log("Bug Controller wait ShowPossibleTileDirection 11 tile = " + tile.CoordX +" " + tile.CoordY + "  NeedResetTiles = " + NeedResetTiles);
         _tileManager.DeselectTiles();
         StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false));
         CurrentState = StateTurnCharacter;
@@ -325,7 +371,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator BeginOfTurn()
     {
         yield return new WaitForSeconds(1);
-
+        
+        SetInteractableWaitButton?.Invoke();
         CurrentCharacterTurn = CheckCharacterTime();
         while (CurrentCharacterTurn == null)
         {
@@ -350,17 +397,26 @@ public class GameManager : MonoBehaviour
     //Spawn Arrows for chose a Direction (end of character turn)
     public IEnumerator EndOfCharacterTurn(float waitingTime)
     {
+        Debug.Log("Bug Controller wait EndOfCharacterTurn 11 tile = ");
         yield return new WaitUntil(() => !Wait);
         yield return new WaitForSeconds(waitingTime);
 
+        Debug.Log("Bug Controller wait EndOfCharacterTurn 22 tile = ");
         if (CurrentCharacter)
         {
-            ArrowsDirection.SetActive(true);
-            ArrowsDirection.transform.position = TileSelected.Position;
+            /*ArrowsDirection.SetActive(true);
+            ArrowsDirection.transform.position = TileSelected.Position;*/
+            Debug.Log("Bug Controller wait EndOfCharacterTurn 33 tile = ");
             ShowPossibleTileDirection(TileSelected);
+            if (IsController)
+            {
+                RemoveUICharacter?.Invoke();
+            }
         }
         else
         {
+            
+            Debug.Log("Bug Controller wait EndOfCharacterTurn 44 tile = ");
             NextCharacterTurn();
         }
     }

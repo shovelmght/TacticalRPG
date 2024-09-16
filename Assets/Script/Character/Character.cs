@@ -156,6 +156,11 @@ public class Character : MonoBehaviour
         }
         HaveMoved = true;
         _gameManager.Wait = false;
+        
+        if (!IsAI)
+        {
+            _gameManager.SelectCharacter?.Invoke();
+        }
     }
 
     private IEnumerator MoveTo(Vector3 destination, float speed)
@@ -267,6 +272,8 @@ public class Character : MonoBehaviour
             AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordSoft);
             HaveAttacked = true;
             _gameManager.Wait = false;
+            _gameManager.ActivateUIButtonCharacter?.Invoke();
+            _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
         }
         
@@ -339,12 +346,20 @@ public class Character : MonoBehaviour
             {
                 Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 000");
                 _gameManager.Wait = false;
+                if (!IsAI)
+                {
+                    _gameManager.SelectCharacter?.Invoke();
+                }
             }
         }
         else
         {
             Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 111");
             _gameManager.Wait = false;
+            if (!IsAI)
+            {
+                _gameManager.SelectCharacter?.Invoke();
+            }
         }
     }
     
