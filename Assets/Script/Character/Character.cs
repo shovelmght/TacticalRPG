@@ -157,7 +157,7 @@ public class Character : MonoBehaviour
         HaveMoved = true;
         _gameManager.Wait = false;
         
-        if (!IsAI)
+        if (!IsAI && !HaveAttacked && _gameManager.IsController)
         {
             _gameManager.SelectCharacter?.Invoke();
         }
@@ -266,6 +266,8 @@ public class Character : MonoBehaviour
                 _attackTarget.IsAttacked(Strength, _isCounterAttack);
             }
             
+            _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+            InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
         }
         else
         {
@@ -274,6 +276,7 @@ public class Character : MonoBehaviour
             _gameManager.Wait = false;
             _gameManager.ActivateUIButtonCharacter?.Invoke();
             _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+            InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
             Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
         }
         
@@ -288,6 +291,14 @@ public class Character : MonoBehaviour
             {
                 StartCoroutine(_gameManager.EndOfCharacterTurn(1.5f));
             }
+        }
+        else
+        {
+            if (_gameManager.IsController)
+            {
+                _gameManager.SelectCharacter?.Invoke();
+            }
+            
         }
             
         _tileManager.DeselectTiles();
@@ -346,7 +357,7 @@ public class Character : MonoBehaviour
             {
                 Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 000");
                 _gameManager.Wait = false;
-                if (!IsAI)
+                if (!IsAI && _gameManager.IsController && !HaveMoved)
                 {
                     _gameManager.SelectCharacter?.Invoke();
                 }
@@ -356,7 +367,7 @@ public class Character : MonoBehaviour
         {
             Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 111");
             _gameManager.Wait = false;
-            if (!IsAI)
+            if (!IsAI && _gameManager.IsController && !HaveMoved)
             {
                 _gameManager.SelectCharacter?.Invoke();
             }

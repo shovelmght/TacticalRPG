@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 1d5d310e2e7f52b4f89507c8ca2e5e63, type: 2}
+--- !u!1 &10913630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6840111221514451044, guid: f26a849ca666d12468469266096a3072, type: 3}
+  m_PrefabInstance: {fileID: 3661876195324261231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &10913637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10913630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29843c9692f47743869edfbf9ad1b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66758528
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,7 +870,7 @@ MonoBehaviour:
   _CinemachineBlendTimeMovementBattle: 1
   _ZommEffectAnimator: {fileID: 640783994}
   CharacterAIData:
-  - {fileID: 11400000, guid: 3d385258b94a4094098596cb63dcfb77, type: 2}
+  - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   CharacterPlayerData:
   - CharactersPrefab: 0
     Team: 0
@@ -886,6 +903,7 @@ MonoBehaviour:
   CharacterList: []
   _Enemiesdirection: 2
   _direction: 0
+  _tileManager: {fileID: 0}
   transformtest: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   objectToSpawn: {fileID: 3939813719571721216, guid: 1400301ed26c91f44a959a300e3e18b3, type: 3}
@@ -1755,6 +1773,34 @@ MonoBehaviour:
     m_FrequencyGain: 0
     m_Duration: 0
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &1106692261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7309509160367570238, guid: f26a849ca666d12468469266096a3072, type: 3}
+  m_PrefabInstance: {fileID: 3661876195324261231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1106692265 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3749646850670725489, guid: f26a849ca666d12468469266096a3072, type: 3}
+  m_PrefabInstance: {fileID: 3661876195324261231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106692261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1106692268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106692261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29843c9692f47743869edfbf9ad1b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1136644750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1876,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136644750}
   m_CullTransparentMesh: 1
+--- !u!1 &1342667438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2138225156622137127, guid: f26a849ca666d12468469266096a3072, type: 3}
+  m_PrefabInstance: {fileID: 3661876195324261231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1342667442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4302656353140007679, guid: f26a849ca666d12468469266096a3072, type: 3}
+  m_PrefabInstance: {fileID: 3661876195324261231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342667438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1342667445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342667438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29843c9692f47743869edfbf9ad1b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1362431551 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
@@ -3033,6 +3107,14 @@ MonoBehaviour:
     m_Bits: 8
   _NextSelectableCharaterSpawn: {fileID: 66758530}
   _PreviousSelectableCharaterSpawn: {fileID: 1010871256}
+  _ButtonsCanBeSelect:
+  - {fileID: 1106692268}
+  - {fileID: 1342667445}
+  - {fileID: 10913637}
+  _SecondSelecableButton: {fileID: 1106692265}
+  _ConfirmButton: {fileID: 1342667442}
+  _TreshHoldItteration: 25
+  _TempSelectTileMaterial: {fileID: 0}
 --- !u!114 &2038934549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3437,7 +3519,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7309509160367570238, guid: f26a849ca666d12468469266096a3072, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1106692268}
+    - targetCorrespondingSourceObject: {fileID: 2138225156622137127, guid: f26a849ca666d12468469266096a3072, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1342667445}
+    - targetCorrespondingSourceObject: {fileID: 6840111221514451044, guid: f26a849ca666d12468469266096a3072, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 10913637}
   m_SourcePrefab: {fileID: 100100000, guid: f26a849ca666d12468469266096a3072, type: 3}
 --- !u!1001 &4533266760599097158
 PrefabInstance:

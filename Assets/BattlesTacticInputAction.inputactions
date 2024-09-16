@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "1368f1e0-376c-4e56-86de-1c7618f6c3bc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RotateCameraRight",
                     "type": "Button",
                     "id": "9b830d68-d3f0-4211-9aa9-624de3b7317b",
@@ -144,6 +153,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotateCameraLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c12c6ea-b576-40d7-8f10-e7499af2c68d",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

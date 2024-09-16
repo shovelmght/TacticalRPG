@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     private Vector3 _enemiesDirection;
     
     private int _characterCount;
-    private TilesManager _tileManager;
+    public TilesManager _tileManager;
     
     private const int MAX_OCCUPIED_TILES = 15; 
     
@@ -407,7 +407,7 @@ public class GameManager : MonoBehaviour
             /*ArrowsDirection.SetActive(true);
             ArrowsDirection.transform.position = TileSelected.Position;*/
             Debug.Log("Bug Controller wait EndOfCharacterTurn 33 tile = ");
-            ShowPossibleTileDirection(TileSelected);
+            ShowPossibleTileDirection(CurrentCharacter.CurrentTile);
             if (IsController)
             {
                 RemoveUICharacter?.Invoke();
@@ -438,7 +438,7 @@ public class GameManager : MonoBehaviour
 
  
     //Lerp Camera location to a new destination
-    private IEnumerator MoveCamera(Transform destination)
+    public IEnumerator MoveCamera(Transform destination)
     {
         if (CameraIsMoving) { yield break; }
 

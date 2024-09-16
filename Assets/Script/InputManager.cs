@@ -9,14 +9,29 @@ public class InputManager : MonoBehaviour
     [field: SerializeField] public LayerMask LayerMask { get; private set; }
     [SerializeField] private Button _NextSelectableCharaterSpawn;
     [SerializeField] private Button _PreviousSelectableCharaterSpawn;
+    [SerializeField] private CheckIfButtonIsSelect[] _ButtonsCanBeSelect;
+    [SerializeField] private Button _SecondSelecableButton;
+    [SerializeField] private Button _ConfirmButton;
+    [SerializeField] private int _TreshHoldItteration = 25;
+    private bool Canselect;
+    private bool _OneOfButtonIsSelected;
+    private int _Itteration = 0;
     private float distanceRay = 100;
     private GameManager _gameManager;
     private BattlesTacticInputAction playerInput;
     public Material _TempSelectTileMaterial;
     
-
+    public static InputManager Instance { get; private set; }
     private void Awake()
     {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        }
         playerInput = new BattlesTacticInputAction();
     }
 
@@ -30,6 +45,7 @@ public class InputManager : MonoBehaviour
         playerInput.BattleTacticIA.RotateCameraLeft.performed += _ => RotateCameraLeft();
         playerInput.BattleTacticIA.RotateCameraRight.performed += _ => RotateCameraRight();
         playerInput.BattleTacticIA.Select.performed += _ => SelectTile();
+        playerInput.BattleTacticIA.Back.performed += _ => Back();
     }
     
     public void OnEnable()
@@ -93,6 +109,57 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileUp()
     {
+        if (_gameManager.MenuIsOpen)
+        {
+            bool oneIsSelected = false;
+            foreach (var button in _ButtonsCanBeSelect)
+            {
+                if (button._IsSelected)
+                {
+                    oneIsSelected = true;
+                    _OneOfButtonIsSelected = true;
+                    break;
+                }
+            }
+
+            if (!oneIsSelected)
+            {
+                _OneOfButtonIsSelected = false;
+            }
+
+            if (Canselect && !_OneOfButtonIsSelected)
+            {
+                if (_ConfirmButton.gameObject.activeInHierarchy)
+                {
+                    _ConfirmButton.Select();
+                }
+                else
+                {
+                    _SecondSelecableButton.Select();
+                }
+                
+                Debug.Log(" _ConfirmButton.Select();");
+            }
+            else if (!Canselect && !_OneOfButtonIsSelected)
+            {
+                Debug.Log("_Itteration = " + _Itteration);
+                _Itteration++;
+                if (_Itteration > _TreshHoldItteration)
+                {
+                    _Itteration = 0;
+                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    {
+                        _ConfirmButton.Select();
+                    }
+                    else
+                    {
+                        _SecondSelecableButton.Select();
+                    }
+                }
+            }
+            
+            
+        }
         int tileIndex = 1;
         
         if (_gameManager._direction == GameManager.Direction.North)
@@ -194,6 +261,18 @@ public class InputManager : MonoBehaviour
         if (!_gameManager.MenuIsOpen)
         {
             _gameManager.SelectTile(_gameManager.TilePreSelected);
+        }
+    }
+    
+    private void Back()
+    {
+        if (!_gameManager.MenuIsOpen)
+        {
+            _gameManager.SelectCharacter?.Invoke();
+            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            _TempSelectTileMaterial = _gameManager.CurrentCharacter.CurrentTile.StartMaterial;
+            _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+            StartCoroutine(_gameManager.MoveCamera(_gameManager.CurrentCharacter.CurrentTile.GetCameraTransform((int)_gameManager._direction, _gameManager.IsCameraNear)));
         }
     }
     

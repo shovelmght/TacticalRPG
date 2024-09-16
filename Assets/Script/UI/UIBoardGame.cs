@@ -19,6 +19,18 @@ public class UIBoardGame : MonoBehaviour
    
     
     private static readonly int Open = Animator.StringToHash("Open");
+    public static UIBoardGame Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        }
+    }
 
     private void Start()
     {
@@ -41,9 +53,9 @@ public class UIBoardGame : MonoBehaviour
     {
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
-        if (!_boardManager.CurrentCharacter.HaveMoved && _boardManager.TileSelected != null && !_boardManager.Wait)
+        if (!_boardManager.CurrentCharacter.HaveMoved && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.ShowPossibleMove(GameManager.Instance.TileSelected);
+            _boardManager.ShowPossibleMove(GameManager.Instance.CurrentCharacter.CurrentTile);
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
@@ -61,9 +73,9 @@ public class UIBoardGame : MonoBehaviour
     {
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         
-        if (!_boardManager.CurrentCharacter.HaveAttacked && _boardManager.TileSelected != null && !_boardManager.Wait)
+        if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.ShowPossibleAttack(GameManager.Instance.TileSelected, false);
+            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false);
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
@@ -105,12 +117,18 @@ public class UIBoardGame : MonoBehaviour
         ReactivateUICharacterButton();
         Animator.SetBool(Open, true);
         GameManager.Instance.MenuIsOpen = true;
+        MoveButton.interactable = true;
+        AttackButton.interactable = true;
+        WaitButton.interactable = true;
     }
 
     private void RemoveUICharacter()
     {
         Animator.SetBool(Open, false);
         GameManager.Instance.MenuIsOpen = false;
+        MoveButton.interactable = false;
+        AttackButton.interactable = false;
+        WaitButton.interactable = false;
     }
     
     public void ReactivateUICharacterButton()
@@ -121,7 +139,11 @@ public class UIBoardGame : MonoBehaviour
             AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
             WaitButton.image.color = _normalColor;
             _canWait = true;
-            MoveButton.Select();
+            if (_boardManager.IsController)
+            {
+                MoveButton.Select();
+            }
+            
         }
     }
 
@@ -148,6 +170,18 @@ public class UIBoardGame : MonoBehaviour
     {
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraLeft();
+    }
+
+    [ContextMenu("HideMenuUI")]
+    private void HideMenuUI()
+    {
+        transform.rotation = Quaternion.Euler(0,90,0);
+    }
+    
+    [ContextMenu("UnHideMenuUI")]
+    private void UnHideMenuUI()
+    {
+        transform.rotation = Quaternion.identity;
     }
    
 }

@@ -73,6 +73,15 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""1368f1e0-376c-4e56-86de-1c7618f6c3bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""RotateCameraRight"",
                     ""type"": ""Button"",
                     ""id"": ""9b830d68-d3f0-4211-9aa9-624de3b7317b"",
@@ -168,6 +177,17 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
                     ""action"": ""RotateCameraLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c12c6ea-b576-40d7-8f10-e7499af2c68d"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -181,6 +201,7 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
         m_BattleTacticIA_NavigationLeft = m_BattleTacticIA.FindAction("NavigationLeft", throwIfNotFound: true);
         m_BattleTacticIA_NavigationRight = m_BattleTacticIA.FindAction("NavigationRight", throwIfNotFound: true);
         m_BattleTacticIA_Select = m_BattleTacticIA.FindAction("Select", throwIfNotFound: true);
+        m_BattleTacticIA_Back = m_BattleTacticIA.FindAction("Back", throwIfNotFound: true);
         m_BattleTacticIA_RotateCameraRight = m_BattleTacticIA.FindAction("RotateCameraRight", throwIfNotFound: true);
         m_BattleTacticIA_RotateCameraLeft = m_BattleTacticIA.FindAction("RotateCameraLeft", throwIfNotFound: true);
     }
@@ -249,6 +270,7 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
     private readonly InputAction m_BattleTacticIA_NavigationLeft;
     private readonly InputAction m_BattleTacticIA_NavigationRight;
     private readonly InputAction m_BattleTacticIA_Select;
+    private readonly InputAction m_BattleTacticIA_Back;
     private readonly InputAction m_BattleTacticIA_RotateCameraRight;
     private readonly InputAction m_BattleTacticIA_RotateCameraLeft;
     public struct BattleTacticIAActions
@@ -260,6 +282,7 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
         public InputAction @NavigationLeft => m_Wrapper.m_BattleTacticIA_NavigationLeft;
         public InputAction @NavigationRight => m_Wrapper.m_BattleTacticIA_NavigationRight;
         public InputAction @Select => m_Wrapper.m_BattleTacticIA_Select;
+        public InputAction @Back => m_Wrapper.m_BattleTacticIA_Back;
         public InputAction @RotateCameraRight => m_Wrapper.m_BattleTacticIA_RotateCameraRight;
         public InputAction @RotateCameraLeft => m_Wrapper.m_BattleTacticIA_RotateCameraLeft;
         public InputActionMap Get() { return m_Wrapper.m_BattleTacticIA; }
@@ -286,6 +309,9 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
+            @Back.started += instance.OnBack;
+            @Back.performed += instance.OnBack;
+            @Back.canceled += instance.OnBack;
             @RotateCameraRight.started += instance.OnRotateCameraRight;
             @RotateCameraRight.performed += instance.OnRotateCameraRight;
             @RotateCameraRight.canceled += instance.OnRotateCameraRight;
@@ -311,6 +337,9 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
             @Select.canceled -= instance.OnSelect;
+            @Back.started -= instance.OnBack;
+            @Back.performed -= instance.OnBack;
+            @Back.canceled -= instance.OnBack;
             @RotateCameraRight.started -= instance.OnRotateCameraRight;
             @RotateCameraRight.performed -= instance.OnRotateCameraRight;
             @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
@@ -341,6 +370,7 @@ public partial class @BattlesTacticInputAction: IInputActionCollection2, IDispos
         void OnNavigationLeft(InputAction.CallbackContext context);
         void OnNavigationRight(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
         void OnRotateCameraRight(InputAction.CallbackContext context);
         void OnRotateCameraLeft(InputAction.CallbackContext context);
     }
