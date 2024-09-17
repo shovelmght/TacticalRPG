@@ -196,7 +196,8 @@ public class Character : MonoBehaviour
            gameObjectProjectile.transform.position = Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
            yield return null;
        }
-       Destroy(gameObjectProjectile);
+       Destroy(gameObjectProjectile, 2);
+       gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
        Hit();
     }
 
