@@ -38,7 +38,7 @@ public class CharacterAI : Character
         //If he can already Attack his enemy
         yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
         Debug.Log("CharacterAI Before ShowPossibleAttack1");
-        _gameManager.ShowPossibleAttack(CurrentTile, false);
+        _gameManager.ShowPossibleAttack(CurrentTile, false, false);
         yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
@@ -78,7 +78,7 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(enemyTile);
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack2");
-                _gameManager.ShowPossibleAttack(CurrentTile, false);
+                _gameManager.ShowPossibleAttack(CurrentTile, false, false);
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
@@ -116,7 +116,7 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(GetNearestTile());
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack3");
-                _gameManager.ShowPossibleAttack(CurrentTile, false);
+                _gameManager.ShowPossibleAttack(CurrentTile, false, false);
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
@@ -204,7 +204,7 @@ public class CharacterAI : Character
 
         for (int i = 0; i < _tileManager.GetSelectedTileLenght(); i++)
         {
-            _gameManager.ShowPossibleAttack(_tileManager.GetSelectedTile(i), true); 
+            _gameManager.ShowPossibleAttack(_tileManager.GetSelectedTile(i), true, false); 
             for (int j = 0; j < _gameManager.IndexOccupiedTiles; j++)
             {
                 if (_gameManager.OccupiedTiles[j].CharacterReference == null) { continue;}

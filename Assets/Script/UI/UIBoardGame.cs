@@ -6,6 +6,9 @@ public class UIBoardGame : MonoBehaviour
     public Button MoveButton;
     public Button AttackButton;
     public Button WaitButton;
+    public Button NormalAttackButton;
+    public Button SkillAttackButton;
+    public Button ReturnToMenuFromAttackButton;
     public Button CameraRotateRightButton;
     public Button CameraRotateLeftButton;
     public Animator Animator;
@@ -35,8 +38,11 @@ public class UIBoardGame : MonoBehaviour
     private void Start()
     {
         MoveButton.onClick.AddListener(ShowTilesMove);
-        AttackButton.onClick.AddListener(ShowTilesAttack);
+        AttackButton.onClick.AddListener(ShowAttackMenu);
         WaitButton.onClick.AddListener(WaitActionCharacter);
+        NormalAttackButton.onClick.AddListener(ShowNormalTilesAttack);
+        SkillAttackButton.onClick.AddListener(ShowSkillTilesAttack);
+        ReturnToMenuFromAttackButton.onClick.AddListener(WaitActionCharacter);
         CameraRotateRightButton.onClick.AddListener(RotateCameraRight);
         CameraRotateLeftButton.onClick.AddListener(RotateCameraLeft);
         _boardManager = GameManager.Instance;
@@ -70,8 +76,7 @@ public class UIBoardGame : MonoBehaviour
         MoveButton.image.color = _pressesColor;
     }
     
-
-    private void ShowTilesAttack()
+    private void ShowAttackMenu()
     {
         if (_boardManager.IsAIChatacterTurn) { return; }
         
@@ -79,11 +84,62 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false);
+            MoveButton.gameObject.SetActive(false);
+            AttackButton.gameObject.SetActive(false);
+            WaitButton.gameObject.SetActive(false);
+            NormalAttackButton.gameObject.SetActive(true);
+            SkillAttackButton.gameObject.SetActive(true);
+            ReturnToMenuFromAttackButton.gameObject.SetActive(true);
+        }
+    }
+    
+
+    private void ShowNormalTilesAttack()
+    {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
+        
+        if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
+        {
+            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, false);
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
             }
+        }
+    }
+    
+    private void ShowSkillTilesAttack()
+    {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
+        
+        if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
+        {
+            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, true);
+            if (_boardManager.IsController)
+            {
+                RemoveUICharacter();
+            }
+        }
+    }
+    
+    private void ReturnToMenuFromAttack()
+    {
+        if (_boardManager.IsAIChatacterTurn) { return; }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
+        
+        if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
+        {
+            MoveButton.gameObject.SetActive(true);
+            AttackButton.gameObject.SetActive(true);
+            WaitButton.gameObject.SetActive(true);
+            NormalAttackButton.gameObject.SetActive(false);
+            SkillAttackButton.gameObject.SetActive(false);
+            ReturnToMenuFromAttackButton.gameObject.SetActive(false);
         }
     }
     

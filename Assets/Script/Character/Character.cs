@@ -64,7 +64,8 @@ public class Character : MonoBehaviour
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
 
-    [SerializeField] private Attack _Attack;
+    public Attack _Attack;
+    public Attack _SkillAttack;
 
 
     public event Action<int, int, int> OnHealthPctChange = delegate { };
@@ -176,11 +177,19 @@ public class Character : MonoBehaviour
         transform.position = destination;
     }
     
-    public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
+    public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection, bool isSkillAttack)
     {
         _gameManager.Wait = true;
         yield return new WaitForSeconds(1f);
-        _Attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
+        if (isSkillAttack)
+        {
+            _SkillAttack.DoAttack(this,tile, isAcounterAttack, attackDirection);
+        }
+        else
+        {
+            _Attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
+        }
+        
         
     }
     

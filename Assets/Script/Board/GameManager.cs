@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     public List<DataCharacterSpawner.DataSpawner> CharacterPlayerData;
     public DataCharacterSpawner.DataSpawner _CurrentCharacterDataSpawner;
     public CharacterSelectable _PlayerCharacterSpawnerList;
-    public GameObject CharacterPrefab;
-    public GameObject CharacterAIPrefab;
-    public GameObject SquireAIPrefab;
     public GameObject SquirePrefab;
+    public GameObject SquireAIPrefab;
+    public GameObject WizardPrefab;
+    public GameObject WizardAIPrefab;
     public GameObject DragonPrefab;
     public GameObject DragonAIPrefab;
     public GameObject ArrowsPrefab;
@@ -238,6 +238,16 @@ public class GameManager : MonoBehaviour
         {
             return Instantiate(DragonAIPrefab, position, Quaternion.identity);
         }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Wizard)
+        {
+            return Instantiate(WizardPrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.WizardAI)
+        {
+            return Instantiate(WizardAIPrefab, position, Quaternion.identity);
+        }
 
         return null;
     }
@@ -331,7 +341,7 @@ public class GameManager : MonoBehaviour
     }
     
     //Select with color possible attack tile
-    public void ShowPossibleAttack(Tile tile, bool isAICheck)
+    public void ShowPossibleAttack(Tile tile, bool isAICheck, bool isSkillAttack)
     {
         /*if (ArrowsDirection.activeSelf)
         {
@@ -344,8 +354,16 @@ public class GameManager : MonoBehaviour
             _tileManager.DeselectTiles();
             CurrentState = StateAttackCharacter;
         }
-        
-        StartCoroutine(_tileManager.GetAttackTiles(CurrentCharacter.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+
+        if (isSkillAttack)
+        {
+            StartCoroutine(_tileManager.GetAttackTiles(CurrentCharacter._Attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        }
+        else
+        {
+            StartCoroutine(_tileManager.GetAttackTiles(CurrentCharacter._SkillAttack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        }
+     
        
     }
 
