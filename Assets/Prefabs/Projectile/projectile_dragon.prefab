@@ -138,15 +138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3051324935049327509, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.68
+      value: -0.16
       objectReference: {fileID: 0}
     - target: {fileID: 3051324935049327509, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.78
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 3051324935049327509, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.01
+      value: -4.55
       objectReference: {fileID: 0}
     - target: {fileID: 3051324935049327509, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -176,6 +176,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.886993
       objectReference: {fileID: 0}
+    - target: {fileID: 5895979197657537763, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b889d6a4246c61649b56a0d4264b5594, type: 2}
     - target: {fileID: 7166433389943229429, guid: 2e12c89e0b3b3a04fbde80319e783aeb, type: 3}
       propertyPath: m_Name
       value: EtherialTrailProjectile

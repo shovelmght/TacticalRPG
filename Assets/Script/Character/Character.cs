@@ -37,7 +37,6 @@ public class Character : MonoBehaviour
     [SerializeField] protected SkinnedMeshRenderer _SkinnedMeshRenderer;
     [SerializeField] protected Material[] _Materials;
     [SerializeField] private Transform _StartPositionProjectile;
-    [SerializeField] private float _ProjectileSpeed = 10f;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -153,7 +152,7 @@ public class Character : MonoBehaviour
         CurrentTile = tile;
         if (HaveAttacked)
         {
-            StartCoroutine(_gameManager.EndOfCharacterTurn(1.5f));
+            StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
         }
         HaveMoved = true;
         _gameManager.Wait = false;
@@ -185,21 +184,26 @@ public class Character : MonoBehaviour
     }
     
     
-    public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab)
+    public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab, float MovementProjectilSpeed, AudioManager.SfxClass sfxAtSpawn)
     {
         Debug.Log("Character ThrowProjectile");
         yield return new WaitForSeconds(delay);
-       GameObject gameObjectProjectile = Instantiate(projectilePrefab, _StartPositionProjectile.position, _StartPositionProjectile.rotation);
+        if (sfxAtSpawn != null)
+        {
+            AudioManager._Instance.SpawnSound(sfxAtSpawn);
+        }
+        
+        GameObject gameObjectProjectile = Instantiate(projectilePrefab, _StartPositionProjectile.position, _StartPositionProjectile.rotation);
 
-       float speed = _ProjectileSpeed;
-       while (Vector3.Distance(gameObjectProjectile.transform.position, endPositionProjectile) > 0.1f)
-       {
-           gameObjectProjectile.transform.position = Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
-           yield return null;
-       }
-       Destroy(gameObjectProjectile, 2);
-       gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
-       Hit();
+        float speed = MovementProjectilSpeed;
+        while (Vector3.Distance(gameObjectProjectile.transform.position, endPositionProjectile) > 0.1f)
+        {
+            gameObjectProjectile.transform.position = Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
+            yield return null;
+        }
+        Destroy(gameObjectProjectile, 2);
+        gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
+        Hit();
     }
 
     [ContextMenu("RotateTest")]
@@ -275,7 +279,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordHit);
+                AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
                 _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
 
@@ -287,7 +291,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordSoft);
+            AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.NoTargetSfx);
             HaveAttacked = true;
             _gameManager.Wait = false;
             _gameManager.ActivateUIButtonCharacter?.Invoke();
@@ -305,7 +309,7 @@ public class Character : MonoBehaviour
         {
             if (!_isCounterAttack)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn(1.5f));
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
             }
         }
         else

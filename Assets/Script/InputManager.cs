@@ -433,11 +433,14 @@ public class InputManager : MonoBehaviour
         
         if (!_gameManager.MenuIsOpen)
         {
+          
             _gameManager.SelectCharacter?.Invoke();
             _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+  
             _TempSelectTileMaterial = _gameManager.CurrentCharacter.CurrentTile.StartMaterial;
             _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             StartCoroutine(_gameManager.MoveCamera(_gameManager.CurrentCharacter.CurrentTile.GetCameraTransform((int)_gameManager._direction, _gameManager.IsCameraNear)));
+            _gameManager._tileManager.DeselectTiles();
         }
         else
         {

@@ -9,6 +9,10 @@ public abstract  class Attack : ScriptableObject
     public string AttackName = "Attack";
     public string AttackAnimationName = "Attack";
     public bool IsProjectile;
+    public AudioManager.SfxClass PreSfx;
+    public AudioManager.SfxClass SfxAtSpawn;
+    public AudioManager.SfxClass ImpactSfx;
+    public AudioManager.SfxClass NoTargetSfx;
 
     public abstract void  DoAttack(Character character, Tile tile,bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection);
 }
