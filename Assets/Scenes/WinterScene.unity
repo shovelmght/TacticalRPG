@@ -922,7 +922,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 4.57
   m_CullingMask:
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   TempBoardVCam: {fileID: 1390828291}
   _CurrentCamera: {fileID: 2038934547}
   _CinemachineBrain: {fileID: 2038934550}
-  _CinemachineBlendTimeZoomBattle: 0.5
+  _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
   _ZommEffectAnimator: {fileID: 640783994}
   CharacterAIData:
@@ -5163,6 +5163,14 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5172,7 +5180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 19.01
       objectReference: {fileID: 0}
     - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5196,7 +5204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.5
+      value: -3.4
       objectReference: {fileID: 0}
     - target: {fileID: 1423144551368460588, guid: 31333a4585dc20041bc799fea513bef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

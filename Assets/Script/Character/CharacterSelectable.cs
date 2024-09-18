@@ -52,7 +52,7 @@ public class CharacterSelectable : MonoBehaviour
         _CurrentCharacterIndex--;
         if (_CurrentCharacterIndex < 0)
         {
-            _CurrentCharacterIndex = 0;
+            _CurrentCharacterIndex = _PlayerDataCharacterSpawner.DataSpawn.Count - 1;
         }
         
         foreach (var characterIndexAlreadySpawn in CharacterIndexAlreadySpawn)
@@ -81,6 +81,7 @@ public class CharacterSelectable : MonoBehaviour
         characterGameObject.transform.parent = _CharacterContainer;
         characterGameObject.transform.localPosition = Vector3.zero;
         characterGameObject.transform.localRotation = Quaternion.identity;
+        characterGameObject.transform.localScale = new Vector3(3, 3, 3);
     }
 
     public bool HasRemainingCharacters()
