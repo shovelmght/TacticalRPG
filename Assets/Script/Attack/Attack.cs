@@ -4,8 +4,11 @@ using UnityEngine;
 
 public abstract  class Attack : ScriptableObject
 {
-    public float Power = 10;
+    public int Power = 10;
     public int AttackLenght = 1;
+    public string AttackName = "Attack";
+    public string AttackAnimationName = "Attack";
+    public bool IsProjectile;
 
     public abstract void  DoAttack(Character character, Tile tile,bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection);
 }

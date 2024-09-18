@@ -249,19 +249,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.74899536
+      value: -0.62053126
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.24320571
+      value: 0.067766584
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.11386438
+      value: 0.2997773
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.60571605
+      value: -0.72144455
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -842,7 +842,11 @@ PrefabInstance:
     - target: {fileID: 5302907934503677982, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 1b03f58639d9c314cbbc564cfd6b0569, type: 2}
+      objectReference: {fileID: 9100000, guid: ff40f8028a16b334c971c0f4f3578187, type: 2}
+    - target: {fileID: 5302907934503677982, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5392704625730432781, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 3.1805545e-15
@@ -1158,7 +1162,11 @@ PrefabInstance:
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _Attack
       value: 
-      objectReference: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
+      objectReference: {fileID: 11400000, guid: 03dc98f2935c86748984e0dbd366d846, type: 2}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _SkillAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: 22808b68c98843241b3e7b78fd3c21fc, type: 2}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: CharacterAnimator
       value: 
@@ -1174,6 +1182,14 @@ PrefabInstance:
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _behindHitSuccesChance
       value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _StartPositionProjectile
+      value: 
+      objectReference: {fileID: 177156100463197135}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: <Strength>k__BackingField
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: <AttackLenght>k__BackingField
@@ -1228,6 +1244,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 313873566058016571, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
     - {fileID: 2277847803704410196, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+    - {fileID: 1432332175540377096, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1761361696979401005, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       insertIndex: -1

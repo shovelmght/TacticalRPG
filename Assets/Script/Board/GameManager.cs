@@ -341,8 +341,9 @@ public class GameManager : MonoBehaviour
     }
     
     //Select with color possible attack tile
-    public void ShowPossibleAttack(Tile tile, bool isAICheck, bool isSkillAttack)
+    public void ShowPossibleAttack(Tile tile, bool isAICheck, Attack attack)
     {
+        Debug.Log("GameManager :: ShowPossibleAttack");
         /*if (ArrowsDirection.activeSelf)
         {
             ArrowsDirection.SetActive(false);
@@ -354,17 +355,9 @@ public class GameManager : MonoBehaviour
             _tileManager.DeselectTiles();
             CurrentState = StateAttackCharacter;
         }
-
-        if (isSkillAttack)
-        {
-            StartCoroutine(_tileManager.GetAttackTiles(CurrentCharacter._Attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
-        }
-        else
-        {
-            StartCoroutine(_tileManager.GetAttackTiles(CurrentCharacter._SkillAttack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
-        }
-     
-       
+        
+        StartCoroutine(_tileManager.GetAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        
     }
 
     //Select with color possible direction (end character turn) tile

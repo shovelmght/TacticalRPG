@@ -38,15 +38,17 @@ public class CharacterAI : Character
         //If he can already Attack his enemy
         yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
         Debug.Log("CharacterAI Before ShowPossibleAttack1");
-        _gameManager.ShowPossibleAttack(CurrentTile, false, false);
+        _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
         yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
         
         if (enemyTile != null)
         {
+            _gameManager.StateAttackCharacter._Attack = _Attack;
             _gameManager.SelectTile(enemyTile);
             _gameManager.SelectTile(enemyTile);
+            
             yield return new WaitUntil(() => HaveAttacked);
             yield return new WaitUntil(() => !_gameManager.Wait);
             if (CurrentHealth <= 0)
@@ -78,14 +80,16 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(enemyTile);
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack2");
-                _gameManager.ShowPossibleAttack(CurrentTile, false, false);
+                _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
                 {
                     Debug.Log("CharacterAI Before Attack");
+                    _gameManager.StateAttackCharacter._Attack = _Attack;
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.SelectTile(enemyTile);
+               
                     Debug.Log("CharacterAI after Attack");
                     yield return new WaitUntil(() => !_gameManager.Wait);
                     if (CurrentHealth <= 0)
@@ -116,11 +120,12 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(GetNearestTile());
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack3");
-                _gameManager.ShowPossibleAttack(CurrentTile, false, false);
+                _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
                 {
+                    _gameManager.StateAttackCharacter._Attack = _Attack;
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.PossibleTileIsFinished = false;
@@ -204,7 +209,7 @@ public class CharacterAI : Character
 
         for (int i = 0; i < _tileManager.GetSelectedTileLenght(); i++)
         {
-            _gameManager.ShowPossibleAttack(_tileManager.GetSelectedTile(i), true, false); 
+            _gameManager.ShowPossibleAttack(_tileManager.GetSelectedTile(i), true, _Attack); 
             for (int j = 0; j < _gameManager.IndexOccupiedTiles; j++)
             {
                 if (_gameManager.OccupiedTiles[j].CharacterReference == null) { continue;}

@@ -7,7 +7,9 @@ public class UIBoardGame : MonoBehaviour
     public Button AttackButton;
     public Button WaitButton;
     public Button NormalAttackButton;
+    public Text NormalAttackName;
     public Button SkillAttackButton;
+    public Text SkillAttackName;
     public Button ReturnToMenuFromAttackButton;
     public Button CameraRotateRightButton;
     public Button CameraRotateLeftButton;
@@ -42,7 +44,7 @@ public class UIBoardGame : MonoBehaviour
         WaitButton.onClick.AddListener(WaitActionCharacter);
         NormalAttackButton.onClick.AddListener(ShowNormalTilesAttack);
         SkillAttackButton.onClick.AddListener(ShowSkillTilesAttack);
-        ReturnToMenuFromAttackButton.onClick.AddListener(WaitActionCharacter);
+        ReturnToMenuFromAttackButton.onClick.AddListener(ReturnToMenuFromAttack);
         CameraRotateRightButton.onClick.AddListener(RotateCameraRight);
         CameraRotateLeftButton.onClick.AddListener(RotateCameraLeft);
         _boardManager = GameManager.Instance;
@@ -64,6 +66,8 @@ public class UIBoardGame : MonoBehaviour
         if (!_boardManager.CurrentCharacter.HaveMoved && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
             _boardManager.ShowPossibleMove(GameManager.Instance.CurrentCharacter.CurrentTile);
+            WaitButton.image.color = _normalColor;
+            WaitButton.interactable = true;
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
@@ -74,6 +78,7 @@ public class UIBoardGame : MonoBehaviour
     private void DeactivateMoveButton()
     {
         MoveButton.image.color = _pressesColor;
+        MoveButton.interactable = false;
     }
     
     private void ShowAttackMenu()
@@ -84,12 +89,20 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
+            WaitButton.image.color = _normalColor;
+            WaitButton.interactable = true;
             MoveButton.gameObject.SetActive(false);
             AttackButton.gameObject.SetActive(false);
             WaitButton.gameObject.SetActive(false);
             NormalAttackButton.gameObject.SetActive(true);
             SkillAttackButton.gameObject.SetActive(true);
             ReturnToMenuFromAttackButton.gameObject.SetActive(true);
+            NormalAttackName.text = _boardManager.CurrentCharacter._Attack.AttackName;
+            SkillAttackName.text = _boardManager.CurrentCharacter._SkillAttack.AttackName;
+            if (_boardManager.IsController)
+            {
+                NormalAttackButton.Select();
+            }
         }
     }
     
@@ -102,7 +115,8 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, false);
+            _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._Attack;
+            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._Attack);
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
@@ -118,15 +132,19 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, true);
+            _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._SkillAttack;
+            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._SkillAttack);
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
+                NormalAttackButton.interactable = false;
+                SkillAttackButton.interactable = false;
+                ReturnToMenuFromAttackButton.interactable = false;
             }
         }
     }
     
-    private void ReturnToMenuFromAttack()
+    public void ReturnToMenuFromAttack()
     {
         if (_boardManager.IsAIChatacterTurn) { return; }
         
@@ -140,12 +158,18 @@ public class UIBoardGame : MonoBehaviour
             NormalAttackButton.gameObject.SetActive(false);
             SkillAttackButton.gameObject.SetActive(false);
             ReturnToMenuFromAttackButton.gameObject.SetActive(false);
+
+            if (_boardManager.IsController)
+            {
+                MoveButton.Select();
+            }
         }
     }
     
     private void DeactivateAttackButton()
     {
         AttackButton.image.color = _pressesColor;
+        AttackButton.interactable = false;
         _canAttack = false;
     }
 
@@ -169,6 +193,7 @@ public class UIBoardGame : MonoBehaviour
     private void DeactivateWaitButton()
     {
         WaitButton.image.color = _pressesColor;
+        WaitButton.interactable = false;
         _canWait = false;
     }
 
@@ -177,9 +202,15 @@ public class UIBoardGame : MonoBehaviour
         ReactivateUICharacterButton();
         Animator.SetBool(Open, true);
         GameManager.Instance.MenuIsOpen = true;
-        MoveButton.interactable = true;
-        AttackButton.interactable = true;
+        MoveButton.interactable = !_boardManager.CurrentCharacter.HaveMoved;
+        MoveButton.image.color = _boardManager.CurrentCharacter.HaveMoved ? _pressesColor : _normalColor;
+        AttackButton.interactable = !_boardManager.CurrentCharacter.HaveAttacked;
+        AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
+        WaitButton.image.color = _normalColor;
         WaitButton.interactable = true;
+        NormalAttackButton.interactable = true;
+        SkillAttackButton.interactable = true;
+        ReturnToMenuFromAttackButton.interactable = true;
     }
 
     private void RemoveUICharacter()
@@ -195,15 +226,28 @@ public class UIBoardGame : MonoBehaviour
     {
         if (_boardManager.CurrentCharacter)
         {
+            MoveButton.interactable = !_boardManager.CurrentCharacter.HaveMoved;
             MoveButton.image.color = _boardManager.CurrentCharacter.HaveMoved ? _pressesColor : _normalColor;
+            AttackButton.interactable = !_boardManager.CurrentCharacter.HaveAttacked;
             AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
             WaitButton.image.color = _normalColor;
+            WaitButton.interactable = true;
             _canWait = true;
             if (_boardManager.IsController)
             {
-                MoveButton.Select();
+                if (MoveButton.gameObject.activeInHierarchy && MoveButton.interactable)
+                {
+                    MoveButton.Select();
+                }
+                else if (AttackButton.gameObject.activeInHierarchy && AttackButton.interactable)
+                {
+                    AttackButton.Select();
+                }
+                else if (NormalAttackButton.gameObject.activeInHierarchy)
+                {
+                    NormalAttackButton.Select();
+                }
             }
-            
         }
     }
 

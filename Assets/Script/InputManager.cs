@@ -10,8 +10,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Button _NextSelectableCharaterSpawn;
     [SerializeField] private Button _PreviousSelectableCharaterSpawn;
     [SerializeField] private CheckIfButtonIsSelect[] _ButtonsCanBeSelect;
+    [SerializeField] private Button _FirstSelecableButton;
     [SerializeField] private Button _SecondSelecableButton;
-    [SerializeField] private Button _ConfirmButton;
     private int _TreshHoldItteration = 2;
     private bool Canselect;
     private bool _OneOfButtonIsSelected;
@@ -100,9 +100,9 @@ public class InputManager : MonoBehaviour
 
             if (Canselect && !_OneOfButtonIsSelected)
             {
-                if (_ConfirmButton.gameObject.activeInHierarchy)
+                if (_FirstSelecableButton.gameObject.activeInHierarchy)
                 {
-                    _ConfirmButton.Select();
+                    _FirstSelecableButton.Select();
                 }
                 else
                 {
@@ -118,9 +118,9 @@ public class InputManager : MonoBehaviour
                 if (_Itteration > _TreshHoldItteration)
                 {
                     _Itteration = 0;
-                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    if (_FirstSelecableButton.gameObject.activeInHierarchy)
                     {
-                        _ConfirmButton.Select();
+                        _FirstSelecableButton.Select();
                     }
                     else
                     {
@@ -185,9 +185,9 @@ public class InputManager : MonoBehaviour
 
             if (Canselect && !_OneOfButtonIsSelected)
             {
-                if (_ConfirmButton.gameObject.activeInHierarchy)
+                if (_FirstSelecableButton.gameObject.activeInHierarchy)
                 {
-                    _ConfirmButton.Select();
+                    _FirstSelecableButton.Select();
                 }
                 else
                 {
@@ -203,9 +203,9 @@ public class InputManager : MonoBehaviour
                 if (_Itteration > _TreshHoldItteration)
                 {
                     _Itteration = 0;
-                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    if (_FirstSelecableButton.gameObject.activeInHierarchy)
                     {
-                        _ConfirmButton.Select();
+                        _FirstSelecableButton.Select();
                     }
                     else
                     {
@@ -271,9 +271,9 @@ public class InputManager : MonoBehaviour
 
             if (Canselect && !_OneOfButtonIsSelected)
             {
-                if (_ConfirmButton.gameObject.activeInHierarchy)
+                if (_FirstSelecableButton.gameObject.activeInHierarchy)
                 {
-                    _ConfirmButton.Select();
+                    _FirstSelecableButton.Select();
                 }
                 else
                 {
@@ -289,9 +289,9 @@ public class InputManager : MonoBehaviour
                 if (_Itteration > _TreshHoldItteration)
                 {
                     _Itteration = 0;
-                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    if (_FirstSelecableButton.gameObject.activeInHierarchy)
                     {
-                        _ConfirmButton.Select();
+                        _FirstSelecableButton.Select();
                     }
                     else
                     {
@@ -355,9 +355,9 @@ public class InputManager : MonoBehaviour
 
             if (Canselect && !_OneOfButtonIsSelected)
             {
-                if (_ConfirmButton.gameObject.activeInHierarchy)
+                if (_FirstSelecableButton.gameObject.activeInHierarchy)
                 {
-                    _ConfirmButton.Select();
+                    _FirstSelecableButton.Select();
                 }
                 else
                 {
@@ -373,9 +373,9 @@ public class InputManager : MonoBehaviour
                 if (_Itteration > _TreshHoldItteration)
                 {
                     _Itteration = 0;
-                    if (_ConfirmButton.gameObject.activeInHierarchy)
+                    if (_FirstSelecableButton.gameObject.activeInHierarchy)
                     {
-                        _ConfirmButton.Select();
+                        _FirstSelecableButton.Select();
                     }
                     else
                     {
@@ -438,6 +438,13 @@ public class InputManager : MonoBehaviour
             _TempSelectTileMaterial = _gameManager.CurrentCharacter.CurrentTile.StartMaterial;
             _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             StartCoroutine(_gameManager.MoveCamera(_gameManager.CurrentCharacter.CurrentTile.GetCameraTransform((int)_gameManager._direction, _gameManager.IsCameraNear)));
+        }
+        else
+        {
+            if (UIBoardGame.Instance.ReturnToMenuFromAttackButton.gameObject.activeInHierarchy)
+            {
+                UIBoardGame.Instance.ReturnToMenuFromAttackButton.onClick.Invoke();
+            }
         }
     }
     

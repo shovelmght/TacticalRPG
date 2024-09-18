@@ -6,7 +6,7 @@ public class StateAttackCharacter : State
 {
     private Tile _tileSelected;
     private Character _characterAttactedSelected;
-    public bool _IsSkillAttack;
+    public Attack _Attack;
     
     public StateAttackCharacter(GameManager boardManager)
     {
@@ -24,11 +24,12 @@ public class StateAttackCharacter : State
         {
             if (tile.CharacterReference == _characterAttactedSelected)
             {
+                UIBoardGame.Instance.ReturnToMenuFromAttack();
                 _gameManager.IsCharactersAttacking = true;
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
                 _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection, false));
-                _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _IsSkillAttack));
+                _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));
                 _gameManager.DesableAttackCharacterUIButtons();
                 _characterAttactedSelected = null;
             }
@@ -43,8 +44,9 @@ public class StateAttackCharacter : State
         }
         else
         {
+            UIBoardGame.Instance.ReturnToMenuFromAttack();
             _gameManager.IsCharactersAttacking = true;
-            _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _IsSkillAttack));
+            _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));
         }
     }
 

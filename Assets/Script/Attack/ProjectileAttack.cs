@@ -21,7 +21,7 @@ public class ProjectileAttack : Attack
             character._attackTarget._attackDirection = attackDirection;
         }
 
-        character.CharacterAnimator.SetTrigger(Attack);
+        character.CharacterAnimator.SetTrigger(AttackAnimationName);
         character._isCounterAttack = isAcounterAttack;
 
         if (tile.CharacterReference == null)

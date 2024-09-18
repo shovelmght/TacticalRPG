@@ -177,25 +177,17 @@ public class Character : MonoBehaviour
         transform.position = destination;
     }
     
-    public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection, bool isSkillAttack)
+    public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection, Attack attack)
     {
         _gameManager.Wait = true;
         yield return new WaitForSeconds(1f);
-        if (isSkillAttack)
-        {
-            _SkillAttack.DoAttack(this,tile, isAcounterAttack, attackDirection);
-        }
-        else
-        {
-            _Attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
-        }
-        
-        
+        attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
     }
     
     
     public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab)
     {
+        Debug.Log("Character ThrowProjectile");
         yield return new WaitForSeconds(delay);
        GameObject gameObjectProjectile = Instantiate(projectilePrefab, _StartPositionProjectile.position, _StartPositionProjectile.rotation);
 
@@ -208,6 +200,12 @@ public class Character : MonoBehaviour
        Destroy(gameObjectProjectile, 2);
        gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
        Hit();
+    }
+
+    [ContextMenu("RotateTest")]
+    public void RotateTest()
+    {
+        StartCoroutine(RotateTo(_gameManager.TileSelected.Position));
     }
 
     public IEnumerator RotateTo(Vector3 destinationTile)
@@ -258,25 +256,33 @@ public class Character : MonoBehaviour
     //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 
     public void Hit()
     {
+        Debug.Log("Character Hit");
         if (_attackTarget)
         {
-            if (GetIsBlock())
+            if (_attackTarget.GetIsBlock(_attackTarget._attackDirection))
             {
                 AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
                 _attackTarget.CharacterAnimator.SetTrigger(Block);
-                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
+  
                 _attackTarget._isCounterAttack = _isCounterAttack;
                 _attackTarget.OnHealthPctChange(0, 0, 0);
-                CharacterAnimator.SetTrigger(HandUp);
-
+                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
+                if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
+                {
+                    CharacterAnimator.SetTrigger(HandUp);
+                }
+                
             }
             else
             {
                 AudioManager._Instance.SpawnSound(  AudioManager._Instance._SwordHit);
-                _attackTarget.IsAttacked(Strength, _isCounterAttack);
+                _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
-            
-            _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+
+            if (_gameManager.CurrentCharacter != null)
+            {
+                _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+            }
             InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
         }
         else
@@ -418,11 +424,11 @@ public class Character : MonoBehaviour
         transform.position = scaleWanted;
     }
 
-    private bool GetIsBlock()
+    private bool GetIsBlock(GetAttackDirection.AttackDirection _attackDirection)
     { 
         float randomChange = Random.Range(0f, 100.0f);
      
-        switch (_attackTarget._attackDirection)
+        switch (_attackDirection)
         {
 
             case GetAttackDirection.AttackDirection.None:
@@ -440,8 +446,8 @@ public class Character : MonoBehaviour
             case GetAttackDirection.AttackDirection.Behind:
                 
                 float behindHitSuccesChance = 100 - _behindHitSuccesChance;
-                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + behindHitSuccesChance);
-                if ( Random.Range(0f, 100.0f) <= behindHitSuccesChance)
+                Debug.Log("randomChange = " + randomChange + "   <=  _behindHitSuccesChance = " + behindHitSuccesChance);
+                if (randomChange <= behindHitSuccesChance)
                 {
                     return true;
                 }
@@ -449,8 +455,8 @@ public class Character : MonoBehaviour
             default:
                 
                 float sideHitSuccesChance = 100 - _sideHitSuccesChance;
-                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + sideHitSuccesChance);
-                if ( Random.Range(0f, 100.0f) <= sideHitSuccesChance)
+                Debug.Log("randomChange = " + randomChange + "   <=  _sideHitSuccesChance = " + sideHitSuccesChance);
+                if ( randomChange <= sideHitSuccesChance)
                 {
                     return true;
                 }

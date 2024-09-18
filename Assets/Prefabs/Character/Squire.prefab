@@ -2107,7 +2107,7 @@ MonoBehaviour:
   - {fileID: 2099986145364371619}
   - {fileID: 5300431336928737749}
   <MaxHealth>k__BackingField: 100
-  <Strength>k__BackingField: 25
+  <Strength>k__BackingField: 3
   <MovementPoint>k__BackingField: 4
   <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
@@ -2126,6 +2126,7 @@ MonoBehaviour:
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
   _Attack: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
+  _SkillAttack: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
   _frontHitSuccesChance: 35
   _sideHitSuccesChance: 60
   _behindHitSuccesChance: 85
