@@ -412,7 +412,9 @@ public class Character : MonoBehaviour
             Debug.Log("Character _gameManager.CurrentCharacter == this");
             _gameManager.NextCharacterTurn();
         }
-        
+
+        RemoveUIPopUpCharacterInfo(true);
+
     }
 
     private IEnumerator LerpScale(Vector3 scaleWanted, float speed)
