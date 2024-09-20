@@ -71,7 +71,6 @@ public class CharacterSelectable : MonoBehaviour
     {
         _CharacterName.text = _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].Name;
         _CharacterClass.text = _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].Class;
-        GameManager.Instance.SetCurrentCharacterDataSpawner(_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex]);
         for (int i = 0; i < _CharacterContainer.childCount; i++)
         {
             Destroy(_CharacterContainer.GetChild(i).gameObject);

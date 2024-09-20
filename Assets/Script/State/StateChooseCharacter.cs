@@ -4,14 +4,13 @@ using UnityEngine;
 public  class StateChooseCharacter : State
 {
    private int _numberOfCharactersToInstantiate;
-   private List<DataCharacterSpawner.DataSpawner> _dataSpawner;
 
-   public StateChooseCharacter(GameManager gameManager, int numberOfCharactersToInstantiate,  List<DataCharacterSpawner.DataSpawner> dataSpawner)
+
+   public StateChooseCharacter(GameManager gameManager, int numberOfCharactersToInstantiate)
    {
       _gameManager = gameManager;
       _tilesManager = TilesManager.Instance;
       _numberOfCharactersToInstantiate = numberOfCharactersToInstantiate;
-      _dataSpawner = dataSpawner;
    }
    public override void SelectTile(Tile tile)
    {

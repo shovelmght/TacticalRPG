@@ -1260,28 +1260,11 @@ MonoBehaviour:
   _ZommEffectAnimator: {fileID: 640783994}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
-  CharacterPlayerData:
-  - CharactersPrefab: 0
-    Team: 0
-    Ability1: 0
-    Name: 
-    Class: 
-  - CharactersPrefab: 0
-    Team: 0
-    Ability1: 0
-    Name: 
-    Class: 
-  _CurrentCharacterDataSpawner:
-    CharactersPrefab: 0
-    Team: 0
-    Ability1: 0
-    Name: 
-    Class: 
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   SquireAIPrefab: {fileID: 4328397966154774303, guid: a5b1f13310623f7429b9f6915d142ff4, type: 3}
   WizardPrefab: {fileID: 1089474552833195670, guid: 58341faf49803d54a8b17b86575bd712, type: 3}
-  WizardAIPrefab: {fileID: 0}
+  WizardAIPrefab: {fileID: 1089474552833195670, guid: dfcdc1ffee9d81e4d9cdee293762246a, type: 3}
   DragonPrefab: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
   DragonAIPrefab: {fileID: 2228407130458205554, guid: cc96b9a32ec3b0a4fa1b9eda5c34c706, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}

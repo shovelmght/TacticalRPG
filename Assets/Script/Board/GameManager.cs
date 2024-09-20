@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private Animator _ZommEffectAnimator;
     public List<DataCharacterSpawner> CharacterAIData;
-    public List<DataCharacterSpawner.DataSpawner> CharacterPlayerData;
-    public DataCharacterSpawner.DataSpawner _CurrentCharacterDataSpawner;
     public CharacterSelectable _PlayerCharacterSpawnerList;
     public GameObject SquirePrefab;
     public GameObject SquireAIPrefab;
@@ -126,7 +124,7 @@ public class GameManager : MonoBehaviour
         }
 
         StateTurnCharacter = new StateTurnCharacter(this);
-        StateChooseCharacter = new StateChooseCharacter(this,MaxCharacterPlayerCanBePlace, CharacterPlayerData);
+        StateChooseCharacter = new StateChooseCharacter(this,MaxCharacterPlayerCanBePlace);
         StateAttackCharacter = new StateAttackCharacter(this);
         StateMoveCharacter = new StateMoveCharacter(this);
         StateNavigation = new StateNavigation(this);
@@ -171,11 +169,6 @@ public class GameManager : MonoBehaviour
         }
         
         _PlayerCharacterSpawnerList.gameObject.SetActive(true);
-    }
-
-    public void SetCurrentCharacterDataSpawner(DataCharacterSpawner.DataSpawner characterDataSpawner)
-    {
-        _CurrentCharacterDataSpawner = characterDataSpawner;
     }
 
     private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.DataSpawner dataCharacterSpawner)

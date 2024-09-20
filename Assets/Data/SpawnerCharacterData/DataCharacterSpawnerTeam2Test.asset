@@ -18,3 +18,8 @@ MonoBehaviour:
     Ability1: 0
     Name: ss
     Class: ss
+  - CharactersPrefab: 5
+    Team: 2
+    Ability1: 1
+    Name: ds
+    Class: ds
