@@ -15,7 +15,7 @@ MonoBehaviour:
   Power: 20
   AttackLenght: 1
   AttackName: Sword
-  AttackAnimationName: Attack
+  AttackAnimationName: Spell
   IsProjectile: 0
   PreSfx:
     _AudioClip: {fileID: 0}

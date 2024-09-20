@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public GameObject WizardAIPrefab;
     public GameObject DragonPrefab;
     public GameObject DragonAIPrefab;
+    public GameObject MotherNaturePrefab;
+    public GameObject MotherNatureAIPrefab;
     public GameObject ArrowsPrefab;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
     [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
@@ -240,6 +242,16 @@ public class GameManager : MonoBehaviour
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.WizardAI)
         {
             return Instantiate(WizardAIPrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNature)
+        {
+            return Instantiate(MotherNaturePrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNatureAI)
+        {
+            return Instantiate(MotherNatureAIPrefab, position, Quaternion.identity);
         }
 
         return null;
