@@ -9665,6 +9665,7 @@ Transform:
   - {fileID: 2085821380645626947}
   - {fileID: 3301420881212631280}
   - {fileID: 1148632166668957141}
+  - {fileID: 4403991212224858180}
   m_Father: {fileID: 5050045818666787947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &51251674029907813
@@ -19238,3 +19239,65 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1001 &9118723107052701950
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1607148113502009978}
+    m_Modifications:
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624496878921423553, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+      propertyPath: m_Name
+      value: FX_BulletTrail_Blue 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+--- !u!4 &4403991212224858180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4868999187517079738, guid: fed7dd8737abeec48b619aa1d5dccf2d, type: 3}
+  m_PrefabInstance: {fileID: 9118723107052701950}
+  m_PrefabAsset: {fileID: 0}

@@ -20,7 +20,7 @@ public class SpawnAttack : Attack
         {
             character.CharacterAnimator.SetTrigger(AttackAnimationName);
             tile.IsOccupied = true;
-            Instantiate(TreePrefab, tile.Position, Quaternion.identity);
+            character.StartCoroutine(character.SpawnAttack(SfxAtSpawn, TreePrefab, tile));
         }
         
     }

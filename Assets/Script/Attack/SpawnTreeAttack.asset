@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpawnTreeAttack
   m_EditorClassIdentifier: 
   Power: 10
-  AttackLenght: 1
+  AttackLenght: 2
   AttackName: Barricade Tree
   AttackAnimationName: Spell
   IsProjectile: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     _MinRandomPitch: 2
     _MaxRandomPitch: 2
   SfxAtSpawn:
-    _AudioClip: {fileID: 8300000, guid: 36493653a67c103459085b4ffd65f87b, type: 3}
+    _AudioClip: {fileID: 8300000, guid: d22fdacc326742b4183fc8db0bf5015a, type: 3}
     _RelativeVolume: 0.5
     _MinRandomPitch: 0.65
     _MaxRandomPitch: 0.8

@@ -205,6 +205,22 @@ public class Character : MonoBehaviour
         gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
         Hit();
     }
+    
+    public IEnumerator SpawnAttack(AudioManager.SfxClass sfxAtSpawn, GameObject spawnPrefab, Tile tile)
+    {
+        _tileManager.DeselectTiles();
+        yield return new WaitForSeconds(0.75f);
+        if (sfxAtSpawn != null)
+        {
+            AudioManager._Instance.SpawnSound(sfxAtSpawn);
+        }
+        Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
+        HaveAttacked = true;
+        _gameManager.Wait = false;
+        _gameManager.ActivateUIButtonCharacter?.Invoke();
+        _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+        InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
+    }
 
     [ContextMenu("RotateTest")]
     public void RotateTest()
