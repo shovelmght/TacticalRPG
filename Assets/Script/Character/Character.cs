@@ -255,11 +255,10 @@ public class Character : MonoBehaviour
         {
             AudioManager._Instance.SpawnSound(sfxAtSpawn);
         }
+        
         _TrailParticleEffect.SetActive(true);
-        _tileManager.DeselectTiles();
         GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.75f);
-
         yield return MoveTo(tile.Position, 0.05f);
 
      
@@ -271,9 +270,9 @@ public class Character : MonoBehaviour
         _gameManager.TilePreSelected = tile;
         CurrentTile = tile;
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
-        for (int i = 0; i < _gameManager.IndexOccupiedTiles; i++)
+        for (int i = 0; i < tile.GetPreviousMoveTileLenght(); i++)
         {
-            Character character = _gameManager.OccupiedTiles[i].CharacterReference;
+            Character character = tile.PreviousMoveTilesList[i].CharacterReference;
             if(character == null) {continue;}
             
             if (character.GetIsBlock(character._attackDirection))
@@ -297,6 +296,7 @@ public class Character : MonoBehaviour
             }
         }
         
+        _tileManager.DeselectTiles();
         Destroy(particleEffect);
         HaveAttacked = true;
         _gameManager.Wait = false;

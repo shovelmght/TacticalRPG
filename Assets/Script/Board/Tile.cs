@@ -86,6 +86,7 @@ public class Tile
     
     public void ClearPreviousMoveTile()
     {
+        Debug.Log("ClearPreviousMoveTile");
         _index = 0;
     }
     public int GetPreviousMoveTileLenght()

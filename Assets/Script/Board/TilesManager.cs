@@ -287,12 +287,24 @@ public class TilesManager: MonoBehaviour
             AddSelectedTile(currentTile);
             currentTile.CanInteract = true;
         }
-        
+
+        Tile previousTileEst = null;
+        Tile previousTileWest = null;
+        Tile previousTileSouth = null;
+        Tile previousTileNorth = null;
         for (int j = 1; j < numberOfTimes; j++)
         {
             Tile sideTile = GetTile(currentTile.CoordX + j, currentTile.CoordY);
             if (sideTile != null)
             {
+                if (previousTileEst != null)
+                {
+                    for (int i = 0; i < previousTileEst.GetPreviousMoveTileLenght(); i++)
+                    {
+                        sideTile.AddPreviousMoveTile(previousTileEst.PreviousMoveTilesList[i]);
+                    }
+                    sideTile.AddPreviousMoveTile(previousTileEst);
+                }
                 if (sideTile.IsOccupied)
                 {
                     _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
@@ -309,12 +321,22 @@ public class TilesManager: MonoBehaviour
                     AddSelectedTile(sideTile);
                     sideTile.CanInteract = true;
                 }
+
+                previousTileEst = sideTile;
             }
                     
             sideTile = GetTile(currentTile.CoordX - j, currentTile.CoordY);
                     
             if (sideTile != null)
             {
+                if (previousTileWest != null)
+                {
+                    for (int i = 0; i < previousTileWest.GetPreviousMoveTileLenght(); i++)
+                    {
+                        sideTile.AddPreviousMoveTile(previousTileWest.PreviousMoveTilesList[i]);
+                    }
+                    sideTile.AddPreviousMoveTile(previousTileWest);
+                }
                 if (sideTile.IsOccupied)
                 {
                     _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
@@ -331,12 +353,24 @@ public class TilesManager: MonoBehaviour
                     AddSelectedTile(sideTile);
                     sideTile.CanInteract = true;
                 }
+                
+                previousTileWest = sideTile;
             }
                     
             sideTile = GetTile(currentTile.CoordX, currentTile.CoordY + j);
                     
             if (sideTile != null)
             {
+                
+                if (previousTileNorth != null)
+                {
+                    for (int i = 0; i < previousTileNorth.GetPreviousMoveTileLenght(); i++)
+                    {
+                        sideTile.AddPreviousMoveTile(previousTileNorth.PreviousMoveTilesList[i]);
+                    }
+                    sideTile.AddPreviousMoveTile(previousTileNorth);
+                }
+                
                 if (sideTile.IsOccupied)
                 {
                     _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
@@ -353,12 +387,23 @@ public class TilesManager: MonoBehaviour
                     AddSelectedTile(sideTile);
                     sideTile.CanInteract = true;
                 }
+                
+                previousTileNorth = sideTile;
             }
                     
             sideTile = GetTile(currentTile.CoordX, currentTile.CoordY - j);
                     
             if (sideTile != null)
             {
+                if (previousTileSouth != null)
+                {
+                    for (int i = 0; i < previousTileSouth.GetPreviousMoveTileLenght(); i++)
+                    {
+                        sideTile.AddPreviousMoveTile(previousTileSouth.PreviousMoveTilesList[i]);
+                    }
+                    sideTile.AddPreviousMoveTile(previousTileSouth);
+                }
+                
                 if (sideTile.IsOccupied)
                 {
                     _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile; 
@@ -375,6 +420,8 @@ public class TilesManager: MonoBehaviour
                     AddSelectedTile(sideTile);
                     sideTile.CanInteract = true;
                 }
+                
+                previousTileSouth = sideTile;
                 yield return new WaitForSeconds(_timePathFinding);
             }
         }
