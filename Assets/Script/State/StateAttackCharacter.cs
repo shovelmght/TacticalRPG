@@ -44,6 +44,7 @@ public class StateAttackCharacter : State
         }
         else
         {
+            _gameManager.StartCoroutine(_gameManager.ZoomBattleCamera());
             UIBoardGame.Instance.ReturnToMenuFromAttack();
             _gameManager.IsCharactersAttacking = true;
             _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));

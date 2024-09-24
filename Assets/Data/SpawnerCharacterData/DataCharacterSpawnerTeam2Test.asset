@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam2Test
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 6
+  - CharactersPrefab: 0
     Team: 2
     Ability1: 0
     Name: ss

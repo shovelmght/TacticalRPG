@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private CinemachineImpulseSource _TempVcamCinemachineImpulseSource;
     [SerializeField] private CinemachineImpulseSource _CinemachineImpulseSource;
+    [SerializeField] private CinemachineImpulseSource _ZoomCinemachineImpulseSource;
     [SerializeField] private Transform TempBoardVCam;
     [SerializeField] private Transform _CurrentCamera;
     [SerializeField] private CinemachineBrain _CinemachineBrain;
@@ -484,9 +485,14 @@ public class GameManager : MonoBehaviour
         CameraIsMoving = false;
     }
 
+    [SerializeField] private GameObject _ZoomVCam;
+
     public IEnumerator ZoomBattleCamera()
     {
-        
+        yield return new WaitForSeconds(.75f);
+        _ZoomVCam.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        _ZoomVCam.SetActive(false);
     }
 
     public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection, bool isCounter)
@@ -707,8 +713,18 @@ public class GameManager : MonoBehaviour
     [ContextMenu("StartCinemachineImpulseSource")]
     public void StartCinemachineImpulseSource()
     {
-        _TempVcamCinemachineImpulseSource.GenerateImpulse();
-        _CinemachineImpulseSource.GenerateImpulse();
+        if (_TempVcamCinemachineImpulseSource.gameObject.activeInHierarchy)
+        {
+            _TempVcamCinemachineImpulseSource.GenerateImpulse();
+        }
+        if (_CinemachineImpulseSource.gameObject.activeInHierarchy)
+        {
+            _CinemachineImpulseSource.GenerateImpulse();
+        }
+        if (_ZoomCinemachineImpulseSource.gameObject.activeInHierarchy)
+        {
+            _ZoomCinemachineImpulseSource.GenerateImpulse();
+        }
         CurrentCharacter.StartCinemachineImpulseSource();
     }
 

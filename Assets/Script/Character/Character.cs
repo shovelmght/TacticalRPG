@@ -619,7 +619,6 @@ public class Character : MonoBehaviour
                 cinemachineImpulseSources.GenerateImpulse();
             }
         }
-        
     }
 
     public void ShowCharacterHitSuccess(int pct)
