@@ -3911,7 +3911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PrefabAudioSource: {fileID: 8824917792495422345, guid: 24eb1eb1d797b8b438058e14a8ad3d41, type: 3}
-  _AudioPoolLength: 3
+  _AudioPoolLength: 10
   _MainVolume: 0.5
   _ZoomSFX:
     _AudioClip: {fileID: 8300000, guid: 614ad9eceac81ff46adc21418819c7be, type: 3}

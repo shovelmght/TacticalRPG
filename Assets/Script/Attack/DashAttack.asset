@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c5fbd61a01b4a458fa4e2b11154382, type: 3}
-  m_Name: SwordAttack
+  m_Script: {fileID: 11500000, guid: 00db0bcfac62621409899fd75ad384d5, type: 3}
+  m_Name: DashAttack
   m_EditorClassIdentifier: 
-  Power: 20
-  AttackLenght: 1
-  AttackName: Sword
-  AttackAnimationName: Attack
+  Power: 10
+  AttackLenght: 4
+  AttackName: Dash Attack
+  AttackAnimationName: MoveAttack
   IsProjectile: 0
-  IsLineAttack: 0
+  IsLineAttack: 1
   PreSfx:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: 60b414a3a002dd6428ad3ce0ef915577, type: 3}
+    _RelativeVolume: 0.05
+    _MinRandomPitch: 1
+    _MaxRandomPitch: 1
   SfxAtSpawn:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: 36493653a67c103459085b4ffd65f87b, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 0.65
+    _MaxRandomPitch: 0.8
   ImpactSfx:
     _AudioClip: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
     _RelativeVolume: 0.25
@@ -38,3 +38,4 @@ MonoBehaviour:
     _RelativeVolume: 0.2
     _MinRandomPitch: 0.9
     _MaxRandomPitch: 1.1
+  _ParticleEffectPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198, type: 3}

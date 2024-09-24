@@ -62,6 +62,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator DeactivateAfterPlay(AudioPoolObject poolObject)
     {
+        if(poolObject == null) yield break;
         yield return new WaitForSeconds(poolObject._AudioSource.clip.length / poolObject._AudioSource.pitch);
         poolObject._GameObject.SetActive(false);
     }

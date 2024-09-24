@@ -360,8 +360,15 @@ public class GameManager : MonoBehaviour
             _tileManager.DeselectTiles();
             CurrentState = StateAttackCharacter;
         }
-        
-        StartCoroutine(_tileManager.GetAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+
+        if (attack.IsLineAttack)
+        {
+            StartCoroutine(_tileManager.GetLinteAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        }
+        else
+        {
+            StartCoroutine(_tileManager.GetAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        }
         
     }
 

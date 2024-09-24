@@ -269,6 +269,166 @@ public class TilesManager: MonoBehaviour
         }
     }
     
+    public IEnumerator GetLinteAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
+    {
+
+        /*for (int i = 0; i < 4; i++)
+        {
+            
+            if (currentTile.SideTiles[i] != null && !currentTile.SideTiles[i].IsOccupied)
+            {
+                if (currentTile.SideTiles[i].IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile.SideTiles[i];
+                    _gameManager.IndexOccupiedTiles++;
+                }
+                else  if (material != null)
+                {
+                    currentTile.SideTiles[i].SetTopMaterial(material);
+                    AddSelectedTile(currentTile);
+                    currentTile.CanInteract = true;
+                }*/
+        
+         
+                for (int j = 1; j < numberOfTimes; j++)
+                {
+                    Tile sideTile = GetTile(currentTile.CoordX + j, currentTile.CoordY);
+                    if (sideTile != null)
+                    {
+                        if (sideTile.IsOccupied)
+                        {
+                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                            _gameManager.IndexOccupiedTiles++;
+                        } 
+                        else if(material != null)
+                        {
+                            sideTile.SetTopMaterial(material);
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                        else
+                        {
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                    }
+                    
+                    sideTile = GetTile(currentTile.CoordX - j, currentTile.CoordY);
+                    
+                    if (sideTile != null)
+                    {
+                        if (sideTile.IsOccupied)
+                        {
+                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                            _gameManager.IndexOccupiedTiles++;
+                        } 
+                        else if (material != null)
+                        {
+                            sideTile.SetTopMaterial(material);
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                        else
+                        {
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                    }
+                    
+                    sideTile = GetTile(currentTile.CoordX, currentTile.CoordY + j);
+                    
+                    if (sideTile != null)
+                    {
+                        if (sideTile.IsOccupied)
+                        {
+                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                            _gameManager.IndexOccupiedTiles++;
+                        } 
+                        else if (material != null)
+                        {
+                            sideTile.SetTopMaterial(material);
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                        else
+                        {
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                    }
+                    
+                    sideTile = GetTile(currentTile.CoordX, currentTile.CoordY - j);
+                    
+                    if (sideTile != null)
+                    {
+                        if (sideTile.IsOccupied)
+                        {
+                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                            _gameManager.IndexOccupiedTiles++;
+                        }
+                        else if (material != null)
+                        {
+                            sideTile.SetTopMaterial(material);
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                        else
+                        {
+                            AddSelectedTile(sideTile);
+                            sideTile.CanInteract = true;
+                        }
+                        yield return new WaitForSeconds(_timePathFinding);
+                    }
+                /*}
+            }*/
+        
+        }
+ 
+        _gameManager.PossibleTileIsFinished = true;
+        
+        
+        /*if (!isAICHeck)
+        {
+            if (previousTile != null)
+            {
+                for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
+                {
+                    currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
+                }
+                currentTile.AddPreviousMoveTile(previousTile);
+            }
+
+            if (material != null)
+            {
+                currentTile.SetTopMaterial(material);
+            }
+           
+            AddSelectedTile(currentTile);
+            currentTile.CanInteract = true;
+            yield return new WaitForSeconds(_timePathFinding);
+        }
+
+        if (numberOfTimes > 0)
+        {
+            foreach (var sidetile in currentTile.SideTiles)
+            {
+                if (sidetile is { CanInteract: false })
+                {
+                    if (sidetile.IsOccupied)
+                    {
+                        _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sidetile;
+                        _gameManager.IndexOccupiedTiles++;
+                    }
+                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck)) ;
+                }
+            }
+        }
+        else
+        {
+            _gameManager.PossibleTileIsFinished = true;
+        }*/
+    }
+    
     public Tile GetTile(GameObject gameObjectTile)
     {
         return _boardTiles.Cast<Tile>().FirstOrDefault(mapBlock2D => gameObjectTile == mapBlock2D.CurrentGameObject);
@@ -276,6 +436,11 @@ public class TilesManager: MonoBehaviour
 
     public Tile GetTile(int coordX, int coordY)
     {
+        if (coordX > TileManagerData.Column - 1  || coordY > TileManagerData.Row - 1|| coordX < 0 || coordY < 0)
+        {
+            return null;
+        }
+        
         return _boardTiles[coordX, coordY];
     }
 

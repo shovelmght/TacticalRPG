@@ -37,6 +37,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected SkinnedMeshRenderer _SkinnedMeshRenderer;
     [SerializeField] protected Material[] _Materials;
     [SerializeField] private Transform _StartPositionProjectile;
+    [SerializeField] private GameObject _TrailParticleEffect;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -210,16 +211,77 @@ public class Character : MonoBehaviour
     {
         _tileManager.DeselectTiles();
         yield return new WaitForSeconds(0.75f);
-        if (sfxAtSpawn != null)
-        {
-            AudioManager._Instance.SpawnSound(sfxAtSpawn);
-        }
+
         Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
         HaveAttacked = true;
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
+        yield return new WaitForSeconds(0.3f);
+        
+        if (sfxAtSpawn != null)
+        {
+            AudioManager._Instance.SpawnSound(sfxAtSpawn);
+        }
+    }
+    
+    public IEnumerator MoveAttack(AudioManager.SfxClass sfxAtSpawn, GameObject particleEffectPrefab, Tile tile)
+    {
+        if (sfxAtSpawn != null)
+        {
+            AudioManager._Instance.SpawnSound(sfxAtSpawn);
+        }
+        _TrailParticleEffect.SetActive(true);
+        _tileManager.DeselectTiles();
+        GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.75f);
+        
+        yield return MoveTo(tile.Position, 0.05f);
+
+     
+        HaveAttacked = true;
+        _gameManager.Wait = false;
+        _gameManager.ActivateUIButtonCharacter?.Invoke();
+        _gameManager.TileSelected.UnSetCharacter();
+        tile.SetCharacter(GameManager.Instance.CurrentCharacter);
+        _gameManager.TilePreSelected = tile;
+        CurrentTile = tile;
+        InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
+        for (int i = 0; i < _gameManager.IndexOccupiedTiles; i++)
+        {
+            Character character = _gameManager.OccupiedTiles[i].CharacterReference;
+            if(character == null) {continue;}
+            
+            if (character.GetIsBlock(character._attackDirection))
+            {
+                AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
+                character.CharacterAnimator.SetTrigger(Block);
+  
+                character._isCounterAttack = _isCounterAttack;
+                character.OnHealthPctChange(0, 0, 0);
+                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
+                if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
+                {
+                    CharacterAnimator.SetTrigger(HandUp);
+                }
+                
+            }
+            else
+            {
+                AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
+                character.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
+            }
+        }
+        
+        Destroy(particleEffect);
+        HaveAttacked = true;
+        _gameManager.Wait = false;
+        _gameManager.ActivateUIButtonCharacter?.Invoke();
+        _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+        InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
+        yield return new WaitForSeconds(0.75f);
+        _TrailParticleEffect.SetActive(false);
     }
 
     [ContextMenu("RotateTest")]
