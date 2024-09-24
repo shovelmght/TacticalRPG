@@ -484,6 +484,11 @@ public class GameManager : MonoBehaviour
         CameraIsMoving = false;
     }
 
+    public IEnumerator ZoomBattleCamera()
+    {
+        
+    }
+
     public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection, bool isCounter)
     {
         TempBoardVCam.gameObject.SetActive(false);

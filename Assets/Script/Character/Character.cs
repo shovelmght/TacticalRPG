@@ -224,6 +224,29 @@ public class Character : MonoBehaviour
         {
             AudioManager._Instance.SpawnSound(sfxAtSpawn);
         }
+        
+        yield return new WaitForSeconds(0.75f);
+
+        if (HaveMoved)
+        {
+            if (!_isCounterAttack)
+            {
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+            }
+        }
+        else
+        {
+            if (_gameManager.IsController)
+            {
+                _gameManager.SelectCharacter?.Invoke();
+            }
+        }
+    }
+
+    [ContextMenu("DeselectTile")]
+    public void DeselectTile()
+    {
+        _tileManager.DeselectTiles();
     }
     
     public IEnumerator MoveAttack(AudioManager.SfxClass sfxAtSpawn, GameObject particleEffectPrefab, Tile tile)
@@ -236,7 +259,7 @@ public class Character : MonoBehaviour
         _tileManager.DeselectTiles();
         GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.75f);
-        
+
         yield return MoveTo(tile.Position, 0.05f);
 
      
@@ -280,8 +303,25 @@ public class Character : MonoBehaviour
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
+        
+       
         yield return new WaitForSeconds(0.75f);
+        
         _TrailParticleEffect.SetActive(false);
+        if (HaveMoved)
+        {
+            if (!_isCounterAttack)
+            {
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+            }
+        }
+        else
+        {
+            if (_gameManager.IsController)
+            {
+                _gameManager.SelectCharacter?.Invoke();
+            }
+        }
     }
 
     [ContextMenu("RotateTest")]
@@ -396,7 +436,6 @@ public class Character : MonoBehaviour
             {
                 _gameManager.SelectCharacter?.Invoke();
             }
-            
         }
             
         _tileManager.DeselectTiles();

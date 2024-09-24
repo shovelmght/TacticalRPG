@@ -271,162 +271,117 @@ public class TilesManager: MonoBehaviour
     
     public IEnumerator GetLinteAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
     {
-
-        /*for (int i = 0; i < 4; i++)
+        if (currentTile.IsOccupied)
         {
-            
-            if (currentTile.SideTiles[i] != null && !currentTile.SideTiles[i].IsOccupied)
-            {
-                if (currentTile.SideTiles[i].IsOccupied)
-                {
-                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile.SideTiles[i];
-                    _gameManager.IndexOccupiedTiles++;
-                }
-                else  if (material != null)
-                {
-                    currentTile.SideTiles[i].SetTopMaterial(material);
-                    AddSelectedTile(currentTile);
-                    currentTile.CanInteract = true;
-                }*/
-        
-         
-                for (int j = 1; j < numberOfTimes; j++)
-                {
-                    Tile sideTile = GetTile(currentTile.CoordX + j, currentTile.CoordY);
-                    if (sideTile != null)
-                    {
-                        if (sideTile.IsOccupied)
-                        {
-                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
-                            _gameManager.IndexOccupiedTiles++;
-                        } 
-                        else if(material != null)
-                        {
-                            sideTile.SetTopMaterial(material);
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                        else
-                        {
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                    }
-                    
-                    sideTile = GetTile(currentTile.CoordX - j, currentTile.CoordY);
-                    
-                    if (sideTile != null)
-                    {
-                        if (sideTile.IsOccupied)
-                        {
-                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
-                            _gameManager.IndexOccupiedTiles++;
-                        } 
-                        else if (material != null)
-                        {
-                            sideTile.SetTopMaterial(material);
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                        else
-                        {
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                    }
-                    
-                    sideTile = GetTile(currentTile.CoordX, currentTile.CoordY + j);
-                    
-                    if (sideTile != null)
-                    {
-                        if (sideTile.IsOccupied)
-                        {
-                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
-                            _gameManager.IndexOccupiedTiles++;
-                        } 
-                        else if (material != null)
-                        {
-                            sideTile.SetTopMaterial(material);
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                        else
-                        {
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                    }
-                    
-                    sideTile = GetTile(currentTile.CoordX, currentTile.CoordY - j);
-                    
-                    if (sideTile != null)
-                    {
-                        if (sideTile.IsOccupied)
-                        {
-                            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
-                            _gameManager.IndexOccupiedTiles++;
-                        }
-                        else if (material != null)
-                        {
-                            sideTile.SetTopMaterial(material);
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                        else
-                        {
-                            AddSelectedTile(sideTile);
-                            sideTile.CanInteract = true;
-                        }
-                        yield return new WaitForSeconds(_timePathFinding);
-                    }
-                /*}
-            }*/
-        
-        }
- 
-        _gameManager.PossibleTileIsFinished = true;
-        
-        
-        /*if (!isAICHeck)
+            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+            _gameManager.IndexOccupiedTiles++;
+        } 
+        else if(material != null)
         {
-            if (previousTile != null)
-            {
-                for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
-                {
-                    currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
-                }
-                currentTile.AddPreviousMoveTile(previousTile);
-            }
-
-            if (material != null)
-            {
-                currentTile.SetTopMaterial(material);
-            }
-           
+            currentTile.SetTopMaterial(material);
             AddSelectedTile(currentTile);
             currentTile.CanInteract = true;
-            yield return new WaitForSeconds(_timePathFinding);
-        }
-
-        if (numberOfTimes > 0)
-        {
-            foreach (var sidetile in currentTile.SideTiles)
-            {
-                if (sidetile is { CanInteract: false })
-                {
-                    if (sidetile.IsOccupied)
-                    {
-                        _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sidetile;
-                        _gameManager.IndexOccupiedTiles++;
-                    }
-                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck)) ;
-                }
-            }
         }
         else
         {
-            _gameManager.PossibleTileIsFinished = true;
-        }*/
+            AddSelectedTile(currentTile);
+            currentTile.CanInteract = true;
+        }
+        
+        for (int j = 1; j < numberOfTimes; j++)
+        {
+            Tile sideTile = GetTile(currentTile.CoordX + j, currentTile.CoordY);
+            if (sideTile != null)
+            {
+                if (sideTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                    _gameManager.IndexOccupiedTiles++;
+                } 
+                else if(material != null)
+                {
+                    sideTile.SetTopMaterial(material);
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+                else
+                {
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+            }
+                    
+            sideTile = GetTile(currentTile.CoordX - j, currentTile.CoordY);
+                    
+            if (sideTile != null)
+            {
+                if (sideTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                    _gameManager.IndexOccupiedTiles++;
+                } 
+                else if (material != null)
+                {
+                    sideTile.SetTopMaterial(material);
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+                else
+                {
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+            }
+                    
+            sideTile = GetTile(currentTile.CoordX, currentTile.CoordY + j);
+                    
+            if (sideTile != null)
+            {
+                if (sideTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile;
+                    _gameManager.IndexOccupiedTiles++;
+                } 
+                else if (material != null)
+                {
+                    sideTile.SetTopMaterial(material);
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+                else
+                {
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+            }
+                    
+            sideTile = GetTile(currentTile.CoordX, currentTile.CoordY - j);
+                    
+            if (sideTile != null)
+            {
+                if (sideTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sideTile; 
+                    _gameManager.IndexOccupiedTiles++;
+                }
+                else if (material != null)
+                {
+                    sideTile.SetTopMaterial(material);
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+                else
+                {
+                    AddSelectedTile(sideTile);
+                    sideTile.CanInteract = true;
+                }
+                yield return new WaitForSeconds(_timePathFinding);
+            }
+        }
+ 
+        _gameManager.PossibleTileIsFinished = true;
+        InputManager.Instance._TempSelectTileMaterial = _gameManager.TilePreSelected.StartMaterial;
+
     }
     
     public Tile GetTile(GameObject gameObjectTile)

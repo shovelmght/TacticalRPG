@@ -120,6 +120,9 @@ public class UIBoardGame : MonoBehaviour
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
+                NormalAttackButton.interactable = false;
+                SkillAttackButton.interactable = false;
+                ReturnToMenuFromAttackButton.interactable = false;
             }
         }
     }
