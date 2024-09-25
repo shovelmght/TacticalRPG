@@ -1419,7 +1419,7 @@ MonoBehaviour:
   DragonPrefab: {fileID: 1089474552833195670, guid: 033db4223190419428478b229d190b3b, type: 3}
   DragonAIPrefab: {fileID: 2228407130458205554, guid: cc96b9a32ec3b0a4fa1b9eda5c34c706, type: 3}
   MotherNaturePrefab: {fileID: 1089474552833195670, guid: 72c61a5891cf6914998e240ed71bb906, type: 3}
-  MotherNatureAIPrefab: {fileID: 0}
+  MotherNatureAIPrefab: {fileID: 1089474552833195670, guid: e6d3872cde6fe354a9d57085b69e29d4, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   <BoardCamera>k__BackingField: {fileID: 1097121896}
   <MaxDistanceEnemiesSpawn>k__BackingField: 4

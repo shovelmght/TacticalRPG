@@ -511,6 +511,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection, bool isCounter)
     {
+        if (theAttacker.IsAI)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
         TempBoardVCam.gameObject.SetActive(false);
         Vector3 vCamLeftPosition = theAttacker.VCamLeft.transform.position;
         Vector3 vCamRightPosition = theAttacker.VCamRight.transform.position;
