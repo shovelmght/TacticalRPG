@@ -71,10 +71,12 @@ public class AnimatorActivator : MonoBehaviour
 
     private IEnumerator LerpScaleAndDeactivateGameObjects()
     {
+        Debug.Log("LerpScaleAndDeactivateGameObjects bug 1" );
         bool allScaledDown = false;
 
         while (!allScaledDown)
         {
+            Debug.Log("LerpScaleAndDeactivateGameObjects bug 2" );
             allScaledDown = true; // Assume all are scaled down
 
             foreach (var gameObjectToActivate in _GameObjectsToActivate)
@@ -84,6 +86,7 @@ public class AnimatorActivator : MonoBehaviour
                 // If the object's scale is above the threshold, continue scaling it down
                 if (currentScale.x > 0.2f)
                 {
+                    Debug.Log("LerpScaleAndDeactivateGameObjects bug 3" );
                     allScaledDown = false; // At least one object is still above the threshold
                     gameObjectToActivate.transform.localScale = Vector3.Max(
                         currentScale - new Vector3(_LerpScaleSpeed, _LerpScaleSpeed, _LerpScaleSpeed),
@@ -96,6 +99,7 @@ public class AnimatorActivator : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
+        Debug.Log("LerpScaleAndDeactivateGameObjects bug 4" );
         // After scaling is done, deactivate all GameObjects
         foreach (var gameObjectToActivate in _GameObjectsToActivate)
         {

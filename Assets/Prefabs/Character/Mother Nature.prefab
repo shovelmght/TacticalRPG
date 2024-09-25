@@ -147,6 +147,88 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &24918970103981834
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &6721538860087276899 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 24918970103981834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &26475856113296969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -648,6 +730,88 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6994760261892624747, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 746676915007337612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &770340112123469794
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &6318541553469066635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 770340112123469794}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &773912515720944083
 PrefabInstance:
@@ -1155,6 +1319,222 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6994760261892624747, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 1334743480474845202}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1560397210906895167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &5240097243491905878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 1560397210906895167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1761518454712824639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3801614737307066729}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6331575
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.75273585
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.11604636
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.13796203
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7247440617514380839}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6318541553469066635}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7729302911368429469}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2442524030971120953}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2721443219484344703}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577132629794237283}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8496334859653253131}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2744388244432947188}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5240097243491905878}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6721538860087276899}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2172224242189563742}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4746046096916001797}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6976562085420531646}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 346618589140728732}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7024886779764917265}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1175637629988106883}
+    - targetCorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3424589815062651013}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!1 &5002689822577975635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 1761518454712824639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5002689822577975638 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 1761518454712824639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1890542043966880240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1573,6 +1953,88 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 498268, guid: 4dd1e9d81689b8c45892550d2670fbb8, type: 3}
   m_PrefabInstance: {fileID: 2065014490970742229}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2072328280681588332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &4746046096916001797 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 2072328280681588332}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2173876178934215238
 PrefabInstance:
@@ -2075,6 +2537,92 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5797250444309822631, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 2944751823271483117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2951616815218661986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &8496334859653253131 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 2951616815218661986}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2952701397882657913
 PrefabInstance:
@@ -2838,6 +3386,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3005148743093947213}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5002689822577975638}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
 --- !u!4 &3801614737307066729 stripped
@@ -3018,6 +3569,88 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5150702104743367688, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 3913848852728181427}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3916781866975948276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &7729302911368429469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 3916781866975948276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4089751238069771939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3183,6 +3816,248 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 498268, guid: 4dd1e9d81689b8c45892550d2670fbb8, type: 3}
   m_PrefabInstance: {fileID: 4124523278998076649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4146443646853823566
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &7247440617514380839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 4146443646853823566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4351142575528400504
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &7024886779764917265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 4351142575528400504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4453653281637002711
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &6976562085420531646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 4453653281637002711}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4772253751696726749
 PrefabInstance:
@@ -3519,6 +4394,88 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3359799714691726664, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 4791639151465779047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4844323027283371319
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &2172224242189563742 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 4844323027283371319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4907385077340918429
 PrefabInstance:
@@ -5561,6 +6518,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 279221548384583580}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _TrailParticleEffect
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _sideHitSuccesChance
       value: 85
       objectReference: {fileID: 0}
@@ -5584,6 +6545,10 @@ PrefabInstance:
       propertyPath: <AttackLenght>k__BackingField
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _waterParticleEffect.Array.data[0]
+      value: 
+      objectReference: {fileID: 5002689822577975635}
     - target: {fileID: 8716171402086324990, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -3.1058283
@@ -5709,6 +6674,88 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4565427305991078014, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5570812426272563434
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &1175637629988106883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 5570812426272563434}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5762218465261966971
 PrefabInstance:
@@ -6214,6 +7261,92 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2989269895568223239, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 6076441868384617190}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6133154205598693642
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &577132629794237283 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 6133154205598693642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6415040945354302996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6308,6 +7441,88 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8626663970736559448, guid: 712a2ac1eb4a9834495ebb9177680f9f, type: 3}
   m_PrefabInstance: {fileID: 6415040945354302996}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6471773363463039477
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &346618589140728732 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 6471773363463039477}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6743771463576184904
 PrefabInstance:
@@ -7598,6 +8813,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 498268, guid: 4dd1e9d81689b8c45892550d2670fbb8, type: 3}
   m_PrefabInstance: {fileID: 8189548825153720493}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8257809624824148716
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &3424589815062651013 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 8257809624824148716}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8513999299268974755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7680,6 +8977,92 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 498268, guid: 4dd1e9d81689b8c45892550d2670fbb8, type: 3}
   m_PrefabInstance: {fileID: 8513999299268974755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8708754830292259606
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &2721443219484344703 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 8708754830292259606}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8712249382163317926
 PrefabInstance:
@@ -7984,6 +9367,92 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
   m_PrefabInstance: {fileID: 8746287234885830355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8865673148539082141
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &2744388244432947188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 8865673148539082141}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8950517993968863244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8151,6 +9620,92 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 995186750436877325, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
   m_PrefabInstance: {fileID: 8950517993968863244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9005689602713362256
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5002689822577975638}
+    m_Modifications:
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000011920926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000013411042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000011175868
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 112.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 65.697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 63.885002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Name
+      value: CFXR4 Sword Trail PLAIN (360 Spiral)Loop (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.5594597
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710139492206580335, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+--- !u!4 &2442524030971120953 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6710139492206580329, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
+  m_PrefabInstance: {fileID: 9005689602713362256}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9091088253207811717
 PrefabInstance:

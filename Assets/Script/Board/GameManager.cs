@@ -193,12 +193,22 @@ public class GameManager : MonoBehaviour
     {
         if (tile.IsOccupied) {return false;}
 
-        GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, tile.Position);
+        Vector3 spawnPosition = tile.Position;
+        if (tile.IsWater)
+        {
+            spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
+        }
+
+        GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
         character.transform.Rotate(rotation);
         _characterCount++;
         character.name = "Character" + _characterCount;
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
+        foreach (var waterParticleEffect in characterReference._waterParticleEffect)
+        {
+            waterParticleEffect.SetActive(tile.IsWater);
+        }
         characterReference.CurrentTeam = dataCharacterSpawner.Team;
         switch (dataCharacterSpawner.Ability1)
         {
@@ -365,6 +375,10 @@ public class GameManager : MonoBehaviour
         if (attack.IsLineAttack)
         {
             StartCoroutine(_tileManager.GetLinteAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+        }
+        else if (attack.IsDashAttack)
+        {
+            StartCoroutine(_tileManager.GetDashLineAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
         }
         else
         {

@@ -18,18 +18,8 @@ MonoBehaviour:
     Ability1: 1
     Name: Franck
     Class: Knight
-  - CharactersPrefab: 0
+  - CharactersPrefab: 2
     Team: 1
     Ability1: 1
     Name: Max
     Class: Dragon
-  - CharactersPrefab: 0
-    Team: 1
-    Ability1: 1
-    Name: Blake
-    Class: Wizard
-  - CharactersPrefab: 0
-    Team: 1
-    Ability1: 1
-    Name: Ingrid
-    Class: Father Nature

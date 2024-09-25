@@ -14,6 +14,7 @@ public class UIBoardGame : MonoBehaviour
     public Button CameraRotateRightButton;
     public Button CameraRotateLeftButton;
     public Animator Animator;
+    public Animator ElemantalButtonAnimator;
 
     [SerializeField] private Color _normalColor;
     [SerializeField] private Color _pressesColor;
@@ -24,6 +25,7 @@ public class UIBoardGame : MonoBehaviour
    
     
     private static readonly int Open = Animator.StringToHash("Open");
+    private static readonly int Water = Animator.StringToHash("Water");
     public static UIBoardGame Instance { get; private set; }
     private void Awake()
     {
@@ -89,6 +91,16 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
+            ElemantalButtonAnimator.SetBool(Water, _boardManager.CurrentCharacter.CurrentTile.IsWater);
+
+            if (_boardManager.CurrentCharacter.CurrentTile.IsWater)
+            {
+                NormalAttackName.text = _boardManager.CurrentCharacter._WaterAttack.AttackName;
+            }
+            else
+            {
+                NormalAttackName.text = _boardManager.CurrentCharacter._Attack.AttackName;
+            }
             WaitButton.image.color = _normalColor;
             WaitButton.interactable = true;
             MoveButton.gameObject.SetActive(false);
@@ -97,7 +109,7 @@ public class UIBoardGame : MonoBehaviour
             NormalAttackButton.gameObject.SetActive(true);
             SkillAttackButton.gameObject.SetActive(true);
             ReturnToMenuFromAttackButton.gameObject.SetActive(true);
-            NormalAttackName.text = _boardManager.CurrentCharacter._Attack.AttackName;
+            
             SkillAttackName.text = _boardManager.CurrentCharacter._SkillAttack.AttackName;
             if (_boardManager.IsController)
             {
@@ -115,8 +127,17 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._Attack;
-            _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._Attack);
+            if (GameManager.Instance.CurrentCharacter.CurrentTile.IsWater)
+            {
+                _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._WaterAttack;
+                _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._WaterAttack);
+            }
+            else
+            {
+                _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._Attack;
+                _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._Attack);
+            }
+            
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();

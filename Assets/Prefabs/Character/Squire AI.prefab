@@ -126,6 +126,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8074196909363823082, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 8739042105776096779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1570065502675928048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7822381192538179067, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2428505350554317242 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6409916126584354737, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -148,6 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3301206910718072100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6095461909415138095, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3515545809888952286 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5300431336928737749, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -206,7 +216,14 @@ MonoBehaviour:
   VCamRight: {fileID: 8313694620387029884}
   VCamFront: {fileID: 3551836626744731457}
   VCamBehind: {fileID: 3633549064430436407}
-  _CinemachineImpulseSources: []
+  _CinemachineImpulseSources:
+  - {fileID: 2428505350554317242}
+  - {fileID: 3237572432850104247}
+  - {fileID: 7233896161971023528}
+  - {fileID: 3515545809888952286}
+  _waterParticleEffect:
+  - {fileID: 3301206910718072100}
+  - {fileID: 1570065502675928048}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 3
   <MovementPoint>k__BackingField: 4
@@ -221,13 +238,14 @@ MonoBehaviour:
   _SkinnedMeshRenderer: {fileID: 0}
   _Materials: []
   _StartPositionProjectile: {fileID: 0}
-  _ProjectileSpeed: 10
+  _TrailParticleEffect: {fileID: 0}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
   _Attack: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
   _SkillAttack: {fileID: 0}
+  _WaterAttack: {fileID: 0}
   _frontHitSuccesChance: 35
   _sideHitSuccesChance: 60
   _behindHitSuccesChance: 85

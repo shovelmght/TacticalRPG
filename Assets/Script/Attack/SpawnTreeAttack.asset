@@ -18,6 +18,8 @@ MonoBehaviour:
   AttackAnimationName: Spell
   IsProjectile: 0
   IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
   PreSfx:
     _AudioClip: {fileID: 8300000, guid: a22f0176f24e0fb46abd58b17ac53ce0, type: 3}
     _RelativeVolume: 0.1
@@ -25,7 +27,7 @@ MonoBehaviour:
     _MaxRandomPitch: 2
   SfxAtSpawn:
     _AudioClip: {fileID: 8300000, guid: d22fdacc326742b4183fc8db0bf5015a, type: 3}
-    _RelativeVolume: 0.25
+    _RelativeVolume: 0.1
     _MinRandomPitch: 1
     _MaxRandomPitch: 1.2
   ImpactSfx:

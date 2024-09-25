@@ -17,6 +17,9 @@ MonoBehaviour:
   AttackName: Magic
   AttackAnimationName: Spell
   IsProjectile: 1
+  IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
   PreSfx:
     _AudioClip: {fileID: 8300000, guid: a22f0176f24e0fb46abd58b17ac53ce0, type: 3}
     _RelativeVolume: 0.1
@@ -40,4 +43,4 @@ MonoBehaviour:
   _ProjectilePrefab: {fileID: 5575048724471938769, guid: 074aa85023f6b784080ccbec005b8127, type: 3}
   _SpawnProjectileDelay: 0.75
   _HeightGabToAdd: 0.5
-  _MovementSpeed: 15
+  _MovementSpeed: 12

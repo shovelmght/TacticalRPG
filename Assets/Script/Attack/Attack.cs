@@ -10,6 +10,8 @@ public abstract  class Attack : ScriptableObject
     public string AttackAnimationName = "Attack";
     public bool IsProjectile;
     public bool IsLineAttack;
+    public bool IsDashAttack;
+    public bool IsWaterAttack;
     public AudioManager.SfxClass PreSfx;
     public AudioManager.SfxClass SfxAtSpawn;
     public AudioManager.SfxClass ImpactSfx;

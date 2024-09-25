@@ -9,8 +9,8 @@ public class SwordAttack : Attack
     
     public override void DoAttack(Character character, Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
-        character.StartCoroutine(character.RotateTo(tile.Position));
         
+        character.StartCoroutine(character.RotateTo(tile.Position));
         
         if (tile.CharacterReference)
         {

@@ -6,6 +6,7 @@ using TMPro;
 
 public class UICharacter : MonoBehaviour
 {
+    [SerializeField] private Image _BackgroundImage;
     [SerializeField]
     private Image _fillBar;
     [SerializeField]
@@ -100,7 +101,7 @@ public class UICharacter : MonoBehaviour
             _currentHealthText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
         }
     }
-
+    
     //Add a little bit of smoothing
     private IEnumerator ChangeToPct(float pct)
     {
@@ -114,6 +115,11 @@ public class UICharacter : MonoBehaviour
         }
 
         _fillBar.fillAmount = pct; //make sure to go to the correct amount
+
+        if (pct <= 0 || _fillBar.fillAmount <= 0)
+        {
+            _BackgroundImage.enabled = false;
+        }
     }
     
     private void ShowPopUpCharacterInfo(bool isRight, bool isQuick)
@@ -175,6 +181,7 @@ public class UICharacter : MonoBehaviour
         _popUpCharacterInfoAnimator.SetBool(Close, true);
         Invoke(nameof(DeactivatePopUpCharacterInfo), 0.5f);
     }
+    
 
     //THIS METHODE IS CALLED BY ANIMATOR (UICharacterPopUpClose)
     public void DeactivatePopUpCharacterInfo()

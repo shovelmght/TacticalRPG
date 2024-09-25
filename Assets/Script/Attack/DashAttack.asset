@@ -17,7 +17,8 @@ MonoBehaviour:
   AttackName: Dash Attack
   AttackAnimationName: MoveAttack
   IsProjectile: 0
-  IsLineAttack: 1
+  IsLineAttack: 0
+  IsDashAttack: 1
   PreSfx:
     _AudioClip: {fileID: 8300000, guid: 60b414a3a002dd6428ad3ce0ef915577, type: 3}
     _RelativeVolume: 0.05

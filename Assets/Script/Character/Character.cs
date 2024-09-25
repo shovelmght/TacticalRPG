@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     public GameObject VCamFront;
     public GameObject VCamBehind;
     [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
+    public GameObject[] _waterParticleEffect;
 
     [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
     [field: SerializeField] public int Strength { get; private set; }  = 25;
@@ -66,6 +67,7 @@ public class Character : MonoBehaviour
 
     public Attack _Attack;
     public Attack _SkillAttack;
+    public Attack _WaterAttack;
 
 
     public event Action<int, int, int> OnHealthPctChange = delegate { };
@@ -142,8 +144,14 @@ public class Character : MonoBehaviour
             tile.SetTopMaterial(_tileManager.PathTileMaterial);
             yield return MoveTo(tile.PreviousMoveTilesList[i].Position, MovingSpeed);
         }
-        
-        StartCoroutine(MoveTo(tile.Position, MovingSpeed));
+
+        Vector3 spawnPosition = tile.Position;
+        if (tile.IsWater)
+        {
+            spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
+        }
+
+        StartCoroutine(MoveTo(spawnPosition, MovingSpeed));
         CharacterAnimator.SetBool(Move, false);
         tile.SetTopMaterial(_tileManager.PathTileMaterial);
         yield return new WaitForSeconds(WaitToDeselectedTiles);
@@ -157,6 +165,11 @@ public class Character : MonoBehaviour
         }
         HaveMoved = true;
         _gameManager.Wait = false;
+
+        foreach (var waterParticleEffect in _waterParticleEffect)
+        {
+            waterParticleEffect.SetActive(tile.IsWater);
+        }
         
         if (!IsAI && !HaveAttacked && _gameManager.IsController)
         {
@@ -204,6 +217,7 @@ public class Character : MonoBehaviour
         }
         Destroy(gameObjectProjectile, 2);
         gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
+        _CanHit = true;
         Hit();
     }
     
@@ -217,6 +231,7 @@ public class Character : MonoBehaviour
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
+
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
         yield return new WaitForSeconds(0.3f);
         
@@ -322,6 +337,11 @@ public class Character : MonoBehaviour
                 _gameManager.SelectCharacter?.Invoke();
             }
         }
+        
+        foreach (var waterParticleEffect in _waterParticleEffect)
+        {
+            waterParticleEffect.SetActive(tile.IsWater);
+        }
     }
 
     [ContextMenu("RotateTest")]
@@ -374,10 +394,16 @@ public class Character : MonoBehaviour
             }
     }
 
+    private bool _CanHit = false;
+
     //Impact Time when this character hit another gameObject
     //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 
     public void Hit()
     {
+        if(_gameManager.StateAttackCharacter._Attack.IsWaterAttack && !_CanHit) {return;}
+
+        _CanHit = false;
+        
         Debug.Log("Character Hit");
         if (_attackTarget)
         {
@@ -456,15 +482,16 @@ public class Character : MonoBehaviour
         {
             if (HaveCounterAbility)
             {
+                _gameManager.IndexOccupiedTiles = 0;
                 yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false);
 
                 yield return new WaitForSeconds(.15f);
                 bool canAttackIncomingAttacker = false;
-                foreach (var occupiedTile in _gameManager.OccupiedTiles)
+                for (int i = 0; i <  _gameManager.IndexOccupiedTiles; i++)
                 {
-                    if (occupiedTile != null)
+                    if (_gameManager.OccupiedTiles[i] != null)
                     {
-                        if (occupiedTile.CharacterReference != null && occupiedTile.CharacterReference == _IncomingAttacker)
+                        if (_gameManager.OccupiedTiles[i].CharacterReference != null && _gameManager.OccupiedTiles[i].CharacterReference == _IncomingAttacker)
                         {
                             canAttackIncomingAttacker = true;
                             break;
