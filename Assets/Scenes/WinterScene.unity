@@ -1141,7 +1141,7 @@ MonoBehaviour:
   <TileManagerData>k__BackingField: {fileID: 11400000, guid: 68fb57471a95af94e882709613092822, type: 2}
   <MoveTileMaterial>k__BackingField: {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
   <AttackTileMaterial>k__BackingField: {fileID: 2100000, guid: cdec29bca6fda2744aa7fbcc339fee3f, type: 2}
-  <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 657c293799d729944a5cdde2f6dc53ee, type: 2}
+  <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
   <SelectTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
   <WoodTileMaterial>k__BackingField: {fileID: 2100000, guid: d994ec918c35a83469584dd64dc8b17d, type: 2}
   _timePathFinding: 0.05

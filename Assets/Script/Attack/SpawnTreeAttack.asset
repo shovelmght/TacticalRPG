@@ -20,6 +20,7 @@ MonoBehaviour:
   IsLineAttack: 0
   IsDashAttack: 0
   IsWaterAttack: 0
+  IsSpawnSkill: 1
   PreSfx:
     _AudioClip: {fileID: 8300000, guid: a22f0176f24e0fb46abd58b17ac53ce0, type: 3}
     _RelativeVolume: 0.1

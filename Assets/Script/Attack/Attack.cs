@@ -12,6 +12,7 @@ public abstract  class Attack : ScriptableObject
     public bool IsLineAttack;
     public bool IsDashAttack;
     public bool IsWaterAttack;
+    public bool IsSpawnSkill;
     public AudioManager.SfxClass PreSfx;
     public AudioManager.SfxClass SfxAtSpawn;
     public AudioManager.SfxClass ImpactSfx;

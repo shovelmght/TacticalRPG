@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -38,14 +40,17 @@ public class CharacterAI : Character
         //If he can already Attack his enemy
         yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
         Debug.Log("CharacterAI Before ShowPossibleAttack1");
-        _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+        
+        _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+
         yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
         
         if (enemyTile != null)
         {
-            _gameManager.StateAttackCharacter._Attack = _Attack;
+            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+           
             _gameManager.SelectTile(enemyTile);
             _gameManager.SelectTile(enemyTile);
             
@@ -80,13 +85,17 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(enemyTile);
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack2");
-                _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+
+                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
                 {
                     Debug.Log("CharacterAI Before Attack");
-                    _gameManager.StateAttackCharacter._Attack = _Attack;
+                    
+                    _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                    
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.SelectTile(enemyTile);
                
@@ -120,12 +129,14 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(GetNearestTile());
                 yield return new WaitUntil(() => HaveMoved);
                 Debug.Log("CharacterAI Before ShowPossibleAttack3");
-                _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+                
+                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+           
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
                 if (enemyTile != null)
                 {
-                    _gameManager.StateAttackCharacter._Attack = _Attack;
+                    _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.PossibleTileIsFinished = false;
@@ -137,6 +148,37 @@ public class CharacterAI : Character
                         yield break;
                     }
                 }
+
+                if (_SkillAttack.IsSpawnSkill)
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    List<int> possibleSpawnTile = new List<int>();
+                    
+                    for (int i = 0; i < CurrentTile.SideTiles.Length; i++)
+                    {
+                        if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied)
+                        {
+                            possibleSpawnTile.Add(i);
+                        }
+                    }
+
+                    if (possibleSpawnTile.Count > 0)
+                    {
+                        int randomInt = Random.Range(0, possibleSpawnTile.Count);
+                        _gameManager.SelectTile(CurrentTile.SideTiles[randomInt]);
+                    }
+                    else
+                    {
+                        _gameManager.SelectTile(GetNearestTile());
+                    }
+
+                    yield return new WaitForSeconds(4);
+
+                }
+                
+
                 StartCoroutine(_gameManager.EndOfCharacterTurn(0));
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
