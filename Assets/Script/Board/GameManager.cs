@@ -656,6 +656,8 @@ public class GameManager : MonoBehaviour
         {
             _direction = Direction.West;
         }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         StartCoroutine(MoveCamera(TileSelected.GetCameraTransform((int)_direction, IsCameraNear)));
     }
     
@@ -672,6 +674,7 @@ public class GameManager : MonoBehaviour
             _direction = Direction.South;
         }
         
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         StartCoroutine(MoveCamera(TileSelected.GetCameraTransform((int)_direction, IsCameraNear)));
     }
 

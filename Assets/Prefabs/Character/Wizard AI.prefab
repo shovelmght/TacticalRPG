@@ -2491,7 +2491,7 @@ MonoBehaviour:
   ForwardDistanceWhenDie: 0.6
   _Attack: {fileID: 11400000, guid: 03dc98f2935c86748984e0dbd366d846, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 22808b68c98843241b3e7b78fd3c21fc, type: 2}
-  _WaterAttack: {fileID: 0}
+  _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
   _frontHitSuccesChance: 75
   _sideHitSuccesChance: 85
   _behindHitSuccesChance: 95

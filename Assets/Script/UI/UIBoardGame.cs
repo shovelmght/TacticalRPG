@@ -292,7 +292,6 @@ public class UIBoardGame : MonoBehaviour
     {
         if (_boardManager.IsAIChatacterTurn) { return; }
         
-        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraRight();
     }
     
@@ -300,7 +299,6 @@ public class UIBoardGame : MonoBehaviour
     {
         if (_boardManager.IsAIChatacterTurn) { return; }
         
-        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _boardManager.SetRotationCameraLeft();
     }
     

@@ -46,12 +46,45 @@ public class CharacterAI : Character
         yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
+        bool isSkillAttack = false;
+
+        if (enemyTile == null)
+        {
+            isSkillAttack = true;
+            _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+            yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+            enemyTile = CheckIfOccupiedTileAreEnemy();
+            
+            if (enemyTile != null && _SkillAttack.IsDashAttack)
+            {
+                Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                if (enemyTile != null)
+                {
+                    Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                }
+            }
+        }
         
         if (enemyTile != null)
         {
-            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
-           
-            _gameManager.SelectTile(enemyTile);
+            if (isSkillAttack)
+            {
+                _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+            }
+            else
+            {
+                _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+            }
+            _gameManager.IsAIChatacterTurn = false;
+
+            yield return new WaitForSeconds(0.5f);
+            
+            if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+            {
+                _gameManager.SelectTile(enemyTile);
+            }
+            
             _gameManager.SelectTile(enemyTile);
             
             yield return new WaitUntil(() => HaveAttacked);
@@ -90,13 +123,46 @@ public class CharacterAI : Character
 
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
+                
+                isSkillAttack = false;
+
+                if (enemyTile == null)
+                {
+                    isSkillAttack = true;
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    enemyTile = CheckIfOccupiedTileAreEnemy();
+                    
+                    if (enemyTile != null && _SkillAttack.IsDashAttack)
+                    {
+                        Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                        enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                        if (enemyTile != null)
+                        {
+                            Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                        }
+                    }
+                }
+        
                 if (enemyTile != null)
                 {
-                    Debug.Log("CharacterAI Before Attack");
+                    if (isSkillAttack)
+                    {
+                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    }
+                    else
+                    {
+                        _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                    }
+                    _gameManager.IsAIChatacterTurn = false;
+
+                    yield return new WaitForSeconds(0.5f);
                     
-                    _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+                    {
+                        _gameManager.SelectTile(enemyTile);
+                    }
                     
-                    _gameManager.SelectTile(enemyTile);
                     _gameManager.SelectTile(enemyTile);
                
                     Debug.Log("CharacterAI after Attack");
@@ -134,10 +200,46 @@ public class CharacterAI : Character
            
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                 enemyTile = CheckIfOccupiedTileAreEnemy();
+                
+                isSkillAttack = false;
+
+                if (enemyTile == null)
+                {
+                     Debug.Log("CharacterAI Before ShowPossibleAttack4");
+                    isSkillAttack = true;
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    enemyTile = CheckIfOccupiedTileAreEnemy();
+
+                    if (enemyTile != null && _SkillAttack.IsDashAttack)
+                    {
+                        Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                        enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                        if (enemyTile != null)
+                        {
+                            Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                        }
+                    }
+                }
+        
                 if (enemyTile != null)
                 {
-                    _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
-                    _gameManager.SelectTile(enemyTile);
+                    if (isSkillAttack)
+                    {
+                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    }
+                    else
+                    {
+                        _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                    }
+                    _gameManager.IsAIChatacterTurn = false;
+
+                    yield return new WaitForSeconds(0.5f);
+                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+                    {
+                        _gameManager.SelectTile(enemyTile);
+                    }
+                    
                     _gameManager.SelectTile(enemyTile);
                     _gameManager.PossibleTileIsFinished = false;
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -185,6 +287,41 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(GetNearestTile());
             }
         }
+    }
+    
+    
+    // Function to find the tile behind the enemy
+    public Tile FindTileBehind(Tile currentTile, Tile enemyTile)
+    {
+        int directionX = currentTile.CoordX - enemyTile.CoordX;
+        int directionY = currentTile.CoordY - enemyTile.CoordY;
+
+        // Normalize the direction to -1, 0, or 1 (so we move only by one tile in each direction)
+        directionX = directionX != 0 ? (directionX / Mathf.Abs(directionX)) : 0;
+        directionY = directionY != 0 ? (directionY / Mathf.Abs(directionY)) : 0;
+
+        // Apply the opposite direction to the enemy tile to find the tile behind
+        int behindTileX = enemyTile.CoordX - directionX;
+        int behindTileY = enemyTile.CoordY - directionY;
+
+        if (behindTileX < 0 || behindTileY < 0 || behindTileX > _tileManager.TileManagerData.Column - 1 ||
+            behindTileY > _tileManager.TileManagerData.Row - 1)
+        {
+            return null;
+        }
+
+        Tile tileBehind = _tileManager.GetTile(behindTileX, behindTileY);
+
+        
+        for (int i = 0; i < _tileManager.GetSelectedTileLenght(); i++)
+        {
+            if (!_tileManager.GetSelectedTile(i).IsOccupied && _tileManager.GetSelectedTile(i) == tileBehind)
+            {
+                return tileBehind;
+            }
+        }
+        return null;
+        
     }
     
     //Find Nearest tile 

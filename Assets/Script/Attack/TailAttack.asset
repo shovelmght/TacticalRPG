@@ -9,24 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ed48266c48cfd844b1bf8a24a13a84d, type: 3}
-  m_Name: ProjectileAttack
+  m_Script: {fileID: 11500000, guid: f7c5fbd61a01b4a458fa4e2b11154382, type: 3}
+  m_Name: TailAttack
   m_EditorClassIdentifier: 
-  Power: 10
-  AttackLenght: 2
-  AttackName: Needle Tail
+  Power: 20
+  AttackLenght: 1
+  AttackName: Tail Attack
   AttackAnimationName: Attack
-  IsProjectile: 1
+  IsProjectile: 0
+  IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
+  IsSpawnSkill: 0
   PreSfx:
     _AudioClip: {fileID: 0}
     _RelativeVolume: 0
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
   SfxAtSpawn:
-    _AudioClip: {fileID: 8300000, guid: 36493653a67c103459085b4ffd65f87b, type: 3}
-    _RelativeVolume: 0.5
-    _MinRandomPitch: 0.65
-    _MaxRandomPitch: 0.8
+    _AudioClip: {fileID: 0}
+    _RelativeVolume: 0
+    _MinRandomPitch: 0
+    _MaxRandomPitch: 0
   ImpactSfx:
     _AudioClip: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
     _RelativeVolume: 0.25
@@ -37,7 +41,3 @@ MonoBehaviour:
     _RelativeVolume: 0.2
     _MinRandomPitch: 0.9
     _MaxRandomPitch: 1.1
-  _ProjectilePrefab: {fileID: 5575048724471938769, guid: 3c8d44ed16f3ae94799128a89571c9d4, type: 3}
-  _SpawnProjectileDelay: 0.5
-  _HeightGabToAdd: 0.5
-  _MovementSpeed: 10

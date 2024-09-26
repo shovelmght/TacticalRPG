@@ -400,7 +400,7 @@ public class Character : MonoBehaviour
     //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 
     public void Hit()
     {
-        if(_gameManager.StateAttackCharacter._Attack.IsWaterAttack && !_CanHit) {return;}
+        if(_gameManager.StateAttackCharacter._Attack.IsWaterAttack && !_CanHit && !_isCounterAttack) {return;}
 
         _CanHit = false;
         
@@ -540,18 +540,18 @@ public class Character : MonoBehaviour
     
     private IEnumerator Vanish()
     {
-        Character tempCurrentCharacter = _gameManager.CurrentCharacter;
+        bool isCharacterTurn = _gameManager.CurrentCharacter == this;
         _gameManager.RemoveCharacter(this);
         CharacterAnimator.SetTrigger(Die);
         yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
         CurrentTile.ActivateFloorParticleSystem();
         StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
-        yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, DyingMoveSpeed));
+        yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, 0.25f));
         _gameManager.Wait = false;
 
         yield return MoveTo(transform.position + Vector3.down * DownDistanceWhenDie,DyingMoveSpeed);
         
-        if (!IsAI == tempCurrentCharacter == this)
+        if (!IsAI && isCharacterTurn)
         {
             Debug.Log("Character _gameManager.CurrentCharacter == this");
             _gameManager.NextCharacterTurn();

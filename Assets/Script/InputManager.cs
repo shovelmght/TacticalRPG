@@ -453,29 +453,31 @@ public class InputManager : MonoBehaviour
     
     private void RotateCameraRight()
     {
+        _gameManager.IsController = true;
         if (_gameManager.IsAIChatacterTurn) { return; }
         
         if (_NextSelectableCharaterSpawn.gameObject.activeInHierarchy)
         {
             _NextSelectableCharaterSpawn.onClick.Invoke();
         }
-        _gameManager.IsController = true;
-        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
-        _gameManager.SetRotationCameraRight();
+        else
+        {
+            _gameManager.SetRotationCameraRight();
+        }
     }
     
     private void RotateCameraLeft()
     {
+        _gameManager.IsController = true;
         if (_gameManager.IsAIChatacterTurn) { return; }
-        
+
         if (_PreviousSelectableCharaterSpawn.gameObject.activeInHierarchy)
         {
             _PreviousSelectableCharaterSpawn.onClick.Invoke();
-            return;
         }
-        
-        _gameManager.IsController = true;
-        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
-        _gameManager.SetRotationCameraLeft();
+        else
+        {
+            _gameManager.SetRotationCameraLeft();
+        }
     }
 }

@@ -25,7 +25,10 @@ public class CharacterSelectable : MonoBehaviour
         {
             return;
         }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _CurrentCharacterIndex++;
+        
         if (_CurrentCharacterIndex > _PlayerDataCharacterSpawner.DataSpawn.Count - 1)
         {
             _CurrentCharacterIndex = 0;
@@ -49,7 +52,10 @@ public class CharacterSelectable : MonoBehaviour
         {
             return;
         }
+        
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         _CurrentCharacterIndex--;
+        
         if (_CurrentCharacterIndex < 0)
         {
             _CurrentCharacterIndex = _PlayerDataCharacterSpawner.DataSpawn.Count - 1;

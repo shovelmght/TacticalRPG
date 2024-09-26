@@ -3648,6 +3648,10 @@ PrefabInstance:
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _Attack
       value: 
+      objectReference: {fileID: 11400000, guid: 511dca8cba039524bb383c0bfa380eeb, type: 2}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _SkillAttack
+      value: 
       objectReference: {fileID: 11400000, guid: 4173e1585cd4cf2459a03a6dfbd15d04, type: 2}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: CharacterAnimator
