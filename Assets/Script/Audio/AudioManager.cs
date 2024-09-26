@@ -19,6 +19,8 @@ public class AudioManager : MonoBehaviour
     public SfxClass _ClickSfx;
     public SfxClass _StartGameGuitSfx;
     public SfxClass _SpawnCharacter;
+    public SfxClass _GameIsOver;
+    public SfxClass _GameIsOverMoveTxt;
     public static AudioManager _Instance { get; private set; } // Singleton instance
 
     private void Awake()

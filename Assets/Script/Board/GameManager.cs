@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private Animator _ZommEffectAnimator;
+    [SerializeField] private GameObject _WinLooseAnimator;
+    [SerializeField] private TMP_Text _WinLooseText;
     public List<DataCharacterSpawner> CharacterAIData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
     public GameObject SquirePrefab;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
     public  StateTurnCharacter StateTurnCharacter { get;  set; }
     public  StateNavigation StateNavigation { get;  set; }
     public bool NeedResetTiles { get; set; }
+    public bool _GameIsFinish{ get; private set; }
     public bool CameraIsMoving { get; private set; }
     public bool IsCameraNear { get; set ; }
     public bool MenuIsOpen { get; set; } = false;
@@ -394,7 +398,62 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false));
         CurrentState = StateTurnCharacter;
     }
+
+
     
+
+    private IEnumerator CheckWinCondition()
+    {
+        int team = 0;
+
+        bool team1IsAlreadyCount = false;
+        bool team2IsAlreadyCount = false;
+        bool team3IsAlreadyCount = false;
+        
+        foreach (var character in CharacterList)
+        {
+            if (!team1IsAlreadyCount && character.CurrentTeam == Character.Team.Team1)
+            {
+                team1IsAlreadyCount = true;
+                team++;
+            }
+            else if (!team2IsAlreadyCount && character.CurrentTeam == Character.Team.Team2)
+            {
+                team2IsAlreadyCount = true;
+                team++;
+            }
+            else if (!team3IsAlreadyCount && character.CurrentTeam == Character.Team.Team3)
+            {
+                team3IsAlreadyCount = true;
+                team++;
+            }
+        }
+
+        if (team > 1)
+        {
+            yield break;
+        }
+
+        yield return new WaitForSeconds(0.25f);
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
+        yield return new WaitForSeconds(0.25f);
+        if (CharacterList[0].CurrentTeam != Character.Team.Team1)
+        {
+            _WinLooseText.text = "You Lost";
+        }
+        _WinLooseAnimator.SetActive(true);
+        Time.timeScale = 0.2f;
+        _GameIsFinish = true;
+        
+        
+        
+        yield return new WaitForSeconds(0.3f);
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+        yield return new WaitForSeconds(0.5f);
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+        
+    }
+
     //Go to next character turn
     public void NextCharacterTurn()
     {
@@ -413,7 +472,7 @@ public class GameManager : MonoBehaviour
             ReduceCharacterTimeRemaining();
             CurrentCharacterTurn = CheckCharacterTime();
         }
-        
+
         //CameraIsMoving = true;
         
         if (CurrentCharacter)
@@ -687,6 +746,8 @@ public class GameManager : MonoBehaviour
         }
         character.CurrentTile.IsOccupied = false;
         CharacterList.Remove(character);
+
+        StartCoroutine(CheckWinCondition());
     }
 
     private Vector3 SetEnemiesDirection()

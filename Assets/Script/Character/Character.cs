@@ -87,7 +87,7 @@ public class Character : MonoBehaviour
     public GetAttackDirection.AttackDirection _attackDirection;
     public Character _attackTarget;
 
-
+    private bool _CanHit = false;
     private bool _turn;
     public bool _isCounterAttack;
     private const float ROATION_TIME = 1;
@@ -375,6 +375,8 @@ public class Character : MonoBehaviour
 
     private void IsAttacked(int damage, bool isAcounterAttack)
     {
+        Time.timeScale = 0.5f;
+        Invoke(nameof(ResetTimeScale), 0.2f);
         _gameManager.StartCinemachineImpulseSource();
         StartCinemachineImpulseSource();
         Debug.Log("Character IsAttacked Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
@@ -394,7 +396,14 @@ public class Character : MonoBehaviour
             }
     }
 
-    private bool _CanHit = false;
+    private void ResetTimeScale()
+    {
+        if (!_gameManager._GameIsFinish)
+        {
+            Time.timeScale = 1f;
+        }
+        
+    }
 
     //Impact Time when this character hit another gameObject
     //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 

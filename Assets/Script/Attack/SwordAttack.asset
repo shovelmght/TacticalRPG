@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c5fbd61a01b4a458fa4e2b11154382, type: 3}
   m_Name: SwordAttack
   m_EditorClassIdentifier: 
-  Power: 20
+  Power: 200
   AttackLenght: 1
   AttackName: Sword
   AttackAnimationName: Attack
   IsProjectile: 0
   IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
+  IsSpawnSkill: 0
   PreSfx:
     _AudioClip: {fileID: 0}
     _RelativeVolume: 0

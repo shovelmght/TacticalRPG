@@ -109,6 +109,7 @@ public class Tile
 
     public void SetTopMaterial(Material material)
     {
+        if (GameManager.Instance._GameIsFinish) { return; }
         foreach (var meshRenderer in MeshRenderer)
         {
             var materials = meshRenderer.materials;

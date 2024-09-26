@@ -146,6 +146,7 @@ public class TilesManager: MonoBehaviour
     
     public IEnumerator GetMoveTiles(int numberOfTimes, Tile previousTile, Tile currentTile)
     {
+        if (_gameManager._GameIsFinish) { yield break; }
         //Debug.Log("0");
         if (previousTile != null)
         {
@@ -227,6 +228,8 @@ public class TilesManager: MonoBehaviour
 
     public IEnumerator GetAttackTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICHeck)
     {
+        if (_gameManager._GameIsFinish) { yield break; }
+        
         if (!isAICHeck)
         {
             if (previousTile != null)
