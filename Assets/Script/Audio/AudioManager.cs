@@ -69,6 +69,11 @@ public class AudioManager : MonoBehaviour
         poolObject._GameObject.SetActive(false);
     }
 
+    public void SpawnSelectSfx()
+    {
+        SpawnSound(_ClickSfx);
+    }
+
     [Serializable]
     public class AudioPoolObject
     {

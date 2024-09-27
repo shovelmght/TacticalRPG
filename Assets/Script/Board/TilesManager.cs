@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 public class TilesManager: MonoBehaviour
 {
     [field: SerializeField] public TileManagerData TileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] RandomTileManagerData{ get; private set; }
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
     [field: SerializeField] public Material AttackTileMaterial { get; private set; }
     [field: SerializeField] public Material PathTileMaterial { get; private set; }
@@ -64,12 +66,18 @@ public class TilesManager: MonoBehaviour
         {
             Instance = this;
         }
+        
+        if (RandomTileManagerData.Length > 0)
+        {
+            TileManagerData = RandomTileManagerData[Random.Range(0, RandomTileManagerData.Length)];
+        }
     }
 
     private void Update()
     {
         _offsetMaterialWater.y += _waterSpeed * Time.deltaTime;
-       TileManagerData.WaterTileMaterial.mainTextureOffset = _offsetMaterialWater;
+
+        TileManagerData.WaterTileMaterial.mainTextureOffset = _offsetMaterialWater;
        TileManagerData.WaterfallTileMaterial.mainTextureOffset = _offsetMaterialWater * OFFSET_WATERFALL_SPEED;
     }
 

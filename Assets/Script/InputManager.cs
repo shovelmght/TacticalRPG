@@ -80,7 +80,7 @@ public class InputManager : MonoBehaviour
     {
         if (_gameManager.IsAIChatacterTurn) { return; }
         
-        if (_gameManager.MenuIsOpen)
+        if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
             bool oneIsSelected = false;
             foreach (var button in _ButtonsCanBeSelect)
@@ -165,7 +165,7 @@ public class InputManager : MonoBehaviour
     {
         if (_gameManager.IsAIChatacterTurn) { return; }
         
-        if (_gameManager.MenuIsOpen)
+        if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
             bool oneIsSelected = false;
             foreach (var button in _ButtonsCanBeSelect)

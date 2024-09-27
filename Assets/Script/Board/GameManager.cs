@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
     [field: SerializeField] public  int MaxCharacterPlayerCanBePlace { get; private set; }
     [field: SerializeField] public float CameraSpeed { get; private set; }
+    
+    public bool _IsStartScene;
 
     public List<Character> CharacterList = new List<Character>();
     public Tile TileSelected { get;  set; } = null;
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
     public  StateTurnCharacter StateTurnCharacter { get;  set; }
     public  StateNavigation StateNavigation { get;  set; }
     public bool NeedResetTiles { get; set; }
+    
     public bool _GameIsFinish{ get; private set; }
     public bool CameraIsMoving { get; private set; }
     public bool IsCameraNear { get; set ; }
@@ -152,6 +155,11 @@ public class GameManager : MonoBehaviour
         //ArrowsDirection.SetActive(false);
         _enemiesDirection = SetEnemiesDirection();
         yield return _tileManager.SetBoardTiles();
+
+        if (_IsStartScene)
+        {
+            yield break;
+        }
         
         foreach (var characterSpawner in CharacterAIData)
         {
@@ -281,7 +289,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectTile(Tile tile)
     {
-        if (_wait) {return;}
+        if (_wait || _IsStartScene) {return;}
         
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         TilePreSelected = tile;
@@ -360,6 +368,7 @@ public class GameManager : MonoBehaviour
         CurrentState = StateMoveCharacter;
     }
     
+    
     //Select with color possible attack tile
     public void ShowPossibleAttack(Tile tile, bool isAICheck, Attack attack)
     {
@@ -390,6 +399,7 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    
 
     //Select with color possible direction (end character turn) tile
     private void ShowPossibleTileDirection(Tile tile)
@@ -398,8 +408,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false));
         CurrentState = StateTurnCharacter;
     }
-
-
     
 
     private IEnumerator CheckWinCondition()

@@ -13,15 +13,29 @@ public class CheckIfButtonIsSelect : MonoBehaviour, ISelectHandler, IDeselectHan
     public void OnSelect(BaseEventData eventData)
     {
         _IsSelected = true;
-        _BackgroundImage.color = _ColorHighlight;
-        _Text.color = _ColorHighlight;
+        if (_BackgroundImage != null)
+        {
+            _BackgroundImage.color = _ColorHighlight;
+        }
+
+        if (_Text != null)
+        {
+            _Text.color = _ColorHighlight;
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         _IsSelected = false;
-        _BackgroundImage.color = _StartColor;
-        _Text.color = _StartColor;
+        if (_BackgroundImage != null)
+        {
+            _BackgroundImage.color = _StartColor;
+        }
+
+        if (_Text != null)
+        {
+            _Text.color = _StartColor;
+        }
     }
 
     private void OnDisable()
