@@ -223,6 +223,7 @@ public class UIBoardGame : MonoBehaviour
 
     private void ShowUICharacter()
     {
+        if(GameManager.Instance._IsStartScene) {return;}
         ReactivateUICharacterButton();
         Animator.SetBool(Open, true);
         GameManager.Instance.MenuIsOpen = true;

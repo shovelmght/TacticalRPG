@@ -426,10 +426,26 @@ public class InputManager : MonoBehaviour
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
     }
+
+    [SerializeField] private Button[] _BackButtons;
     
     private void Back()
     {
         if (_gameManager.IsAIChatacterTurn) { return; }
+
+        if (_gameManager._IsStartScene)
+        {
+            foreach (var backButtons in _BackButtons)
+            {
+                if (backButtons.gameObject.activeInHierarchy)
+                {
+                    backButtons.onClick.Invoke();
+                    break;
+                }
+            }
+            
+            return;
+        }
         
         if (!_gameManager.MenuIsOpen)
         {

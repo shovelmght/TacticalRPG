@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,6 +11,27 @@ public class CheckIfButtonIsSelect : MonoBehaviour, ISelectHandler, IDeselectHan
     [SerializeField] private Text _Text;
     [SerializeField] private Color _StartColor;
     [SerializeField] private Color _ColorHighlight;
+    [SerializeField] private bool _SelectButtonOnStart;
+
+    private void OnEnable()
+    {
+        if (GameManager.Instance.IsController && _SelectButtonOnStart)
+        {
+            Button button = GetComponent<Button>();
+            if (button != null)
+            {
+                button.Select();
+                return;
+            }
+            
+            Slider slider = GetComponent<Slider>();
+            if (slider != null)
+            {
+                slider.Select();
+            }
+        }
+    }
+
     public void OnSelect(BaseEventData eventData)
     {
         _IsSelected = true;

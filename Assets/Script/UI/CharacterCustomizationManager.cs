@@ -15,6 +15,8 @@ public class CharacterCustomizationManager : MonoBehaviour
     [SerializeField] private TMP_Text _Name;
     [SerializeField] private TMP_InputField _InputField;
     [SerializeField] private GameObject _VirtualKeyboard;
+    [SerializeField] private GameObject[] _GameObjectToDeactivate;
+    [SerializeField] private Animator _Animator;
     private int _IndexMaterial;
    
     void Start()
@@ -22,7 +24,10 @@ public class CharacterCustomizationManager : MonoBehaviour
         _ChangeNameButton.onClick.AddListener(OnChangeNameButtonPress);
         _LeftArrowColor.onClick.AddListener(NextColor);
         _RightArrowColor.onClick.AddListener(NextPrevious);
-
+    }
+    
+    void OnEnable()
+    {
         if (GameManager.Instance.IsController)
         {
             _ChangeNameButton.Select();
@@ -42,7 +47,26 @@ public class CharacterCustomizationManager : MonoBehaviour
         AudioManager._Instance.SpawnSound(AudioManager._Instance._ClickSfx);
         if (GameManager.Instance.IsController)
         {
-            _VirtualKeyboard.SetActive(true);
+            if (_VirtualKeyboard.activeInHierarchy)
+            {
+                _Animator.enabled = true;
+                foreach (var gameObjectToDeactivate in _GameObjectToDeactivate)
+                {
+                    gameObjectToDeactivate.SetActive(true);
+                }
+        
+                _VirtualKeyboard.SetActive(false);
+            }
+            else
+            {
+                _Animator.enabled = false;
+                foreach (var gameObjectToDeactivate in _GameObjectToDeactivate)
+                {
+                    gameObjectToDeactivate.SetActive(false);
+                }
+                _VirtualKeyboard.SetActive(true);
+            }
+            
         }
         else
         {
@@ -50,8 +74,6 @@ public class CharacterCustomizationManager : MonoBehaviour
             _InputField.Select();
         }
 
-        
-        
     }
     
     private void NextColor()
