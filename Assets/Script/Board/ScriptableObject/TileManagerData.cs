@@ -19,6 +19,7 @@ public class TileManagerData : ScriptableObject
     [field: SerializeField] public GameObject EmptyTileNormalPrefab{ get; private set; } 
     [field: SerializeField] public int BoardTileHeight{ get; private set; } 
     [field: SerializeField] public GameObject TilePrefab{ get; private set; } 
+    [field: SerializeField] public GameObject SecondTilePrefab{ get; private set; } 
     [field: SerializeField] public GameObject EmptyTileMudPrefab{ get; private set; }
     [field: SerializeField] public GameObject BridgeTilePrefab{ get; private set; } 
     [field: SerializeField] public GameObject BridgeTile4SidePrefab{ get; private set; } 

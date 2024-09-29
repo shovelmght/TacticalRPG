@@ -175,6 +175,11 @@ public class Character : MonoBehaviour
         {
             _gameManager.SelectCharacter?.Invoke();
         }
+
+        if (_gameManager._IsMapScene)
+        {
+            _gameManager.ShowPossibleMapMove(tile);
+        }
     }
 
     private IEnumerator MoveTo(Vector3 destination, float speed)

@@ -21,6 +21,8 @@ public class Tile
     public int WaterLenghtEstWest { get;  set; }
     public Tile[] SideTiles { get; }
     public Tile[] DiagonalSideTiles { get; }
+    
+    public MapTilesManager MapTilesManager { get;  set; }
 
     private int _diagonalSideTileIndex = 0;
     private Transform[] _cameraNearTransform = new Transform[4];
@@ -33,7 +35,7 @@ public class Tile
     private const int CHILD_INDEX_LOD2 = 10;
     private const int CHILD_INDEX_LOD3 = 11;
     
-    public Tile( TileData tileData, GameObject gameObject, int coordX, int coordY, Vector3 position, float height)
+    public Tile( TileData tileData, GameObject gameObject, int coordX, int coordY, Vector3 position, float height, MapTilesManager mapTilesManager)
     {
         _tileData = tileData;
         CurrentGameObject = gameObject;
@@ -52,6 +54,12 @@ public class Tile
         _floorParticleSystem = gameObject.transform.GetChild(CHILD_INDEX_FLOOR_PARTICLE).GetComponent<ParticleSystem>();
         SideTiles = new Tile[4];
         DiagonalSideTiles = new Tile[4];
+        if (mapTilesManager != null)
+        {
+            MapTilesManager = mapTilesManager;
+        }
+        
+        
         if (height > 0)
         {
             Height++;
@@ -156,46 +164,94 @@ public class Tile
 
     public void SetSideTiles()
     {
-        TilesManager tilesManager = TilesManager.Instance;
-        if (CoordX <  tilesManager.TileManagerData.Column - 1)
+        if (MapTilesManager != null)
         {
-            SideTiles[(int)CardinalPoint.Orientation.North] = tilesManager.GetTile(CoordX + 1, CoordY);
-        }
+            if (CoordX <  MapTilesManager.TileManagerData.Column - 1)
+            {
+                SideTiles[(int)CardinalPoint.Orientation.North] = MapTilesManager.GetTile(CoordX + 1, CoordY);
+            }
         
-        if (CoordX > 0)
-        { 
-            SideTiles[(int)CardinalPoint.Orientation.South] = tilesManager.GetTile(CoordX - 1 , CoordY);
+            if (CoordX > 0)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.South] = MapTilesManager.GetTile(CoordX - 1 , CoordY);
+            }
+            if (CoordY > 0)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.West] = MapTilesManager.GetTile(CoordX , CoordY - 1);
+            }
+            if (CoordY < MapTilesManager.TileManagerData.Row - 1)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.Est] = MapTilesManager.GetTile(CoordX , CoordY + 1);
+            }
         }
-        if (CoordY > 0)
-        { 
-            SideTiles[(int)CardinalPoint.Orientation.West] = tilesManager.GetTile(CoordX , CoordY - 1);
+        else
+        {
+            TilesManager tilesManager = TilesManager.Instance;
+            if (CoordX <  tilesManager.TileManagerData.Column - 1)
+            {
+                SideTiles[(int)CardinalPoint.Orientation.North] = tilesManager.GetTile(CoordX + 1, CoordY);
+            }
+        
+            if (CoordX > 0)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.South] = tilesManager.GetTile(CoordX - 1 , CoordY);
+            }
+            if (CoordY > 0)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.West] = tilesManager.GetTile(CoordX , CoordY - 1);
+            }
+            if (CoordY < tilesManager.TileManagerData.Row - 1)
+            { 
+                SideTiles[(int)CardinalPoint.Orientation.Est] = tilesManager.GetTile(CoordX , CoordY + 1);
+            }
         }
-        if (CoordY < tilesManager.TileManagerData.Row - 1)
-        { 
-            SideTiles[(int)CardinalPoint.Orientation.Est] = tilesManager.GetTile(CoordX , CoordY + 1);
-        }
+
     }
     
     public void SetDiagonalSideTiles()
     {
-        TilesManager tilesManager = TilesManager.Instance;
-        if (CoordX <  tilesManager.TileManagerData.Column - 1 && CoordY > 0)
+        if (MapTilesManager != null)
         {
-            DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthEst] = tilesManager.GetTile(CoordX + 1, CoordY - 1);
-        }
+            if (CoordX <  MapTilesManager.TileManagerData.Column - 1 && CoordY > 0)
+            {
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthEst] = MapTilesManager.GetTile(CoordX + 1, CoordY - 1);
+            }
         
-        if (CoordX > 0 && CoordY > 0)
-        { 
-            DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthEst] = tilesManager.GetTile(CoordX - 1 , CoordY - 1);
+            if (CoordX > 0 && CoordY > 0)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthEst] = MapTilesManager.GetTile(CoordX - 1 , CoordY - 1);
+            }
+            if (CoordX <  MapTilesManager.TileManagerData.Column - 1 && CoordY < MapTilesManager.TileManagerData.Row - 1)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthWest] = MapTilesManager.GetTile(CoordX + 1 , CoordY + 1);
+            }
+            if (CoordY < MapTilesManager.TileManagerData.Row - 1 && CoordX > 0)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthWest] = MapTilesManager.GetTile(CoordX - 1 , CoordY + 1);
+            }
         }
-        if (CoordX <  tilesManager.TileManagerData.Column - 1 && CoordY < tilesManager.TileManagerData.Row - 1)
-        { 
-            DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthWest] = tilesManager.GetTile(CoordX + 1 , CoordY + 1);
+        else
+        {
+            TilesManager tilesManager = TilesManager.Instance;
+            if (CoordX <  tilesManager.TileManagerData.Column - 1 && CoordY > 0)
+            {
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthEst] = tilesManager.GetTile(CoordX + 1, CoordY - 1);
+            }
+        
+            if (CoordX > 0 && CoordY > 0)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthEst] = tilesManager.GetTile(CoordX - 1 , CoordY - 1);
+            }
+            if (CoordX <  tilesManager.TileManagerData.Column - 1 && CoordY < tilesManager.TileManagerData.Row - 1)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.NorthWest] = tilesManager.GetTile(CoordX + 1 , CoordY + 1);
+            }
+            if (CoordY < tilesManager.TileManagerData.Row - 1 && CoordX > 0)
+            { 
+                DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthWest] = tilesManager.GetTile(CoordX - 1 , CoordY + 1);
+            }
         }
-        if (CoordY < tilesManager.TileManagerData.Row - 1 && CoordX > 0)
-        { 
-            DiagonalSideTiles[(int)CardinalPoint.DiagonalOrientation.SouthWest] = tilesManager.GetTile(CoordX - 1 , CoordY + 1);
-        }
+
     }
 
     private void SetValidSpawnTile()

@@ -22,10 +22,20 @@ public class StateNavigation : State
         {
             tile.CharacterReference.ShowUIPopUpCharacterInfo(false, false);
         }
-   
-        _tilesManager.DeselectTiles();
-        _tilesManager.AddSelectedTile(tile);
-        tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
+
+        if (_gameManager._IsMapScene)
+        {
+            tile.MapTilesManager.DeselectTiles();
+            tile.MapTilesManager.AddSelectedTile(tile);
+            tile.SetTopMaterial(tile.MapTilesManager.MoveTileMaterial);
+        }
+        else
+        {
+            _tilesManager.DeselectTiles();
+            _tilesManager.AddSelectedTile(tile);
+            tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
+        }
+
         _gameManager.TileSelected = tile;
         if (tile.CharacterReference == _gameManager.CurrentCharacterTurn)
         { 

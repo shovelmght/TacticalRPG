@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private TMP_Text _WinLooseText;
     public List<DataCharacterSpawner> CharacterAIData;
+    public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
     public GameObject SquirePrefab;
     public GameObject SquireAIPrefab;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public float CameraSpeed { get; private set; }
     
     public bool _IsStartScene;
+    public bool _IsMapScene;
 
     public List<Character> CharacterList = new List<Character>();
     public Tile TileSelected { get;  set; } = null;
@@ -81,11 +83,18 @@ public class GameManager : MonoBehaviour
         {
             if (value)
             {
-                DeactivateUIButtonCharacter();
+                if (DeactivateUIButtonCharacter != null)
+                {
+                    DeactivateUIButtonCharacter();
+                }
+                
             }
             else
             {
-                ActivateUIButtonCharacter();
+                if (ActivateUIButtonCharacter != null)
+                {
+                    ActivateUIButtonCharacter();
+                }
             }
             _wait = value;
         }
@@ -100,6 +109,15 @@ public class GameManager : MonoBehaviour
     
     private int _characterCount;
     public TilesManager _tileManager;
+    public MapTilesManager _MapTilesManager_Lava;
+    public MapTilesManager _MapTilesManager_Grass;
+    public MapTilesManager _MapTilesManager_Snow;
+    public MapTilesManager _MapTilesManager_Desert;
+    public MapTilesManager _MapTilesManager_Poison;
+    public MapTilesManager _MapTilesManager_Corner1;
+    public MapTilesManager _MapTilesManager_Corner2;
+    public MapTilesManager _MapTilesManager_Corner3;
+    public MapTilesManager _MapTilesManager_Corner4;
     
     private const int MAX_OCCUPIED_TILES = 15; 
     
@@ -154,12 +172,40 @@ public class GameManager : MonoBehaviour
         //ArrowsDirection = Instantiate(ArrowsPrefab, Vector3.zero, Quaternion.identity);
         //ArrowsDirection.SetActive(false);
         _enemiesDirection = SetEnemiesDirection();
-        yield return _tileManager.SetBoardTiles();
+        
 
         if (_IsStartScene)
         {
+            yield return _tileManager.SetBoardTiles();
             yield break;
         }
+
+        if (_IsMapScene)
+        {
+            /*yield return _MapTilesManager_Lava.SetBoardTiles();
+            yield return _MapTilesManager_Grass.SetBoardTiles();
+            yield return _MapTilesManager_Desert.SetBoardTiles();
+            yield return _MapTilesManager_Snow.SetBoardTiles();
+            yield return _MapTilesManager_Poison.SetBoardTiles();*/
+
+            StartCoroutine(_MapTilesManager_Lava.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Grass.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Desert.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Snow.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Poison.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Corner1.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Corner2.SetBoardTiles());
+            StartCoroutine(_MapTilesManager_Corner3.SetBoardTiles());
+            yield return _MapTilesManager_Corner4.SetBoardTiles();
+
+
+            SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);
+            yield return new WaitForSeconds(3);
+            ShowPossibleMapMove(TileSelected);
+            yield break;
+        }
+
+        yield return _tileManager.SetBoardTiles();
         
         foreach (var characterSpawner in CharacterAIData)
         {
@@ -214,7 +260,7 @@ public class GameManager : MonoBehaviour
         GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
         character.transform.Rotate(rotation);
         _characterCount++;
-        character.name = "Character" + _characterCount;
+        character.name = dataCharacterSpawner.Name;
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
         foreach (var waterParticleEffect in characterReference._waterParticleEffect)
@@ -233,6 +279,37 @@ public class GameManager : MonoBehaviour
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         return true;
+    }
+    
+    public void SpawnMapCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
+    {
+        if (tile.IsOccupied)
+        {
+            foreach (var sideTile in tile.SideTiles)
+            {
+                if (sideTile != null && sideTile.IsOccupied)
+                {
+                    tile = sideTile;
+                }
+            }
+        }
+
+        Vector3 spawnPosition = tile.Position;
+        if (tile.IsWater)
+        {
+            spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
+        }
+
+        GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
+        character.transform.Rotate(rotation);
+        character.name = dataCharacterSpawner.Name;
+        Character characterReference = character.GetComponent<Character>();
+        characterReference.CurrentTile = tile;
+        tile.SetCharacter(characterReference);
+        CurrentCharacter = characterReference;
+        CurrentState = StateMoveCharacter;
+        TileSelected = tile;
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
     }
 
     public GameObject InstantiateCharacter(DataCharacterSpawner.CharactersPrefab charactersPrefab, Vector3 position)
@@ -283,7 +360,18 @@ public class GameManager : MonoBehaviour
     public void SelectTile(GameObject gameObjectTile)
     {
         if (_wait) {return;}
-        Tile tile = _tileManager.GetTile(gameObjectTile);
+
+        Tile tile = null;
+        
+        if (_IsMapScene)
+        {
+            tile = CurrentCharacter.CurrentTile.MapTilesManager.GetTile(gameObjectTile);
+        }
+        else
+        {
+            tile = _tileManager.GetTile(gameObjectTile);
+        }
+      
         SelectTile(tile);
     }
 
@@ -302,11 +390,27 @@ public class GameManager : MonoBehaviour
             { 
                 CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
             }
-            _tileManager.DeselectTiles();
-            _tileManager.AddSelectedTile(tile);
+
+            if (_IsMapScene)
+            {
+                TileSelected.MapTilesManager.DeselectTiles();
+                TileSelected.MapTilesManager.AddSelectedTile(tile);
             
-            tile.SetTopMaterial(_tileManager.MoveTileMaterial);
-            RemoveUICharacter();
+                tile.SetTopMaterial(TileSelected.MapTilesManager.MoveTileMaterial);
+            }
+            else
+            {
+                _tileManager.DeselectTiles();
+                _tileManager.AddSelectedTile(tile);
+            
+                tile.SetTopMaterial(_tileManager.MoveTileMaterial);
+            }
+
+            if (RemoveUICharacter != null)
+            {
+                RemoveUICharacter();
+            }
+            
             CurrentState = StateNavigation;
             TileSelected = tile;
             StateAttackCharacter.ResetAttackData();
@@ -365,6 +469,22 @@ public class GameManager : MonoBehaviour
         Debug.Log("Before GetMoveTiles1");
         _tileManager.BranchPath = 0;
         StartCoroutine(_tileManager.GetMoveTiles(CurrentCharacter.MovementPoint, null, tile));
+        CurrentState = StateMoveCharacter;
+    }
+    
+    public void ShowPossibleMapMove(Tile tile)
+    {
+        StateAttackCharacter.ResetAttackData();
+        /*if (ArrowsDirection.activeSelf)
+        {
+            ArrowsDirection.SetActive(false);
+        }*/
+        IndexOccupiedTiles = 0;
+        PossibleTileIsFinished = false;
+        tile.MapTilesManager.DeselectTiles();
+        Debug.Log("Before GetMoveTiles1");
+        tile.MapTilesManager.BranchPath = 0;
+        StartCoroutine(tile.MapTilesManager.GetMoveTiles(1, null, tile));
         CurrentState = StateMoveCharacter;
     }
     

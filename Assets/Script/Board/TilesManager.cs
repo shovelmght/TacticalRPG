@@ -107,7 +107,7 @@ public class TilesManager: MonoBehaviour
                 count++;
                 tileGameObject.name = "Cube" + count;
                 
-                _boardTiles[i, j] = new Tile(_tileData, tileGameObject, i, j, tileGameObject.transform.position, height);
+                _boardTiles[i, j] = new Tile(_tileData, tileGameObject, i, j, tileGameObject.transform.position, height, null);
             }
         }
 
@@ -122,7 +122,10 @@ public class TilesManager: MonoBehaviour
         yield return SpawnDecors();
         yield return SpawnSmallRocks(); 
         yield return MakeBridges();
-        yield return SetBackGroundTile();
+        if (!_gameManager._IsMapScene)
+        {
+            yield return SetBackGroundTile();
+        }
     }
 
     public void AddSelectedTile(Tile tiles)
