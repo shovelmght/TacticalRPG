@@ -141,19 +141,47 @@ public class Character : MonoBehaviour
     
         for (int i = 0; i < tile.GetPreviousMoveTileLenght(); i++)
         {
-            tile.SetTopMaterial(_tileManager.PathTileMaterial);
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                tile.SetTopMaterial(_tileManager.PathTileMaterial);
+            }
+            
             yield return MoveTo(tile.PreviousMoveTilesList[i].Position, MovingSpeed);
         }
 
         Vector3 spawnPosition = tile.Position;
         if (tile.IsWater)
         {
-            spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
+            if (_gameManager._IsMapScene)
+            {
+                spawnPosition = tile.Position + new Vector3(0, 0.3f, 0);
+            }
+            else
+            {
+                spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);  
+            }
+        }
+        else if (_gameManager._IsMapScene)
+        {
+            spawnPosition = tile.Position + new Vector3(0, 0.2f, 0);  
         }
 
         StartCoroutine(MoveTo(spawnPosition, MovingSpeed));
         CharacterAnimator.SetBool(Move, false);
-        tile.SetTopMaterial(_tileManager.PathTileMaterial);
+
+        if (_gameManager._IsMapScene && _gameManager.IsController)
+        {
+            
+        }
+        else
+        {
+            tile.SetTopMaterial(_tileManager.PathTileMaterial);
+        }
+       
         yield return new WaitForSeconds(WaitToDeselectedTiles);
   
         _tileManager.DeselectTiles();
@@ -359,6 +387,9 @@ public class Character : MonoBehaviour
     {
         _turn = true;
         Invoke(nameof(StopTurn), ROATION_TIME);
+        Vector3 relativePosEnd = destinationTile - transform.position;
+        relativePosEnd = new Vector3(relativePosEnd.x, 0, relativePosEnd.z);
+        Quaternion toRotationEnd = Quaternion.LookRotation(relativePosEnd);
         while (_turn)
         {
             Vector3 relativePos = destinationTile - transform.position;
@@ -371,6 +402,9 @@ public class Character : MonoBehaviour
             }
             yield return null;
         }
+        
+
+        transform.rotation = toRotationEnd;
     }
 
     private void StopTurn()

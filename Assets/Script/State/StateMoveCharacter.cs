@@ -23,8 +23,16 @@ public class StateMoveCharacter : State
             {
                 _tilesManager.AddSelectedTile(tile);
             }
+
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                tile.SetTopMaterial(_tilesManager.MoveTileMaterial); 
+            }
             
-            tile.SetTopMaterial(_tilesManager.MoveTileMaterial);
             _gameManager.CurrentState =  _gameManager.StateNavigation;
             _gameManager.NeedResetTiles = false;
             _gameManager.TileSelected = tile;

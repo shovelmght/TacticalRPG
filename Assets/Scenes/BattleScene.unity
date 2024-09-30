@@ -144,6 +144,7 @@ MonoBehaviour:
   _Text: {fileID: 1995457232}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &10913638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1435,6 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <TileManagerData>k__BackingField: {fileID: 11400000, guid: 68fb57471a95af94e882709613092822, type: 2}
+  <RandomTileManagerData>k__BackingField: []
   <MoveTileMaterial>k__BackingField: {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
   <AttackTileMaterial>k__BackingField: {fileID: 2100000, guid: cdec29bca6fda2744aa7fbcc339fee3f, type: 2}
   <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
@@ -1706,9 +1708,11 @@ MonoBehaviour:
   _CinemachineBlendTimeMovementBattle: 1
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
+  _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
+  _MapCharacterData: {fileID: 0}
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   SquireAIPrefab: {fileID: 4328397966154774303, guid: a5b1f13310623f7429b9f6915d142ff4, type: 3}
@@ -1723,10 +1727,21 @@ MonoBehaviour:
   <MaxDistanceEnemiesSpawn>k__BackingField: 4
   <MaxCharacterPlayerCanBePlace>k__BackingField: 3
   <CameraSpeed>k__BackingField: 0.3
+  _IsStartScene: 0
+  _IsMapScene: 0
   CharacterList: []
   _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
+  _MapTilesManager_Lava: {fileID: 0}
+  _MapTilesManager_Grass: {fileID: 0}
+  _MapTilesManager_Snow: {fileID: 0}
+  _MapTilesManager_Desert: {fileID: 0}
+  _MapTilesManager_Poison: {fileID: 0}
+  _MapTilesManager_Corner1: {fileID: 0}
+  _MapTilesManager_Corner2: {fileID: 0}
+  _MapTilesManager_Corner3: {fileID: 0}
+  _MapTilesManager_Corner4: {fileID: 0}
   transformtest: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   _ZoomVCam: {fileID: 158688938}
@@ -2204,6 +2219,7 @@ MonoBehaviour:
   _Text: {fileID: 629702882}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &732804504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3817,6 +3833,7 @@ MonoBehaviour:
   _Text: {fileID: 1211906122}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &1106692269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4306,6 +4323,7 @@ MonoBehaviour:
   _Text: {fileID: 605403858}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &1342667446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4860,6 +4878,7 @@ MonoBehaviour:
   _Text: {fileID: 1169777249}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &1515602591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6328,6 +6347,7 @@ MonoBehaviour:
   _FirstSelecableButton: {fileID: 1106692265}
   _SecondSelecableButton: {fileID: 732804506}
   _TempSelectTileMaterial: {fileID: 0}
+  _BackButtons: []
 --- !u!114 &2038934549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6456,6 +6476,7 @@ MonoBehaviour:
   _Text: {fileID: 871727277}
   _StartColor: {r: 0.09411765, g: 0.078431375, b: 0.078431375, a: 1}
   _ColorHighlight: {r: 0.6509804, g: 0.6509804, b: 0.6509804, a: 1}
+  _SelectButtonOnStart: 0
 --- !u!114 &2051034347
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -161,7 +161,14 @@ public class InputManager : MonoBehaviour
 
                 if (_TempSelectTileMaterial != null)
                 {
-                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    if (_gameManager._IsMapScene && _gameManager.IsController)
+                    {
+                
+                    }
+                    else
+                    {
+                        _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    }
                 }
         
                 _TempSelectTileMaterial = tile.GetTopMaterial();
@@ -182,7 +189,14 @@ public class InputManager : MonoBehaviour
         
         if (_TempSelectTileMaterial != null)
         {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            }
         }
         
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
@@ -283,7 +297,14 @@ public class InputManager : MonoBehaviour
 
                 if (_TempSelectTileMaterial != null)
                 {
-                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    if (_gameManager._IsMapScene && _gameManager.IsController)
+                    {
+                
+                    }
+                    else
+                    {
+                        _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    }
                 }
         
                 _TempSelectTileMaterial = tile.GetTopMaterial();
@@ -304,7 +325,14 @@ public class InputManager : MonoBehaviour
         
         if (_TempSelectTileMaterial != null)
         {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            }
         }
         
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
@@ -406,7 +434,14 @@ public class InputManager : MonoBehaviour
 
                 if (_TempSelectTileMaterial != null)
                 {
-                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    if (_gameManager._IsMapScene && _gameManager.IsController)
+                    {
+                
+                    }
+                    else
+                    {
+                        _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    }
                 }
         
                 _TempSelectTileMaterial = tile.GetTopMaterial();
@@ -427,7 +462,15 @@ public class InputManager : MonoBehaviour
    
         if (_TempSelectTileMaterial != null)
         {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            }
+            
         }
         
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
@@ -530,7 +573,14 @@ public class InputManager : MonoBehaviour
 
                 if (_TempSelectTileMaterial != null)
                 {
-                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    if (_gameManager._IsMapScene && _gameManager.IsController)
+                    {
+                
+                    }
+                    else
+                    {
+                        _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                    }
                 }
         
                 _TempSelectTileMaterial = tile.GetTopMaterial();
@@ -551,7 +601,15 @@ public class InputManager : MonoBehaviour
         
         if (_TempSelectTileMaterial != null)
         {
-            _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            if (_gameManager._IsMapScene && _gameManager.IsController)
+            {
+                
+            }
+            else
+            {
+                _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+            }
+            
         }
         
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();

@@ -211,7 +211,15 @@ public class MapTilesManager: MonoBehaviour
         if (previousTile == null || !currentTile.IsOccupied)
         {
            // Debug.Log("7");
-            currentTile.SetTopMaterial(MoveTileMaterial);
+           if (_gameManager._IsMapScene && _gameManager.IsController)
+           {
+               
+           }
+           else
+           {
+               currentTile.SetTopMaterial(MoveTileMaterial);
+           }
+           
            // Debug.Log("8");
             AddSelectedTile(currentTile);
             currentTile.CanInteract = true;

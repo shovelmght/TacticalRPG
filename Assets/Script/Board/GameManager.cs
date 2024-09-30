@@ -309,6 +309,7 @@ public class GameManager : MonoBehaviour
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
         tile.SetCharacter(characterReference);
+        character.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         CurrentCharacter = characterReference;
         CurrentState = StateMoveCharacter;
         TileSelected = tile;
@@ -487,7 +488,16 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
-        tile.SetTopMaterial(_tileManager.SelectTileMaterial);
+
+        if (_IsMapScene && IsController)
+        {
+            
+        }
+        else
+        {
+            tile.SetTopMaterial(_tileManager.SelectTileMaterial);
+        }
+        
     }
 
     /*public void SelectTileController(Tile tile)
