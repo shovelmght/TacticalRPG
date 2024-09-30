@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
             SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);
             yield return new WaitForSeconds(3);
             ShowPossibleMapMove(TileSelected);
+            TilePreSelected = CurrentCharacter.CurrentTile;
             yield break;
         }
 
@@ -362,10 +363,33 @@ public class GameManager : MonoBehaviour
         if (_wait) {return;}
 
         Tile tile = null;
-        
+
         if (_IsMapScene)
         {
             tile = CurrentCharacter.CurrentTile.MapTilesManager.GetTile(gameObjectTile);
+
+            if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._WestMapTilesManager != null)
+            {
+                tile = CurrentCharacter.CurrentTile.MapTilesManager._WestMapTilesManager.GetTile(gameObjectTile);
+            }
+            if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._EstMapTilesManager != null)
+            {
+                tile = CurrentCharacter.CurrentTile.MapTilesManager._EstMapTilesManager.GetTile(gameObjectTile);
+            }
+            if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._NorthMapTilesManager != null)
+            {
+                tile = CurrentCharacter.CurrentTile.MapTilesManager._NorthMapTilesManager.GetTile(gameObjectTile);
+            }
+            if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._SouthMapTilesManager != null)
+            {
+                tile = CurrentCharacter.CurrentTile.MapTilesManager._SouthMapTilesManager.GetTile(gameObjectTile);
+            }
+        
+
+            if (tile == null || tile == CurrentCharacter.CurrentTile)
+            {
+                return;
+            }
         }
         else
         {
@@ -393,7 +417,42 @@ public class GameManager : MonoBehaviour
 
             if (_IsMapScene)
             {
+                bool isMoveTile = false;
+                for (int i = 0; i < TileSelected.MapTilesManager.GetSelectedTileLenght(); i++)
+                {
+                    if (TileSelected.MapTilesManager.GetSelectedTile(i) == tile)
+                    {
+                        isMoveTile = true;
+                    }
+                }
+
+                if (!isMoveTile)
+                {
+                    return;
+                }
+        
                 TileSelected.MapTilesManager.DeselectTiles();
+                
+                if (TileSelected.MapTilesManager._EstMapTilesManager != null)
+                {
+                    TileSelected.MapTilesManager._EstMapTilesManager.DeselectTiles();
+                }
+
+                if (TileSelected.MapTilesManager._WestMapTilesManager != null)
+                {
+                    TileSelected.MapTilesManager._WestMapTilesManager.DeselectTiles();
+                }
+
+                if (TileSelected.MapTilesManager._SouthMapTilesManager != null)
+                {
+                    TileSelected.MapTilesManager._SouthMapTilesManager.DeselectTiles();
+                }
+
+                if (TileSelected.MapTilesManager._NorthMapTilesManager != null)
+                {
+                    TileSelected.MapTilesManager._NorthMapTilesManager.DeselectTiles();
+                }
+                
                 TileSelected.MapTilesManager.AddSelectedTile(tile);
             
                 tile.SetTopMaterial(TileSelected.MapTilesManager.MoveTileMaterial);
@@ -482,6 +541,25 @@ public class GameManager : MonoBehaviour
         IndexOccupiedTiles = 0;
         PossibleTileIsFinished = false;
         tile.MapTilesManager.DeselectTiles();
+        if (TileSelected.MapTilesManager._EstMapTilesManager != null)
+        {
+            TileSelected.MapTilesManager._EstMapTilesManager.DeselectTiles();
+        }
+
+        if (TileSelected.MapTilesManager._WestMapTilesManager != null)
+        {
+            TileSelected.MapTilesManager._WestMapTilesManager.DeselectTiles();
+        }
+
+        if (TileSelected.MapTilesManager._SouthMapTilesManager != null)
+        {
+            TileSelected.MapTilesManager._SouthMapTilesManager.DeselectTiles();
+        }
+
+        if (TileSelected.MapTilesManager._NorthMapTilesManager != null)
+        {
+            TileSelected.MapTilesManager._NorthMapTilesManager.DeselectTiles();
+        }
         Debug.Log("Before GetMoveTiles1");
         tile.MapTilesManager.BranchPath = 0;
         StartCoroutine(tile.MapTilesManager.GetMoveTiles(1, null, tile));

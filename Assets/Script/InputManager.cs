@@ -157,6 +157,11 @@ public class InputManager : MonoBehaviour
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
         _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
         _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
+
+        if (_gameManager._IsMapScene)
+        {
+            _gameManager.SelectTile(_gameManager.TilePreSelected);
+        }
         
         Debug.Log("_gameManager._direction = " + _gameManager._direction);
     }

@@ -21,6 +21,11 @@ public class MapTilesManager: MonoBehaviour
     [SerializeField] private TileData _tileData;
     [SerializeField] private float _buildingTime;
     [SerializeField] private float _waterSpeed;
+    [SerializeField] private bool _WantBuildingTime;
+    public MapTilesManager _EstMapTilesManager;
+    public MapTilesManager _WestMapTilesManager;
+    public MapTilesManager _NorthMapTilesManager;
+    public MapTilesManager _SouthMapTilesManager;
     
     private Tile[,] _boardTiles;
     private Tile[] _tiles;
@@ -85,7 +90,11 @@ public class MapTilesManager: MonoBehaviour
         {
             for (int j = 0; j < TileManagerData.Row; j++)
             {
-                yield return new WaitForSeconds(_buildingTime);
+                if (_WantBuildingTime)
+                {
+                    yield return new WaitForSeconds(_buildingTime);
+                }
+               
                 float height = 0;
                 if (Random.Range(0f, 100.0f) <= TileManagerData.HeightChance)
                 {
@@ -146,7 +155,7 @@ public class MapTilesManager: MonoBehaviour
         return _tiles[index];
     }
     
-    public int GetSelectedTileLenght ()
+    public int GetSelectedTileLenght()
     {
         return _index;
     }
@@ -215,9 +224,61 @@ public class MapTilesManager: MonoBehaviour
                 {
                     if (sideTile is { CanInteract: false })
                     {
+                        Debug.Log("MapTilesManager :: GetMoveTiles currentTile = " + currentTile.CoordX + " " + currentTile.CoordY);
                         StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, sideTile)) ;
                         //Debug.Log("++branchPath = " + BranchPath);
                         BranchPath++;
+                    }
+                    else if(_gameManager._IsMapScene)
+                    {
+                        if (currentTile.CoordY == 0)
+                        {
+                            Tile tile = GetBorderSideTile(currentTile, GameManager.Direction.West);
+                            
+                            if (tile != null && !tile.IsOccupied)
+                            {
+                                _gameManager.NeedResetTiles = true;
+                                StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, tile)) ;
+                                BranchPath++;
+                            }
+                        }
+                        
+                        if (currentTile.CoordX == 0)
+                        {
+                            Tile tile = GetBorderSideTile(currentTile, GameManager.Direction.North);
+                            
+                            if (tile != null && !tile.IsOccupied)
+                            {
+                                _gameManager.NeedResetTiles = true;
+                                StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, tile)) ;
+                                BranchPath++;
+                            }
+                        }
+                        
+                        if (currentTile.CoordX == TileManagerData.Column -1)
+                        {
+                            Tile tile = GetBorderSideTile(currentTile, GameManager.Direction.South);
+
+                            if (tile != null && !tile.IsOccupied)
+                            {
+                                _gameManager.NeedResetTiles = true;
+                                StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, tile)) ;
+                                BranchPath++;
+                            }
+                        }
+                        
+                        if (currentTile.CoordY == TileManagerData.Row -1)
+                        {
+                            Tile tile = GetBorderSideTile(currentTile, GameManager.Direction.Est);
+                            
+                            if (tile != null && !tile.IsOccupied)
+                            {
+                                _gameManager.NeedResetTiles = true;
+                                StartCoroutine(GetMoveTiles(numberOfTimes - 1, currentTile, tile)) ;
+                                BranchPath++;
+                            }
+                        }
+                        Debug.Log("MapTilesManager :: X GetMoveTiles currentTile = " + currentTile.CoordX + " " + currentTile.CoordY);
                     }
                 }
             }
@@ -242,6 +303,49 @@ public class MapTilesManager: MonoBehaviour
             }
 
         }
+    }
+
+    private Tile GetBorderSideTile(Tile currentTile, GameManager.Direction direction)
+    {
+        if (direction == GameManager.Direction.West)
+        {
+            if (_WestMapTilesManager != null)
+            {
+                Tile tile = _WestMapTilesManager.GetTile(currentTile.CoordX, _WestMapTilesManager.TileManagerData.Column - 1);
+
+                return tile;
+            }
+
+            
+            
+        }
+        else if (direction == GameManager.Direction.Est)
+        {
+            if (_EstMapTilesManager != null)
+            {
+                Tile tile = _EstMapTilesManager.GetTile(currentTile.CoordX, 0);
+                return tile;
+            }
+        }
+        else if (direction == GameManager.Direction.North)
+        {
+            if (_NorthMapTilesManager != null)
+            {
+                Tile tile = _NorthMapTilesManager.GetTile(_NorthMapTilesManager.TileManagerData.Column - 1, currentTile.CoordY);
+                return tile;
+            }
+        }
+        
+        else if (direction == GameManager.Direction.South)
+        {
+            if (_SouthMapTilesManager != null)
+            {
+                Tile tile = _SouthMapTilesManager.GetTile(0, currentTile.CoordY); 
+                return tile;
+            }
+        }
+
+        return null;
     }
     
 
