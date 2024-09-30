@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private Animator _ZommEffectAnimator;
     [SerializeField] private GameObject _WinLooseAnimator;
+    [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
@@ -197,6 +198,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(_MapTilesManager_Corner2.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Corner3.SetBoardTiles());
             yield return _MapTilesManager_Corner4.SetBoardTiles();
+            _LavaWaterPlane.SetActive(true);
 
 
             SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);

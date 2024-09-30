@@ -315,9 +315,6 @@ public class MapTilesManager: MonoBehaviour
 
                 return tile;
             }
-
-            
-            
         }
         else if (direction == GameManager.Direction.Est)
         {
@@ -1097,6 +1094,19 @@ public class MapTilesManager: MonoBehaviour
                     decor.transform.parent = transform;
                 }
             }
+
+            Tile OccupiedTile = GetTile(0, 0);
+            OccupiedTile.IsOccupied = true;
+            OccupiedTile.RemoveMeshRenderers();
+            OccupiedTile = GetTile(0, TileManagerData.Column - 1);
+            OccupiedTile.IsOccupied = true;
+            OccupiedTile.RemoveMeshRenderers();
+            OccupiedTile = GetTile(TileManagerData.Row - 1, 0);
+            OccupiedTile.IsOccupied = true;
+            OccupiedTile.RemoveMeshRenderers();
+            OccupiedTile = GetTile(TileManagerData.Row - 1, TileManagerData.Column - 1);
+            OccupiedTile.IsOccupied = true;
+            OccupiedTile.RemoveMeshRenderers();
         }
         
         private IEnumerator SpawnSmallRocks()

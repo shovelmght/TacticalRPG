@@ -129,6 +129,15 @@ public class Tile
             meshRenderer.materials = materials;
         }
     }
+    
+    public void RemoveMeshRenderers()
+    {
+
+        foreach (var meshRenderer in MeshRenderer)
+        {
+            meshRenderer.enabled = false;
+        }
+    }
 
     public void ResetSetTopMaterial()
     {

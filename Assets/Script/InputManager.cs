@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileDown()
     {
-        if (_gameManager.IsAIChatacterTurn) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
@@ -146,8 +146,39 @@ public class InputManager : MonoBehaviour
         }
         
         _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+        Tile tile = null;
+        
+        if (_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen)
+        {
+            if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex] == null)
+            {
+                tile = GetEndMapTile(_gameManager.TilePreSelected);
 
+                if (tile == null)
+                {
+                    return;
+                }
+
+                if (_TempSelectTileMaterial != null)
+                {
+                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                }
+        
+                _TempSelectTileMaterial = tile.GetTopMaterial();
+                _gameManager.SelectTileController(tile);
+                _gameManager.TilePreSelected = tile;
+                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.SelectTile(_gameManager.TilePreSelected);
+            }
+       
+            return;
+            
+        }
+
+        if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
+        {
+            return;
+        }
         
         if (_TempSelectTileMaterial != null)
         {
@@ -160,6 +191,7 @@ public class InputManager : MonoBehaviour
 
         if (_gameManager._IsMapScene)
         {
+            _gameManager.PossibleTileIsFinished = false;
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
         
@@ -168,7 +200,7 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileUp()
     {
-        if (_gameManager.IsAIChatacterTurn) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
@@ -236,8 +268,40 @@ public class InputManager : MonoBehaviour
         }
         
         _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+        Tile tile = null;
+        
+        if (_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen)
+        {
+            if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex] == null)
+            {
+                tile = GetEndMapTile(_gameManager.TilePreSelected);
+
+                if (tile == null)
+                {
+                    return;
+                }
+
+                if (_TempSelectTileMaterial != null)
+                {
+                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                }
+        
+                _TempSelectTileMaterial = tile.GetTopMaterial();
+                _gameManager.SelectTileController(tile);
+                _gameManager.TilePreSelected = tile;
+                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.SelectTile(_gameManager.TilePreSelected);
+            }
+       
+            return;
+            
+        }
       
+        if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
+        {
+            return;
+        }
+        
         if (_TempSelectTileMaterial != null)
         {
             _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
@@ -248,13 +312,18 @@ public class InputManager : MonoBehaviour
         _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
         _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
 
+        if (_gameManager._IsMapScene)
+        {
+            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.SelectTile(_gameManager.TilePreSelected);
+        }
         
         Debug.Log("_gameManager._direction = " + _gameManager._direction);
     }
 
     private void NavigateControllerTileRight()
     {
-        if (_gameManager.IsAIChatacterTurn) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen)
         {
@@ -322,7 +391,39 @@ public class InputManager : MonoBehaviour
         }
         
         _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+        Tile tile = null;
+        
+        if (_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen)
+        {
+            if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex] == null)
+            {
+                tile = GetEndMapTile(_gameManager.TilePreSelected);
+
+                if (tile == null)
+                {
+                    return;
+                }
+
+                if (_TempSelectTileMaterial != null)
+                {
+                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                }
+        
+                _TempSelectTileMaterial = tile.GetTopMaterial();
+                _gameManager.SelectTileController(tile);
+                _gameManager.TilePreSelected = tile;
+                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.SelectTile(_gameManager.TilePreSelected);
+            }
+       
+            return;
+            
+        }
+        
+        if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
+        {
+            return;
+        }
    
         if (_TempSelectTileMaterial != null)
         {
@@ -333,12 +434,18 @@ public class InputManager : MonoBehaviour
         _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
         _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
         
+        if (_gameManager._IsMapScene)
+        {
+            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.SelectTile(_gameManager.TilePreSelected);
+        }
+        
         Debug.Log("_gameManager._direction = " + _gameManager._direction);
     }
     
     private void NavigateControllerTileLeft()
     {
-        if (_gameManager.IsAIChatacterTurn) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen)
         {
@@ -408,7 +515,39 @@ public class InputManager : MonoBehaviour
         }
         
         _gameManager.IsController = true;
-        if(_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen) {return;}
+
+        Tile tile = null;
+        if (_gameManager.TilePreSelected == null || _gameManager.TilePreSelected.SideTiles[tileIndex] == null || _gameManager.MenuIsOpen)
+        {
+            if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex] == null)
+            {
+                tile = GetEndMapTile(_gameManager.TilePreSelected);
+
+                if (tile == null)
+                {
+                    return;
+                }
+
+                if (_TempSelectTileMaterial != null)
+                {
+                    _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
+                }
+        
+                _TempSelectTileMaterial = tile.GetTopMaterial();
+                _gameManager.SelectTileController(tile);
+                _gameManager.TilePreSelected = tile;
+                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.SelectTile(_gameManager.TilePreSelected);
+            }
+       
+            return;
+            
+        }
+        
+        if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
+        {
+            return;
+        }
         
         if (_TempSelectTileMaterial != null)
         {
@@ -418,9 +557,75 @@ public class InputManager : MonoBehaviour
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
         _gameManager.SelectTileController(_gameManager.TilePreSelected.SideTiles[tileIndex]);
         _gameManager.TilePreSelected = _gameManager.TilePreSelected.SideTiles[tileIndex];
+        
+        if (_gameManager._IsMapScene)
+        {
+          
+            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.SelectTile(_gameManager.TilePreSelected);
+        }
        
         Debug.Log("_gameManager._direction = " + _gameManager._direction);
     }
+
+    private Tile GetEndMapTile(Tile currentTile)
+    {
+         if (currentTile.CoordY == 0)
+         {
+             if (currentTile.MapTilesManager._WestMapTilesManager != null)
+             {
+                 Tile tile = currentTile.MapTilesManager._WestMapTilesManager.GetTile(currentTile.CoordX, currentTile.MapTilesManager._WestMapTilesManager.TileManagerData.Column - 1);
+             
+                 if (tile != null && !tile.IsOccupied)
+                 {
+                     return tile;
+                 }
+             }
+         }
+                        
+         if (currentTile.CoordX == 0)
+         {
+             if (currentTile.MapTilesManager._NorthMapTilesManager != null)
+             {
+                 Tile tile = currentTile.MapTilesManager._NorthMapTilesManager.GetTile(currentTile.MapTilesManager._NorthMapTilesManager.TileManagerData.Column - 1, currentTile.CoordY);
+                 
+                 if (tile != null && !tile.IsOccupied)
+                 {
+                     return tile;
+                 }
+             }
+         }
+                        
+         if (currentTile.CoordX == currentTile.MapTilesManager.TileManagerData.Column -1)
+         {
+             if (currentTile.MapTilesManager._SouthMapTilesManager != null)
+             {
+                 Tile tile = currentTile.MapTilesManager._SouthMapTilesManager.GetTile(0, currentTile.CoordY);
+                 
+                 if (tile != null && !tile.IsOccupied)
+                 {
+                     return tile;
+                 }
+             }
+         }
+                        
+         if (currentTile.CoordY == currentTile.MapTilesManager.TileManagerData.Row -1)
+         {
+             if (currentTile.MapTilesManager._EstMapTilesManager != null)
+             {
+                 Tile tile = currentTile.MapTilesManager._EstMapTilesManager.GetTile(currentTile.CoordX, 0);
+                 
+                 if (tile != null && !tile.IsOccupied)
+                 {
+                     return tile;
+                 }
+             }
+         }
+
+         return null;
+    }
+    
+
     
     private void SelectTile()
     {
