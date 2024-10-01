@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnAttack : Attack
 {
     protected static readonly int Attack = Animator.StringToHash("Attack");
-    [SerializeField] private GameObject TreePrefab;
+    [SerializeField] private GameObject SpawnPrefab;
     
     public override void DoAttack(Character character, Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
@@ -20,7 +20,7 @@ public class SpawnAttack : Attack
         {
             character.CharacterAnimator.SetTrigger(AttackAnimationName);
             tile.IsOccupied = true;
-            character.StartCoroutine(character.SpawnAttack(SfxAtSpawn, TreePrefab, tile));
+            character.StartCoroutine(character.SpawnAttack(SfxAtSpawn, SpawnPrefab, tile));
         }
         
     }

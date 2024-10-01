@@ -95,16 +95,24 @@ public class CharacterAI : Character
                 yield break;
             }
             Debug.Log("CharacterAI Before ShowPossibleMove1");
-            _gameManager.ShowPossibleMove(CurrentTile);
-            yield return new WaitForSeconds(_TimePathFinding);
-            _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght()))); 
-            _gameManager.PossibleTileIsFinished = false;
-            yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-            Debug.Log("CharacterAI Before GetNearestTile1");
-            _gameManager.SelectTile(GetNearestTile());
+
+
+            if (CanMove)
+            {
+                _gameManager.ShowPossibleMove(CurrentTile);
+                yield return new WaitForSeconds(_TimePathFinding);
+                _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght()))); 
+                _gameManager.PossibleTileIsFinished = false;
+                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                Debug.Log("CharacterAI Before GetNearestTile1");
+                _gameManager.SelectTile(GetNearestTile());
+            }
+
         }
         else
         {
+            if (! CanMove) {yield break;}
+
             //Moves towards his enemy
             Debug.Log("CharacterAI Before ShowPossibleMove2");
             _gameManager.ShowPossibleMove(CurrentTile);

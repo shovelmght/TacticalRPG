@@ -24,7 +24,10 @@ public class DataCharacterSpawner : ScriptableObject
         Wizard = 4,
         WizardAI = 5,
         MotherNature = 6,
-        MotherNatureAI = 7
+        MotherNatureAI = 7,
+        Robot = 8,
+        RobotAI = 9,
+        Turret = 10
     }
     
     public enum CharactersAbility1

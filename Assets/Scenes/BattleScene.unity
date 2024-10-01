@@ -1722,6 +1722,9 @@ MonoBehaviour:
   DragonAIPrefab: {fileID: 2228407130458205554, guid: cc96b9a32ec3b0a4fa1b9eda5c34c706, type: 3}
   MotherNaturePrefab: {fileID: 1089474552833195670, guid: 72c61a5891cf6914998e240ed71bb906, type: 3}
   MotherNatureAIPrefab: {fileID: 1089474552833195670, guid: e6d3872cde6fe354a9d57085b69e29d4, type: 3}
+  RobotPrefab: {fileID: 1089474552833195670, guid: 26981f732161d4a44b3b184a0fd119df, type: 3}
+  RobotAIPrefab: {fileID: 0}
+  TurretPrefab: {fileID: 1089474552833195670, guid: f4ba0a3c25ff1e741b7215c4afb63dae, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   <BoardCamera>k__BackingField: {fileID: 1097121896}
   <MaxDistanceEnemiesSpawn>k__BackingField: 4

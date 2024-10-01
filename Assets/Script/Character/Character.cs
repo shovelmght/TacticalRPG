@@ -60,6 +60,8 @@ public class Character : MonoBehaviour
     public bool HaveAttacked { get; set; }
     public int CurrentHealth { get; set; }
     public bool IsAI { get; set; }
+
+    public bool CanMove = true;
     public bool HaveCounterAbility { get; set; }
     public Character _IncomingAttacker{ get; set; }
     public Team CurrentTeam { get; set; }

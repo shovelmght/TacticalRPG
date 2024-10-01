@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     public GameObject DragonAIPrefab;
     public GameObject MotherNaturePrefab;
     public GameObject MotherNatureAIPrefab;
+    public GameObject RobotPrefab;
+    public GameObject RobotAIPrefab;
+    public GameObject TurretPrefab;
     public GameObject ArrowsPrefab;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
     [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
@@ -283,6 +286,25 @@ public class GameManager : MonoBehaviour
         tile.SetCharacter(characterReference);
         return true;
     }
+
+    public void SpawnMobCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.CharactersPrefab CharactersPrefab)
+    {
+        Vector3 spawnPosition = tile.Position;
+        if (tile.IsWater)
+        {
+            spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
+        }
+
+        GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
+        character.transform.Rotate(rotation);
+        _characterCount++;
+        Character characterReference = character.GetComponent<Character>();
+        characterReference.CurrentTile = tile;
+        characterReference.CurrentTeam = CurrentCharacter.CurrentTeam;
+
+        CharacterList.Add(characterReference);
+        tile.SetCharacter(characterReference);
+    }
     
     public void SpawnMapCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
@@ -356,6 +378,21 @@ public class GameManager : MonoBehaviour
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNatureAI)
         {
             return Instantiate(MotherNatureAIPrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Robot)
+        {
+            return Instantiate(RobotPrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.RobotAI)
+        {
+            return Instantiate(RobotAIPrefab, position, Quaternion.identity);
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Turret)
+        {
+            return Instantiate(TurretPrefab, position, Quaternion.identity);
         }
 
         return null;
