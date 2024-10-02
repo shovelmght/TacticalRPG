@@ -22,9 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
-    [SerializeField] private bool _UnitTest;
-    public List<DataCharacterSpawner> CharacterAIDataTeam1UnitTest;
-    public List<DataCharacterSpawner> CharacterAIDataTeam2UnitTest;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
@@ -70,6 +67,7 @@ public class GameManager : MonoBehaviour
     public bool PossibleTileIsFinished { get; set;}
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
+    public bool RepeatableAttackInputIsPress { get; set; }
     public Tile[] OccupiedTiles{ get; private set; }
 
     /*private void Update()
@@ -127,7 +125,7 @@ public class GameManager : MonoBehaviour
     public MapTilesManager _MapTilesManager_Corner3;
     public MapTilesManager _MapTilesManager_Corner4;
     
-    private const int MAX_OCCUPIED_TILES = 15; 
+    private const int MAX_OCCUPIED_TILES = 30; 
     
     public Action SelectCharacter;
     public Action RemoveUICharacter;
@@ -212,6 +210,11 @@ public class GameManager : MonoBehaviour
             ShowPossibleMapMove(TileSelected);
             TilePreSelected = CurrentCharacter.CurrentTile;
             yield break;
+        }
+
+        if (_UnitTest)
+        {
+            _tileManager.TileManagerData = AllTileManagerDataUnitTest[Random.Range(0, AllTileManagerDataUnitTest.Count) - 1];
         }
 
         yield return _tileManager.SetBoardTiles();
@@ -460,6 +463,14 @@ public class GameManager : MonoBehaviour
         else
         {
             tile = _tileManager.GetTile(gameObjectTile);
+
+            if (AddOccupiedTileOnClick)
+            {
+                tile.IsOccupied = true;
+                StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+                return;
+            }
+            
         }
       
         SelectTile(tile);
@@ -964,6 +975,7 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         yield return new WaitUntil(() => !Wait);
+        yield return new WaitForSeconds(0.75f);
         Debug.Log("SetBattleCamera end of waiting ");
         TempBoardVCam.gameObject.SetActive(false);
     }
@@ -1097,7 +1109,28 @@ public class GameManager : MonoBehaviour
         CurrentCharacter.StartCinemachineImpulseSource();
     }
 
+    private bool _CanressRepeatableAttack = true;
+
+    public IEnumerator PressRepeatableAttackInput()
+    {
+        if(!_CanressRepeatableAttack){yield break;}
+        Debug.Log("RepeatableAttackInputIsPress = true;");
+        _CanressRepeatableAttack = false;
+        RepeatableAttackInputIsPress = true;
+        yield return new WaitForSeconds(0.04f);
+        RepeatableAttackInputIsPress = false;
+        Debug.Log("RepeatableAttackInputIsPress = false;");
+        yield return new WaitForSeconds(1f);
+        _CanressRepeatableAttack = true;
+    }
+
     //-------------------------------DEBUG---------------------------------
+    
+    [SerializeField] private bool _UnitTest;
+    public bool AddOccupiedTileOnClick;
+    public List<TileManagerData> AllTileManagerDataUnitTest;
+    public List<DataCharacterSpawner> CharacterAIDataTeam1UnitTest;
+    public List<DataCharacterSpawner> CharacterAIDataTeam2UnitTest;
     public GameObject objectToSpawn;
     public int itterationobjectToSpawn;
     private static readonly int Zoom = Animator.StringToHash("Zoom");

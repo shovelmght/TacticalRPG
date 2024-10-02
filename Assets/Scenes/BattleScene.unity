@@ -1710,7 +1710,20 @@ MonoBehaviour:
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
-  _UnitTest: 1
+  _UnitTest: 0
+  AddOccupiedTileOnClick: 0
+  AllTileManagerDataUnitTest:
+  - {fileID: 11400000, guid: 9a0877512be537e41af1492212b7e1ce, type: 2}
+  - {fileID: 11400000, guid: dbda68ba83cbcc44bbbf2fa991723925, type: 2}
+  - {fileID: 11400000, guid: 8398892e145d98c44adeb92d0c8492f8, type: 2}
+  - {fileID: 11400000, guid: 7a5337e77ca25c1418a666f6971adbab, type: 2}
+  - {fileID: 11400000, guid: 8637989afb1fdec448dc6e8f9418eed4, type: 2}
+  - {fileID: 11400000, guid: 8613bf8fc937e7b4ea8dbee2c25b78bf, type: 2}
+  - {fileID: 11400000, guid: cc31073b128d39841a90d74957388e1e, type: 2}
+  - {fileID: 11400000, guid: ee91206c91716464bbaca82223a78c16, type: 2}
+  - {fileID: 11400000, guid: 37bfcadb07466064fabcc3872d230249, type: 2}
+  - {fileID: 11400000, guid: 7a9b5e5f9c87789449247f4922b3a800, type: 2}
+  - {fileID: 11400000, guid: 6bef2aa2c962eaf4faa46cff415fc973, type: 2}
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}
   - {fileID: 11400000, guid: 264cdbe3fe4e9134089dfd2ab60166d1, type: 2}

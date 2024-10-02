@@ -63,6 +63,7 @@ public class InputManager : MonoBehaviour
         
         if(Input.GetMouseButtonDown(0))
         {
+            StartCoroutine(_gameManager.PressRepeatableAttackInput());
             Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -687,6 +688,7 @@ public class InputManager : MonoBehaviour
     
     private void SelectTile()
     {
+        StartCoroutine(_gameManager.PressRepeatableAttackInput());
         if (_gameManager.IsAIChatacterTurn) { return; }
         
         if (!_gameManager.MenuIsOpen)

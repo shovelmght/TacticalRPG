@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class TilesManager: MonoBehaviour
 {
-    [field: SerializeField] public TileManagerData TileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData TileManagerData{ get; set; }
     
     [field: SerializeField] public TileManagerData[] RandomTileManagerData{ get; private set; }
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
@@ -263,6 +263,8 @@ public class TilesManager: MonoBehaviour
             yield return new WaitForSeconds(_timePathFinding);
         }
 
+        int nbrOfContinue = 0;
+
         if (numberOfTimes > 0)
         {
             foreach (var sidetile in currentTile.SideTiles)
@@ -273,12 +275,27 @@ public class TilesManager: MonoBehaviour
                     {
                         if (isSpawnAttack && sidetile.CharacterReference == null)
                         {
+                            nbrOfContinue++;
+                            if (nbrOfContinue >= 4)
+                            {
+                                yield return new WaitForSeconds(1);
+                                _gameManager.PossibleTileIsFinished = true;
+                            }
                             continue;
                         }
                         _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sidetile;
                         _gameManager.IndexOccupiedTiles++;
                     }
                     StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck, isSpawnAttack)) ;
+                }
+                else if(isSpawnAttack)
+                {
+                    nbrOfContinue++;
+                    if (nbrOfContinue >= 4)
+                    {
+                        yield return new WaitForSeconds(1);
+                        _gameManager.PossibleTileIsFinished = true;
+                    }
                 }
             }
         }

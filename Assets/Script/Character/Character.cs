@@ -99,6 +99,7 @@ public class Character : MonoBehaviour
     private bool _turn;
     public bool _isCounterAttack;
     private bool _IsDead;
+    public int _NbrRepeatAttack = 0;
     
     private const float ROATION_TIME = 1;
     
@@ -463,7 +464,12 @@ public class Character : MonoBehaviour
     //THIS METHODE IS CALLED BY ANIMATOR (ATTACK) 
     public void Hit()
     {
-        if(_gameManager.StateAttackCharacter._Attack.IsWaterAttack && !_CanHit && !_isCounterAttack) {return;}
+        StartCoroutine(StartHit());
+    }
+    
+    private IEnumerator StartHit()
+    {
+        if(_gameManager.StateAttackCharacter._Attack.IsWaterAttack && !_CanHit && !_isCounterAttack) {yield break;}
 
         _CanHit = false;
         
@@ -508,6 +514,16 @@ public class Character : MonoBehaviour
             Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
         }
         
+        Debug.Log("Check RepeatableAttackInputIsPress = true; RepeatableAttackInputIsPress =" + _gameManager.RepeatableAttackInputIsPress);
+        if (_gameManager.RepeatableAttackInputIsPress && !_isCounterAttack && _NbrRepeatAttack < 1 && !IsAI && _gameManager.StateAttackCharacter._Attack.IsReapeatableAttack)
+        {
+            _NbrRepeatAttack++;
+            CharacterAnimator.SetTrigger(Attack1);
+            yield break;
+        }
+
+        _NbrRepeatAttack = 0;
+
         if (_attackTarget && !_attackTarget.HaveCounterAbility)
         {
             Debug.Log("Character Hit Set _gameManager.Wait(false) 111");
@@ -544,7 +560,7 @@ public class Character : MonoBehaviour
         Debug.Log("Character Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
         if (!_isCounterAttack)
         {
-            if (HaveCounterAbility)
+            if (HaveCounterAbility && _IncomingAttacker._NbrRepeatAttack == 0)
             {
                 _gameManager.IndexOccupiedTiles = 0;
                 yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false, _Attack.IsSpawnSkill);
@@ -584,7 +600,11 @@ public class Character : MonoBehaviour
             else
             {
                 Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 000");
-                _gameManager.Wait = false;
+                if (_IncomingAttacker._NbrRepeatAttack == 0)
+                {
+                    _gameManager.Wait = false;
+                }
+                
                 if (!IsAI && _gameManager.IsController && !HaveMoved)
                 {
                     _gameManager.SelectCharacter?.Invoke();

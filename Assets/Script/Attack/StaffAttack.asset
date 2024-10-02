@@ -17,6 +17,11 @@ MonoBehaviour:
   AttackName: Staff
   AttackAnimationName: Attack
   IsProjectile: 0
+  IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
+  IsSpawnSkill: 0
+  IsReapeatableAttack: 1
   PreSfx:
     _AudioClip: {fileID: 0}
     _RelativeVolume: 0

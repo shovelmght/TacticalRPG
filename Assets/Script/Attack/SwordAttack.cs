@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new SwordAttack", menuName = "SwordAttack")]
 public class SwordAttack : Attack
 {
-    protected static readonly int Attack = Animator.StringToHash("Attack");
-    
     public override void DoAttack(Character character, Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
         
