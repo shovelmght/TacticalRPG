@@ -16,7 +16,8 @@ public class SpawnTurret : MonoBehaviour
     {
         yield return LerpScaleAndDeactivateGameObjects();
 
-        GameManager.Instance.SpawnMobCharacter(GameManager.Instance.TileSelected, Vector3.zero, _CharactersPrefab);
+        GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, false);
+        Destroy(this.gameObject);
     }
     
     

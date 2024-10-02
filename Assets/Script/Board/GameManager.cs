@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public List<Character> CharacterList = new List<Character>();
     public Tile TileSelected { get;  set; } = null;
     public Tile TilePreSelected { get;  set; } = null;
+    public Tile LastSpawnTile { get;  set; } = null;
     public  GameObject ArrowsDirection { get;  set; }
     public  State CurrentState { get;  set; }
     public  StateChooseCharacter StateChooseCharacter { get; private set; }
@@ -287,7 +288,7 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public void SpawnMobCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.CharactersPrefab CharactersPrefab)
+    public void SpawnMobCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.CharactersPrefab CharactersPrefab, bool canMove)
     {
         Vector3 spawnPosition = tile.Position;
         if (tile.IsWater)
@@ -296,9 +297,12 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
+        Character characterReference = character.GetComponent<Character>();
+        CurrentCharacter.DestroyCharacterRelated += characterReference.DestroyCharacter;
+        characterReference.CanMove = canMove;
         character.transform.Rotate(rotation);
         _characterCount++;
-        Character characterReference = character.GetComponent<Character>();
+    
         characterReference.CurrentTile = tile;
         characterReference.CurrentTeam = CurrentCharacter.CurrentTeam;
 
@@ -634,7 +638,7 @@ public class GameManager : MonoBehaviour
 
         if (attack.IsLineAttack)
         {
-            StartCoroutine(_tileManager.GetLinteAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+            StartCoroutine(_tileManager.GetLineAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
         }
         else if (attack.IsDashAttack)
         {
@@ -642,7 +646,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(_tileManager.GetAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck));
+            StartCoroutine(_tileManager.GetAttackTiles(attack.AttackLenght, null, tile, _tileManager.AttackTileMaterial, isAICheck, attack.IsSpawnSkill));
         }
         
     }
@@ -652,7 +656,7 @@ public class GameManager : MonoBehaviour
     private void ShowPossibleTileDirection(Tile tile)
     {
         _tileManager.DeselectTiles();
-        StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false));
+        StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false, false));
         CurrentState = StateTurnCharacter;
     }
     

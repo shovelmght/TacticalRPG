@@ -238,7 +238,7 @@ public class TilesManager: MonoBehaviour
     }
     
 
-    public IEnumerator GetAttackTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICHeck)
+    public IEnumerator GetAttackTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICHeck, bool isSpawnAttack)
     {
         if (_gameManager._GameIsFinish) { yield break; }
         
@@ -271,10 +271,14 @@ public class TilesManager: MonoBehaviour
                 {
                     if (sidetile.IsOccupied)
                     {
+                        if (isSpawnAttack && sidetile.CharacterReference == null)
+                        {
+                            continue;
+                        }
                         _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sidetile;
                         _gameManager.IndexOccupiedTiles++;
                     }
-                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck)) ;
+                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck, isSpawnAttack)) ;
                 }
             }
         }
@@ -284,7 +288,7 @@ public class TilesManager: MonoBehaviour
         }
     }
     
-    public IEnumerator GetLinteAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
+    public IEnumerator GetLineAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
     {
         if (currentTile.IsOccupied)
         {

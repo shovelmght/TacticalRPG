@@ -64,6 +64,7 @@ public class UICharacter : MonoBehaviour
         _Character.ShowUIPopUpCharacterInfo += ShowPopUpCharacterInfo;
         _Character.ShowUIHitSuccess += ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
+        _Character.RemoveHealthBar += HideHealthBar;
     }
 
     private void OnDestroy()
@@ -72,6 +73,7 @@ public class UICharacter : MonoBehaviour
         _Character.ShowUIPopUpCharacterInfo -= ShowPopUpCharacterInfo;
         _Character.ShowUIHitSuccess -= ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
+        _Character.RemoveHealthBar -= HideHealthBar;
     }
 
     //make ui element face to the camera
@@ -115,11 +117,12 @@ public class UICharacter : MonoBehaviour
         }
 
         _fillBar.fillAmount = pct; //make sure to go to the correct amount
+    }
 
-        if (pct <= 0 || _fillBar.fillAmount <= 0)
-        {
-            _BackgroundImage.enabled = false;
-        }
+    private void HideHealthBar()
+    {
+        _BackgroundImage.enabled = false;
+        _fillBar.enabled = false;
     }
     
     private void ShowPopUpCharacterInfo(bool isRight, bool isQuick)

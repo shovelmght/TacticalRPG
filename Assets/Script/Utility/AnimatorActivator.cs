@@ -12,7 +12,14 @@ public class AnimatorActivator : MonoBehaviour
 
     private void Start()
     {
-        _StartScale = _GameObjectsToActivate[0].transform.localScale;
+        if (_GameObjectsToActivate.Length > 0)
+        {
+            if (_GameObjectsToActivate[0] == null)
+            {
+                Debug.Log("AnimatorActivator Start character = " + gameObject.name);
+            }
+            _StartScale = _GameObjectsToActivate[0].transform.localScale;
+        }
     }
 
     public void ActivateGameObjects()

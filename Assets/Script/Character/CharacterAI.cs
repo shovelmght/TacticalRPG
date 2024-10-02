@@ -107,11 +107,25 @@ public class CharacterAI : Character
                 Debug.Log("CharacterAI Before GetNearestTile1");
                 _gameManager.SelectTile(GetNearestTile());
             }
+            else
+            {
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                _gameManager.PossibleTileIsFinished = false;
+                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                _gameManager.SelectTile(GetNearestTile());
+            }
 
         }
         else
         {
-            if (! CanMove) {yield break;}
+            if (!CanMove)
+            {
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                _gameManager.PossibleTileIsFinished = false;
+                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                _gameManager.SelectTile(GetNearestTile());
+                yield break;
+            }
 
             //Moves towards his enemy
             Debug.Log("CharacterAI Before ShowPossibleMove2");
@@ -229,8 +243,10 @@ public class CharacterAI : Character
                         }
                     }
                 }
+
+                bool isSkillSpawnAttack = _SkillAttack.IsSpawnSkill && isSkillAttack;
         
-                if (enemyTile != null)
+                if (enemyTile != null && !isSkillSpawnAttack)
                 {
                     if (isSkillAttack)
                     {
@@ -259,25 +275,26 @@ public class CharacterAI : Character
                     }
                 }
 
-                if (_SkillAttack.IsSpawnSkill)
+                if (_SkillAttack.IsSpawnSkill && enemyTile == null)
                 {
+                    Debug.Log("CharacterAI Before ShowPossible SpawnSkill");
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                     _gameManager.StateAttackCharacter._Attack = _SkillAttack;
-                    List<int> possibleSpawnTile = new List<int>();
+                    List<Tile> possibleSpawnTile = new List<Tile>();
                     
                     for (int i = 0; i < CurrentTile.SideTiles.Length; i++)
                     {
                         if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied)
                         {
-                            possibleSpawnTile.Add(i);
+                            possibleSpawnTile.Add(CurrentTile.SideTiles[i]);
                         }
                     }
 
                     if (possibleSpawnTile.Count > 0)
                     {
                         int randomInt = Random.Range(0, possibleSpawnTile.Count);
-                        _gameManager.SelectTile(CurrentTile.SideTiles[randomInt]);
+                        _gameManager.SelectTile(possibleSpawnTile[randomInt]);
                     }
                     else
                     {

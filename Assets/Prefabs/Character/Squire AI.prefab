@@ -244,10 +244,13 @@ MonoBehaviour:
   _Materials: []
   _StartPositionProjectile: {fileID: 669381789978413025}
   _TrailParticleEffect: {fileID: 1038371312127605085}
+  _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
+  CanMove: 1
+  _CanSpawnParticle: 1
   _Attack: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 5fde674708986594eaccb78734e4d9a8, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}

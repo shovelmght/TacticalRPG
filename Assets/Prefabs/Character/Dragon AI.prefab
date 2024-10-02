@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dragon AI
       objectReference: {fileID: 0}
+    - target: {fileID: 4198770336769625704, guid: 033db4223190419428478b229d190b3b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.401
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198770336769625704, guid: 033db4223190419428478b229d190b3b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.269
+      objectReference: {fileID: 0}
     - target: {fileID: 4369926658065928478, guid: 033db4223190419428478b229d190b3b, type: 3}
       propertyPath: _SkinnedMeshRenderer
       value: 
@@ -226,10 +234,13 @@ MonoBehaviour:
   - {fileID: -6478536213147159724, guid: 9c154850e805bc0458eafab8d992f7da, type: 3}
   _StartPositionProjectile: {fileID: 3150114351046876556}
   _TrailParticleEffect: {fileID: 0}
+  _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
+  CanMove: 1
+  _CanSpawnParticle: 1
   _Attack: {fileID: 11400000, guid: 511dca8cba039524bb383c0bfa380eeb, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 4173e1585cd4cf2459a03a6dfbd15d04, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}

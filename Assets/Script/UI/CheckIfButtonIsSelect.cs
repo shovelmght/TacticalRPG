@@ -15,7 +15,7 @@ public class CheckIfButtonIsSelect : MonoBehaviour, ISelectHandler, IDeselectHan
 
     private void OnEnable()
     {
-        if (GameManager.Instance.IsController && _SelectButtonOnStart)
+        if (GameManager.Instance != null && GameManager.Instance.IsController && _SelectButtonOnStart)
         {
             Button button = GetComponent<Button>();
             if (button != null)

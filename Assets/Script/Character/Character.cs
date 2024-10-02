@@ -29,7 +29,7 @@ public class Character : MonoBehaviour
     [field: SerializeField] public int AttackLenght { get; private set; } = 1;
     [field: SerializeField] public int Speed { get; private set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
-    [field: SerializeField] public float MovingSpeed { get; private set; } = 0.1f;
+    [field: SerializeField] public float MovingSpeed { get; private set; } = 0.2f;
     [field: SerializeField] public float DyingMoveSpeed { get; private set; } = 1.0f;
     [field: SerializeField] public float WaitToDeselectedTiles { get; private set; } = 0.5f;
     [field: SerializeField] public float DeathGapZPosition { get; private set; } = 0.4f;
@@ -39,6 +39,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected Material[] _Materials;
     [SerializeField] private Transform _StartPositionProjectile;
     [SerializeField] private GameObject _TrailParticleEffect;
+    [SerializeField] private GameObject _DieFloorParticleEffect;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -62,6 +63,8 @@ public class Character : MonoBehaviour
     public bool IsAI { get; set; }
 
     public bool CanMove = true;
+    
+    public bool _CanSpawnParticle = true;
     public bool HaveCounterAbility { get; set; }
     public Character _IncomingAttacker{ get; set; }
     public Team CurrentTeam { get; set; }
@@ -77,6 +80,9 @@ public class Character : MonoBehaviour
     public Action<bool, bool> ShowUIPopUpCharacterInfo;
     public Action<bool> RemoveUIPopUpCharacterInfo;
     public Action<int> ShowUIHitSuccess;
+    public Action DestroyCharacterRelated;
+    public Action RemoveHealthBar;
+    
     
     protected GameManager _gameManager;
     protected TilesManager _tileManager;
@@ -92,6 +98,8 @@ public class Character : MonoBehaviour
     private bool _CanHit = false;
     private bool _turn;
     public bool _isCounterAttack;
+    private bool _IsDead;
+    
     private const float ROATION_TIME = 1;
     
     private static readonly int Move = Animator.StringToHash("Move");
@@ -105,8 +113,13 @@ public class Character : MonoBehaviour
     {
         _gameManager = GameManager.Instance;
         _tileManager = TilesManager.Instance;
-        HitParticleSystem.startColor = Color.blue;
         CurrentHealth = MaxHealth;
+        
+        if (_CanSpawnParticle)
+        {
+            HitParticleSystem.startColor = Color.blue;
+            HitParticleSystem.Play();
+        }
 
         if (_RandomMaterial)
         {
@@ -260,7 +273,7 @@ public class Character : MonoBehaviour
     {
         _tileManager.DeselectTiles();
         yield return new WaitForSeconds(0.75f);
-
+        _gameManager.LastSpawnTile = tile;
         Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
         HaveAttacked = true;
         _gameManager.Wait = false;
@@ -474,6 +487,7 @@ public class Character : MonoBehaviour
             else
             {
                 AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
+                Debug.Log("Chatacter Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name);
                 _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
 
@@ -533,7 +547,7 @@ public class Character : MonoBehaviour
             if (HaveCounterAbility)
             {
                 _gameManager.IndexOccupiedTiles = 0;
-                yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false);
+                yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false, _Attack.IsSpawnSkill);
 
                 yield return new WaitForSeconds(.15f);
                 bool canAttackIncomingAttacker = false;
@@ -587,14 +601,31 @@ public class Character : MonoBehaviour
             }
         }
     }
-    
+
+    public void DestroyCharacter()
+    {
+        if (!_IsDead)
+        {
+            StartCoroutine(Vanish());
+        }
+    }
+
     private IEnumerator Vanish()
     {
+        RemoveHealthBar?.Invoke();
+        DestroyCharacterRelated?.Invoke();
         bool isCharacterTurn = _gameManager.CurrentCharacter == this;
         _gameManager.RemoveCharacter(this);
         CharacterAnimator.SetTrigger(Die);
         yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
-        CurrentTile.ActivateFloorParticleSystem();
+        
+        if (_DieFloorParticleEffect != null)
+        {
+             GameObject dieFloorParticleEffect = Instantiate(_DieFloorParticleEffect, CurrentTile.Position + new Vector3(0,0.4f,0), Quaternion.identity);
+             dieFloorParticleEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        }
+        
+        //CurrentTile.ActivateFloorParticleSystem();
         StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
         yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, 0.25f));
         _gameManager.Wait = false;
@@ -608,8 +639,10 @@ public class Character : MonoBehaviour
         }
 
         RemoveUIPopUpCharacterInfo(true);
-
+        _IsDead = true;
     }
+
+    
 
     private IEnumerator LerpScale(Vector3 scaleWanted, float speed)
     {

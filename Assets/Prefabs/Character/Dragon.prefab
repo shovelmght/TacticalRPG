@@ -3631,11 +3631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8074196909363823082, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.267
+      value: 0.448
       objectReference: {fileID: 0}
     - target: {fileID: 8074196909363823082, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.493
+      value: 0.288
       objectReference: {fileID: 0}
     - target: {fileID: 8182512841367501117, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3658,6 +3658,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 279221548384583580}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _lerpScalingSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _sideHitSuccesChance
       value: 85
       objectReference: {fileID: 0}
@@ -3676,6 +3680,10 @@ PrefabInstance:
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: <AttackLenght>k__BackingField
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: <DyingMoveSpeed>k__BackingField
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8716171402086324990, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

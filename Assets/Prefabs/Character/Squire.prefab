@@ -2483,6 +2483,7 @@ Transform:
   - {fileID: 2624942206663449570}
   - {fileID: 8074196909363823082}
   - {fileID: 6095461909415138091}
+  - {fileID: 9023410633731010872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5302907934503677982
@@ -2546,10 +2547,13 @@ MonoBehaviour:
   _Materials: []
   _StartPositionProjectile: {fileID: 8074196909363823082}
   _TrailParticleEffect: {fileID: 8587899716281646934}
+  _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
   ForwardDistanceWhenDie: 0.6
+  CanMove: 1
+  _CanSpawnParticle: 1
   _Attack: {fileID: 11400000, guid: de7e8bf1cf4df66428ecd3202014e4b7, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 5fde674708986594eaccb78734e4d9a8, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
@@ -3425,6 +3429,37 @@ MonoBehaviour:
     m_DissipationDistance: 1000
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!1 &5776420678250851868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9023410633731010872}
+  m_Layer: 0
+  m_Name: TransformProjectilPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9023410633731010872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776420678250851868}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.246, z: 0.366}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5628672523469761454}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5786819420231601706
 GameObject:
   m_ObjectHideFlags: 0
@@ -5180,6 +5215,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5628672523469761454}
     m_Modifications:
+    - target: {fileID: 5109347686226551464, guid: fc2d60dba9a538f4e99f455911d4602f, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5109347686226551464, guid: fc2d60dba9a538f4e99f455911d4602f, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key2.b
       value: 0.10622107

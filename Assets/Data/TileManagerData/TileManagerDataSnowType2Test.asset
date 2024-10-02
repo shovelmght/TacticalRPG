@@ -53,11 +53,12 @@ MonoBehaviour:
   <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: bda9e799f4b326843bd9d2032f0f13ee, type: 3}
   <BoardTileHeight>k__BackingField: 0
   <TilePrefab>k__BackingField: {fileID: 8509529549589060079, guid: d6ae0c918e1c35244baa3c51a3b19739, type: 3}
+  <SecondTilePrefab>k__BackingField: {fileID: 0}
   <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 9e14e9b51365aa340a389d0290dad14a, type: 3}
   <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
   <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
   <HeightChance>k__BackingField: 1
-  <WaterChance>k__BackingField: 7
+  <WaterChance>k__BackingField: 20
   <WaterChanceBackgroundTiles>k__BackingField: 100
   <HeightChanceBackgroundTiles>k__BackingField: 1
   <decorsChanceBackgroundTiles>k__BackingField: 3
