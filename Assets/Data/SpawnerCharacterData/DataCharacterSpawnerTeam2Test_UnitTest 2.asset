@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91c1a44352a1b3849a357cb840152c3a, type: 3}
-  m_Name: PlayerDataCharacterSpawner
+  m_Name: DataCharacterSpawnerTeam2Test_UnitTest 2
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 8
-    Team: 1
+  - CharactersPrefab: 9
+    Team: 2
+    Ability1: 0
+    Name: ss
+    Class: ss
+  - CharactersPrefab: 9
+    Team: 2
     Ability1: 1
-    Name: Franck
-    Class: Knight
-  - CharactersPrefab: 8
-    Team: 1
-    Ability1: 1
-    Name: Max
-    Class: Dragon
+    Name: ss
+    Class: ss

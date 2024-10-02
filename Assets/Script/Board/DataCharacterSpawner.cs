@@ -34,7 +34,6 @@ public class DataCharacterSpawner : ScriptableObject
     {
         None = 0,
         AounterAttack = 1,
-        CharacterAI = 2
     }
 
     public List<DataSpawner>  DataSpawn;

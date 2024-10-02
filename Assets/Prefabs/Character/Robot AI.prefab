@@ -5205,7 +5205,7 @@ MonoBehaviour:
   - {fileID: 2224538938078715053}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 4
-  <MovementPoint>k__BackingField: 4
+  <MovementPoint>k__BackingField: 1
   <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 279221548384583580}

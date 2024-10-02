@@ -46,10 +46,13 @@ public class CharacterAI : Character
         yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
+        
+        
         bool isSkillAttack = false;
 
         if (enemyTile == null)
         {
+            Debug.Log("CharacterAI After ShowPossibleAttack1 enemyTile == null");
             isSkillAttack = true;
             _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
             yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -68,6 +71,8 @@ public class CharacterAI : Character
         
         if (enemyTile != null)
         {
+            Debug.Log("CharacterAI After ShowPossibleAttack1 enemyTile != null");
+            
             if (isSkillAttack)
             {
                 _gameManager.StateAttackCharacter._Attack = _SkillAttack;
@@ -79,6 +84,8 @@ public class CharacterAI : Character
             _gameManager.IsAIChatacterTurn = false;
 
             yield return new WaitForSeconds(0.5f);
+            
+            Debug.Log("CharacterAI After ShowPossibleAttack1 and Set current attack enemyTile != null");
             
             if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
             {
@@ -101,6 +108,15 @@ public class CharacterAI : Character
             {
                 _gameManager.ShowPossibleMove(CurrentTile);
                 yield return new WaitForSeconds(_TimePathFinding);
+                Debug.Log("CharacterAI Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght());
+                if (_tileManager.GetSelectedTileLenght() <= 1)
+                {
+                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                    _gameManager.PossibleTileIsFinished = false;
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    _gameManager.SelectTile(GetNearestTile());
+                    yield break;
+                }
                 _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght()))); 
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -131,6 +147,16 @@ public class CharacterAI : Character
             Debug.Log("CharacterAI Before ShowPossibleMove2");
             _gameManager.ShowPossibleMove(CurrentTile);
             yield return new WaitForSeconds(_TimePathFinding);
+
+            if (_tileManager.GetSelectedTileLenght() <= 1)
+            {
+                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                _gameManager.PossibleTileIsFinished = false;
+                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                _gameManager.SelectTile(GetNearestTile());
+                yield break;
+            }
+            Debug.Log("CharacterAI Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght());
             //If his enemy is a on moveTile
             Debug.Log("CharacterAI FindBestPossibleMoveTile");
             enemyTile = FindBestPossibleMoveTile();
@@ -295,10 +321,6 @@ public class CharacterAI : Character
                     {
                         int randomInt = Random.Range(0, possibleSpawnTile.Count);
                         _gameManager.SelectTile(possibleSpawnTile[randomInt]);
-                    }
-                    else
-                    {
-                        _gameManager.SelectTile(GetNearestTile());
                     }
 
                     yield return new WaitForSeconds(4);

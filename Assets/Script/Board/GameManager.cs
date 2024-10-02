@@ -5,6 +5,7 @@ using Cinemachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
+    [SerializeField] private bool _UnitTest;
+    public List<DataCharacterSpawner> CharacterAIDataTeam1UnitTest;
+    public List<DataCharacterSpawner> CharacterAIDataTeam2UnitTest;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
@@ -110,8 +114,7 @@ public class GameManager : MonoBehaviour
     private Direction _Enemiesdirection;
     
     public Direction _direction;
-    private Vector3 _enemiesDirection;
-    
+
     private int _characterCount;
     public TilesManager _tileManager;
     public MapTilesManager _MapTilesManager_Lava;
@@ -166,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         StartCoroutine(InitializeGame());
     }
 
@@ -176,8 +180,6 @@ public class GameManager : MonoBehaviour
         _direction = Direction.South;
         //ArrowsDirection = Instantiate(ArrowsPrefab, Vector3.zero, Quaternion.identity);
         //ArrowsDirection.SetActive(false);
-        _enemiesDirection = SetEnemiesDirection();
-        
 
         if (_IsStartScene)
         {
@@ -213,33 +215,53 @@ public class GameManager : MonoBehaviour
         }
 
         yield return _tileManager.SetBoardTiles();
-        
-        foreach (var characterSpawner in CharacterAIData)
+
+        if (_UnitTest)
         {
-            foreach (var character in characterSpawner.DataSpawn)
+            DataCharacterSpawner dataCharacterSpawner = CharacterAIDataTeam2UnitTest[Random.Range(0, CharacterAIDataTeam2UnitTest.Count - 1)];
+            
+            foreach (var character in dataCharacterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
-                SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character);
+                SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
+            }
+            
+            dataCharacterSpawner = CharacterAIDataTeam1UnitTest[Random.Range(0, CharacterAIDataTeam1UnitTest.Count - 1)];
+            
+            foreach (var character in dataCharacterSpawner.DataSpawn)
+            {
+                yield return new WaitForSeconds(1);
+                SpawnAICharacter(0, MaxDistanceEnemiesSpawn, character, SetEnemiesDirection(Direction.West));
             }
         }
-
+        else
+        {
+            foreach (var characterSpawner in CharacterAIData)
+            {
+                foreach (var character in characterSpawner.DataSpawn)
+                {
+                    yield return new WaitForSeconds(1);
+                    SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
+                }
+            }
+        }
+        
         Tile tile = _tileManager.GetTile(_tileManager.TileManagerData.Column / 2, _tileManager.TileManagerData.Row / 2);
         TilePreSelected = tile;
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction,false))) ;
         
-        if (MaxCharacterPlayerCanBePlace == 0)
+        if (_UnitTest)
         {
             NextCharacterTurn();
         }
         else
         {
            _tileManager.SetValidSpawnTiles();
+           _PlayerCharacterSpawnerList.gameObject.SetActive(true);
         }
-        
-        _PlayerCharacterSpawnerList.gameObject.SetActive(true);
     }
 
-    private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
+    private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.DataSpawner dataCharacterSpawner, Vector3 direction)
     {
         bool isCharacterIsSpawned = false;
         while (!isCharacterIsSpawned)
@@ -247,7 +269,7 @@ public class GameManager : MonoBehaviour
             int coordX = Random.Range(0, _tileManager.TileManagerData.Column);
             int coordY = Random.Range(minCoordY, maxCoordY);
         
-            if (SpawnCharacter( _tileManager.GetTile(coordX, coordY), _enemiesDirection, dataCharacterSpawner))
+            if (SpawnCharacter( _tileManager.GetTile(coordX, coordY), direction, dataCharacterSpawner))
             {
                 isCharacterIsSpawned = true;
             }
@@ -711,6 +733,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         
+        yield return new WaitForSeconds(3f);
+        if (_UnitTest)
+        {
+            SceneManager.LoadScene("BattleScene");
+        }
+        
     }
 
     //Go to next character turn
@@ -1009,9 +1037,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CheckWinCondition());
     }
 
-    private Vector3 SetEnemiesDirection()
+    private Vector3 SetEnemiesDirection(Direction direction)
     {
-        switch (_Enemiesdirection)
+        switch (direction)
         {
             case Direction.None:
                 break;

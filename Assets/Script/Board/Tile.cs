@@ -27,7 +27,6 @@ public class Tile
     private int _diagonalSideTileIndex = 0;
     private Transform[] _cameraNearTransform = new Transform[4];
     private Transform[] _cameraFarTransform = new Transform[4];
-    private ParticleSystem _floorParticleSystem;
     private int _index;
     private TileData _tileData;
     private const int CHILD_INDEX_FLOOR_PARTICLE = 8;
@@ -51,7 +50,6 @@ public class Tile
         CharacterReference = null;
         Position = position + new Vector3(0, _tileData.HeightGapPosition, 0);
         PreviousMoveTilesList =  new Tile[_tileData.MaxPreviousTile];
-        _floorParticleSystem = gameObject.transform.GetChild(CHILD_INDEX_FLOOR_PARTICLE).GetComponent<ParticleSystem>();
         SideTiles = new Tile[4];
         DiagonalSideTiles = new Tile[4];
         if (mapTilesManager != null)
@@ -108,11 +106,6 @@ public class Tile
             return _cameraNearTransform[index - 1];
         }
         return _cameraFarTransform[index - 1];
-    }
-
-    public void ActivateFloorParticleSystem()
-    {
-        _floorParticleSystem.Play();
     }
 
     public void SetTopMaterial(Material material)

@@ -1710,6 +1710,15 @@ MonoBehaviour:
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
+  _UnitTest: 1
+  CharacterAIDataTeam1UnitTest:
+  - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}
+  - {fileID: 11400000, guid: 264cdbe3fe4e9134089dfd2ab60166d1, type: 2}
+  - {fileID: 11400000, guid: a606e0ca9fe1aa24cb2bfb08ecac72e9, type: 2}
+  CharacterAIDataTeam2UnitTest:
+  - {fileID: 11400000, guid: 032acfbf396792848aa52112cad9e9b4, type: 2}
+  - {fileID: 11400000, guid: aee65d77af97d044fb522c3c269d5ab6, type: 2}
+  - {fileID: 11400000, guid: dc1165df959461a45a40916343cb2c25, type: 2}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   _MapCharacterData: {fileID: 0}

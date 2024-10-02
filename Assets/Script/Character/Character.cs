@@ -625,7 +625,6 @@ public class Character : MonoBehaviour
              dieFloorParticleEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         }
         
-        //CurrentTile.ActivateFloorParticleSystem();
         StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
         yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, 0.25f));
         _gameManager.Wait = false;
