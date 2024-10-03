@@ -15,7 +15,7 @@ public  class StateChooseCharacter : State
    public override void SelectTile(Tile tile)
    {
       _gameManager.NeedResetTiles = false;
-      if (tile.IsOccupied || tile.CharacterReference != null || !tile.IsValidSpawnTile) { return;}
+      if (tile.IsOccupied || tile.IsPotionTile || tile.CharacterReference != null || !tile.IsValidSpawnTile) { return;}
       _numberOfCharactersToInstantiate--;
       _gameManager.TileSelected = tile;
       _tilesManager.AddSelectedTile(tile);

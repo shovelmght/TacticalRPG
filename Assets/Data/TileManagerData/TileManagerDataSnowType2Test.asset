@@ -38,8 +38,14 @@ MonoBehaviour:
   - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
   - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
   - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
-  <_PotionPrefabs>k__BackingField:
-  - {fileID: 5121601793217846445, guid: fa5bfa93c5f44d8438869bd607f0d462, type: 3}
+  <_PotionData>k__BackingField:
+  - {fileID: 11400000, guid: d3ca2ef6dd746fa469a6b091af7b0151, type: 2}
+  - {fileID: 11400000, guid: 2a6073c7b7838d646be01869f3f0c365, type: 2}
+  - {fileID: 11400000, guid: 6a84eb21caa3ea847945118cf738d94c, type: 2}
+  - {fileID: 11400000, guid: c73a005528f88614ead6e19e9e2682a3, type: 2}
+  - {fileID: 11400000, guid: 08ae17f2185505343a3a5e89c27e6014, type: 2}
+  - {fileID: 11400000, guid: da7d3fcd6eb27a745948ed2c7506d5de, type: 2}
+  - {fileID: 11400000, guid: af4eb246fc86f204da5093051514ca0f, type: 2}
   <SmallRockPrefab>k__BackingField:
   - {fileID: 2921842315418363760, guid: d9cbbc77271ed494eaf733e414a87b7b, type: 3}
   - {fileID: 2921842315418363760, guid: 250445bfe1d0ede458fca6c03237a250, type: 3}

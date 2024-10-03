@@ -281,7 +281,7 @@ public class GameManager : MonoBehaviour
 
     public bool SpawnCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
-        if (tile.IsOccupied) {return false;}
+        if (tile.IsOccupied || tile.IsPotionTile) {return false;}
 
         Vector3 spawnPosition = tile.Position;
         if (tile.IsWater)
@@ -480,6 +480,10 @@ public class GameManager : MonoBehaviour
     {
         if (_wait || _IsStartScene) {return;}
         
+        if (tile == null)
+        {
+            Debug.Log("CharacterAI :: GetNearestTile tile == null");
+        }
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         TilePreSelected = tile;
         NeedResetTiles = true;
@@ -858,11 +862,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject _ZoomVCam;
 
-    public IEnumerator ZoomBattleCamera()
+    public IEnumerator ZoomBattleCamera(float lifeTime)
     {
         yield return new WaitForSeconds(.75f);
         _ZoomVCam.SetActive(true);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(lifeTime);
         _ZoomVCam.SetActive(false);
     }
 

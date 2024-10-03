@@ -61,6 +61,7 @@ public class UICharacter : MonoBehaviour
     private static readonly int Close = Animator.StringToHash("Close");
     private static readonly int OpenLeft = Animator.StringToHash("OpenLeft");
     private static readonly int OpenLeftQuick = Animator.StringToHash("OpenLeftQuick");
+    private static readonly int GainHealth = Animator.StringToHash("GainHealth");
 
     public void Start()
     {
@@ -88,24 +89,32 @@ public class UICharacter : MonoBehaviour
         CanvaHealthBar.transform.LookAt(Camera.main.transform);
         CanvaHealthBar.transform.Rotate(0, 180, 0);
     }
+    
 
-    private void ShowDamage(string damage)
+    private void HandleHealthChanged(int currentHealth, int damage, int maxHealth, bool isDamage)
     {
-        _damageTexte.text = damage;
-        _damageAnimator.SetTrigger(TakeDamage);
-    }
-
-    private void HandleHealthChanged(int currentHealth, int damage, int maxHealth)
-    {
+        
+        
         if (damage == 0)
         {
-            ShowDamage(BlockTexte);
+            _damageTexte.text = BlockTexte;
+            _damageAnimator.SetTrigger(TakeDamage);
         }
         else
         {
             float currentHealthPct = (float)currentHealth / maxHealth;
             StartCoroutine(ChangeToPct(currentHealthPct));
-            ShowDamage(damage.ToString());
+            _damageTexte.text = damage.ToString();
+            
+            if (isDamage)
+            {
+                _damageAnimator.SetTrigger(TakeDamage);
+            }
+            else
+            {
+                _damageAnimator.SetTrigger(GainHealth);
+            }
+            
             _currentHealthText.text = currentHealth.ToString() + "/" + maxHealth.ToString();
         }
     }

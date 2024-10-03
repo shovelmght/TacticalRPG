@@ -245,22 +245,61 @@ public class TilesManager: MonoBehaviour
         
         if (!isAICHeck)
         {
-            if (previousTile != null)
-            {
-                for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
-                {
-                    currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
-                }
-                currentTile.AddPreviousMoveTile(previousTile);
-            }
+            
 
-            if (material != null)
+            if (isSpawnAttack)
             {
-                currentTile.SetTopMaterial(material);
-            }
+                bool isAoccupiedSpawnTile = currentTile.IsPotionTile || currentTile.IsOccupied;
+                if (!isAoccupiedSpawnTile)
+                {
+                    if (previousTile != null)
+                    {
+                        for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
+                        {
+                            currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
+                        }
+                        currentTile.AddPreviousMoveTile(previousTile);
+                    }
+
+                    if (material != null)
+                    {
+                        currentTile.SetTopMaterial(material);
+                    }
            
-            AddSelectedTile(currentTile);
-            currentTile.CanInteract = true;
+                    AddSelectedTile(currentTile);
+                    currentTile.CanInteract = true;
+                }
+                else
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+                    _gameManager.IndexOccupiedTiles++;
+                }
+            }
+            else
+            {
+                if (currentTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+                    _gameManager.IndexOccupiedTiles++;
+                }
+                if (previousTile != null)
+                {
+                    for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
+                    {
+                        currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
+                    }
+                    currentTile.AddPreviousMoveTile(previousTile);
+                }
+
+                if (material != null)
+                {
+                    currentTile.SetTopMaterial(material);
+                }
+           
+                AddSelectedTile(currentTile);
+                currentTile.CanInteract = true;
+            }
+            
             yield return new WaitForSeconds(_timePathFinding);
         }
 
@@ -272,32 +311,9 @@ public class TilesManager: MonoBehaviour
             {
                 if (sidetile is { CanInteract: false })
                 {
-                    if (sidetile.IsOccupied)
-                    {
-                        if (isSpawnAttack && sidetile.CharacterReference == null)
-                        {
-                            nbrOfContinue++;
-                            if (nbrOfContinue >= 4)
-                            {
-                                yield return new WaitForSeconds(1);
-                                _gameManager.PossibleTileIsFinished = true;
-                            }
-                            continue;
-                        }
-                        _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = sidetile;
-                        _gameManager.IndexOccupiedTiles++;
-                    }
                     StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck, isSpawnAttack)) ;
                 }
-                else if(isSpawnAttack)
-                {
-                    nbrOfContinue++;
-                    if (nbrOfContinue >= 4)
-                    {
-                        yield return new WaitForSeconds(1);
-                        _gameManager.PossibleTileIsFinished = true;
-                    }
-                }
+
             }
         }
         else
@@ -1015,17 +1031,18 @@ public class TilesManager: MonoBehaviour
             for (int i = 0; i < TileManagerData.NumberOfPotion; i++)
             {
                 Tile tile =  GetTile(Random.Range(0, TileManagerData.Column - 1), Random.Range(0, TileManagerData.Row - 1));
-                if (!tile.IsOccupied)
+                bool canSpawnPotion = tile.IsOccupied && tile.IsPotionTile;
+                if (!canSpawnPotion)
                 {
                     yield return new WaitForSeconds(_buildingTime);
                     tile.IsPotionTile = true;
-                    int randomIndex = Random.Range(0, TileManagerData._PotionPrefabs.Length);
+                    int randomIndex = Random.Range(0, TileManagerData._PotionData.Length);
                     Vector3 rotation = new Vector3(0, Random.Range(0f, 360f), 0);
-                    GameObject potion = Instantiate(TileManagerData._PotionPrefabs[randomIndex], tile.Position + new Vector3(0,1,0), Quaternion.Euler(rotation));
+                    GameObject potion = Instantiate(TileManagerData._PotionData[randomIndex].PotionPrefab, tile.Position + new Vector3(0,1,0), Quaternion.Euler(rotation));
                     potion.transform.parent = transform;
                     potion.transform.localScale = new Vector3(.4f, .4f, .4f);
                     potion.name = "Potion " + i;
-                    tile.SetPotionAnimator(potion.GetComponent<Animator>());
+                    tile.SetPotion(potion.GetComponent<Animator>(), TileManagerData._PotionData[randomIndex]);
                     
 
                 }

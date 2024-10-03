@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Squire AI
       objectReference: {fileID: 0}
+    - target: {fileID: 5302907934503677982, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -147,6 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &2772325367314602915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6862948470892797352, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3237572432850104247 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6172599484751014332, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -243,8 +252,10 @@ MonoBehaviour:
   _SkinnedMeshRenderer: {fileID: 0}
   _Materials: []
   _StartPositionProjectile: {fileID: 669381789978413025}
+  PotionHandPostion: {fileID: 2772325367314602915}
   _TrailParticleEffect: {fileID: 1038371312127605085}
   _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
+  _Potion: {fileID: 5862286528928160859}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -260,7 +271,13 @@ MonoBehaviour:
   _attackDirection: 0
   _attackTarget: {fileID: 0}
   _isCounterAttack: 0
+  _NbrRepeatAttack: 0
   _TimePathFinding: 1.25
+--- !u!1 &5862286528928160859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2890280682802993744, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7233896161971023528 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2099986145364371619, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}

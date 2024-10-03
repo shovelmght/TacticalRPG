@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected SkinnedMeshRenderer _SkinnedMeshRenderer;
     [SerializeField] protected Material[] _Materials;
     [SerializeField] private Transform _StartPositionProjectile;
+    [SerializeField] private Transform PotionHandPostion;
     [SerializeField] private GameObject _TrailParticleEffect;
     [SerializeField] private GameObject _DieFloorParticleEffect;
     [SerializeField] private GameObject _Potion;
@@ -76,7 +77,7 @@ public class Character : MonoBehaviour
     public Attack _WaterAttack;
 
 
-    public event Action<int, int, int> OnHealthPctChange = delegate { };
+    public event Action<int, int, int, bool> OnHealthPctChange = delegate { };
     public Action CounterAttack;
     public Action<bool, bool> ShowUIPopUpCharacterInfo;
     public Action<bool> RemoveUIPopUpCharacterInfo;
@@ -201,6 +202,11 @@ public class Character : MonoBehaviour
         {
             tile.SetTopMaterial(_tileManager.PathTileMaterial);
         }
+
+        if (tile.IsPotionTile)
+        {
+            tile.PotionAnimator.SetTrigger(GetPotion);
+        }
        
         yield return new WaitForSeconds(WaitToDeselectedTiles);
   
@@ -211,69 +217,81 @@ public class Character : MonoBehaviour
         {
             StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
         }
-        HaveMoved = true;
-        _gameManager.Wait = false;
+
 
         foreach (var waterParticleEffect in _waterParticleEffect)
         {
             waterParticleEffect.SetActive(tile.IsWater);
         }
         
-        if (!IsAI && !HaveAttacked && _gameManager.IsController)
-        {
-            _gameManager.SelectCharacter?.Invoke();
-        }
 
-        if (_gameManager._IsMapScene)
-        {
-            _gameManager.ShowPossibleMapMove(tile);
-        }
 
         if (tile.IsPotionTile)
         {
-    
+
+            tile.IsPotionTile = false;
             AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
-            tile.AnimatorPotion.SetTrigger(GetPotion);
             yield return new WaitForSeconds(1);
             CharacterAnimator.SetTrigger(Drink);
-            StartCoroutine(_gameManager.ZoomBattleCamera());
+            StartCoroutine(_gameManager.ZoomBattleCamera(4));
 
             
             if (_Potion != null)
             {
                 _Potion.SetActive(true);
+                _Potion.transform.position = tile.PotionAnimator.gameObject.transform.position;
+                StartCoroutine(GameObjectMoveTo(_Potion, PotionHandPostion.position, 0.2f));
+
             }
-            
+
             yield return new WaitForSeconds(2);
-            int heathRecover = MaxHealth / 4;
-
-            CurrentHealth += heathRecover;
-
-            if (CurrentHealth > MaxHealth)
-            {
-                CurrentHealth = MaxHealth;
-            }
             
-            int debuffSpeed = Speed / 2;
-            
-            Speed -= debuffSpeed;
+            SetPotionEffect(tile.PotionData.PotionType);
 
-            if (Speed < 0)
-            {
-                Speed = 20;
-            }
-
-            string bufftext = "+ " + heathRecover + " HP";
-            string debufftext = "- " + debuffSpeed + " Speed";
-            ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
             AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
             yield return new WaitForSeconds(1);
             
-            if (_Potion != null)
+            HaveMoved = true;
+            _gameManager.Wait = false;
+            
+            if (!IsAI && !HaveAttacked && _gameManager.IsController)
             {
-                _Potion.SetActive(false);
+                _gameManager.SelectCharacter?.Invoke();
+            }
+
+            if (_gameManager._IsMapScene)
+            {
+                _gameManager.ShowPossibleMapMove(tile);
             }
         }
+        else
+        {
+            HaveMoved = true;
+            _gameManager.Wait = false;
+            
+            if (!IsAI && !HaveAttacked && _gameManager.IsController)
+            {
+                _gameManager.SelectCharacter?.Invoke();
+            }
+
+            if (_gameManager._IsMapScene)
+            {
+                _gameManager.ShowPossibleMapMove(tile);
+            }
+        }
+    }
+    
+    private IEnumerator GameObjectMoveTo(GameObject go, Vector3 destination, float speed)
+    {
+        Vector3 startPosition = go.transform.position;
+        float elapsedTime = 0;
+        while (elapsedTime < speed)
+        {
+            go.transform.position = Vector3.Lerp(startPosition, destination, elapsedTime / speed);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        go.transform.position = destination;
     }
 
     private IEnumerator MoveTo(Vector3 destination, float speed)
@@ -395,7 +413,7 @@ public class Character : MonoBehaviour
                 character.CharacterAnimator.SetTrigger(Block);
   
                 character._isCounterAttack = _isCounterAttack;
-                character.OnHealthPctChange(0, 0, 0);
+                character.OnHealthPctChange(0, 0, 0, true);
                 Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
                 if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
                 {
@@ -490,7 +508,7 @@ public class Character : MonoBehaviour
             HitParticleSystem.Play();
             CurrentHealth -= damage;
             
-            OnHealthPctChange(CurrentHealth, damage, MaxHealth);
+            OnHealthPctChange(CurrentHealth, damage, MaxHealth, true);
             if (CurrentHealth <= 0)
             {
                 StartCoroutine(Vanish());
@@ -532,7 +550,7 @@ public class Character : MonoBehaviour
                 _attackTarget.CharacterAnimator.SetTrigger(Block);
   
                 _attackTarget._isCounterAttack = _isCounterAttack;
-                _attackTarget.OnHealthPctChange(0, 0, 0);
+                _attackTarget.OnHealthPctChange(0, 0, 0, true);
                 Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
                 if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
                 {
@@ -810,4 +828,142 @@ public class Character : MonoBehaviour
     {
         TurnTimeRemaining -= Speed;
     }
+
+    private void SetPotionEffect(E_Potion potionType)
+    {
+        switch (potionType)
+        {
+            case E_Potion.HealthBoostSpeedPenalty:
+            {
+                int heathRecover = MaxHealth / 2;
+                CurrentHealth += heathRecover;
+                int debuffSpeed = Speed / 4;
+                Speed -= debuffSpeed;
+
+                if (CurrentHealth > MaxHealth)
+                {
+                    CurrentHealth = MaxHealth;
+                }
+            
+                if (Speed < 0)
+                {
+                    Speed = 20;
+                }
+
+                string bufftext = "+50% HP";
+                string debufftext = "-" + debuffSpeed + " Speed";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                OnHealthPctChange(CurrentHealth, heathRecover, MaxHealth, false);
+                break;
+            }
+            case E_Potion.SpeedBoostHealthPenalty:
+            {
+                int buffSpeed = Speed / 2;
+                Speed += buffSpeed;
+                int debuffHealth = MaxHealth / 4;
+                CurrentHealth -= debuffHealth;
+
+                if (CurrentHealth < 0)
+                {
+                    CurrentHealth = 1;
+                }
+                
+                string bufftext = "+" + buffSpeed + " Speed";
+                string debufftext = "-25% HP";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                OnHealthPctChange(CurrentHealth, debuffHealth, MaxHealth, true);
+                break;
+            }
+            case E_Potion.MaxHPBoostHealthPenalty:
+            {
+                int maxHP = MaxHealth / 2;
+                MaxHealth += maxHP;
+                int debuffHealth = MaxHealth / 4;
+                CurrentHealth -= debuffHealth;
+
+                if (CurrentHealth < 0)
+                {
+                    CurrentHealth = 1;
+                }
+                
+                string bufftext = "+" + maxHP + " MaxHP";
+                string debufftext = "-25% HP";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                OnHealthPctChange(CurrentHealth, debuffHealth, MaxHealth, true);
+                break;
+            }
+            case E_Potion.HealthBoostMaxHPPenalty:
+            {
+                int heathRecover = MaxHealth / 2;
+                CurrentHealth += heathRecover;
+                
+                int debuffMaxHealth = MaxHealth / 4;
+                MaxHealth -= debuffMaxHealth;
+
+                if (CurrentHealth > MaxHealth)
+                {
+                    CurrentHealth = MaxHealth;
+                }
+                
+                string bufftext = "+50% HP";
+                string debufftext  = "-" + debuffMaxHealth + " MaxHP";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                OnHealthPctChange(CurrentHealth, heathRecover, MaxHealth, false);
+                break;
+            }
+            case E_Potion.PowerBoostSpeedPenalty:
+            {
+                int buffStrenght = Strength / 2;
+                Strength += buffStrenght;
+                
+                int debuffSpeed = Speed / 4;
+                Speed -= debuffSpeed;
+                
+                
+                string bufftext = "+ " + buffStrenght + " Strenght";
+                string debufftext  = "-" + debuffSpeed + " Speed";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                break;
+            }
+            case E_Potion.MoveBoostPowerPenalty:
+            {
+                MovementPoint++;
+                int debuffPower = Strength / 4;
+                Strength -= debuffPower;
+                
+                
+                string bufftext = "+1 Move";
+                string debufftext  = "-" + Strength + " Strength";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                break;
+            }
+            case E_Potion.PowerBoostMovePenalty:
+            {
+                int buffStrenght = Strength / 2;
+                Strength += buffStrenght;
+                MovementPoint--;
+
+                if (MovementPoint <= 0)
+                {
+                    MovementPoint = 1;
+                }
+                
+                string bufftext = "+ " + buffStrenght + " Strenght";
+                string debufftext  = "-1 Move";
+                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                break;
+            }
+        }
+    }
+}
+
+public enum E_Potion
+{
+    HealthBoostSpeedPenalty = 0,  // Boost health, reduces speed
+    SpeedBoostHealthPenalty = 1,   // Boost speed, reduces health
+    MaxHPBoostHealthPenalty = 2,  // Boost Maxhealth, reduces Health
+    HealthBoostMaxHPPenalty = 3,   // Boost health, reduces Max health
+    PowerBoostSpeedPenalty = 4,   // Boost power, reduces Max health
+    MoveBoostPowerPenalty = 5,   // Boost movement, reduces Power
+    PowerBoostMovePenalty = 6   // Boost Power, reduces movement
 }

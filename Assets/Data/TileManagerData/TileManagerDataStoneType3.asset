@@ -25,6 +25,14 @@ MonoBehaviour:
   - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
   - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
   - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
+  <_PotionData>k__BackingField:
+  - {fileID: 11400000, guid: 6a84eb21caa3ea847945118cf738d94c, type: 2}
+  - {fileID: 11400000, guid: 2a6073c7b7838d646be01869f3f0c365, type: 2}
+  - {fileID: 11400000, guid: d3ca2ef6dd746fa469a6b091af7b0151, type: 2}
+  - {fileID: 11400000, guid: c73a005528f88614ead6e19e9e2682a3, type: 2}
+  - {fileID: 11400000, guid: af4eb246fc86f204da5093051514ca0f, type: 2}
+  - {fileID: 11400000, guid: da7d3fcd6eb27a745948ed2c7506d5de, type: 2}
+  - {fileID: 11400000, guid: 08ae17f2185505343a3a5e89c27e6014, type: 2}
   <SmallRockPrefab>k__BackingField:
   - {fileID: 2921842315418363760, guid: d9cbbc77271ed494eaf733e414a87b7b, type: 3}
   - {fileID: 2921842315418363760, guid: 250445bfe1d0ede458fca6c03237a250, type: 3}
@@ -34,12 +42,14 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
   <NumberOfDecor>k__BackingField: 4
+  <NumberOfPotion>k__BackingField: 0
   <NumberOfSmallRock>k__BackingField: 10
   <NumberGroundBackgroundTilesRow>k__BackingField: 50
   <NumberGroundBackgroundTilesColumn>k__BackingField: 40
   <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
   <BoardTileHeight>k__BackingField: 25
   <TilePrefab>k__BackingField: {fileID: 8767883242349988876, guid: b94b6e49325a2444fb968972877a221f, type: 3}
+  <SecondTilePrefab>k__BackingField: {fileID: 0}
   <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
   <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
   <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}

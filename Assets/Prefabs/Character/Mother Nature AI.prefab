@@ -6223,6 +6223,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -13.997233
       objectReference: {fileID: 0}
+    - target: {fileID: 5273720813646120020, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5302907934503677982, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_Controller
       value: 
@@ -6398,6 +6402,18 @@ PrefabInstance:
     - target: {fileID: 6638365796941632118, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.31341013
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862948470892797352, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862948470892797352, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862948470892797352, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6993581145280838750, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6757,7 +6773,7 @@ MonoBehaviour:
   <Strength>k__BackingField: 2
   <MovementPoint>k__BackingField: 2
   <AttackLenght>k__BackingField: 1
-  <Speed>k__BackingField: 11
+  <Speed>k__BackingField: 1
   CharacterAnimator: {fileID: 279221548384583580}
   <MovingSpeed>k__BackingField: 0.2
   <DyingMoveSpeed>k__BackingField: 1
@@ -6767,8 +6783,10 @@ MonoBehaviour:
   _SkinnedMeshRenderer: {fileID: 0}
   _Materials: []
   _StartPositionProjectile: {fileID: 7341793262900869044}
+  PotionHandPostion: {fileID: 1546528433650651690}
   _TrailParticleEffect: {fileID: 0}
   _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
+  _Potion: {fileID: 7085322030078006738}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -6797,6 +6815,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1546528433650651690 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6862948470892797352, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1903424290902375439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5774206679272665997, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -6844,6 +6867,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7085322030078006738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2890280682802993744, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8436350260550193148 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4565427305991078014, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}

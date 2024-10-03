@@ -68,8 +68,10 @@ public class CharacterAI : Character
                 }
             }
         }
+
+        bool isSkillSpawnAttack = isSkillAttack && _SkillAttack.IsSpawnSkill;
         
-        if (enemyTile != null)
+        if (enemyTile != null && ! isSkillSpawnAttack)
         {
             Debug.Log("CharacterAI After ShowPossibleAttack1 enemyTile != null");
             
@@ -81,7 +83,6 @@ public class CharacterAI : Character
             {
                 _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
             }
-            _gameManager.IsAIChatacterTurn = false;
 
             yield return new WaitForSeconds(0.5f);
             
@@ -192,7 +193,8 @@ public class CharacterAI : Character
                     }
                 }
         
-                if (enemyTile != null)
+                isSkillSpawnAttack = isSkillAttack && _SkillAttack.IsSpawnSkill;
+                if (enemyTile != null && !isSkillSpawnAttack)
                 {
                     if (isSkillAttack)
                     {
@@ -202,7 +204,6 @@ public class CharacterAI : Character
                     {
                         _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
                     }
-                    _gameManager.IsAIChatacterTurn = false;
 
                     yield return new WaitForSeconds(0.5f);
                     
@@ -270,7 +271,7 @@ public class CharacterAI : Character
                     }
                 }
 
-                bool isSkillSpawnAttack = _SkillAttack.IsSpawnSkill && isSkillAttack;
+                isSkillSpawnAttack = _SkillAttack.IsSpawnSkill && isSkillAttack;
         
                 if (enemyTile != null && !isSkillSpawnAttack)
                 {
@@ -282,7 +283,6 @@ public class CharacterAI : Character
                     {
                         _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
                     }
-                    _gameManager.IsAIChatacterTurn = false;
 
                     yield return new WaitForSeconds(0.5f);
                     if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
@@ -311,7 +311,7 @@ public class CharacterAI : Character
                     
                     for (int i = 0; i < CurrentTile.SideTiles.Length; i++)
                     {
-                        if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied)
+                        if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied && !CurrentTile.SideTiles[i].IsPotionTile)
                         {
                             possibleSpawnTile.Add(CurrentTile.SideTiles[i]);
                         }
@@ -376,8 +376,12 @@ public class CharacterAI : Character
     {
         int minDistance = 1000;
         Tile nearestTile = null;
+        
+        Debug.Log("CharacterAI :: GetNearestTile _tileManager.GetSelectedTileLenght() = " + _tileManager.GetSelectedTileLenght());
+        
         for (int i = _tileManager.GetSelectedTileLenght() - 1; i > 0; i--)
         {
+            Debug.Log("CharacterAI :: GetNearestTile _tileManager.GetSelectedTile(i) = " + _tileManager.GetSelectedTile(i).CoordX +" " + _tileManager.GetSelectedTile(i).CoordY);
             int distance = GetPlayerDistance(_tileManager.GetSelectedTile(i), CurrentTeam);
             if (distance < minDistance)
             {
@@ -386,6 +390,11 @@ public class CharacterAI : Character
             }
         }
 
+        if (nearestTile == null)
+        {
+            Debug.Log("CharacterAI :: GetNearestTile nearestTile == null");
+        }
+        
         return nearestTile;
     }
     

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Tile
 {
-    public Animator AnimatorPotion { get; private set; }
+    public PotionData PotionData { get; private set; }
+    public Animator PotionAnimator { get; private set; }
     public GameObject CurrentGameObject { get; }
     public Tile[] PreviousMoveTilesList{ get; }
     public MeshRenderer[] MeshRenderer { get; }
@@ -77,9 +78,10 @@ public class Tile
         CharacterReference = character;
     }
     
-    public void SetPotionAnimator(Animator animator)
+    public void SetPotion(Animator animator, PotionData potionData)
     {
-        AnimatorPotion = animator;
+        PotionAnimator = animator;
+        PotionData = potionData;
     }
     
     public void UnSetCharacter()
