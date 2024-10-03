@@ -11,8 +11,10 @@ public class TileManagerData : ScriptableObject
     [field: SerializeField] public Material WaterTileMaterial { get; private set; }
     [field: SerializeField] public Material WaterfallTileMaterial { get; private set; }
     [field: SerializeField] public GameObject[] DecorsPrefab{ get; private set; } 
+    [field: SerializeField] public GameObject[] _PotionPrefabs{ get; private set; }
     [field: SerializeField] public GameObject[] SmallRockPrefab{ get; private set; } 
     [field: SerializeField] public int NumberOfDecor{ get; private set; } 
+    [field: SerializeField] public int NumberOfPotion{ get; private set; } 
     [field: SerializeField] public int NumberOfSmallRock{ get; private set; } 
     [field: SerializeField] public int NumberGroundBackgroundTilesRow{ get; private set; } 
     [field: SerializeField] public int NumberGroundBackgroundTilesColumn{ get; private set; } 

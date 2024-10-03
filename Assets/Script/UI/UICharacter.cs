@@ -49,6 +49,10 @@ public class UICharacter : MonoBehaviour
     private Vector3 _rightCharacterUihpRectTransformPosition;
     [SerializeField]
     private Vector3 _leftCharacterUihpRectTransformPosition;
+    [SerializeField] private TMP_Text _BuffText;
+    [SerializeField] private TMP_Text _DebuffText;
+    [SerializeField] private Animator _DebuffAnimator;
+    private static readonly int ShowBuffDebuff = Animator.StringToHash("ShowBuffDebuff");
 
     private bool _canClose;
 
@@ -65,6 +69,7 @@ public class UICharacter : MonoBehaviour
         _Character.ShowUIHitSuccess += ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
         _Character.RemoveHealthBar += HideHealthBar;
+        _Character.ShowBuffDebuffPotionEffect += ShowBuffDebuffPotionEffect;
     }
 
     private void OnDestroy()
@@ -74,6 +79,7 @@ public class UICharacter : MonoBehaviour
         _Character.ShowUIHitSuccess -= ShowHitSuccessPct;
         _Character.RemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
         _Character.RemoveHealthBar -= HideHealthBar;
+        _Character.ShowBuffDebuffPotionEffect -= ShowBuffDebuffPotionEffect;
     }
 
     //make ui element face to the camera
@@ -195,5 +201,13 @@ public class UICharacter : MonoBehaviour
             characterPart.layer = 1;
         }
         _popUpCharacterInfoGameObject.SetActive(false);
+    }
+    
+
+    public void ShowBuffDebuffPotionEffect(string buffText, string debuffText)
+    {
+        _BuffText.text = buffText;
+        _DebuffText.text = debuffText;
+        _DebuffAnimator.SetTrigger(ShowBuffDebuff);
     }
 }

@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     private List<AudioPoolObject> _AudioPool;
     public float _MainVolume = 0.5f;
     
+    public SfxClass _ShowBuffDebuffStats;
+    public SfxClass _GetPotion;
     public SfxClass _ZoomSFX;
     public SfxClass _SwordHit;
     public SfxClass _SwordSoft;

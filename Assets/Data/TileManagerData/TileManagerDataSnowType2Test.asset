@@ -38,6 +38,8 @@ MonoBehaviour:
   - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
   - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
   - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
+  <_PotionPrefabs>k__BackingField:
+  - {fileID: 5121601793217846445, guid: fa5bfa93c5f44d8438869bd607f0d462, type: 3}
   <SmallRockPrefab>k__BackingField:
   - {fileID: 2921842315418363760, guid: d9cbbc77271ed494eaf733e414a87b7b, type: 3}
   - {fileID: 2921842315418363760, guid: 250445bfe1d0ede458fca6c03237a250, type: 3}
@@ -47,6 +49,7 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
   <NumberOfDecor>k__BackingField: 5
+  <NumberOfPotion>k__BackingField: 3
   <NumberOfSmallRock>k__BackingField: 5
   <NumberGroundBackgroundTilesRow>k__BackingField: 5
   <NumberGroundBackgroundTilesColumn>k__BackingField: 5

@@ -40,6 +40,7 @@ public class Character : MonoBehaviour
     [SerializeField] private Transform _StartPositionProjectile;
     [SerializeField] private GameObject _TrailParticleEffect;
     [SerializeField] private GameObject _DieFloorParticleEffect;
+    [SerializeField] private GameObject _Potion;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -82,6 +83,7 @@ public class Character : MonoBehaviour
     public Action<int> ShowUIHitSuccess;
     public Action DestroyCharacterRelated;
     public Action RemoveHealthBar;
+    public Action<string, string> ShowBuffDebuffPotionEffect;
     
     
     protected GameManager _gameManager;
@@ -109,6 +111,8 @@ public class Character : MonoBehaviour
     private static readonly int Die = Animator.StringToHash("Die");
     private static readonly int Block = Animator.StringToHash("Block");
     private static readonly int HandUp = Animator.StringToHash("HandUp");
+    private static readonly int GetPotion = Animator.StringToHash("GetPotion");
+    private static readonly int Drink = Animator.StringToHash("Drink");
 
     protected virtual void Start()
     {
@@ -223,6 +227,52 @@ public class Character : MonoBehaviour
         if (_gameManager._IsMapScene)
         {
             _gameManager.ShowPossibleMapMove(tile);
+        }
+
+        if (tile.IsPotionTile)
+        {
+    
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
+            tile.AnimatorPotion.SetTrigger(GetPotion);
+            yield return new WaitForSeconds(1);
+            CharacterAnimator.SetTrigger(Drink);
+            StartCoroutine(_gameManager.ZoomBattleCamera());
+
+            
+            if (_Potion != null)
+            {
+                _Potion.SetActive(true);
+            }
+            
+            yield return new WaitForSeconds(2);
+            int heathRecover = MaxHealth / 4;
+
+            CurrentHealth += heathRecover;
+
+            if (CurrentHealth > MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+            }
+            
+            int debuffSpeed = Speed / 2;
+            
+            Speed -= debuffSpeed;
+
+            if (Speed < 0)
+            {
+                Speed = 20;
+            }
+
+            string bufftext = "+ " + heathRecover + " HP";
+            string debufftext = "- " + debuffSpeed + " Speed";
+            ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
+            yield return new WaitForSeconds(1);
+            
+            if (_Potion != null)
+            {
+                _Potion.SetActive(false);
+            }
         }
     }
 

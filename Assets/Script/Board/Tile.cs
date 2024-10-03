@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Tile
 {
+    public Animator AnimatorPotion { get; private set; }
     public GameObject CurrentGameObject { get; }
     public Tile[] PreviousMoveTilesList{ get; }
     public MeshRenderer[] MeshRenderer { get; }
@@ -13,6 +14,7 @@ public class Tile
     public int CoordX { get; }
     public int CoordY { get; }
     public bool IsOccupied { get;  set; }
+    public bool IsPotionTile { get;  set; }
     public bool CanInteract { get;  set; }
     public bool IsValidSpawnTile { get;  set; }
     public bool IsWater { get; set; }
@@ -73,6 +75,11 @@ public class Tile
     {
         IsOccupied = true;
         CharacterReference = character;
+    }
+    
+    public void SetPotionAnimator(Animator animator)
+    {
+        AnimatorPotion = animator;
     }
     
     public void UnSetCharacter()

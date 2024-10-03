@@ -124,6 +124,7 @@ public class TilesManager: MonoBehaviour
         yield return MakeBridges();
         if (!_gameManager._IsMapScene)
         {
+            yield return SpawnPotions();
             yield return SetBackGroundTile();
         }
     }
@@ -1005,6 +1006,28 @@ public class TilesManager: MonoBehaviour
                     Vector3 rotation = new Vector3(0, Random.Range(0f, 360f), 0);
                     GameObject decor = Instantiate(TileManagerData.DecorsPrefab[randomIndex], tile.Position, Quaternion.Euler(rotation));
                     decor.transform.parent = transform;
+                }
+            }
+        }
+        
+        private IEnumerator SpawnPotions()
+        {
+            for (int i = 0; i < TileManagerData.NumberOfPotion; i++)
+            {
+                Tile tile =  GetTile(Random.Range(0, TileManagerData.Column - 1), Random.Range(0, TileManagerData.Row - 1));
+                if (!tile.IsOccupied)
+                {
+                    yield return new WaitForSeconds(_buildingTime);
+                    tile.IsPotionTile = true;
+                    int randomIndex = Random.Range(0, TileManagerData._PotionPrefabs.Length);
+                    Vector3 rotation = new Vector3(0, Random.Range(0f, 360f), 0);
+                    GameObject potion = Instantiate(TileManagerData._PotionPrefabs[randomIndex], tile.Position + new Vector3(0,1,0), Quaternion.Euler(rotation));
+                    potion.transform.parent = transform;
+                    potion.transform.localScale = new Vector3(.4f, .4f, .4f);
+                    potion.name = "Potion " + i;
+                    tile.SetPotionAnimator(potion.GetComponent<Animator>());
+                    
+
                 }
             }
         }
