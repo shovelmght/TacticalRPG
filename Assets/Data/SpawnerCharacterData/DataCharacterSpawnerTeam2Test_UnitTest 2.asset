@@ -16,10 +16,11 @@ MonoBehaviour:
   - CharactersPrefab: 9
     Team: 2
     Ability1: 0
-    Name: ss
+    Name: Pops
     Class: ss
   - CharactersPrefab: 7
     Team: 2
     Ability1: 1
-    Name: ss
+    Name: Mark
     Class: ss
+  TeamColor: {fileID: 0}

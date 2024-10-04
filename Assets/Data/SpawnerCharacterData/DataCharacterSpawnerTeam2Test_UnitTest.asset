@@ -16,10 +16,11 @@ MonoBehaviour:
   - CharactersPrefab: 9
     Team: 2
     Ability1: 0
-    Name: ss
+    Name: Ecu
     Class: ss
   - CharactersPrefab: 1
     Team: 2
     Ability1: 1
-    Name: ss
+    Name: Min
     Class: ss
+  TeamColor: {fileID: 0}

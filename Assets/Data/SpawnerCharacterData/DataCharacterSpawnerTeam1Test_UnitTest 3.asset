@@ -16,15 +16,16 @@ MonoBehaviour:
   - CharactersPrefab: 5
     Team: 1
     Ability1: 0
-    Name: ss
+    Name: Jack
     Class: ss
   - CharactersPrefab: 7
     Team: 1
     Ability1: 1
-    Name: ss
+    Name: Marv
     Class: ss
   - CharactersPrefab: 9
     Team: 1
     Ability1: 1
-    Name: ss
+    Name: Joey
     Class: ss
+  TeamColor: {fileID: 0}

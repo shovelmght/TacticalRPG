@@ -502,7 +502,7 @@ public class Character : MonoBehaviour
         Invoke(nameof(ResetTimeScale), 0.2f);
         _gameManager.StartCinemachineImpulseSource();
         StartCinemachineImpulseSource();
-        Debug.Log("Character IsAttacked Set _isCounterAttack = " + isAcounterAttack + " GO = " + gameObject.name);
+        Debug.Log("Character :: IsAttacked Set _isCounterAttack = " + isAcounterAttack + " Character = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
         HitParticleSystem.startColor = Color.red;
             HitParticleSystem.Play();
@@ -541,7 +541,7 @@ public class Character : MonoBehaviour
 
         _CanHit = false;
         
-        Debug.Log("Character Hit");
+        Debug.Log("Character :: Hit  _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
         if (_attackTarget)
         {
             if (_attackTarget.GetIsBlock(_attackTarget._attackDirection))
@@ -551,7 +551,7 @@ public class Character : MonoBehaviour
   
                 _attackTarget._isCounterAttack = _isCounterAttack;
                 _attackTarget.OnHealthPctChange(0, 0, 0, true);
-                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
+                Debug.Log("Character :: IsAttacked Set _isCounterAttack _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
                 if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
                 {
                     CharacterAnimator.SetTrigger(HandUp);
@@ -561,7 +561,7 @@ public class Character : MonoBehaviour
             else
             {
                 AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
-                Debug.Log("Chatacter Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name);
+                Debug.Log("Chatacter :: Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
                 _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
 
@@ -579,10 +579,10 @@ public class Character : MonoBehaviour
             _gameManager.ActivateUIButtonCharacter?.Invoke();
             _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
-            Debug.Log("Character Hit Set _gameManager.Wait(false) 000");
+            Debug.Log("Character :: Hit Set _gameManager.Wait(false) 000  _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
         }
         
-        Debug.Log("Check RepeatableAttackInputIsPress = true; RepeatableAttackInputIsPress =" + _gameManager.RepeatableAttackInputIsPress);
+        Debug.Log("Character :: Check RepeatableAttackInputIsPress = true;  _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
         if (_gameManager.RepeatableAttackInputIsPress && !_isCounterAttack && _NbrRepeatAttack < 1 && !IsAI && _gameManager.StateAttackCharacter._Attack.IsReapeatableAttack)
         {
             _NbrRepeatAttack++;
@@ -594,7 +594,7 @@ public class Character : MonoBehaviour
 
         if (_attackTarget && !_attackTarget.HaveCounterAbility)
         {
-            Debug.Log("Character Hit Set _gameManager.Wait(false) 111");
+            Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
             _gameManager.Wait = false;
         }
         if (HaveMoved)
@@ -625,7 +625,7 @@ public class Character : MonoBehaviour
     private IEnumerator CheckIfCanCounterAttack()
     {
         RemoveUIPopUpCharacterInfo(false);
-        Debug.Log("Character Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
+        Debug.Log("Character :: Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
         if (!_isCounterAttack)
         {
             if (HaveCounterAbility && _IncomingAttacker._NbrRepeatAttack == 0)
@@ -660,14 +660,14 @@ public class Character : MonoBehaviour
                     yield return new WaitForSeconds(0.15f);
                 }
                 else
-                { Debug.Log("Character Counter check for Is in front GO = " + gameObject.name);
+                { Debug.Log("Character :: Counter check for Is in front GO = " + gameObject.name);
                 
                 }
                 CounterAttack();
             }
             else
             {
-                Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 000");
+                Debug.Log("Character :: CheckIfCanCounterAttack Set _gameManager.Wait(false) 000 :: Character = " + gameObject.name);
                 if (_IncomingAttacker._NbrRepeatAttack == 0)
                 {
                     _gameManager.Wait = false;
@@ -681,7 +681,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            Debug.Log("Character CheckIfCanCounterAttack Set _gameManager.Wait(false) 111");
+            Debug.Log("Character :: CheckIfCanCounterAttack Set _gameManager.Wait(false) 111 :: Character = " + gameObject.name);
             _gameManager.Wait = false;
             if (!IsAI && _gameManager.IsController && !HaveMoved)
             {
@@ -721,7 +721,7 @@ public class Character : MonoBehaviour
         
         if (!IsAI && isCharacterTurn)
         {
-            Debug.Log("Character _gameManager.CurrentCharacter == this");
+            Debug.Log("Character :: _gameManager.CurrentCharacter == this :: Character = " + gameObject.name);
             _gameManager.NextCharacterTurn();
         }
 
@@ -754,32 +754,31 @@ public class Character : MonoBehaviour
             case GetAttackDirection.AttackDirection.None:
                 break;
             case GetAttackDirection.AttackDirection.Front:
-
                 float frontHitSuccesChance = 100 - _frontHitSuccesChance;
-                Debug.Log("randomChange = " + randomChange + "   <=  _frontHitSuccesChance = " + frontHitSuccesChance);
-        
+
                 if ( randomChange <= frontHitSuccesChance)
                 {
                     return true;
                 }
+                
                 break;
             case GetAttackDirection.AttackDirection.Behind:
-                
                 float behindHitSuccesChance = 100 - _behindHitSuccesChance;
-                Debug.Log("randomChange = " + randomChange + "   <=  _behindHitSuccesChance = " + behindHitSuccesChance);
+                
                 if (randomChange <= behindHitSuccesChance)
                 {
                     return true;
                 }
+                
                 break;
             default:
-                
                 float sideHitSuccesChance = 100 - _sideHitSuccesChance;
-                Debug.Log("randomChange = " + randomChange + "   <=  _sideHitSuccesChance = " + sideHitSuccesChance);
+                
                 if ( randomChange <= sideHitSuccesChance)
                 {
                     return true;
                 }
+                
                 break;
         }
 
@@ -808,7 +807,6 @@ public class Character : MonoBehaviour
     [ContextMenu("StartCinemachineImpulseSource")]
     public void StartCinemachineImpulseSource()
     {
-        Debug.Log("StartCinemachineImpulseSource");
         foreach (var cinemachineImpulseSources in _CinemachineImpulseSources)
         {
             if (cinemachineImpulseSources.gameObject.activeInHierarchy)

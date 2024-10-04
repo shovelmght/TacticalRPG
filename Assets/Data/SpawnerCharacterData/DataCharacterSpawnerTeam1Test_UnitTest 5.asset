@@ -16,15 +16,16 @@ MonoBehaviour:
   - CharactersPrefab: 7
     Team: 1
     Ability1: 0
-    Name: ss
+    Name: Star
     Class: ss
   - CharactersPrefab: 3
     Team: 1
     Ability1: 1
-    Name: ss
+    Name: Pit
     Class: ss
   - CharactersPrefab: 9
     Team: 1
     Ability1: 1
-    Name: ss
+    Name: Link
     Class: ss
+  TeamColor: {fileID: 0}

@@ -114,4 +114,13 @@ public class CharacterCustomizationManager : MonoBehaviour
         }
 
     }
+
+    [SerializeField] private DataCharacterSpawner _DataCharacterSpawner;
+
+    public void OnConfirmButtonClick()
+    {
+        _DataCharacterSpawner.TeamColor = _AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexMaterial];
+        var dataSpawner = _DataCharacterSpawner.DataSpawn[0];
+        dataSpawner.Name = _Name.text;
+    }
 }

@@ -39,7 +39,7 @@ public class CharacterAI : Character
     {
         //If he can already Attack his enemy
         yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
-        Debug.Log("CharacterAI Before ShowPossibleAttack1");
+        Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
         
         _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
 
@@ -52,7 +52,7 @@ public class CharacterAI : Character
 
         if (enemyTile == null)
         {
-            Debug.Log("CharacterAI After ShowPossibleAttack1 enemyTile == null");
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile == null :: Character = " + gameObject.name);
             isSkillAttack = true;
             _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
             yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -60,11 +60,11 @@ public class CharacterAI : Character
             
             if (enemyTile != null && _SkillAttack.IsDashAttack)
             {
-                Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                Debug.Log("CharacterAI :: CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
                 enemyTile = FindTileBehind(CurrentTile, enemyTile);
                 if (enemyTile != null)
                 {
-                    Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                    Debug.Log("CharacterAI :: BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
                 }
             }
         }
@@ -73,7 +73,7 @@ public class CharacterAI : Character
         
         if (enemyTile != null && ! isSkillSpawnAttack)
         {
-            Debug.Log("CharacterAI After ShowPossibleAttack1 enemyTile != null");
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile != null :: Character = " + gameObject.name);
             
             if (isSkillAttack)
             {
@@ -86,7 +86,7 @@ public class CharacterAI : Character
 
             yield return new WaitForSeconds(0.5f);
             
-            Debug.Log("CharacterAI After ShowPossibleAttack1 and Set current attack enemyTile != null");
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 and Set current attack enemyTile != null :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack);
             
             if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
             {
@@ -97,19 +97,23 @@ public class CharacterAI : Character
             
             yield return new WaitUntil(() => HaveAttacked);
             yield return new WaitUntil(() => !_gameManager.Wait);
+            if (_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+            {
+                yield return new WaitForSeconds(5);
+            }
             if (CurrentHealth <= 0)
             {
                 _gameManager.NextCharacterTurn();
                 yield break;
             }
-            Debug.Log("CharacterAI Before ShowPossibleMove1");
 
+            Debug.Log("CharacterAI :: Before ShowPossibleMove1 :: Character = " + gameObject.name);
 
             if (CanMove)
             {
                 _gameManager.ShowPossibleMove(CurrentTile);
                 yield return new WaitForSeconds(_TimePathFinding);
-                Debug.Log("CharacterAI Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght());
+                Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + " :: Character = " + gameObject.name);
                 if (_tileManager.GetSelectedTileLenght() <= 1)
                 {
                     StartCoroutine(_gameManager.EndOfCharacterTurn(0));
@@ -121,11 +125,12 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght()))); 
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                Debug.Log("CharacterAI Before GetNearestTile1");
+                Debug.Log("CharacterAI :: Before GetNearestTile1 :: Character = " + gameObject.name);
                 _gameManager.SelectTile(GetNearestTile());
             }
             else
             {
+                Debug.Log("CharacterAI :: EndOfCharacterTurn :: Character = " + gameObject.name);
                 StartCoroutine(_gameManager.EndOfCharacterTurn(0));
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -137,6 +142,7 @@ public class CharacterAI : Character
         {
             if (!CanMove)
             {
+                Debug.Log("CharacterAI :: !CanMove :: Character = " + gameObject.name);
                 StartCoroutine(_gameManager.EndOfCharacterTurn(0));
                 _gameManager.PossibleTileIsFinished = false;
                 yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -145,7 +151,7 @@ public class CharacterAI : Character
             }
 
             //Moves towards his enemy
-            Debug.Log("CharacterAI Before ShowPossibleMove2");
+            Debug.Log("CharacterAI :: Before ShowPossibleMove2 :: Character = " + gameObject.name);
             _gameManager.ShowPossibleMove(CurrentTile);
             yield return new WaitForSeconds(_TimePathFinding);
 
@@ -157,16 +163,15 @@ public class CharacterAI : Character
                 _gameManager.SelectTile(GetNearestTile());
                 yield break;
             }
-            Debug.Log("CharacterAI Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght());
+            Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + ":: Character = " + gameObject.name);
             //If his enemy is a on moveTile
-            Debug.Log("CharacterAI FindBestPossibleMoveTile");
             enemyTile = FindBestPossibleMoveTile();
             if (enemyTile != null)
             {
                 _gameManager.CurrentState = _gameManager.StateMoveCharacter;
                 _gameManager.SelectTile(enemyTile);
                 yield return new WaitUntil(() => HaveMoved);
-                Debug.Log("CharacterAI Before ShowPossibleAttack2");
+                Debug.Log("CharacterAI :: Before ShowPossibleAttack2 :: Character = " + gameObject.name);
 
                 _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
 
@@ -184,11 +189,11 @@ public class CharacterAI : Character
                     
                     if (enemyTile != null && _SkillAttack.IsDashAttack)
                     {
-                        Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                        Debug.Log("CharacterAI ::CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
                         enemyTile = FindTileBehind(CurrentTile, enemyTile);
                         if (enemyTile != null)
                         {
-                            Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                            Debug.Log("CharacterAI ::BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
                         }
                     }
                 }
@@ -214,7 +219,7 @@ public class CharacterAI : Character
                     
                     _gameManager.SelectTile(enemyTile);
                
-                    Debug.Log("CharacterAI after Attack");
+                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
                     yield return new WaitUntil(() => !_gameManager.Wait);
                     if (CurrentHealth <= 0)
                     {
@@ -223,7 +228,7 @@ public class CharacterAI : Character
                     }
                     _gameManager.PossibleTileIsFinished = false;
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                    Debug.Log("CharacterAI before wait");
+                    Debug.Log("CharacterAI :: before wait :: Character = " + gameObject.name);
                     Tile nearestTile = GetNearestTile();
                     if (nearestTile != null)
                     {
@@ -234,16 +239,16 @@ public class CharacterAI : Character
                         Debug.LogError("nearestTile IS null");
                     }
                    
-                    Debug.Log("CharacterAI after wait");
+                    Debug.Log("CharacterAI :: after wait :: Character = " + gameObject.name);
                 }
             }
             else
             {
                 //Find nearest possible MoveTile to reach his enemy 
-                Debug.Log("CharacterAI Before GetNearestTile2");
+                Debug.Log("CharacterAI :: Before GetNearestTile2 :: Character = " + gameObject.name);
                 _gameManager.SelectTile(GetNearestTile());
                 yield return new WaitUntil(() => HaveMoved);
-                Debug.Log("CharacterAI Before ShowPossibleAttack3");
+                Debug.Log("CharacterAI :: Before ShowPossibleAttack3 :: Character = " + gameObject.name);
                 
                 _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
            
@@ -254,7 +259,7 @@ public class CharacterAI : Character
 
                 if (enemyTile == null)
                 {
-                     Debug.Log("CharacterAI Before ShowPossibleAttack4");
+                     Debug.Log("CharacterAI :: Before ShowPossibleAttack4 :: Character = " + gameObject.name);
                     isSkillAttack = true;
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
@@ -284,6 +289,7 @@ public class CharacterAI : Character
                         _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
                     }
 
+                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
                     yield return new WaitForSeconds(0.5f);
                     if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
                     {
@@ -303,7 +309,7 @@ public class CharacterAI : Character
 
                 if (_SkillAttack.IsSpawnSkill && enemyTile == null)
                 {
-                    Debug.Log("CharacterAI Before ShowPossible SpawnSkill");
+                    Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                     yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
                     _gameManager.StateAttackCharacter._Attack = _SkillAttack;

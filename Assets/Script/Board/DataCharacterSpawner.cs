@@ -37,5 +37,6 @@ public class DataCharacterSpawner : ScriptableObject
     }
 
     public List<DataSpawner>  DataSpawn;
+    public Material TeamColor;
 
 }
