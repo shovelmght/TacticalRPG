@@ -55,7 +55,7 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
   <NumberOfDecor>k__BackingField: 13
-  <NumberOfPotion>k__BackingField: 0
+  <NumberOfPotion>k__BackingField: 3
   <NumberOfSmallRock>k__BackingField: 8
   <NumberGroundBackgroundTilesRow>k__BackingField: 30
   <NumberGroundBackgroundTilesColumn>k__BackingField: 20

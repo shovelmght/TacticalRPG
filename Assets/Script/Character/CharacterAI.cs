@@ -116,10 +116,16 @@ public class CharacterAI : Character
                 Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + " :: Character = " + gameObject.name);
                 if (_tileManager.GetSelectedTileLenght() <= 1)
                 {
-                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
-                    _gameManager.PossibleTileIsFinished = false;
-                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                    _gameManager.SelectTile(GetNearestTile());
+                    Tile tile = null;
+                    while (tile == null)
+                    {
+                        StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                        _gameManager.PossibleTileIsFinished = false;
+                        yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                        tile = GetNearestTile();
+
+                    }
+                    _gameManager.SelectTile(tile);
                     yield break;
                 }
                 _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght()))); 
@@ -131,10 +137,17 @@ public class CharacterAI : Character
             else
             {
                 Debug.Log("CharacterAI :: EndOfCharacterTurn :: Character = " + gameObject.name);
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
-                _gameManager.PossibleTileIsFinished = false;
-                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                _gameManager.SelectTile(GetNearestTile());
+                Tile tile = null;
+                while (tile == null)
+                {
+                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                    _gameManager.PossibleTileIsFinished = false;
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(tile);
+                yield break;
             }
 
         }
@@ -143,10 +156,16 @@ public class CharacterAI : Character
             if (!CanMove)
             {
                 Debug.Log("CharacterAI :: !CanMove :: Character = " + gameObject.name);
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
-                _gameManager.PossibleTileIsFinished = false;
-                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                _gameManager.SelectTile(GetNearestTile());
+                Tile tile = null;
+                while (tile == null)
+                {
+                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                    _gameManager.PossibleTileIsFinished = false;
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(tile);
                 yield break;
             }
 
@@ -157,10 +176,16 @@ public class CharacterAI : Character
 
             if (_tileManager.GetSelectedTileLenght() <= 1)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
-                _gameManager.PossibleTileIsFinished = false;
-                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                _gameManager.SelectTile(GetNearestTile());
+                Tile tile = null;
+                while (tile == null)
+                {
+                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                    _gameManager.PossibleTileIsFinished = false;
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(tile);
                 yield break;
             }
             Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + ":: Character = " + gameObject.name);
@@ -334,10 +359,17 @@ public class CharacterAI : Character
                 }
                 
 
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0));
-                _gameManager.PossibleTileIsFinished = false;
-                yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
-                _gameManager.SelectTile(GetNearestTile());
+                Tile tile = null;
+                while (tile == null)
+                {
+                    StartCoroutine(_gameManager.EndOfCharacterTurn(0));
+                    _gameManager.PossibleTileIsFinished = false;
+                    yield return new WaitUntil(() => _gameManager.PossibleTileIsFinished);
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(tile);
+                yield break;
             }
         }
     }
@@ -387,7 +419,6 @@ public class CharacterAI : Character
         
         for (int i = _tileManager.GetSelectedTileLenght() - 1; i > 0; i--)
         {
-            Debug.Log("CharacterAI :: GetNearestTile _tileManager.GetSelectedTile(i) = " + _tileManager.GetSelectedTile(i).CoordX +" " + _tileManager.GetSelectedTile(i).CoordY);
             int distance = GetPlayerDistance(_tileManager.GetSelectedTile(i), CurrentTeam);
             if (distance < minDistance)
             {
@@ -411,7 +442,7 @@ public class CharacterAI : Character
         
         for (int i = 0; i < _gameManager.CharacterList.Count; i++)
         {
-            if (_gameManager.CharacterList[i].CurrentTeam != team)
+            if (_gameManager.CharacterList[i].CurrentTeam != team && !_gameManager.CharacterList[i]._IsDead)
             {
                 int a = _gameManager.CharacterList[i].CurrentTile.CoordX - tile.CoordX;
                 a *= a;
@@ -434,7 +465,7 @@ public class CharacterAI : Character
     {
         for (int i = 0; i < _gameManager.IndexOccupiedTiles; i++)
         {
-            if (_gameManager.OccupiedTiles[i].CharacterReference == null) { continue;}
+            if (_gameManager.OccupiedTiles[i].CharacterReference == null || _gameManager.OccupiedTiles[i].CharacterReference._IsDead) { continue;}
             if (_gameManager.OccupiedTiles[i].CharacterReference.CurrentTeam != CurrentTeam)
             {
                 return _gameManager.OccupiedTiles[i];
@@ -453,7 +484,7 @@ public class CharacterAI : Character
             _gameManager.ShowPossibleAttack(_tileManager.GetSelectedTile(i), true, _Attack); 
             for (int j = 0; j < _gameManager.IndexOccupiedTiles; j++)
             {
-                if (_gameManager.OccupiedTiles[j].CharacterReference == null) { continue;}
+                if (_gameManager.OccupiedTiles[j].CharacterReference == null || _gameManager.OccupiedTiles[i].CharacterReference._IsDead) { continue;}
 
                 if (_gameManager.OccupiedTiles[j].CharacterReference.CurrentTeam != CurrentTeam)
                 {

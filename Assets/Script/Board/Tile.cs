@@ -9,7 +9,7 @@ public class Tile
     public Tile[] PreviousMoveTilesList{ get; }
     public MeshRenderer[] MeshRenderer { get; }
     public Material StartMaterial { get;  set; }
-    public Material StartSecondMaterial { get; }
+    public Material StartSecondMaterial { get; set; }
     public Character CharacterReference { get;  set; }
     public Vector3 Position { get;  set; }
     public int CoordX { get; }

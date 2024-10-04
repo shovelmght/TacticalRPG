@@ -23,3 +23,9 @@ MonoBehaviour:
     Ability1: 1
     Name: Max
     Class: Dragon
+  - CharactersPrefab: 0
+    Team: 1
+    Ability1: 1
+    Name: Max
+    Class: Dragon
+  TeamColor: {fileID: 0}

@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
     private bool _CanHit = false;
     private bool _turn;
     public bool _isCounterAttack;
-    private bool _IsDead;
+    public bool _IsDead;
     public int _NbrRepeatAttack = 0;
     
     private const float ROATION_TIME = 1;
@@ -344,7 +344,6 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         _gameManager.LastSpawnTile = tile;
         Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
-        HaveAttacked = true;
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
@@ -373,6 +372,7 @@ public class Character : MonoBehaviour
                 _gameManager.SelectCharacter?.Invoke();
             }
         }
+        HaveAttacked = true;
     }
 
     [ContextMenu("DeselectTile")]
@@ -392,9 +392,6 @@ public class Character : MonoBehaviour
         GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.75f);
         yield return MoveTo(tile.Position, 0.05f);
-
-     
-        HaveAttacked = true;
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TileSelected.UnSetCharacter();
@@ -430,7 +427,6 @@ public class Character : MonoBehaviour
         
         _tileManager.DeselectTiles();
         Destroy(particleEffect);
-        HaveAttacked = true;
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
@@ -574,7 +570,6 @@ public class Character : MonoBehaviour
         else
         {
             AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.NoTargetSfx);
-            HaveAttacked = true;
             _gameManager.Wait = false;
             _gameManager.ActivateUIButtonCharacter?.Invoke();
             _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
@@ -706,6 +701,7 @@ public class Character : MonoBehaviour
         _gameManager.RemoveCharacter(this);
         CharacterAnimator.SetTrigger(Die);
         yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
+        CurrentTile.UnSetCharacter();
         
         if (_DieFloorParticleEffect != null)
         {

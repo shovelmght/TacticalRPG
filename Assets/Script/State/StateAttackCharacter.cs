@@ -1,5 +1,6 @@
 
 using System.Numerics;
+using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
 public class StateAttackCharacter : State
@@ -22,6 +23,7 @@ public class StateAttackCharacter : State
        
         if (tile.CharacterReference)
         {
+            Debug.Log("StateAttackCharacter :: CharacterReference = " + tile.CharacterReference.gameObject.name + "  tile = " + tile.CoordX + " " +  tile.CoordY);
             if (tile.CharacterReference == _characterAttactedSelected)
             {
                 UIBoardGame.Instance.ReturnToMenuFromAttack();

@@ -1124,6 +1124,7 @@ public class TilesManager: MonoBehaviour
                     break;
                 case _bridgeDirection.FourSide:
                     SetBridgeTile(firstTileBridge, false, TileManagerData.BridgeTile4SidePrefab);
+                    firstTileBridge.StartSecondMaterial = firstTileBridge.StartMaterial;
                     yield return SetBridgeTile(firstTileBridge.SideTiles[(int)CardinalPoint.Orientation.North], (int)CardinalPoint.Orientation.North, false);
                     yield return SetBridgeTile(firstTileBridge.SideTiles[(int)CardinalPoint.Orientation.South], (int)CardinalPoint.Orientation.South, false);
                     yield return SetBridgeTile(firstTileBridge.SideTiles[(int)CardinalPoint.Orientation.Est], (int)CardinalPoint.Orientation.Est, true);

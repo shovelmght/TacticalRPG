@@ -112,8 +112,9 @@ public class GameManager : MonoBehaviour
     private Direction _Enemiesdirection;
     
     public Direction _direction;
-
+    private int _SpawnMobItteration;
     private int _characterCount;
+    
     public TilesManager _tileManager;
     public MapTilesManager _MapTilesManager_Lava;
     public MapTilesManager _MapTilesManager_Grass;
@@ -214,7 +215,7 @@ public class GameManager : MonoBehaviour
 
         if (_UnitTest)
         {
-            _tileManager.TileManagerData = AllTileManagerDataUnitTest[Random.Range(0, AllTileManagerDataUnitTest.Count) - 1];
+            _tileManager.TileManagerData = AllTileManagerDataUnitTest[Random.Range(0, AllTileManagerDataUnitTest.Count - 1)];
         }
 
         yield return _tileManager.SetBoardTiles();
@@ -321,13 +322,15 @@ public class GameManager : MonoBehaviour
             spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
         }
 
+        
         GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
         Character characterReference = character.GetComponent<Character>();
         CurrentCharacter.DestroyCharacterRelated += characterReference.DestroyCharacter;
         characterReference.CanMove = canMove;
         character.transform.Rotate(rotation);
         _characterCount++;
-    
+        _SpawnMobItteration++;
+        character.name += _SpawnMobItteration;
         characterReference.CurrentTile = tile;
         characterReference.CurrentTeam = CurrentCharacter.CurrentTeam;
 
@@ -482,7 +485,11 @@ public class GameManager : MonoBehaviour
         
         if (tile == null)
         {
-            Debug.Log("CharacterAI :: GetNearestTile tile == null");
+            Debug.Log("GameManager :: SelectTile tile == null");
+        }
+        else
+        {
+            Debug.Log("GameManager :: SelectTile  tile = " + tile.CoordX + " " +  tile.CoordY + "  CurrentState = " + CurrentState);
         }
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         TilePreSelected = tile;
@@ -1047,7 +1054,7 @@ public class GameManager : MonoBehaviour
         {
             CurrentCharacter = null;
         }
-        character.CurrentTile.IsOccupied = false;
+        character.CurrentTile.UnSetCharacter();
         CharacterList.Remove(character);
 
         StartCoroutine(CheckWinCondition());
