@@ -6773,7 +6773,7 @@ MonoBehaviour:
   <Strength>k__BackingField: 2
   <MovementPoint>k__BackingField: 2
   <AttackLenght>k__BackingField: 1
-  <Speed>k__BackingField: 1
+  <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 279221548384583580}
   <MovingSpeed>k__BackingField: 0.2
   <DyingMoveSpeed>k__BackingField: 1
@@ -6802,6 +6802,7 @@ MonoBehaviour:
   _attackDirection: 0
   _attackTarget: {fileID: 0}
   _isCounterAttack: 0
+  _IsDead: 0
   _NbrRepeatAttack: 0
   _TimePathFinding: 1.25
 --- !u!114 &1350183712963328051 stripped

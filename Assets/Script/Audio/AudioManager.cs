@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     private int _IndexAudioPool;
     private List<AudioPoolObject> _AudioPool;
     public float _MainVolume = 0.5f;
+    public float _MainMusicVolume = 0.5f;
     
     public SfxClass _ShowBuffDebuffStats;
     public SfxClass _GetPotion;
@@ -45,6 +46,23 @@ public class AudioManager : MonoBehaviour
             AudioPoolObject audioPoolObject = new AudioPoolObject(go, go.GetComponent<AudioSource>());
             _AudioPool.Add(audioPoolObject);
             go.SetActive(false); // Optionally, deactivate the objects initially
+        }
+        
+        float value = 0;
+        string sfxPlayerPref = FBPP.GetString("Sfx");
+
+        if (sfxPlayerPref != "")
+        {
+            float.TryParse(sfxPlayerPref, out value);
+            _MainVolume = value;
+        }
+        
+        string musicPlayerPref = FBPP.GetString("Music");
+
+        if (musicPlayerPref != "")
+        {
+            float.TryParse(musicPlayerPref, out value);
+            _MainMusicVolume = value;
         }
     }
 

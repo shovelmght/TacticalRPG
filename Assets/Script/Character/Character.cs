@@ -455,6 +455,8 @@ public class Character : MonoBehaviour
         {
             waterParticleEffect.SetActive(tile.IsWater);
         }
+
+        HaveAttacked = true;
     }
 
     [ContextMenu("RotateTest")]
@@ -623,7 +625,7 @@ public class Character : MonoBehaviour
         Debug.Log("Character :: Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
         if (!_isCounterAttack)
         {
-            if (HaveCounterAbility && _IncomingAttacker._NbrRepeatAttack == 0)
+            if (HaveCounterAbility && _IncomingAttacker != null && _IncomingAttacker._NbrRepeatAttack == 0)
             {
                 _gameManager.IndexOccupiedTiles = 0;
                 yield return _tileManager.GetAttackTiles(_Attack.AttackLenght, null, CurrentTile, null, false, _Attack.IsSpawnSkill);
@@ -663,7 +665,7 @@ public class Character : MonoBehaviour
             else
             {
                 Debug.Log("Character :: CheckIfCanCounterAttack Set _gameManager.Wait(false) 000 :: Character = " + gameObject.name);
-                if (_IncomingAttacker._NbrRepeatAttack == 0)
+                if (_IncomingAttacker != null && _IncomingAttacker._NbrRepeatAttack == 0)
                 {
                     _gameManager.Wait = false;
                 }

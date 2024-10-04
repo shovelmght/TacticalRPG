@@ -43,9 +43,8 @@ public class AnimatorActivator : MonoBehaviour
             gameObjectToActivate.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             gameObjectToActivate.SetActive(true); // Ensure the object is active before scaling
         }
-
-   
-
+        
+        AllScaledUp = false;
         while (!AllScaledUp)
         {
             

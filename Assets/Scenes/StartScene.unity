@@ -692,6 +692,7 @@ MonoBehaviour:
   - {fileID: 105117256}
   - {fileID: 1471454736}
   _Animator: {fileID: 973566162}
+  _DataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
 --- !u!1 &151113979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,9 +3786,11 @@ MonoBehaviour:
   _CinemachineBlendTimeMovementBattle: 1
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
+  _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
+  _MapCharacterData: {fileID: 0}
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   SquireAIPrefab: {fileID: 4328397966154774303, guid: a5b1f13310623f7429b9f6915d142ff4, type: 3}
@@ -3797,19 +3800,37 @@ MonoBehaviour:
   DragonAIPrefab: {fileID: 2228407130458205554, guid: cc96b9a32ec3b0a4fa1b9eda5c34c706, type: 3}
   MotherNaturePrefab: {fileID: 1089474552833195670, guid: 72c61a5891cf6914998e240ed71bb906, type: 3}
   MotherNatureAIPrefab: {fileID: 1089474552833195670, guid: e6d3872cde6fe354a9d57085b69e29d4, type: 3}
+  RobotPrefab: {fileID: 0}
+  RobotAIPrefab: {fileID: 0}
+  TurretPrefab: {fileID: 0}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   <BoardCamera>k__BackingField: {fileID: 1097121896}
   <MaxDistanceEnemiesSpawn>k__BackingField: 4
   <MaxCharacterPlayerCanBePlace>k__BackingField: 3
   <CameraSpeed>k__BackingField: 0.3
   _IsStartScene: 1
+  _IsMapScene: 0
   CharacterList: []
   _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
+  _MapTilesManager_Lava: {fileID: 0}
+  _MapTilesManager_Grass: {fileID: 0}
+  _MapTilesManager_Snow: {fileID: 0}
+  _MapTilesManager_Desert: {fileID: 0}
+  _MapTilesManager_Poison: {fileID: 0}
+  _MapTilesManager_Corner1: {fileID: 0}
+  _MapTilesManager_Corner2: {fileID: 0}
+  _MapTilesManager_Corner3: {fileID: 0}
+  _MapTilesManager_Corner4: {fileID: 0}
   transformtest: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   _ZoomVCam: {fileID: 158688938}
+  _UnitTest: 0
+  AddOccupiedTileOnClick: 0
+  AllTileManagerDataUnitTest: []
+  CharacterAIDataTeam1UnitTest: []
+  CharacterAIDataTeam2UnitTest: []
   objectToSpawn: {fileID: 3939813719571721216, guid: 1400301ed26c91f44a959a300e3e18b3, type: 3}
   itterationobjectToSpawn: 0
 --- !u!4 &632612582
@@ -5806,16 +5827,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 973566162}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 149661374}
+        m_TargetAssemblyTypeName: CharacterCustomizationManager, Assembly-CSharp
+        m_MethodName: OnConfirmButtonClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ShowStats
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &928203301
@@ -9809,6 +9830,17 @@ MonoBehaviour:
   _PrefabAudioSource: {fileID: 8824917792495422345, guid: 24eb1eb1d797b8b438058e14a8ad3d41, type: 3}
   _AudioPoolLength: 10
   _MainVolume: 0.5
+  _MainMusicVolume: 0.5
+  _ShowBuffDebuffStats:
+    _AudioClip: {fileID: 0}
+    _RelativeVolume: 0
+    _MinRandomPitch: 0
+    _MaxRandomPitch: 0
+  _GetPotion:
+    _AudioClip: {fileID: 0}
+    _RelativeVolume: 0
+    _MinRandomPitch: 0
+    _MaxRandomPitch: 0
   _ZoomSFX:
     _AudioClip: {fileID: 8300000, guid: 614ad9eceac81ff46adc21418819c7be, type: 3}
     _RelativeVolume: 0.5

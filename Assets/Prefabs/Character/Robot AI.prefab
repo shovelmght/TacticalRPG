@@ -5221,7 +5221,7 @@ MonoBehaviour:
   - {fileID: 2224538938078715053}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 4
-  <MovementPoint>k__BackingField: 1
+  <MovementPoint>k__BackingField: 2
   <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 279221548384583580}
@@ -5252,6 +5252,7 @@ MonoBehaviour:
   _attackDirection: 0
   _attackTarget: {fileID: 0}
   _isCounterAttack: 0
+  _IsDead: 0
   _NbrRepeatAttack: 0
   _TimePathFinding: 1.25
 --- !u!114 &1350183712963328051 stripped

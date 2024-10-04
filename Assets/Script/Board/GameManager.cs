@@ -585,32 +585,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-    /*public void SelectTileController(Tile tile)
-    {
-        if (_wait) {return;}
-        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
-
-
-        NeedResetTiles = true;
-        CurrentState.SelectTile(tile);
-         
-        if(NeedResetTiles)
-        {
-            if (CurrentCharacter)
-            { 
-                CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
-            }
-            _tileManager.DeselectTiles();
-            _tileManager.AddSelectedTile(tile);
-            
-            tile.SetTopMaterial(_tileManager.MoveTileMaterial);
-            RemoveUICharacter();
-            CurrentState = StateNavigation;
-            TileSelected = tile;
-            StateAttackCharacter.ResetAttackData();
-        }
-    }*/
-
     //Select with color possible move tile
     public void ShowPossibleMove(Tile tile)
     {
@@ -624,7 +598,7 @@ public class GameManager : MonoBehaviour
         _tileManager.DeselectTiles();
         Debug.Log("Before GetMoveTiles1");
         _tileManager.BranchPath = 0;
-        StartCoroutine(_tileManager.GetMoveTiles(CurrentCharacter.MovementPoint, null, tile));
+        StartCoroutine(_tileManager.GetMoveTiles(tile.CharacterReference.MovementPoint, null, tile));
         CurrentState = StateMoveCharacter;
     }
     

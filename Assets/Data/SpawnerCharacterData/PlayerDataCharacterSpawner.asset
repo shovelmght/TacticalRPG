@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerDataCharacterSpawner
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 2
+  - CharactersPrefab: 0
     Team: 1
     Ability1: 1
-    Name: Franck
+    Name: sss
     Class: Knight
   - CharactersPrefab: 0
     Team: 1
@@ -28,4 +28,4 @@ MonoBehaviour:
     Ability1: 1
     Name: Max
     Class: Dragon
-  TeamColor: {fileID: 0}
+  TeamColor: {fileID: 2100000, guid: a06bc5abd96e9a6448b4db55c3d295bd, type: 2}

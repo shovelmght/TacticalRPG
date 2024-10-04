@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterCustomizationManager : MonoBehaviour
@@ -122,5 +123,10 @@ public class CharacterCustomizationManager : MonoBehaviour
         _DataCharacterSpawner.TeamColor = _AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexMaterial];
         var dataSpawner = _DataCharacterSpawner.DataSpawn[0];
         dataSpawner.Name = _Name.text;
+        _DataCharacterSpawner.DataSpawn[0] = dataSpawner;
+        FBPP.SetInt("TeamColor", _IndexMaterial);
+        FBPP.SetString("Name1",  _Name.text);
+        FBPP.Save();
+        SceneManager.LoadScene("MapScene");
     }
 }
