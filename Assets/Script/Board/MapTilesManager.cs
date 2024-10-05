@@ -293,7 +293,7 @@ public class MapTilesManager: MonoBehaviour
             else
             {
                 //Debug.Log("10");
-                _gameManager.PossibleTileIsFinished = true;
+                _gameManager.PossibleMoveTileIsFinished = true;
             }
         }
         else
@@ -306,7 +306,7 @@ public class MapTilesManager: MonoBehaviour
                 if(BranchPath == 0)
                 {
                     //Debug.Log("12");
-                    _gameManager.PossibleTileIsFinished = true;
+                    _gameManager.PossibleMoveTileIsFinished = true;
                 }
             }
 
@@ -396,7 +396,7 @@ public class MapTilesManager: MonoBehaviour
         }
         else
         {
-            _gameManager.PossibleTileIsFinished = true;
+            _gameManager.PossibleMapMoveTileIsFinished = true;
         }
     }
     
@@ -561,7 +561,7 @@ public class MapTilesManager: MonoBehaviour
             }
         }
  
-        _gameManager.PossibleTileIsFinished = true;
+        _gameManager.PossibleMapMoveTileIsFinished = true;
         InputManager.Instance._TempSelectTileMaterial = _gameManager.TilePreSelected.StartMaterial;
 
     }
@@ -723,7 +723,7 @@ public class MapTilesManager: MonoBehaviour
             }
         }
  
-        _gameManager.PossibleTileIsFinished = true;
+        _gameManager.PossibleMapMoveTileIsFinished = true;
         InputManager.Instance._TempSelectTileMaterial = _gameManager.TilePreSelected.StartMaterial;
 
     }

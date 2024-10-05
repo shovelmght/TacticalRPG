@@ -156,9 +156,37 @@ public class TilesManager: MonoBehaviour
 
         _index = 0;
     }
+
+    private bool _IsGetMoveTilesFirstPass;
     
     public IEnumerator GetMoveTiles(int numberOfTimes, Tile previousTile, Tile currentTile)
     {
+        int characterIsStuck = 0;
+        if (_IsGetMoveTilesFirstPass)
+        {
+            _IsGetMoveTilesFirstPass = false;
+            foreach (var sideTile in currentTile.SideTiles)
+            {
+                if (sideTile == null)
+                {
+                    characterIsStuck++;
+                    continue;
+                }
+                
+                if (sideTile.IsOccupied)
+                {
+                    characterIsStuck++;
+                }
+            }
+        }
+        
+        if (characterIsStuck >= 4)
+        {
+            Debug.Log("TileManager :: GetMoveTiles characterIsStuck");
+            _gameManager.PossibleMoveTileIsFinished = true;
+            _IsGetMoveTilesFirstPass = true;
+        }
+
         if (_gameManager._GameIsFinish) { yield break; }
         //Debug.Log("0");
         if (previousTile != null)
@@ -217,8 +245,9 @@ public class TilesManager: MonoBehaviour
             }
             else
             {
-                //Debug.Log("10");
-                _gameManager.PossibleTileIsFinished = true;
+                Debug.Log("TileManager :: GetMoveTiles (numberOfTimes > 0 PossibleMoveTileIsFinished = true");
+                _gameManager.PossibleMoveTileIsFinished = true;
+                _IsGetMoveTilesFirstPass = true;
             }
         }
         else
@@ -230,24 +259,51 @@ public class TilesManager: MonoBehaviour
                 //Debug.Log("11");
                 if(BranchPath == 0)
                 {
-                    //Debug.Log("12");
-                    _gameManager.PossibleTileIsFinished = true;
+                    Debug.Log("TileManager :: GetMoveTiles  BranchPath == 0 PossibleMoveTileIsFinished = true");
+                    _gameManager.PossibleMoveTileIsFinished = true;
+                    _IsGetMoveTilesFirstPass = true;
                 }
             }
 
         }
     }
     
+    public void GetAICheckAttackTiles(int numberOfTimes, Tile currentTile)
+    {
+        if (_gameManager._GameIsFinish) { return; }
+        
 
-    public IEnumerator GetAttackTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICHeck, bool isSpawnAttack)
+                if (currentTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+                    _gameManager.IndexOccupiedTiles++;
+                }
+
+                
+        int nbrOfContinue = 0;
+
+        if (numberOfTimes > 0)
+        {
+            foreach (var sidetile in currentTile.SideTiles)
+            {
+                if (sidetile is { CanInteract: false })
+                {
+                    GetAICheckAttackTiles(numberOfTimes - 1, sidetile) ;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("TileManager :: GetAttackTiles PossibleAttackTileIsFinished = true");
+            _gameManager.PossibleAttackTileIsFinished = true;
+        }
+    }
+    
+
+    public IEnumerator GetAttackTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICheck, bool isSpawnAttack)
     {
         if (_gameManager._GameIsFinish) { yield break; }
-        
-        if (!isAICHeck)
-        {
-            
-
-            if (isSpawnAttack)
+        if (isSpawnAttack)
             {
                 bool isAoccupiedSpawnTile = currentTile.IsPotionTile || currentTile.IsOccupied;
                 if (!isAoccupiedSpawnTile)
@@ -299,10 +355,12 @@ public class TilesManager: MonoBehaviour
                 AddSelectedTile(currentTile);
                 currentTile.CanInteract = true;
             }
-            
+
+        if (!isAICheck)
+        {
             yield return new WaitForSeconds(_timePathFinding);
         }
-
+        
         int nbrOfContinue = 0;
 
         if (numberOfTimes > 0)
@@ -311,18 +369,18 @@ public class TilesManager: MonoBehaviour
             {
                 if (sidetile is { CanInteract: false })
                 {
-                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICHeck, isSpawnAttack)) ;
+                    StartCoroutine(GetAttackTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICheck, isSpawnAttack)) ;
                 }
-
             }
         }
         else
         {
-            _gameManager.PossibleTileIsFinished = true;
+            Debug.Log("TileManager :: GetAttackTiles PossibleAttackTileIsFinished = true");
+            _gameManager.PossibleAttackTileIsFinished = true;
         }
     }
-    
-    public IEnumerator GetLineAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
+
+    public IEnumerator GetLineAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICheck)
     {
         if (currentTile.IsOccupied)
         {
@@ -479,16 +537,22 @@ public class TilesManager: MonoBehaviour
                 } 
                 
                 previousTileSouth = sideTile;
-                yield return new WaitForSeconds(_timePathFinding);
+
+                if (!isAICheck)
+                {
+                    yield return new WaitForSeconds(_timePathFinding);
+                }
+               
             }
         }
  
-        _gameManager.PossibleTileIsFinished = true;
+        Debug.Log("TileManager :: GetAttackTiles (Line) PossibleAttackTileIsFinished = true");
+        _gameManager.PossibleAttackTileIsFinished = true;
         InputManager.Instance._TempSelectTileMaterial = _gameManager.TilePreSelected.StartMaterial;
 
     }
     
-     public IEnumerator GetDashLineAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICHeck)
+     public IEnumerator GetDashLineAttackTiles(int numberOfTimes, Tile tile, Tile currentTile, Material material, bool isAICheck)
     {
         if (currentTile.IsOccupied)
         {
@@ -641,13 +705,101 @@ public class TilesManager: MonoBehaviour
                 }
                 
                 previousTileSouth = sideTile;
-                yield return new WaitForSeconds(_timePathFinding);
+
+                if (!isAICheck)
+                {
+                    yield return new WaitForSeconds(_timePathFinding);
+                }
             }
         }
  
-        _gameManager.PossibleTileIsFinished = true;
+        Debug.Log("TileManager :: GetAttackTiles (DashLine) PossibleAttackTileIsFinished = true");
+        _gameManager.PossibleAttackTileIsFinished = true;
         InputManager.Instance._TempSelectTileMaterial = _gameManager.TilePreSelected.StartMaterial;
 
+    }
+     
+     public IEnumerator GetEndTurnDirectionTiles(int numberOfTimes, Tile previousTile, Tile currentTile, Material material, bool isAICheck, bool isSpawnAttack)
+    {
+        if (_gameManager._GameIsFinish) { yield break; }
+        
+            if (isSpawnAttack)
+            {
+                bool isAoccupiedSpawnTile = currentTile.IsPotionTile || currentTile.IsOccupied;
+                if (!isAoccupiedSpawnTile)
+                {
+                    if (previousTile != null)
+                    {
+                        for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
+                        {
+                            currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
+                        }
+                        currentTile.AddPreviousMoveTile(previousTile);
+                    }
+
+                    if (material != null)
+                    {
+                        currentTile.SetTopMaterial(material);
+                    }
+           
+                    AddSelectedTile(currentTile);
+                    currentTile.CanInteract = true;
+                }
+                else
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+                    _gameManager.IndexOccupiedTiles++;
+                }
+            }
+            else
+            {
+                if (currentTile.IsOccupied)
+                {
+                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+                    _gameManager.IndexOccupiedTiles++;
+                }
+                if (previousTile != null)
+                {
+                    for (int i = 0; i < previousTile.GetPreviousMoveTileLenght(); i++)
+                    {
+                        currentTile.AddPreviousMoveTile(previousTile.PreviousMoveTilesList[i]);
+                    }
+                    currentTile.AddPreviousMoveTile(previousTile);
+                }
+
+                if (material != null)
+                {
+                    currentTile.SetTopMaterial(material);
+                }
+           
+                AddSelectedTile(currentTile);
+                currentTile.CanInteract = true;
+            }
+
+            if (!isAICheck)
+            {
+                yield return new WaitForSeconds(_timePathFinding);
+            }
+            
+
+        int nbrOfContinue = 0;
+
+        if (numberOfTimes > 0)
+        {
+            foreach (var sidetile in currentTile.SideTiles)
+            {
+                if (sidetile is { CanInteract: false })
+                {
+                    StartCoroutine(GetEndTurnDirectionTiles(numberOfTimes - 1, currentTile, sidetile, material, isAICheck, isSpawnAttack)) ;
+                }
+
+            }
+        }
+        else
+        {
+            Debug.Log("TileManager :: GetEndTurnDirectionTiles  numberOfTimes > 0 PossibleEndTurnDirectionTileIsFinished = true");
+            _gameManager.PossibleEndTurnDirectionTileIsFinished = true;
+        }
     }
     
     public Tile GetTile(GameObject gameObjectTile)

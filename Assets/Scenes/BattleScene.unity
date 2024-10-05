@@ -1733,6 +1733,10 @@ MonoBehaviour:
   _IsStartScene: 0
   _IsMapScene: 0
   CharacterList: []
+  PossibleMapMoveTileIsFinished: 0
+  PossibleMoveTileIsFinished: 0
+  PossibleAttackTileIsFinished: 0
+  PossibleEndTurnDirectionTileIsFinished: 0
   _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
@@ -5922,6 +5926,7 @@ MonoBehaviour:
   _PrefabAudioSource: {fileID: 8824917792495422345, guid: 24eb1eb1d797b8b438058e14a8ad3d41, type: 3}
   _AudioPoolLength: 10
   _MainVolume: 0.5
+  _MainMusicVolume: 0.5
   _ShowBuffDebuffStats:
     _AudioClip: {fileID: 8300000, guid: bdab27a6d06509b41882611197f0327c, type: 3}
     _RelativeVolume: 0.5

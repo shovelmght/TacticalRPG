@@ -3756,7 +3756,6 @@ GameObject:
   - component: {fileID: 632612582}
   - component: {fileID: 632612581}
   - component: {fileID: 632612583}
-  - component: {fileID: 632612584}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3811,6 +3810,10 @@ MonoBehaviour:
   _IsStartScene: 1
   _IsMapScene: 0
   CharacterList: []
+  PossibleMapMoveTileIsFinished: 0
+  PossibleMoveTileIsFinished: 0
+  PossibleAttackTileIsFinished: 0
+  PossibleEndTurnDirectionTileIsFinished: 0
   _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
@@ -3878,18 +3881,6 @@ MonoBehaviour:
   m_DefaultActionMap: BattleTacticIA
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &632612584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632612580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc92fe906c1c6e04f89dd2b099984e83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &640783992
 GameObject:
   m_ObjectHideFlags: 0

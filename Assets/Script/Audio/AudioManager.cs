@@ -48,6 +48,18 @@ public class AudioManager : MonoBehaviour
             go.SetActive(false); // Optionally, deactivate the objects initially
         }
         
+        var congif = new FBPPConfig()
+        {
+            SaveFileName = "my-save-file-txt",
+            AutoSaveData = false,
+            ScrambleSaveData = true,
+            EncryptionSecret = "my-secret",
+            SaveFilePath = Application.persistentDataPath
+        };
+        
+        
+        FBPP.Start(congif);
+        
         float value = 0;
         string sfxPlayerPref = FBPP.GetString("Sfx");
 
@@ -64,6 +76,11 @@ public class AudioManager : MonoBehaviour
             float.TryParse(musicPlayerPref, out value);
             _MainMusicVolume = value;
         }
+    }
+
+    private void Start()
+    {
+
     }
 
     public void SpawnSound(SfxClass Sfx)
@@ -114,5 +131,17 @@ public class AudioManager : MonoBehaviour
         public float _RelativeVolume;
         public float _MinRandomPitch;
         public float _MaxRandomPitch;
+    }
+
+    [ContextMenu("DeleteAllFBPPPreftKeys")]
+    public void DeleteAllFBPPPreftKeys()
+    {
+        DeleteAllKeys();
+    }
+    
+    public static void DeleteAllKeys()
+    {
+        FBPP.DeleteAll();
+        FBPP.Save();
     }
 }

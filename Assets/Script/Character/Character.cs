@@ -26,7 +26,6 @@ public class Character : MonoBehaviour
     [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
     [field: SerializeField] public int Strength { get; private set; }  = 25;
     [field: SerializeField] public int MovementPoint { get; private set; } = 4;
-    [field: SerializeField] public int AttackLenght { get; private set; } = 1;
     [field: SerializeField] public int Speed { get; private set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
     [field: SerializeField] public float MovingSpeed { get; private set; } = 0.2f;
@@ -213,9 +212,9 @@ public class Character : MonoBehaviour
         _tileManager.DeselectTiles();
         _turn = false;
         CurrentTile = tile;
-        if (HaveAttacked)
+        if (HaveAttacked && !IsAI)
         {
-            StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+            StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
         }
 
 
@@ -362,7 +361,7 @@ public class Character : MonoBehaviour
         {
             if (!_isCounterAttack)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+                StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
             }
         }
         else
@@ -394,7 +393,7 @@ public class Character : MonoBehaviour
         yield return MoveTo(tile.Position, 0.05f);
         _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
-        _gameManager.TileSelected.UnSetCharacter();
+        CurrentTile.UnSetCharacter();
         tile.SetCharacter(GameManager.Instance.CurrentCharacter);
         _gameManager.TilePreSelected = tile;
         CurrentTile = tile;
@@ -402,7 +401,7 @@ public class Character : MonoBehaviour
         for (int i = 0; i < tile.GetPreviousMoveTileLenght(); i++)
         {
             Character character = tile.PreviousMoveTilesList[i].CharacterReference;
-            if(character == null) {continue;}
+            if(character == null || character == this) {continue;}
             
             if (character.GetIsBlock(character._attackDirection))
             {
@@ -440,7 +439,7 @@ public class Character : MonoBehaviour
         {
             if (!_isCounterAttack)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+                StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
             }
         }
         else
@@ -594,11 +593,11 @@ public class Character : MonoBehaviour
             Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
             _gameManager.Wait = false;
         }
-        if (HaveMoved)
+        if (HaveMoved && !IsAI)
         {
             if (!_isCounterAttack)
             {
-                StartCoroutine(_gameManager.EndOfCharacterTurn(0.75f));
+                StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
             }
         }
         else
@@ -725,6 +724,7 @@ public class Character : MonoBehaviour
 
         RemoveUIPopUpCharacterInfo(true);
         _IsDead = true;
+        CurrentTile = null;
     }
 
     

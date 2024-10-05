@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     public bool MenuIsOpen { get; set; } = false;
     public bool IsController { get; set; } = false;
     public bool IsAIChatacterTurn { get; set; } = false;
-    public bool PossibleTileIsFinished { get; set;}
+
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles{ get; set; }
     public bool RepeatableAttackInputIsPress { get; set; }
@@ -83,6 +83,12 @@ public class GameManager : MonoBehaviour
 
     public Character CurrentCharacter { get; set; }
     public Character CurrentCharacterTurn { get; private set; }
+    
+    public bool PossibleMapMoveTileIsFinished;
+    public bool PossibleMoveTileIsFinished;
+    public bool PossibleAttackTileIsFinished;
+    public bool PossibleEndTurnDirectionTileIsFinished;
+    
     public bool Wait
     {
         get => _wait;
@@ -594,7 +600,7 @@ public class GameManager : MonoBehaviour
             ArrowsDirection.SetActive(false);
         }*/
         IndexOccupiedTiles = 0;
-        PossibleTileIsFinished = false;
+        PossibleMoveTileIsFinished = false;
         _tileManager.DeselectTiles();
         Debug.Log("Before GetMoveTiles1");
         _tileManager.BranchPath = 0;
@@ -610,7 +616,7 @@ public class GameManager : MonoBehaviour
             ArrowsDirection.SetActive(false);
         }*/
         IndexOccupiedTiles = 0;
-        PossibleTileIsFinished = false;
+        PossibleMapMoveTileIsFinished = false;
         tile.MapTilesManager.DeselectTiles();
         if (TileSelected.MapTilesManager._EstMapTilesManager != null)
         {
@@ -647,7 +653,7 @@ public class GameManager : MonoBehaviour
             ArrowsDirection.SetActive(false);
         }*/
         IndexOccupiedTiles = 0;
-        PossibleTileIsFinished = false;
+        PossibleAttackTileIsFinished = false;
         if (!isAICheck)
         {
             _tileManager.DeselectTiles();
@@ -669,12 +675,11 @@ public class GameManager : MonoBehaviour
         
     }
     
-
     //Select with color possible direction (end character turn) tile
     private void ShowPossibleTileDirection(Tile tile)
     {
         _tileManager.DeselectTiles();
-        StartCoroutine(_tileManager.GetAttackTiles(1, null, tile, _tileManager.MoveTileMaterial, false, false));
+        StartCoroutine(_tileManager.GetEndTurnDirectionTiles(1, null, tile, _tileManager.MoveTileMaterial, false, false));
         CurrentState = StateTurnCharacter;
     }
     
@@ -729,7 +734,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         if (_UnitTest)
         {
             SceneManager.LoadScene("BattleScene");
@@ -781,8 +786,9 @@ public class GameManager : MonoBehaviour
     }
 
     //Spawn Arrows for chose a Direction (end of character turn)
-    public IEnumerator EndOfCharacterTurn(float waitingTime)
+    public IEnumerator ShowPossibleTileDirectionEndOfCharacterTurn(float waitingTime)
     {
+        PossibleEndTurnDirectionTileIsFinished = false;
         yield return new WaitUntil(() => !Wait);
         yield return new WaitForSeconds(waitingTime);
         
@@ -1129,6 +1135,17 @@ public class GameManager : MonoBehaviour
             go.name = name + itterationobjectToSpawn;
             itterationobjectToSpawn++;
         }
-
+    }
+    
+    [ContextMenu("SetWaitValueFalse")]
+    public void SetWaitValueFalse()
+    {
+        Wait = false;
+    }
+    
+    [ContextMenu("SetWaitValueTrue")]
+    public void SetWaitValueTrue()
+    {
+        Wait = true;
     }
 }

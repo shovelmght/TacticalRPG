@@ -10,12 +10,12 @@ public class SwordAttack : Attack
         
         if (tile.CharacterReference)
         {
-            Debug.Log("SwordAttack tile.CharacterReference");
+            Debug.Log("SwordAttack tile.CharacterReference = " + tile.CharacterReference.name);
             tile.CharacterReference._IncomingAttacker = character;
             character._attackTarget = tile.CharacterReference;
             character._attackTarget._attackDirection = attackDirection;
         }
-        Debug.Log("SwordAttack !tile.CharacterReference");
+        Debug.Log("SwordAttack !tile.CharacterReference = " + tile.CharacterReference.name);
         character.CharacterAnimator.SetTrigger(AttackAnimationName);
         character._isCounterAttack = isAcounterAttack;
     }

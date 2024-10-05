@@ -79,7 +79,7 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileDown()
     {
-        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleMapMoveTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
@@ -175,7 +175,7 @@ public class InputManager : MonoBehaviour
                 _TempSelectTileMaterial = tile.GetTopMaterial();
                 _gameManager.SelectTileController(tile);
                 _gameManager.TilePreSelected = tile;
-                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.PossibleMapMoveTileIsFinished = false;
                 _gameManager.SelectTile(_gameManager.TilePreSelected);
             }
        
@@ -206,7 +206,7 @@ public class InputManager : MonoBehaviour
 
         if (_gameManager._IsMapScene)
         {
-            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.PossibleMapMoveTileIsFinished = false;
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
         
@@ -215,7 +215,7 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileUp()
     {
-        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleMapMoveTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen || _gameManager._IsStartScene)
         {
@@ -311,7 +311,7 @@ public class InputManager : MonoBehaviour
                 _TempSelectTileMaterial = tile.GetTopMaterial();
                 _gameManager.SelectTileController(tile);
                 _gameManager.TilePreSelected = tile;
-                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.PossibleMapMoveTileIsFinished = false;
                 _gameManager.SelectTile(_gameManager.TilePreSelected);
             }
        
@@ -343,7 +343,7 @@ public class InputManager : MonoBehaviour
 
         if (_gameManager._IsMapScene)
         {
-            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.PossibleMapMoveTileIsFinished = false;
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
         
@@ -352,7 +352,7 @@ public class InputManager : MonoBehaviour
 
     private void NavigateControllerTileRight()
     {
-        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleMapMoveTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen)
         {
@@ -448,7 +448,7 @@ public class InputManager : MonoBehaviour
                 _TempSelectTileMaterial = tile.GetTopMaterial();
                 _gameManager.SelectTileController(tile);
                 _gameManager.TilePreSelected = tile;
-                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.PossibleMapMoveTileIsFinished = false;
                 _gameManager.SelectTile(_gameManager.TilePreSelected);
             }
        
@@ -480,7 +480,7 @@ public class InputManager : MonoBehaviour
         
         if (_gameManager._IsMapScene)
         {
-            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.PossibleMapMoveTileIsFinished = false;
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
         
@@ -489,7 +489,7 @@ public class InputManager : MonoBehaviour
     
     private void NavigateControllerTileLeft()
     {
-        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleTileIsFinished) { return; }
+        if (_gameManager.IsAIChatacterTurn || _gameManager._IsMapScene && !_gameManager.PossibleMapMoveTileIsFinished) { return; }
         
         if (_gameManager.MenuIsOpen)
         {
@@ -587,7 +587,7 @@ public class InputManager : MonoBehaviour
                 _TempSelectTileMaterial = tile.GetTopMaterial();
                 _gameManager.SelectTileController(tile);
                 _gameManager.TilePreSelected = tile;
-                _gameManager.PossibleTileIsFinished = false;
+                _gameManager.PossibleMapMoveTileIsFinished = false;
                 _gameManager.SelectTile(_gameManager.TilePreSelected);
             }
        
@@ -620,7 +620,7 @@ public class InputManager : MonoBehaviour
         if (_gameManager._IsMapScene)
         {
           
-            _gameManager.PossibleTileIsFinished = false;
+            _gameManager.PossibleMapMoveTileIsFinished = false;
             _gameManager.SelectTile(_gameManager.TilePreSelected);
         }
        

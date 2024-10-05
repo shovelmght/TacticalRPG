@@ -206,7 +206,7 @@ public class UIBoardGame : MonoBehaviour
         
         if (_canWait && !_boardManager.Wait)
         {
-            StartCoroutine(_boardManager.EndOfCharacterTurn(0));
+            StartCoroutine(_boardManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
             if (_boardManager.IsController)
             {
                 RemoveUICharacter();
