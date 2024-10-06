@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _GameObjectsToActivate:
   - {fileID: 3069285863791155366}
-  _LerpScaleSpeed: 0.005
+  _LerpScaleSpeed: 0.002
 --- !u!4 &1903424290902375439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5774206679272665997, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}

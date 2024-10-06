@@ -6,7 +6,9 @@ public class SpawnTurret : MonoBehaviour
 {
     [SerializeField] private DataCharacterSpawner.CharactersPrefab _CharactersPrefab;
     [SerializeField] private GameObject _ParticleEffect;
+    [SerializeField] private GameObject VisualMesh;
     [SerializeField] private float _LerpScaleSpeed = 0.005f;
+    [SerializeField] private bool SpawnMob = true;
     void Start()
     {
         StartCoroutine(AddCharacterTurret());
@@ -14,10 +16,16 @@ public class SpawnTurret : MonoBehaviour
 
     private IEnumerator AddCharacterTurret()
     {
-        yield return LerpScaleAndDeactivateGameObjects();
+        StartCoroutine(LerpScaleAndDeactivateGameObjects());
 
-        GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, false);
-        Destroy(this.gameObject);
+        yield return new WaitForSeconds(1.25f);
+      
+        if (SpawnMob)
+        {
+            GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, false);
+            VisualMesh.SetActive(false);
+        }
+        
     }
     
     
@@ -53,7 +61,15 @@ public class SpawnTurret : MonoBehaviour
         Debug.Log("LerpScaleAndDeactivateGameObjects bug 4" );
         // After scaling is done, deactivate all GameObjects
 
+        yield return new WaitForSeconds(0.1f);
         _ParticleEffect.SetActive(false);
+        yield return new WaitForSeconds(3);
+        
+        if (SpawnMob)
+        {
+            Destroy(gameObject);
+        }
+      
         
     }
     

@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CharactersPrefab: 10
   _ParticleEffect: {fileID: 5304804275952694419}
+  VisualMesh: {fileID: 68273718691373085}
   _LerpScaleSpeed: 0.0085
 --- !u!1001 &4348010569730917685
 PrefabInstance:
@@ -276,6 +277,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+--- !u!1 &68273718691373085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9162954242655478353, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 9213191400067908172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8005104593587617733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1210356645223759241, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
