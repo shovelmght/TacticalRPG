@@ -16,16 +16,16 @@ MonoBehaviour:
   - CharactersPrefab: 0
     Team: 1
     Ability1: 1
-    Name: sss
+    Name: Franck
     Class: Knight
   - CharactersPrefab: 0
     Team: 1
     Ability1: 1
     Name: Max
     Class: Dragon
-  - CharactersPrefab: 0
+  - CharactersPrefab: 4
     Team: 1
     Ability1: 1
     Name: Max
     Class: Dragon
-  TeamColor: {fileID: 2100000, guid: a06bc5abd96e9a6448b4db55c3d295bd, type: 2}
+  TeamColor: {fileID: 2100000, guid: 9cecc3c2c49904b4b9125b1174224f7e, type: 2}

@@ -15,12 +15,12 @@ public class Character : MonoBehaviour
         Team3 = 3
     }
 
+   
     public ParticleSystem HitParticleSystem;
     public GameObject VCamLeft;
     public GameObject VCamRight;
     public GameObject VCamFront;
     public GameObject VCamBehind;
-    [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
     public GameObject[] _waterParticleEffect;
 
     [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
@@ -41,6 +41,8 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject _TrailParticleEffect;
     [SerializeField] private GameObject _DieFloorParticleEffect;
     [SerializeField] private GameObject _Potion;
+    [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
+    [SerializeField] private MeshRenderer[] _MeshRenderersTeamColor;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
@@ -114,6 +116,17 @@ public class Character : MonoBehaviour
     private static readonly int GetPotion = Animator.StringToHash("GetPotion");
     private static readonly int Drink = Animator.StringToHash("Drink");
 
+    public void SetCharacterColor(Material materail)
+    {
+        int indexMaterial = FBPP.GetInt("TeamColor");
+        
+        foreach (var characterMaterial in _MeshRenderersTeamColor)
+        {
+            characterMaterial.material = materail;
+        }
+       
+    }
+    
     protected virtual void Start()
     {
         _gameManager = GameManager.Instance;

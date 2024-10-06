@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
+    [SerializeField] private CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
@@ -363,17 +364,20 @@ public class GameManager : MonoBehaviour
             spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
         }
 
-        GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
-        character.transform.Rotate(rotation);
-        character.name = dataCharacterSpawner.Name;
-        Character characterReference = character.GetComponent<Character>();
+        GameObject characterGameObject = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
+        characterGameObject.transform.Rotate(rotation);
+        characterGameObject.name = dataCharacterSpawner.Name;
+        Character characterReference = characterGameObject.GetComponent<Character>();
         characterReference.CurrentTile = tile;
         tile.SetCharacter(characterReference);
-        character.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        characterGameObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         CurrentCharacter = characterReference;
         CurrentState = StateMoveCharacter;
         TileSelected = tile;
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+        int indexMaterial = FBPP.GetInt("TeamColor");
+        characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+
     }
 
     public GameObject InstantiateCharacter(DataCharacterSpawner.CharactersPrefab charactersPrefab, Vector3 position)
