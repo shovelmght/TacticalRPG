@@ -2299,19 +2299,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.014577715
+      value: -0.98981625
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.027092423
+      value: 0.009688818
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.99942845
+      value: 0.13904454
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.014014093
+      value: 0.028923724
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2319,7 +2319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -178.286
+      value: -375.95
       objectReference: {fileID: 0}
     - target: {fileID: 5628672523469761454, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2687,7 +2687,7 @@ MonoBehaviour:
   <WoodTileMaterial>k__BackingField: {fileID: 2100000, guid: d994ec918c35a83469584dd64dc8b17d, type: 2}
   _timePathFinding: 0.05
   _tileData: {fileID: 11400000, guid: 397c361350e42e94d87cb856ff82fd8f, type: 2}
-  _buildingTime: 0
+  _buildingTime: 0.1
   _waterSpeed: 0.002
 --- !u!4 &477867674
 Transform:
@@ -3783,10 +3783,12 @@ MonoBehaviour:
   _CinemachineBrain: {fileID: 2038934550}
   _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
+  _RandomMap: 1
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
+  _AllPossibleCharacterMaterials: {fileID: 0}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   _MapCharacterData: {fileID: 0}

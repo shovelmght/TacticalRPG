@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TileManagerData", menuName = "ScriptableObjects/TileManagerData")]
+[System.Serializable]
 public class TileManagerData : ScriptableObject
 {
     [field: SerializeField] public int Column{ get; private set; } 

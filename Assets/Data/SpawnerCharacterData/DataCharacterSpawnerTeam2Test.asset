@@ -16,10 +16,6 @@ MonoBehaviour:
   - CharactersPrefab: 7
     Team: 2
     Ability1: 0
-    Name: ss
-    Class: ss
-  - CharactersPrefab: 7
-    Team: 2
-    Ability1: 1
-    Name: ss
-    Class: ss
+    Name: 'Mark '
+    Class: Father Nature
+  TeamColor: {fileID: 0}

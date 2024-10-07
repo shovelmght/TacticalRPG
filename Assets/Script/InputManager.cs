@@ -180,7 +180,6 @@ public class InputManager : MonoBehaviour
             }
        
             return;
-            
         }
 
         if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
@@ -316,7 +315,6 @@ public class InputManager : MonoBehaviour
             }
        
             return;
-            
         }
       
         if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
@@ -471,7 +469,6 @@ public class InputManager : MonoBehaviour
             {
                 _gameManager.TilePreSelected.SetTopMaterial(_TempSelectTileMaterial);
             }
-            
         }
         
         _TempSelectTileMaterial = _gameManager.TilePreSelected.SideTiles[tileIndex].GetTopMaterial();
@@ -539,8 +536,6 @@ public class InputManager : MonoBehaviour
                     }
                 }
             }
-            
-            
         }
         
         int tileIndex = 3;
@@ -592,7 +587,6 @@ public class InputManager : MonoBehaviour
             }
        
             return;
-            
         }
         
         if (_gameManager._IsMapScene && _gameManager.TilePreSelected.SideTiles[tileIndex].IsOccupied)
@@ -688,6 +682,8 @@ public class InputManager : MonoBehaviour
     
     private void SelectTile()
     {
+        if (_gameManager._IsMapScene) { return; }
+        
         StartCoroutine(_gameManager.PressRepeatableAttackInput());
         if (_gameManager.IsAIChatacterTurn) { return; }
         
@@ -701,6 +697,7 @@ public class InputManager : MonoBehaviour
     
     private void Back()
     {
+        if (_gameManager._IsMapScene) { return; }
         if (_gameManager.IsAIChatacterTurn) { return; }
 
         if (_gameManager._IsStartScene)

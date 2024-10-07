@@ -18,11 +18,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineBrain _CinemachineBrain;
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
+    [SerializeField] private bool _RandomMap = true;
     [SerializeField] private Animator _ZommEffectAnimator;
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
+    [SerializeField] private List<Transform> AllTransitionElement;
+    [SerializeField] private List<GameObject> AllTransitionElementToDeactivate;
+    [SerializeField] private List<GameObject> AllTransitionElementToDeactivate2;
     [SerializeField] private CharacterMaterial _AllPossibleCharacterMaterials;
+    [SerializeField] private GameObject _CameraRotation;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
@@ -38,38 +43,39 @@ public class GameManager : MonoBehaviour
     public GameObject RobotAIPrefab;
     public GameObject TurretPrefab;
     public GameObject ArrowsPrefab;
+    public GameObject CameraButton;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
-    [field: SerializeField] public  int MaxDistanceEnemiesSpawn { get;  set; }
-    [field: SerializeField] public  int MaxCharacterPlayerCanBePlace { get; private set; }
+    [field: SerializeField] public int MaxDistanceEnemiesSpawn { get; set; }
+    [field: SerializeField] public int MaxCharacterPlayerCanBePlace { get; private set; }
     [field: SerializeField] public float CameraSpeed { get; private set; }
-    
+
     public bool _IsStartScene;
     public bool _IsMapScene;
 
     public List<Character> CharacterList = new List<Character>();
-    public Tile TileSelected { get;  set; } = null;
-    public Tile TilePreSelected { get;  set; } = null;
-    public Tile LastSpawnTile { get;  set; } = null;
-    public  GameObject ArrowsDirection { get;  set; }
-    public  State CurrentState { get;  set; }
-    public  StateChooseCharacter StateChooseCharacter { get; private set; }
-    public  StateMoveCharacter StateMoveCharacter { get;  set; }
-    public  StateAttackCharacter StateAttackCharacter { get;  set; }
-    public  StateTurnCharacter StateTurnCharacter { get;  set; }
-    public  StateNavigation StateNavigation { get;  set; }
+    public Tile TileSelected { get; set; } = null;
+    public Tile TilePreSelected { get; set; } = null;
+    public Tile LastSpawnTile { get; set; } = null;
+    public GameObject ArrowsDirection { get; set; }
+    public State CurrentState { get; set; }
+    public StateChooseCharacter StateChooseCharacter { get; private set; }
+    public StateMoveCharacter StateMoveCharacter { get; set; }
+    public StateAttackCharacter StateAttackCharacter { get; set; }
+    public StateTurnCharacter StateTurnCharacter { get; set; }
+    public StateNavigation StateNavigation { get; set; }
     public bool NeedResetTiles { get; set; }
-    
-    public bool _GameIsFinish{ get; private set; }
+
+    public bool _GameIsFinish { get; private set; }
     public bool CameraIsMoving { get; private set; }
-    public bool IsCameraNear { get; set ; }
+    public bool IsCameraNear { get; set; }
     public bool MenuIsOpen { get; set; } = false;
     public bool IsController { get; set; } = false;
     public bool IsAIChatacterTurn { get; set; } = false;
 
     public bool IsCharactersAttacking { get; set; }
-    public int IndexOccupiedTiles{ get; set; }
+    public int IndexOccupiedTiles { get; set; }
     public bool RepeatableAttackInputIsPress { get; set; }
-    public Tile[] OccupiedTiles{ get; private set; }
+    public Tile[] OccupiedTiles { get; private set; }
 
     /*private void Update()
     {
@@ -84,12 +90,12 @@ public class GameManager : MonoBehaviour
 
     public Character CurrentCharacter { get; set; }
     public Character CurrentCharacterTurn { get; private set; }
-    
+
     public bool PossibleMapMoveTileIsFinished;
     public bool PossibleMoveTileIsFinished;
     public bool PossibleAttackTileIsFinished;
     public bool PossibleEndTurnDirectionTileIsFinished;
-    
+
     public bool Wait
     {
         get => _wait;
@@ -101,7 +107,7 @@ public class GameManager : MonoBehaviour
                 {
                     DeactivateUIButtonCharacter();
                 }
-                
+
             }
             else
             {
@@ -110,18 +116,21 @@ public class GameManager : MonoBehaviour
                     ActivateUIButtonCharacter();
                 }
             }
+
             _wait = value;
         }
     }
+
     private bool _wait;
 
-    [SerializeField]
-    private Direction _Enemiesdirection;
-    
+    [SerializeField] private Direction _Enemiesdirection;
+
     public Direction _direction;
     private int _SpawnMobItteration;
     private int _characterCount;
-    
+    private bool _DoOnceStartBattle;
+    private Vector3 _ScaleLerpSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+
     public TilesManager _tileManager;
     public MapTilesManager _MapTilesManager_Lava;
     public MapTilesManager _MapTilesManager_Grass;
@@ -132,9 +141,9 @@ public class GameManager : MonoBehaviour
     public MapTilesManager _MapTilesManager_Corner2;
     public MapTilesManager _MapTilesManager_Corner3;
     public MapTilesManager _MapTilesManager_Corner4;
-    
-    private const int MAX_OCCUPIED_TILES = 30; 
-    
+
+    private const int MAX_OCCUPIED_TILES = 30;
+
     public Action SelectCharacter;
     public Action RemoveUICharacter;
     public Action DeactivateUIButtonCharacter;
@@ -150,23 +159,24 @@ public class GameManager : MonoBehaviour
         South = 1,
         Est = 2,
         North = 3,
-        West =4
+        West = 4
     }
-    
+
     public static GameManager Instance { get; private set; }
-    private void Awake() 
+
+    private void Awake()
     {
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(this); 
-        } 
-        else 
-        { 
-            Instance = this; 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
         }
 
         StateTurnCharacter = new StateTurnCharacter(this);
-        StateChooseCharacter = new StateChooseCharacter(this,MaxCharacterPlayerCanBePlace);
+        StateChooseCharacter = new StateChooseCharacter(this, MaxCharacterPlayerCanBePlace);
         StateAttackCharacter = new StateAttackCharacter(this);
         StateMoveCharacter = new StateMoveCharacter(this);
         StateNavigation = new StateNavigation(this);
@@ -179,13 +189,28 @@ public class GameManager : MonoBehaviour
         StartCoroutine(InitializeGame());
     }
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            if (_CameraRotation.activeInHierarchy)
+            {
+                _CameraRotation.SetActive(false);
+            }
+            else
+            {
+                _CameraRotation.SetActive(true);
+            }
+           
+        }
+    }
+
     private IEnumerator InitializeGame()
     {
         _tileManager = TilesManager.Instance;
         OccupiedTiles = new Tile[MAX_OCCUPIED_TILES];
         _direction = Direction.South;
-        //ArrowsDirection = Instantiate(ArrowsPrefab, Vector3.zero, Quaternion.identity);
-        //ArrowsDirection.SetActive(false);
 
         if (_IsStartScene)
         {
@@ -195,12 +220,6 @@ public class GameManager : MonoBehaviour
 
         if (_IsMapScene)
         {
-            /*yield return _MapTilesManager_Lava.SetBoardTiles();
-            yield return _MapTilesManager_Grass.SetBoardTiles();
-            yield return _MapTilesManager_Desert.SetBoardTiles();
-            yield return _MapTilesManager_Snow.SetBoardTiles();
-            yield return _MapTilesManager_Poison.SetBoardTiles();*/
-
             StartCoroutine(_MapTilesManager_Lava.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Grass.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Desert.SetBoardTiles());
@@ -211,18 +230,88 @@ public class GameManager : MonoBehaviour
             StartCoroutine(_MapTilesManager_Corner3.SetBoardTiles());
             yield return _MapTilesManager_Corner4.SetBoardTiles();
             _LavaWaterPlane.SetActive(true);
-
-
-            SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);
             yield return new WaitForSeconds(3);
+
+            Tile spawnTile = null;
+            MapTilesManager mapTilesManager = null;
+            int tileCoordX = FBPP.GetInt("PositionTileCoordX");
+            int tileCoordY = FBPP.GetInt("PositionTileCoordY");
+            int environment = FBPP.GetInt("Environment");
+
+            if (environment == (int)_MapTilesManager_Lava._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Grass._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Desert._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Snow._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Poison._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Corner1._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Corner2._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Corner3._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+            
+            if (environment == (int)_MapTilesManager_Corner4._Environement)
+            {
+                mapTilesManager = _MapTilesManager_Lava;
+            }
+
+            if (mapTilesManager != null)
+            {
+                spawnTile = mapTilesManager.GetTile(tileCoordX, tileCoordY);
+            }
+            
+            if (spawnTile == null)
+            {
+                SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);
+            }
+            else
+            {
+                SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0]);
+            }
+            
+            CameraButton.SetActive(true);
             ShowPossibleMapMove(TileSelected);
             TilePreSelected = CurrentCharacter.CurrentTile;
             yield break;
         }
 
-        if (_UnitTest)
+        if (_UnitTest || _RandomMap)
         {
-            _tileManager.TileManagerData = AllTileManagerDataUnitTest[Random.Range(0, AllTileManagerDataUnitTest.Count - 1)];
+            _tileManager.SetRandomTileManagerData();
+        }
+        else
+        {
+            int environment = FBPP.GetInt("Environment");
+
+            _tileManager.SetEnvironmentTileManagerData(environment);
         }
 
         yield return _tileManager.SetBoardTiles();
@@ -230,15 +319,16 @@ public class GameManager : MonoBehaviour
         if (_UnitTest)
         {
             DataCharacterSpawner dataCharacterSpawner = CharacterAIDataTeam2UnitTest[Random.Range(0, CharacterAIDataTeam2UnitTest.Count - 1)];
-            
+
             foreach (var character in dataCharacterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
-                SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
+                SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn),
+                    _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
             }
-            
+
             dataCharacterSpawner = CharacterAIDataTeam1UnitTest[Random.Range(0, CharacterAIDataTeam1UnitTest.Count - 1)];
-            
+
             foreach (var character in dataCharacterSpawner.DataSpawn)
             {
                 yield return new WaitForSeconds(1);
@@ -252,24 +342,27 @@ public class GameManager : MonoBehaviour
                 foreach (var character in characterSpawner.DataSpawn)
                 {
                     yield return new WaitForSeconds(1);
-                    SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn), _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
+                    SpawnAICharacter(_tileManager.TileManagerData.Row - (_tileManager.TileManagerData.Row / MaxDistanceEnemiesSpawn),
+                        _tileManager.TileManagerData.Row, character, SetEnemiesDirection(Direction.Est));
                 }
             }
         }
-        
+
         Tile tile = _tileManager.GetTile(_tileManager.TileManagerData.Column / 2, _tileManager.TileManagerData.Row / 2);
         TilePreSelected = tile;
-        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction,false))) ;
-        
+        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, false)));
+
         if (_UnitTest)
         {
             NextCharacterTurn();
         }
         else
         {
-           _tileManager.SetValidSpawnTiles();
-           _PlayerCharacterSpawnerList.gameObject.SetActive(true);
+            _tileManager.SetValidSpawnTiles();
+            _PlayerCharacterSpawnerList.gameObject.SetActive(true);
         }
+        
+        CameraButton.SetActive(true);
     }
 
     private void SpawnAICharacter(int minCoordY, int maxCoordY, DataCharacterSpawner.DataSpawner dataCharacterSpawner, Vector3 direction)
@@ -279,17 +372,20 @@ public class GameManager : MonoBehaviour
         {
             int coordX = Random.Range(0, _tileManager.TileManagerData.Column);
             int coordY = Random.Range(minCoordY, maxCoordY);
-        
-            if (SpawnCharacter( _tileManager.GetTile(coordX, coordY), direction, dataCharacterSpawner))
+
+            if (SpawnCharacter(_tileManager.GetTile(coordX, coordY), direction, dataCharacterSpawner))
             {
                 isCharacterIsSpawned = true;
             }
         }
     }
 
-    public bool SpawnCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
+    public bool SpawnCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
-        if (tile.IsOccupied || tile.IsPotionTile) {return false;}
+        if (tile.IsOccupied || tile.IsPotionTile)
+        {
+            return false;
+        }
 
         Vector3 spawnPosition = tile.Position;
         if (tile.IsWater)
@@ -307,6 +403,7 @@ public class GameManager : MonoBehaviour
         {
             waterParticleEffect.SetActive(tile.IsWater);
         }
+
         characterReference.CurrentTeam = dataCharacterSpawner.Team;
         switch (dataCharacterSpawner.Ability1)
         {
@@ -316,6 +413,7 @@ public class GameManager : MonoBehaviour
                 new CounterAbility(characterReference, this);
                 break;
         }
+
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         return true;
@@ -329,7 +427,7 @@ public class GameManager : MonoBehaviour
             spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
         }
 
-        
+
         GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
         Character characterReference = character.GetComponent<Character>();
         CurrentCharacter.DestroyCharacterRelated += characterReference.DestroyCharacter;
@@ -344,8 +442,8 @@ public class GameManager : MonoBehaviour
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
     }
-    
-    public void SpawnMapCharacter(Tile tile, Vector3 rotation,  DataCharacterSpawner.DataSpawner dataCharacterSpawner)
+
+    public void SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
     {
         if (tile.IsOccupied)
         {
@@ -377,6 +475,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         int indexMaterial = FBPP.GetInt("TeamColor");
         characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+        AllTransitionElement.Add(characterGameObject.transform);
 
     }
 
@@ -401,37 +500,37 @@ public class GameManager : MonoBehaviour
         {
             return Instantiate(DragonAIPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Wizard)
         {
             return Instantiate(WizardPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.WizardAI)
         {
             return Instantiate(WizardAIPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNature)
         {
             return Instantiate(MotherNaturePrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNatureAI)
         {
             return Instantiate(MotherNatureAIPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Robot)
         {
             return Instantiate(RobotPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.RobotAI)
         {
             return Instantiate(RobotAIPrefab, position, Quaternion.identity);
         }
-        
+
         if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.Turret)
         {
             return Instantiate(TurretPrefab, position, Quaternion.identity);
@@ -442,7 +541,10 @@ public class GameManager : MonoBehaviour
 
     public void SelectTile(GameObject gameObjectTile)
     {
-        if (_wait) {return;}
+        if (_wait)
+        {
+            return;
+        }
 
         Tile tile = null;
 
@@ -454,19 +556,22 @@ public class GameManager : MonoBehaviour
             {
                 tile = CurrentCharacter.CurrentTile.MapTilesManager._WestMapTilesManager.GetTile(gameObjectTile);
             }
+
             if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._EstMapTilesManager != null)
             {
                 tile = CurrentCharacter.CurrentTile.MapTilesManager._EstMapTilesManager.GetTile(gameObjectTile);
             }
+
             if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._NorthMapTilesManager != null)
             {
                 tile = CurrentCharacter.CurrentTile.MapTilesManager._NorthMapTilesManager.GetTile(gameObjectTile);
             }
+
             if (tile == null && CurrentCharacter.CurrentTile.MapTilesManager._SouthMapTilesManager != null)
             {
                 tile = CurrentCharacter.CurrentTile.MapTilesManager._SouthMapTilesManager.GetTile(gameObjectTile);
             }
-        
+
 
             if (tile == null || tile == CurrentCharacter.CurrentTile)
             {
@@ -483,33 +588,37 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
                 return;
             }
-            
+
         }
-      
+
         SelectTile(tile);
     }
 
     public void SelectTile(Tile tile)
     {
-        if (_wait || _IsStartScene) {return;}
-        
+        if (_wait || _IsStartScene)
+        {
+            return;
+        }
+
         if (tile == null)
         {
             Debug.Log("GameManager :: SelectTile tile == null");
         }
         else
         {
-            Debug.Log("GameManager :: SelectTile  tile = " + tile.CoordX + " " +  tile.CoordY + "  CurrentState = " + CurrentState);
+            Debug.Log("GameManager :: SelectTile  tile = " + tile.CoordX + " " + tile.CoordY + "  CurrentState = " + CurrentState);
         }
+
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
         TilePreSelected = tile;
         NeedResetTiles = true;
         CurrentState.SelectTile(tile);
-        
-        if(NeedResetTiles)
+
+        if (NeedResetTiles)
         {
             if (CurrentCharacter)
-            { 
+            {
                 CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
             }
 
@@ -528,9 +637,9 @@ public class GameManager : MonoBehaviour
                 {
                     return;
                 }
-        
+
                 TileSelected.MapTilesManager.DeselectTiles();
-                
+
                 if (TileSelected.MapTilesManager._EstMapTilesManager != null)
                 {
                     TileSelected.MapTilesManager._EstMapTilesManager.DeselectTiles();
@@ -550,16 +659,16 @@ public class GameManager : MonoBehaviour
                 {
                     TileSelected.MapTilesManager._NorthMapTilesManager.DeselectTiles();
                 }
-                
+
                 TileSelected.MapTilesManager.AddSelectedTile(tile);
-            
+
                 tile.SetTopMaterial(TileSelected.MapTilesManager.MoveTileMaterial);
             }
             else
             {
                 _tileManager.DeselectTiles();
                 _tileManager.AddSelectedTile(tile);
-            
+
                 tile.SetTopMaterial(_tileManager.MoveTileMaterial);
             }
 
@@ -567,7 +676,7 @@ public class GameManager : MonoBehaviour
             {
                 RemoveUICharacter();
             }
-            
+
             CurrentState = StateNavigation;
             TileSelected = tile;
             StateAttackCharacter.ResetAttackData();
@@ -576,7 +685,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectTileController(Tile tile)
     {
-        Debug.Log("SelectTileController tile = " +tile.CoordX + "  " +tile.CoordY);
+        Debug.Log("SelectTileController tile = " + tile.CoordX + "  " + tile.CoordY);
         if (_wait)
         {
             return;
@@ -586,13 +695,13 @@ public class GameManager : MonoBehaviour
 
         if (_IsMapScene && IsController)
         {
-            
+
         }
         else
         {
             tile.SetTopMaterial(_tileManager.SelectTileMaterial);
         }
-        
+
     }
 
     //Select with color possible move tile
@@ -614,6 +723,18 @@ public class GameManager : MonoBehaviour
     
     public void ShowPossibleMapMove(Tile tile)
     {
+        if (_IsMapScene)
+        {
+            if (_DoOnceStartBattle && Random.Range(0, 6) == 1)
+            {
+                
+                StartCoroutine(MapSceneToBattleScene());
+                return;
+            }
+
+            _DoOnceStartBattle = true;
+        }
+
         StateAttackCharacter.ResetAttackData();
         /*if (ArrowsDirection.activeSelf)
         {
@@ -641,14 +762,73 @@ public class GameManager : MonoBehaviour
         {
             TileSelected.MapTilesManager._NorthMapTilesManager.DeselectTiles();
         }
+
         Debug.Log("Before GetMoveTiles1");
         tile.MapTilesManager.BranchPath = 0;
         StartCoroutine(tile.MapTilesManager.GetMoveTiles(1, null, tile));
         CurrentState = StateMoveCharacter;
     }
-    
-    
-    //Select with color possible attack tile
+
+    private IEnumerator MapSceneToBattleScene()
+    {
+        FBPP.SetInt("PositionTileCoordX", TileSelected.CoordX);
+        FBPP.SetInt("PositionTileCoordY", TileSelected.CoordY);
+        FBPP.SetInt("Environment", (int)TileSelected.MapTilesManager._Environement);
+        FBPP.Save();
+        StartCoroutine(ZoomBattleCamera(100f));
+        foreach (var elementToDeactivate in AllTransitionElementToDeactivate)
+        {
+            elementToDeactivate.SetActive(false);
+        }
+        StartCoroutine(_MapTilesManager_Snow.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Grass.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Lava.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Poison.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Desert.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Corner1.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.2f);
+        StartCoroutine(_MapTilesManager_Corner2.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.15f);
+        StartCoroutine(_MapTilesManager_Corner3.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.15f);
+        StartCoroutine(_MapTilesManager_Corner4.TransitionToBattleScene());
+        yield return new WaitForSeconds(0.15f);
+        StartCoroutine(TransitionToBattleScene());
+        
+        yield return new WaitForSeconds(2.5f);
+        foreach (var element in AllTransitionElementToDeactivate2)
+        {
+            if (element != null)
+            {
+                element.gameObject.SetActive(false);
+            }
+        }
+        
+        SceneManager.LoadScene("BattleScene");
+    }
+
+    private IEnumerator TransitionToBattleScene()
+    {
+        while (true)
+        {
+            foreach (var element in AllTransitionElement)
+            {
+                if (element != null && element.localScale.x > 0)
+                {
+                    element.localScale -= _ScaleLerpSpeed;
+                }
+            }
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+
+//Select with color possible attack tile
     public void ShowPossibleAttack(Tile tile, bool isAICheck, Attack attack)
     {
         Debug.Log("GameManager :: ShowPossibleAttack");
@@ -856,6 +1036,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator ZoomBattleCamera(float lifeTime)
     {
         yield return new WaitForSeconds(.75f);
+        _ZommEffectAnimator.SetTrigger(Zoom);
         _ZoomVCam.SetActive(true);
         yield return new WaitForSeconds(lifeTime);
         _ZoomVCam.SetActive(false);
@@ -1112,10 +1293,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("RepeatableAttackInputIsPress = true;");
         _CanressRepeatableAttack = false;
         RepeatableAttackInputIsPress = true;
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSeconds(0.05f);
         RepeatableAttackInputIsPress = false;
         Debug.Log("RepeatableAttackInputIsPress = false;");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.9f);
         _CanressRepeatableAttack = true;
     }
 

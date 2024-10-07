@@ -617,6 +617,7 @@ public class Character : MonoBehaviour
         {
             if (_gameManager.IsController)
             {
+                yield return new WaitForSeconds(1);
                 _gameManager.SelectCharacter?.Invoke();
             }
         }

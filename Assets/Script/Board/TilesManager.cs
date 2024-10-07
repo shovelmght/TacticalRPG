@@ -8,8 +8,27 @@ using Random = UnityEngine.Random;
 public class TilesManager: MonoBehaviour
 {
     [field: SerializeField] public TileManagerData TileManagerData{ get; set; }
-    
     [field: SerializeField] public TileManagerData[] RandomTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentStoneTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentGrassTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentDesertTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentPoisonTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentSnowTileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner1TileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner2TileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner3TileManagerData{ get; private set; }
+    
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner4TileManagerData{ get; private set; }
+    
+
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
     [field: SerializeField] public Material AttackTileMaterial { get; private set; }
     [field: SerializeField] public Material PathTileMaterial { get; private set; }
@@ -1375,5 +1394,68 @@ public class TilesManager: MonoBehaviour
                     tile.ResetSetTopMaterial();
                 }
             }
+        }
+
+        public void SetRandomTileManagerData()
+        {
+            TileManagerData = RandomTileManagerData[Random.Range(0, RandomTileManagerData.Length - 1)];
+        }
+        
+        public void SetEnvironmentTileManagerData(int environmentIndex)
+        {
+            if (environmentIndex == 0)
+            {
+                TileManagerData = EnvironmentStoneTileManagerData[Random.Range(0, EnvironmentStoneTileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 1)
+            {
+                TileManagerData = EnvironmentGrassTileManagerData[Random.Range(0, EnvironmentGrassTileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 2)
+            {
+                TileManagerData = EnvironmentDesertTileManagerData[Random.Range(0, EnvironmentDesertTileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 3)
+            {
+                TileManagerData = EnvironmentSnowTileManagerData[Random.Range(0, EnvironmentSnowTileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 4)
+            {
+                TileManagerData = EnvironmentPoisonTileManagerData[Random.Range(0, EnvironmentPoisonTileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 5)
+            {
+                TileManagerData = EnvironmentCorner1TileManagerData[Random.Range(0, EnvironmentCorner1TileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 6)
+            {
+                TileManagerData = EnvironmentCorner2TileManagerData[Random.Range(0, EnvironmentCorner2TileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 7)
+            {
+                TileManagerData = EnvironmentCorner3TileManagerData[Random.Range(0, EnvironmentCorner3TileManagerData.Length - 1)];
+                return;
+            }
+            
+            if (environmentIndex == 8)
+            {
+                TileManagerData = EnvironmentCorner4TileManagerData[Random.Range(0, EnvironmentCorner4TileManagerData.Length - 1)];
+                return;
+            }
+            
         }
 }
