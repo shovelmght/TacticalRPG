@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private bool _RandomMap = true;
+    [SerializeField] private bool _ForceTileManager = true;
     [SerializeField] private Animator _ZommEffectAnimator;
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
@@ -307,7 +308,7 @@ public class GameManager : MonoBehaviour
         {
             _tileManager.SetRandomTileManagerData();
         }
-        else
+        else if(!_ForceTileManager)
         {
             int environment = FBPP.GetInt("Environment");
 
@@ -929,6 +930,15 @@ public class GameManager : MonoBehaviour
     //Go to next character turn
     public void NextCharacterTurn()
     {
+      
+        if (CurrentCharacterTurn != null)
+        {
+            Debug.Log("GameManager :: NextCharacterTurn CurrentCharacterTurn = " + CurrentCharacterTurn.name);
+        }
+        else
+        {
+            Debug.Log("GameManager :: NextCharacterTurn CurrentCharacterTurn = NULL");
+        }
         StartCoroutine(BeginOfTurn());
     }
     
@@ -936,6 +946,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator BeginOfTurn()
     {
         yield return new WaitForSeconds(1);
+        if (CurrentCharacterTurn != null)
+        {
+            Debug.Log("GameManager :: BeginOfTurn Before change character CurrentCharacterTurn = " + CurrentCharacterTurn.name);
+        }
+        else
+        {
+            Debug.Log("GameManager :: BeginOfTurn  Before change character CurrentCharacterTurn = NULL");
+        }
         
         SetInteractableWaitButton?.Invoke();
         CurrentCharacterTurn = CheckCharacterTime();
@@ -945,6 +963,14 @@ public class GameManager : MonoBehaviour
             CurrentCharacterTurn = CheckCharacterTime();
         }
 
+        if (CurrentCharacterTurn != null)
+        {
+            Debug.Log("GameManager :: BeginOfTurn after change character CurrentCharacterTurn = " + CurrentCharacterTurn.name);
+        }
+        else
+        {
+            Debug.Log("GameManager :: BeginOfTurn after change character CurrentCharacterTurn = NULL");
+        }
         //CameraIsMoving = true;
         
         if (CurrentCharacter)
@@ -991,8 +1017,7 @@ public class GameManager : MonoBehaviour
             NextCharacterTurn();
         }
     }
-
-    public Transform transformtest;
+    
     public Vector3 Vector3test;
     
     [ContextMenu("MoveBoardCamera")]
@@ -1304,7 +1329,6 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private bool _UnitTest;
     public bool AddOccupiedTileOnClick;
-    public List<TileManagerData> AllTileManagerDataUnitTest;
     public List<DataCharacterSpawner> CharacterAIDataTeam1UnitTest;
     public List<DataCharacterSpawner> CharacterAIDataTeam2UnitTest;
     public GameObject objectToSpawn;

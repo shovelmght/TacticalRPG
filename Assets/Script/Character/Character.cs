@@ -730,7 +730,7 @@ public class Character : MonoBehaviour
 
         yield return MoveTo(transform.position + Vector3.down * DownDistanceWhenDie,DyingMoveSpeed);
         
-        if (!IsAI && isCharacterTurn)
+        if (!IsAI && isCharacterTurn && _gameManager.CurrentCharacter == null)
         {
             Debug.Log("Character :: _gameManager.CurrentCharacter == this :: Character = " + gameObject.name);
             _gameManager.NextCharacterTurn();

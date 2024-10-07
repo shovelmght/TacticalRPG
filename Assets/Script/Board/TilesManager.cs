@@ -85,12 +85,6 @@ public class TilesManager: MonoBehaviour
         {
             Instance = this;
         }
-        
-        if (RandomTileManagerData.Length > 0)
-        {
-            TileManagerData = RandomTileManagerData[Random.Range(0, RandomTileManagerData.Length)];
-            Debug.Log("TileManagerData.name = " + TileManagerData.name);
-        }
     }
 
     private void Update()
