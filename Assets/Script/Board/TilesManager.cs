@@ -97,7 +97,11 @@ public class TilesManager: MonoBehaviour
         {
             Instance = this;
         }
+
+      
     }
+
+    
 
     private void Update()
     {
@@ -1144,7 +1148,7 @@ public class TilesManager: MonoBehaviour
             if (isWaterTile || isWaterfall)
             {
                 Material material = TileManagerData.WaterTileMaterial;
-                if (isWaterfall)
+                /*if (isWaterfall)
                 {
                     material = TileManagerData.WaterfallTileMaterial;
                     wallBackgroundTileGameObject.transform.localEulerAngles = new Vector3(Random.Range(0f, 360f),Random.Range(0f, 360f), Random.Range(0f, 360f));
@@ -1168,7 +1172,7 @@ public class TilesManager: MonoBehaviour
 
                     wallBackgroundTileGameObject.transform.localScale +=
                         new Vector3((float)i / COEF_SCALE_MULTIP_WATERFALL_TILE, (float)i / COEF_SCALE_MULTIP_WATERFALL_TILE, (float)i / COEF_SCALE_MULTIP_WATERFALL_TILE);
-                }
+                }*/
 
                 for (int j = 0; j < wallBackgroundTileGameObject.transform.childCount; j++)
                 {
@@ -1479,6 +1483,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentStoneTileManagerData[Random.Range(0, EnvironmentStoneTileManagerData.Length - 1)];
                 }
        
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1493,6 +1500,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentGrassTileManagerData[Random.Range(0, EnvironmentGrassTileManagerData.Length - 1)];
                 }
              
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1507,6 +1517,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentDesertTileManagerData[Random.Range(0, EnvironmentDesertTileManagerData.Length - 1)];
                 }
              
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1521,6 +1534,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentSnowTileManagerData[Random.Range(0, EnvironmentSnowTileManagerData.Length - 1)];
                 }
                 
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1535,6 +1551,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentPoisonTileManagerData[Random.Range(0, EnvironmentPoisonTileManagerData.Length - 1)];
                 }
                 
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1549,6 +1568,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentCorner1TileManagerData[Random.Range(0, EnvironmentCorner1TileManagerData.Length - 1)];
                 }
                
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1563,6 +1585,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentCorner2TileManagerData[Random.Range(0, EnvironmentCorner2TileManagerData.Length - 1)];
                 }
                 
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1577,6 +1602,9 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentCorner3TileManagerData[Random.Range(0, EnvironmentCorner3TileManagerData.Length - 1)];
                 }
               
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
                 return;
             }
             
@@ -1591,17 +1619,29 @@ public class TilesManager: MonoBehaviour
                     TileManagerData = EnvironmentCorner4TileManagerData[Random.Range(0, EnvironmentCorner4TileManagerData.Length - 1)];
                 }
                 
+                int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
+                TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+                TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
+
             }
             
         }
         
-        [ContextMenu("SartTransitionToBattleScene")]
-        public void SartTransitionToBattleScene()
+            
+       
+        public int GetApproximateHeight(int inputHeight)
         {
-            StartCoroutine(TransitionToBattleScene());
+            float approximateHeight = (9f / 7f) * inputHeight + 21.43f;
+            return Mathf.RoundToInt(approximateHeight); // Round to nearest integer
+        }
+        
+        [ContextMenu("SartTransitionToBattleScene")]
+        public void StarTransitionToMapScene()
+        {
+            StartCoroutine(TransitionToMapScene());
         }
 
-        public IEnumerator TransitionToBattleScene()
+        public IEnumerator TransitionToMapScene()
         {
             while (true)
             {

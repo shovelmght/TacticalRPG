@@ -16,7 +16,7 @@ MonoBehaviour:
   <Row>k__BackingField: 20
   <TileGap>k__BackingField: 1.05
   <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: afeaf024a23163d4788bba01873afd6c, type: 2}
-  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: b2b9569c66147424fa3645cd2e6ae10d, type: 2}
+  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: afeaf024a23163d4788bba01873afd6c, type: 2}
   <DecorsPrefab>k__BackingField:
   - {fileID: 1221223343915000744, guid: 54c4f10c9f438c248996ebbefdeec087, type: 3}
   - {fileID: 1221223343915000744, guid: a65a131b52d1cff47a9f0cf7a03351e2, type: 3}
@@ -42,7 +42,7 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
   <NumberOfDecor>k__BackingField: 4
-  <NumberOfPotion>k__BackingField: 22
+  <NumberOfPotion>k__BackingField: 1
   <NumberOfSmallRock>k__BackingField: 10
   <_SecondTileChance>k__BackingField: 50
   <NumberGroundBackgroundTilesRow>k__BackingField: 30

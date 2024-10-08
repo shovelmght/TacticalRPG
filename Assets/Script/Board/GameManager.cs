@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform TempBoardVCam;
     [SerializeField] private Transform _CurrentCamera;
     [SerializeField] private CinemachineBrain _CinemachineBrain;
+    [SerializeField] private GameObject _ZoomVCam;
+    [SerializeField] private GameObject _UnZoomVCam;
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private bool _RandomMap = true;
@@ -310,7 +312,14 @@ public class GameManager : MonoBehaviour
         {
             _tileManager.SetRandomTileManagerData();
         }
-        else if(!_ForceTileManager)
+        else if(_ForceTileManager)
+        {
+            int backgroundTile  = _tileManager.GetApproximateHeight(_tileManager.TileManagerData.BoardTileHeight);
+            _tileManager.TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
+            _tileManager.TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
+
+        }
+        else
         {
             bool isWaterTile = FBPP.GetBool("isWaterTile");
             int environment = FBPP.GetInt("Environment");
@@ -921,10 +930,20 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.75f);
         if (_UnitTest)
         {
             SceneManager.LoadScene("BattleScene");
+        }
+        else
+        {
+            RemoveUICharacter?.Invoke();
+            CameraButton.SetActive(false);
+            Time.timeScale = 1f;
+            StartCoroutine(_tileManager.TransitionToMapScene());
+            yield return new WaitForSeconds(2);
+            SceneManager.LoadScene("MapScene");
+            
         }
         
     }
@@ -1059,8 +1078,6 @@ public class GameManager : MonoBehaviour
         CameraIsMoving = false;
     }
 
-    [SerializeField] private GameObject _ZoomVCam;
-
     public IEnumerator ZoomBattleCamera(float lifeTime)
     {
         yield return new WaitForSeconds(.75f);
@@ -1068,6 +1085,14 @@ public class GameManager : MonoBehaviour
         _ZoomVCam.SetActive(true);
         yield return new WaitForSeconds(lifeTime);
         _ZoomVCam.SetActive(false);
+    }
+    
+    public IEnumerator UnZoomBattleCamera(float lifeTime)
+    {
+        yield return new WaitForSeconds(.75f);
+        _ZommEffectAnimator.SetTrigger(Zoom);
+        _UnZoomVCam.SetActive(true);
+ 
     }
 
     public IEnumerator SetBattleCamera(Character theAttacker , Character theAttacked,  GetAttackDirection.AttackDirection attackDirection, bool isCounter)

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02eca42fb408ac44ba4f20578d174bdf, type: 3}
+  m_Name: TileManagerDataCorner1Type2
+  m_EditorClassIdentifier: 
+  <Column>k__BackingField: 13
+  <Row>k__BackingField: 9
+  <TileGap>k__BackingField: 1.05
+  <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 0c2236a19ebfb9b40b921e03b875c87a, type: 2}
+  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: 0c2236a19ebfb9b40b921e03b875c87a, type: 2}
+  <DecorsPrefab>k__BackingField:
+  - {fileID: 1221223343915000744, guid: 54c4f10c9f438c248996ebbefdeec087, type: 3}
+  - {fileID: 1221223343915000744, guid: a65a131b52d1cff47a9f0cf7a03351e2, type: 3}
+  - {fileID: 1207176169130477968, guid: 67e9c1326f9a14f4fa5b66ca686d693a, type: 3}
+  - {fileID: 1207176169130477968, guid: 6d44ae46f17789f46800e9ed50bba9d1, type: 3}
+  - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
+  - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
+  - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
+  <_PotionData>k__BackingField:
+  - {fileID: 11400000, guid: 6a84eb21caa3ea847945118cf738d94c, type: 2}
+  - {fileID: 11400000, guid: 2a6073c7b7838d646be01869f3f0c365, type: 2}
+  - {fileID: 11400000, guid: d3ca2ef6dd746fa469a6b091af7b0151, type: 2}
+  - {fileID: 11400000, guid: c73a005528f88614ead6e19e9e2682a3, type: 2}
+  - {fileID: 11400000, guid: af4eb246fc86f204da5093051514ca0f, type: 2}
+  - {fileID: 11400000, guid: da7d3fcd6eb27a745948ed2c7506d5de, type: 2}
+  - {fileID: 11400000, guid: 08ae17f2185505343a3a5e89c27e6014, type: 2}
+  <SmallRockPrefab>k__BackingField:
+  - {fileID: 2921842315418363760, guid: d9cbbc77271ed494eaf733e414a87b7b, type: 3}
+  - {fileID: 2921842315418363760, guid: 250445bfe1d0ede458fca6c03237a250, type: 3}
+  - {fileID: 2921842315418363760, guid: df1a8f31bfd51124c8c9eb15e5a8ceb9, type: 3}
+  - {fileID: 2921842315418363760, guid: d7bfe9af27c9e0545a046613ca5fe465, type: 3}
+  - {fileID: 2921842315418363760, guid: edceeb8fd48ed9f4b84934d909adc699, type: 3}
+  - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
+  - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
+  <NumberOfDecor>k__BackingField: 10
+  <NumberOfPotion>k__BackingField: 1
+  <NumberOfSmallRock>k__BackingField: 15
+  <_SecondTileChance>k__BackingField: 58
+  <NumberGroundBackgroundTilesRow>k__BackingField: 50
+  <NumberGroundBackgroundTilesColumn>k__BackingField: 50
+  <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 614f703babd5d314490d2f25d5735ab3, type: 3}
+  <EmptyTileSecondPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 63c32f6c8afe8694e90b95734176169c, type: 3}
+  <BoardTileHeight>k__BackingField: 23
+  <TilePrefab>k__BackingField: {fileID: 1697866597926677902, guid: 15cc064a807271f4db032c08d8e81157, type: 3}
+  <SecondTilePrefab>k__BackingField: {fileID: 1697866597926677902, guid: 365d9dcdae2732d4eac43f12e94cca01, type: 3}
+  <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 9e14e9b51365aa340a389d0290dad14a, type: 3}
+  <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
+  <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
+  <HeightChance>k__BackingField: 5
+  <WaterChance>k__BackingField: 10
+  <WaterChanceBackgroundTiles>k__BackingField: 5
+  <HeightChanceBackgroundTiles>k__BackingField: 60
+  <decorsChanceBackgroundTiles>k__BackingField: 0
+  <WantColumn>k__BackingField: 0
