@@ -33,6 +33,7 @@ public class StateAttackCharacter : State
                 _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection, false));
                 _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));
                 _gameManager.DesableAttackCharacterUIButtons();
+                _gameManager.SetInteractableAttackButton?.Invoke(false);
                 _characterAttactedSelected = null;
             }
             else
@@ -50,6 +51,7 @@ public class StateAttackCharacter : State
             UIBoardGame.Instance.ReturnToMenuFromAttack();
             _gameManager.IsCharactersAttacking = true;
             _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));
+            _gameManager.SetInteractableAttackButton?.Invoke(false);
         }
     }
 

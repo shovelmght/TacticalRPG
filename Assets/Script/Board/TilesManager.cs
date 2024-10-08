@@ -11,22 +11,32 @@ public class TilesManager: MonoBehaviour
     [field: SerializeField] public TileManagerData[] RandomTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentStoneTileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentStoneWaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentGrassTileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentGrassWaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentDesertTileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentDesertWaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentPoisonTileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentPoisonWaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentSnowTileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentSnowWaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentCorner1TileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner1WaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentCorner2TileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner2WaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentCorner3TileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner3WaterTileManagerData{ get; private set; }
     
     [field: SerializeField] public TileManagerData[] EnvironmentCorner4TileManagerData{ get; private set; }
+    [field: SerializeField] public TileManagerData[] EnvironmentCorner4WaterTileManagerData{ get; private set; }
+    
     
 
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
@@ -40,7 +50,9 @@ public class TilesManager: MonoBehaviour
     [SerializeField] private TileData _tileData;
     [SerializeField] private float _buildingTime;
     [SerializeField] private float _waterSpeed;
-    
+    private Vector3 _ScaleLerpSpeed = new Vector3(0.05f, 0.05f, 0.05f);
+
+    private List<Transform> AllElement = new List<Transform>();
     private Tile[,] _boardTiles;
     private Tile[] _tiles;
     private int _index = 0;
@@ -113,10 +125,31 @@ public class TilesManager: MonoBehaviour
                 {
                     height = HEIGHT_GAP;
                 }
+
+                GameObject tileGameObject = null;
                 Vector3 tilePosition = new Vector3(TileManagerData.TileGap * i, height, TileManagerData.TileGap * j);
-                GameObject tileGameObject =
-                    Instantiate(TileManagerData.TilePrefab, tilePosition, Quaternion.identity);
-                tileGameObject.transform.parent = transform;
+
+                if (TileManagerData.SecondTilePrefab != null)
+                {
+                    if (Random.Range(0, 100) > TileManagerData._SecondTileChance)
+                    {
+                        tileGameObject = Instantiate(TileManagerData.SecondTilePrefab, tilePosition, Quaternion.identity);
+                        AllElement.Add(tileGameObject.transform);
+                    }
+                    else
+                    {
+                        tileGameObject = Instantiate(TileManagerData.TilePrefab, tilePosition, Quaternion.identity);
+                        AllElement.Add(tileGameObject.transform);
+                    }
+                }
+                else
+                {
+                    tileGameObject = Instantiate(TileManagerData.TilePrefab, tilePosition, Quaternion.identity);
+                    tileGameObject.transform.parent = transform;
+                    AllElement.Add(tileGameObject.transform);
+                }
+
+      
                 count++;
                 tileGameObject.name = "Cube" + count;
                 
@@ -911,34 +944,60 @@ public class TilesManager: MonoBehaviour
         // Plane normal backgroundTiles
         for (int i = 1; i < TileManagerData.NumberGroundBackgroundTilesColumn; i++)
         {
+            GameObject tileGameObject = TileManagerData.EmptyTileNormalPrefab;
             bool canSpawnDecor = i > GAP_BORDER_WATERFALL;
+            if (TileManagerData.EmptyTileSecondPrefab != null)
+            {
+                if (Random.Range(0, 100) > TileManagerData._SecondTileChance)
+                {
+                    tileGameObject = TileManagerData.EmptyTileSecondPrefab;
+                }
+            }
+
             StartCoroutine(SpawnBackgroundTiles(1,  
                 TileManagerData.Column / 2 * TileManagerData.TileGap  ,  -i * TileManagerData.TileGap , -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap * 
-                TileManagerData.TileGap, CoordXYZ.CoordX, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                TileManagerData.TileGap, CoordXYZ.CoordX, TileManagerData.NumberGroundBackgroundTilesRow, tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
             StartCoroutine(SpawnBackgroundTiles(-1,  
                 TileManagerData.Column / 2 * TileManagerData.TileGap  ,  -i * TileManagerData.TileGap , -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap* TileManagerData.TileGap
-                ,  CoordXYZ.CoordX, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                ,  CoordXYZ.CoordX, TileManagerData.NumberGroundBackgroundTilesRow, tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
         }
         for (int i = TileManagerData.Row; i < TileManagerData.Row + TileManagerData.NumberGroundBackgroundTilesColumn; i++)
         {
+            GameObject tileGameObject = TileManagerData.EmptyTileNormalPrefab;
             bool canSpawnDecor = i > GAP_BORDER_WATERFALL;
+            if (TileManagerData.EmptyTileSecondPrefab != null)
+            {
+                if (Random.Range(0, 100) > TileManagerData._SecondTileChance)
+                {
+                    tileGameObject = TileManagerData.EmptyTileSecondPrefab;
+                }
+            }
+     
             StartCoroutine( SpawnBackgroundTiles(1,  
                 TileManagerData.Column / 2 * TileManagerData.TileGap  ,  i  * TileManagerData.TileGap  , -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap, CoordXYZ.CoordX,
-                TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                TileManagerData.NumberGroundBackgroundTilesRow,tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
             StartCoroutine(SpawnBackgroundTiles(-1,  
                 TileManagerData.Column / 2 * TileManagerData.TileGap ,  i  * TileManagerData.TileGap, -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap,  CoordXYZ.CoordX
-                , TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                , TileManagerData.NumberGroundBackgroundTilesRow, tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
         }
 
         for (int i = 1; i < TileManagerData.Row + 1; i++)
         {
+            GameObject tileGameObject = TileManagerData.EmptyTileNormalPrefab;
             bool canSpawnDecor = i > GAP_BORDER_WATERFALL;
+            if (TileManagerData.EmptyTileSecondPrefab != null)
+            {
+                if (Random.Range(0, 100) > TileManagerData._SecondTileChance)
+                {
+                    tileGameObject = TileManagerData.EmptyTileSecondPrefab;
+                }
+            }
             StartCoroutine( SpawnBackgroundTiles(-1,  
                 TileManagerData.Column * TileManagerData.TileGap  ,  (TileManagerData.Row - i) * TileManagerData.TileGap, -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap, CoordXYZ.CoordX,
-                TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                TileManagerData.NumberGroundBackgroundTilesRow, tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
             StartCoroutine(SpawnBackgroundTiles(1,  
                 -1 * TileManagerData.TileGap   ,  (TileManagerData.Row - i) * TileManagerData.TileGap , -HEIGHT_GAP * TileManagerData.BoardTileHeight * TileManagerData.TileGap, CoordXYZ.CoordX,
-                TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileNormalPrefab, false, CardinalPoint.Orientation.North, canSpawnDecor));
+                TileManagerData.NumberGroundBackgroundTilesRow, tileGameObject, false, CardinalPoint.Orientation.North, canSpawnDecor));
         }
         
         // down ( Y ) BackgroundTiles ( ground and water tile)
@@ -1080,6 +1139,7 @@ public class TilesManager: MonoBehaviour
       
             GameObject wallBackgroundTileGameObject =
                 Instantiate(tileType, wallBackgroundTilePosition, Quaternion.identity);
+            AllElement.Add(wallBackgroundTileGameObject.transform);
             wallBackgroundTileGameObject.transform.parent = transform;
             if (isWaterTile || isWaterfall)
             {
@@ -1109,12 +1169,18 @@ public class TilesManager: MonoBehaviour
                     wallBackgroundTileGameObject.transform.localScale +=
                         new Vector3((float)i / COEF_SCALE_MULTIP_WATERFALL_TILE, (float)i / COEF_SCALE_MULTIP_WATERFALL_TILE, (float)i / COEF_SCALE_MULTIP_WATERFALL_TILE);
                 }
+
                 for (int j = 0; j < wallBackgroundTileGameObject.transform.childCount; j++)
                 {
                     MeshRenderer meshRenderer =
                         wallBackgroundTileGameObject.transform.GetChild(j).GetComponent<MeshRenderer>();
-      
-                    var materials = meshRenderer.materials;
+
+                    if (meshRenderer == null)
+                    {
+                        
+                    }
+
+                var materials = meshRenderer.materials;
                     if (materials.Length > 1)
                     {
                         materials[0] =  material;
@@ -1132,6 +1198,7 @@ public class TilesManager: MonoBehaviour
                 int randomIndex = Random.Range(0, TileManagerData.DecorsPrefab.Length);
                 GameObject decor = Instantiate(TileManagerData.DecorsPrefab[randomIndex], wallBackgroundTileGameObject.transform.position, Quaternion.identity);
                 decor.transform.parent = transform;
+                AllElement.Add(decor.transform);
             }
         }
     }
@@ -1187,6 +1254,7 @@ public class TilesManager: MonoBehaviour
                     Vector3 rotation = new Vector3(0, Random.Range(0f, 360f), 0);
                     GameObject decor = Instantiate(TileManagerData.DecorsPrefab[randomIndex], tile.Position, Quaternion.Euler(rotation));
                     decor.transform.parent = transform;
+                    AllElement.Add(decor.transform);
                 }
             }
         }
@@ -1196,7 +1264,7 @@ public class TilesManager: MonoBehaviour
             for (int i = 0; i < TileManagerData.NumberOfPotion; i++)
             {
                 Tile tile =  GetTile(Random.Range(0, TileManagerData.Column - 1), Random.Range(0, TileManagerData.Row - 1));
-                bool canSpawnPotion = tile.IsOccupied && tile.IsPotionTile;
+                bool canSpawnPotion = tile.IsOccupied || tile.IsPotionTile;
                 if (!canSpawnPotion)
                 {
                     yield return new WaitForSeconds(_buildingTime);
@@ -1207,6 +1275,7 @@ public class TilesManager: MonoBehaviour
                     potion.transform.parent = transform;
                     potion.transform.localScale = new Vector3(.4f, .4f, .4f);
                     potion.name = "Potion " + i;
+                    AllElement.Add(potion.transform);
                     tile.SetPotion(potion.GetComponent<Animator>(), TileManagerData._PotionData[randomIndex]);
                     
 
@@ -1226,6 +1295,7 @@ public class TilesManager: MonoBehaviour
                     Vector3 rotation = new Vector3(0, Random.Range(0f, 360f), 0);
                     GameObject decor = Instantiate(TileManagerData.SmallRockPrefab[randomIndex], tile.Position, Quaternion.Euler(rotation));
                     decor.transform.parent = transform;
+                    AllElement.Add(decor.transform);
                 }
             }
         }
@@ -1357,6 +1427,7 @@ public class TilesManager: MonoBehaviour
             tile.MeshRenderer[0] = bridge.GetComponent<MeshRenderer>();
             tile.MeshRenderer[1] = bridge.GetComponent<MeshRenderer>();
             tile.MeshRenderer[2] = bridge.GetComponent<MeshRenderer>();
+            AllElement.Add(bridge.transform);
             tile.StartMaterial = WoodTileMaterial;
             BoxCollider tileCollider =  tile.CurrentGameObject.GetComponent<BoxCollider>();
             tileCollider.size = new Vector3(tileCollider.size.x, 2.25f, tileCollider.size.z);
@@ -1395,61 +1466,162 @@ public class TilesManager: MonoBehaviour
             TileManagerData = RandomTileManagerData[Random.Range(0, RandomTileManagerData.Length - 1)];
         }
         
-        public void SetEnvironmentTileManagerData(int environmentIndex)
+        public void SetEnvironmentTileManagerData(int environmentIndex, bool isWaterTile)
         {
             if (environmentIndex == 0)
             {
-                TileManagerData = EnvironmentStoneTileManagerData[Random.Range(0, EnvironmentStoneTileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentStoneWaterTileManagerData[Random.Range(0, EnvironmentStoneTileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentStoneTileManagerData[Random.Range(0, EnvironmentStoneTileManagerData.Length - 1)];
+                }
+       
                 return;
             }
             
             if (environmentIndex == 1)
             {
-                TileManagerData = EnvironmentGrassTileManagerData[Random.Range(0, EnvironmentGrassTileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentGrassWaterTileManagerData[Random.Range(0, EnvironmentGrassTileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentGrassTileManagerData[Random.Range(0, EnvironmentGrassTileManagerData.Length - 1)];
+                }
+             
                 return;
             }
             
             if (environmentIndex == 2)
             {
-                TileManagerData = EnvironmentDesertTileManagerData[Random.Range(0, EnvironmentDesertTileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentDesertWaterTileManagerData[Random.Range(0, EnvironmentDesertTileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentDesertTileManagerData[Random.Range(0, EnvironmentDesertTileManagerData.Length - 1)];
+                }
+             
                 return;
             }
             
             if (environmentIndex == 3)
             {
-                TileManagerData = EnvironmentSnowTileManagerData[Random.Range(0, EnvironmentSnowTileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentSnowWaterTileManagerData[Random.Range(0, EnvironmentSnowTileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentSnowTileManagerData[Random.Range(0, EnvironmentSnowTileManagerData.Length - 1)];
+                }
+                
                 return;
             }
             
             if (environmentIndex == 4)
             {
-                TileManagerData = EnvironmentPoisonTileManagerData[Random.Range(0, EnvironmentPoisonTileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentPoisonWaterTileManagerData[Random.Range(0, EnvironmentPoisonTileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentPoisonTileManagerData[Random.Range(0, EnvironmentPoisonTileManagerData.Length - 1)];
+                }
+                
                 return;
             }
             
             if (environmentIndex == 5)
             {
-                TileManagerData = EnvironmentCorner1TileManagerData[Random.Range(0, EnvironmentCorner1TileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentCorner1WaterTileManagerData[Random.Range(0, EnvironmentCorner1TileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentCorner1TileManagerData[Random.Range(0, EnvironmentCorner1TileManagerData.Length - 1)];
+                }
+               
                 return;
             }
             
             if (environmentIndex == 6)
             {
-                TileManagerData = EnvironmentCorner2TileManagerData[Random.Range(0, EnvironmentCorner2TileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentCorner2WaterTileManagerData[Random.Range(0, EnvironmentCorner2TileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentCorner2TileManagerData[Random.Range(0, EnvironmentCorner2TileManagerData.Length - 1)];
+                }
+                
                 return;
             }
             
             if (environmentIndex == 7)
             {
-                TileManagerData = EnvironmentCorner3TileManagerData[Random.Range(0, EnvironmentCorner3TileManagerData.Length - 1)];
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentCorner3WaterTileManagerData[Random.Range(0, EnvironmentCorner3TileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentCorner3TileManagerData[Random.Range(0, EnvironmentCorner3TileManagerData.Length - 1)];
+                }
+              
                 return;
             }
             
             if (environmentIndex == 8)
             {
-                TileManagerData = EnvironmentCorner4TileManagerData[Random.Range(0, EnvironmentCorner4TileManagerData.Length - 1)];
-                return;
+                if (isWaterTile)
+                {
+                    TileManagerData = EnvironmentCorner4WaterTileManagerData[Random.Range(0, EnvironmentCorner4TileManagerData.Length - 1)];
+                }
+                else
+                {
+                    TileManagerData = EnvironmentCorner4TileManagerData[Random.Range(0, EnvironmentCorner4TileManagerData.Length - 1)];
+                }
+                
             }
             
+        }
+        
+        [ContextMenu("SartTransitionToBattleScene")]
+        public void SartTransitionToBattleScene()
+        {
+            StartCoroutine(TransitionToBattleScene());
+        }
+
+        public IEnumerator TransitionToBattleScene()
+        {
+            while (true)
+            {
+                foreach (var element in AllElement)
+                {
+                    if (element != null)
+                    {
+                        if (element.gameObject.activeInHierarchy && element.localScale.x > 0)
+                        {
+                            element.localScale -= _ScaleLerpSpeed;
+                        }
+                        else
+                        {
+                            element.gameObject.SetActive(false);
+                        }
+                    
+                    }
+             
+                }
+                yield return new WaitForSeconds(0.01f);
+            }
         }
 }

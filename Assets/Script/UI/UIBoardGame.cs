@@ -20,7 +20,7 @@ public class UIBoardGame : MonoBehaviour
     [SerializeField] private Color _pressesColor;
     private GameManager _boardManager;
     private bool _canMove = true;
-    private bool _canAttack = true;
+    private bool _CanAttack = true;
     private bool _canWait = true;
    
     
@@ -57,6 +57,12 @@ public class UIBoardGame : MonoBehaviour
         _boardManager.ActivateUIButtonCharacter += ReactivateUICharacterButton;
         _boardManager.DeactivateUIButtonCharacter += DeactivateUICharacterButton;
         _boardManager.SetInteractableWaitButton += SetInteractableWaitButton;
+        _boardManager.SetInteractableAttackButton += SetInteractableAttackButton;
+    }
+
+    private void SetInteractableAttackButton(bool newValue)
+    {
+        _CanAttack = newValue;
     }
 
     private void ShowTilesMove()
@@ -194,7 +200,6 @@ public class UIBoardGame : MonoBehaviour
     {
         AttackButton.image.color = _pressesColor;
         AttackButton.interactable = false;
-        _canAttack = false;
     }
 
     private void WaitActionCharacter()
@@ -229,8 +234,8 @@ public class UIBoardGame : MonoBehaviour
         GameManager.Instance.MenuIsOpen = true;
         MoveButton.interactable = !_boardManager.CurrentCharacter.HaveMoved;
         MoveButton.image.color = _boardManager.CurrentCharacter.HaveMoved ? _pressesColor : _normalColor;
-        AttackButton.interactable = !_boardManager.CurrentCharacter.HaveAttacked;
-        AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
+        AttackButton.interactable = _CanAttack;
+        AttackButton.image.color = !_CanAttack ? _pressesColor : _normalColor;
         WaitButton.image.color = _normalColor;
         WaitButton.interactable = true;
         NormalAttackButton.interactable = true;
@@ -253,8 +258,8 @@ public class UIBoardGame : MonoBehaviour
         {
             MoveButton.interactable = !_boardManager.CurrentCharacter.HaveMoved;
             MoveButton.image.color = _boardManager.CurrentCharacter.HaveMoved ? _pressesColor : _normalColor;
-            AttackButton.interactable = !_boardManager.CurrentCharacter.HaveAttacked;
-            AttackButton.image.color = _boardManager.CurrentCharacter.HaveAttacked ? _pressesColor : _normalColor;
+            AttackButton.interactable = _CanAttack;
+            AttackButton.image.color = !_CanAttack ? _pressesColor : _normalColor;
             WaitButton.image.color = _normalColor;
             WaitButton.interactable = true;
             _canWait = true;

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02eca42fb408ac44ba4f20578d174bdf, type: 3}
-  m_Name: TileManagerDataStoneType3
+  m_Name: TileManagerDataStoneWaterType1
   m_EditorClassIdentifier: 
-  <Column>k__BackingField: 8
-  <Row>k__BackingField: 8
+  <Column>k__BackingField: 16
+  <Row>k__BackingField: 16
   <TileGap>k__BackingField: 1.05
-  <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 9a83b3add70658840ab78f3ffa5ea9a2, type: 2}
-  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: b2b9569c66147424fa3645cd2e6ae10d, type: 2}
+  <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 76549bab724182041b96fc7d888850ea, type: 2}
+  <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: 62dbc09cac2853f41b8d07c303a7b2d9, type: 2}
   <DecorsPrefab>k__BackingField:
   - {fileID: 1221223343915000744, guid: 54c4f10c9f438c248996ebbefdeec087, type: 3}
   - {fileID: 1221223343915000744, guid: a65a131b52d1cff47a9f0cf7a03351e2, type: 3}
@@ -47,15 +47,15 @@ MonoBehaviour:
   <NumberGroundBackgroundTilesRow>k__BackingField: 50
   <NumberGroundBackgroundTilesColumn>k__BackingField: 40
   <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
-  <BoardTileHeight>k__BackingField: 25
+  <BoardTileHeight>k__BackingField: 4
   <TilePrefab>k__BackingField: {fileID: 8767883242349988876, guid: b94b6e49325a2444fb968972877a221f, type: 3}
   <SecondTilePrefab>k__BackingField: {fileID: 0}
   <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 384ac8c860fcd144495fc15f824290a3, type: 3}
   <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
   <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
-  <HeightChance>k__BackingField: 20
-  <WaterChance>k__BackingField: 100
-  <WaterChanceBackgroundTiles>k__BackingField: 90
+  <HeightChance>k__BackingField: 15
+  <WaterChance>k__BackingField: 80
+  <WaterChanceBackgroundTiles>k__BackingField: 40
   <HeightChanceBackgroundTiles>k__BackingField: 20
   <decorsChanceBackgroundTiles>k__BackingField: 0
-  <WantColumn>k__BackingField: 1
+  <WantColumn>k__BackingField: 0

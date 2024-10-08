@@ -240,29 +240,25 @@ public class Character : MonoBehaviour
 
         if (tile.IsPotionTile)
         {
-
             tile.IsPotionTile = false;
             AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
             yield return new WaitForSeconds(1);
             CharacterAnimator.SetTrigger(Drink);
             StartCoroutine(_gameManager.ZoomBattleCamera(4));
 
-            
             if (_Potion != null)
             {
+                _Potion.SetActive(false);
+                yield return new WaitForSeconds(0.001f);
                 _Potion.SetActive(true);
-                _Potion.transform.position = tile.PotionAnimator.gameObject.transform.position;
+                _Potion.transform.position = tile.PotionAnimator.gameObject.transform.GetChild(0).position;
                 StartCoroutine(GameObjectMoveTo(_Potion, PotionHandPostion.position, 0.2f));
-
             }
 
             yield return new WaitForSeconds(2);
-            
             SetPotionEffect(tile.PotionData.PotionType);
-
             AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
             yield return new WaitForSeconds(1);
-            
             HaveMoved = true;
             _gameManager.Wait = false;
             
@@ -443,11 +439,37 @@ public class Character : MonoBehaviour
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
-        
-       
+        if (tile.IsPotionTile)
+        {
+            tile.PotionAnimator.SetTrigger(GetPotion);
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
+        }
         yield return new WaitForSeconds(0.75f);
-        
         _TrailParticleEffect.SetActive(false);
+        
+        if (tile.IsPotionTile)
+        {
+            tile.IsPotionTile = false;
+            yield return new WaitForSeconds(0.75f);
+            CharacterAnimator.SetTrigger(Drink);
+            StartCoroutine(_gameManager.ZoomBattleCamera(4));
+
+            if (_Potion != null)
+            {
+                _Potion.SetActive(false);
+                yield return new WaitForSeconds(0.001f);
+                _Potion.SetActive(true);
+                _Potion.transform.position = tile.PotionAnimator.gameObject.transform.GetChild(0).position;
+                StartCoroutine(GameObjectMoveTo(_Potion, PotionHandPostion.position, 0.2f));
+            }
+
+            yield return new WaitForSeconds(2);
+            SetPotionEffect(tile.PotionData.PotionType);
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
+            yield return new WaitForSeconds(1);
+            
+        }
+        
         if (HaveMoved)
         {
             if (!_isCounterAttack)

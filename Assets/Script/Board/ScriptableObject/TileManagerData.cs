@@ -16,10 +16,12 @@ public class TileManagerData : ScriptableObject
     [field: SerializeField] public GameObject[] SmallRockPrefab{ get; private set; } 
     [field: SerializeField] public int NumberOfDecor{ get; private set; } 
     [field: SerializeField] public int NumberOfPotion{ get; private set; } 
-    [field: SerializeField] public int NumberOfSmallRock{ get; private set; } 
+    [field: SerializeField] public int NumberOfSmallRock{ get; private set; }
+    [field: SerializeField] public int _SecondTileChance { get; private set; } = 3;
     [field: SerializeField] public int NumberGroundBackgroundTilesRow{ get; private set; } 
     [field: SerializeField] public int NumberGroundBackgroundTilesColumn{ get; private set; } 
     [field: SerializeField] public GameObject EmptyTileNormalPrefab{ get; private set; } 
+    [field: SerializeField] public GameObject EmptyTileSecondPrefab{ get; private set; } 
     [field: SerializeField] public int BoardTileHeight{ get; private set; } 
     [field: SerializeField] public GameObject TilePrefab{ get; private set; } 
     [field: SerializeField] public GameObject SecondTilePrefab{ get; private set; } 

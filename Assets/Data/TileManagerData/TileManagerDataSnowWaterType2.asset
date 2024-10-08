@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02eca42fb408ac44ba4f20578d174bdf, type: 3}
-  m_Name: TileManagerDataSnowType2
+  m_Name: TileManagerDataSnowWaterType2
   m_EditorClassIdentifier: 
-  <Column>k__BackingField: 20
-  <Row>k__BackingField: 20
+  <Column>k__BackingField: 15
+  <Row>k__BackingField: 15
   <TileGap>k__BackingField: 1.05
   <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 9a83b3add70658840ab78f3ffa5ea9a2, type: 2}
   <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: b2b9569c66147424fa3645cd2e6ae10d, type: 2}
@@ -54,21 +54,21 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: edceeb8fd48ed9f4b84934d909adc699, type: 3}
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
-  <NumberOfDecor>k__BackingField: 20
-  <NumberOfPotion>k__BackingField: 3
-  <NumberOfSmallRock>k__BackingField: 30
-  <NumberGroundBackgroundTilesRow>k__BackingField: 20
-  <NumberGroundBackgroundTilesColumn>k__BackingField: 15
+  <NumberOfDecor>k__BackingField: 18
+  <NumberOfPotion>k__BackingField: 1
+  <NumberOfSmallRock>k__BackingField: 10
+  <NumberGroundBackgroundTilesRow>k__BackingField: 30
+  <NumberGroundBackgroundTilesColumn>k__BackingField: 20
   <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: bda9e799f4b326843bd9d2032f0f13ee, type: 3}
-  <BoardTileHeight>k__BackingField: 2
+  <BoardTileHeight>k__BackingField: 10
   <TilePrefab>k__BackingField: {fileID: 8509529549589060079, guid: d6ae0c918e1c35244baa3c51a3b19739, type: 3}
   <SecondTilePrefab>k__BackingField: {fileID: 0}
   <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 9e14e9b51365aa340a389d0290dad14a, type: 3}
   <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
   <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
-  <HeightChance>k__BackingField: 40
-  <WaterChance>k__BackingField: 100
-  <WaterChanceBackgroundTiles>k__BackingField: 40
-  <HeightChanceBackgroundTiles>k__BackingField: 40
-  <decorsChanceBackgroundTiles>k__BackingField: 3
+  <HeightChance>k__BackingField: 25
+  <WaterChance>k__BackingField: 90
+  <WaterChanceBackgroundTiles>k__BackingField: 10
+  <HeightChanceBackgroundTiles>k__BackingField: 27
+  <decorsChanceBackgroundTiles>k__BackingField: 50
   <WantColumn>k__BackingField: 0

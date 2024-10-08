@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05228360d69a949a3b7536e6f1e749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 6bef2aa2c962eaf4faa46cff415fc973, type: 2}
+  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 4e39c839768427848b476e0fc17fae8b, type: 2}
   <RandomTileManagerData>k__BackingField:
   - {fileID: 11400000, guid: 9a0877512be537e41af1492212b7e1ce, type: 2}
   - {fileID: 11400000, guid: dbda68ba83cbcc44bbbf2fa991723925, type: 2}
@@ -1448,15 +1448,48 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 37bfcadb07466064fabcc3872d230249, type: 2}
   - {fileID: 11400000, guid: 7a9b5e5f9c87789449247f4922b3a800, type: 2}
   - {fileID: 11400000, guid: 6bef2aa2c962eaf4faa46cff415fc973, type: 2}
-  <EnvironmentStoneTileManagerData>k__BackingField: []
-  <EnvironmentGrassTileManagerData>k__BackingField: []
-  <EnvironmentDesertTileManagerData>k__BackingField: []
+  <EnvironmentStoneTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 6bef2aa2c962eaf4faa46cff415fc973, type: 2}
+  - {fileID: 11400000, guid: 37bfcadb07466064fabcc3872d230249, type: 2}
+  - {fileID: 11400000, guid: ee91206c91716464bbaca82223a78c16, type: 2}
+  <EnvironmentStoneWaterTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 7a9b5e5f9c87789449247f4922b3a800, type: 2}
+  - {fileID: 11400000, guid: 07dbecf3e3447554890966d76956a19a, type: 2}
+  - {fileID: 11400000, guid: 81c18fe24b009fc42aa83452c088f914, type: 2}
+  <EnvironmentGrassTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: dbda68ba83cbcc44bbbf2fa991723925, type: 2}
+  - {fileID: 11400000, guid: 9a0877512be537e41af1492212b7e1ce, type: 2}
+  - {fileID: 11400000, guid: d08ec5b017bbf5549bbfed62be855e72, type: 2}
+  <EnvironmentGrassWaterTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 8186ea488fe051d49939926c6021e7e1, type: 2}
+  - {fileID: 11400000, guid: f0a862f0717d19b4e81e5362d5633327, type: 2}
+  - {fileID: 11400000, guid: ff5f323816c9e704880dde58e1030243, type: 2}
+  <EnvironmentDesertTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 7a5337e77ca25c1418a666f6971adbab, type: 2}
+  - {fileID: 11400000, guid: 8398892e145d98c44adeb92d0c8492f8, type: 2}
+  - {fileID: 11400000, guid: 833a5cf743a981d4da81a40f9229777a, type: 2}
+  <EnvironmentDesertWaterTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 03830e3b229d0d94e9509605ffd4ba41, type: 2}
+  - {fileID: 11400000, guid: 6afa94015b483f94ab5708745e234c3b, type: 2}
+  - {fileID: 11400000, guid: 80793183a57b3914c92440ad22bc7258, type: 2}
   <EnvironmentPoisonTileManagerData>k__BackingField: []
-  <EnvironmentSnowTileManagerData>k__BackingField: []
+  <EnvironmentPoisonWaterTileManagerData>k__BackingField: []
+  <EnvironmentSnowTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: cc31073b128d39841a90d74957388e1e, type: 2}
+  - {fileID: 11400000, guid: 8613bf8fc937e7b4ea8dbee2c25b78bf, type: 2}
+  - {fileID: 11400000, guid: f0949de1ee4132f41bb5da292141589f, type: 2}
+  <EnvironmentSnowWaterTileManagerData>k__BackingField:
+  - {fileID: 11400000, guid: 8637989afb1fdec448dc6e8f9418eed4, type: 2}
+  - {fileID: 11400000, guid: 8fb92a01d405b25469b4b6203c450e51, type: 2}
+  - {fileID: 11400000, guid: 1925a3e37ce30f448985c3b7c00a0357, type: 2}
   <EnvironmentCorner1TileManagerData>k__BackingField: []
+  <EnvironmentCorner1WaterTileManagerData>k__BackingField: []
   <EnvironmentCorner2TileManagerData>k__BackingField: []
+  <EnvironmentCorner2WaterTileManagerData>k__BackingField: []
   <EnvironmentCorner3TileManagerData>k__BackingField: []
+  <EnvironmentCorner3WaterTileManagerData>k__BackingField: []
   <EnvironmentCorner4TileManagerData>k__BackingField: []
+  <EnvironmentCorner4WaterTileManagerData>k__BackingField: []
   <MoveTileMaterial>k__BackingField: {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
   <AttackTileMaterial>k__BackingField: {fileID: 2100000, guid: cdec29bca6fda2744aa7fbcc339fee3f, type: 2}
   <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
@@ -1727,6 +1760,7 @@ MonoBehaviour:
   _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
   _RandomMap: 0
+  _ForceTileManager: 1
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
@@ -1776,23 +1810,10 @@ MonoBehaviour:
   _MapTilesManager_Corner2: {fileID: 0}
   _MapTilesManager_Corner3: {fileID: 0}
   _MapTilesManager_Corner4: {fileID: 0}
-  transformtest: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   _ZoomVCam: {fileID: 158688938}
   _UnitTest: 0
   AddOccupiedTileOnClick: 0
-  AllTileManagerDataUnitTest:
-  - {fileID: 11400000, guid: 9a0877512be537e41af1492212b7e1ce, type: 2}
-  - {fileID: 11400000, guid: dbda68ba83cbcc44bbbf2fa991723925, type: 2}
-  - {fileID: 11400000, guid: 8398892e145d98c44adeb92d0c8492f8, type: 2}
-  - {fileID: 11400000, guid: 7a5337e77ca25c1418a666f6971adbab, type: 2}
-  - {fileID: 11400000, guid: 8637989afb1fdec448dc6e8f9418eed4, type: 2}
-  - {fileID: 11400000, guid: 8613bf8fc937e7b4ea8dbee2c25b78bf, type: 2}
-  - {fileID: 11400000, guid: cc31073b128d39841a90d74957388e1e, type: 2}
-  - {fileID: 11400000, guid: ee91206c91716464bbaca82223a78c16, type: 2}
-  - {fileID: 11400000, guid: 37bfcadb07466064fabcc3872d230249, type: 2}
-  - {fileID: 11400000, guid: 7a9b5e5f9c87789449247f4922b3a800, type: 2}
-  - {fileID: 11400000, guid: 6bef2aa2c962eaf4faa46cff415fc973, type: 2}
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}
   - {fileID: 11400000, guid: 264cdbe3fe4e9134089dfd2ab60166d1, type: 2}

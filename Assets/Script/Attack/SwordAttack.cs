@@ -15,7 +15,7 @@ public class SwordAttack : Attack
             character._attackTarget = tile.CharacterReference;
             character._attackTarget._attackDirection = attackDirection;
         }
-        Debug.Log("SwordAttack !tile.CharacterReference = " + tile.CharacterReference.name);
+        Debug.Log("SwordAttack !tile.CharacterReference = Null");
         character.CharacterAnimator.SetTrigger(AttackAnimationName);
         character._isCounterAttack = isAcounterAttack;
     }

@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
     public Action DesableMoveCharacterUIButtons;
     public Action DesableAttackCharacterUIButtons;
     public Action SetInteractableWaitButton;
+    public Action<bool> SetInteractableAttackButton;
 
 
     public enum Direction
@@ -238,6 +239,7 @@ public class GameManager : MonoBehaviour
             int tileCoordX = FBPP.GetInt("PositionTileCoordX");
             int tileCoordY = FBPP.GetInt("PositionTileCoordY");
             int environment = FBPP.GetInt("Environment");
+            bool isWaterTile = FBPP.GetBool("isWaterTile");
 
             if (environment == (int)_MapTilesManager_Lava._Environement)
             {
@@ -310,9 +312,10 @@ public class GameManager : MonoBehaviour
         }
         else if(!_ForceTileManager)
         {
+            bool isWaterTile = FBPP.GetBool("isWaterTile");
             int environment = FBPP.GetInt("Environment");
 
-            _tileManager.SetEnvironmentTileManagerData(environment);
+            _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
         }
 
         yield return _tileManager.SetBoardTiles();
@@ -427,7 +430,6 @@ public class GameManager : MonoBehaviour
         {
             spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
         }
-
 
         GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
         Character characterReference = character.GetComponent<Character>();
@@ -728,7 +730,6 @@ public class GameManager : MonoBehaviour
         {
             if (_DoOnceStartBattle && Random.Range(0, 6) == 1)
             {
-                
                 StartCoroutine(MapSceneToBattleScene());
                 return;
             }
@@ -772,6 +773,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MapSceneToBattleScene()
     {
+        FBPP.SetBool("IsWaterTile", TileSelected.IsWater);
         FBPP.SetInt("PositionTileCoordX", TileSelected.CoordX);
         FBPP.SetInt("PositionTileCoordY", TileSelected.CoordY);
         FBPP.SetInt("Environment", (int)TileSelected.MapTilesManager._Environement);
@@ -945,6 +947,7 @@ public class GameManager : MonoBehaviour
     // Begin new turn
     private IEnumerator BeginOfTurn()
     {
+        SetInteractableAttackButton?.Invoke(true);
         yield return new WaitForSeconds(1);
         if (CurrentCharacterTurn != null)
         {

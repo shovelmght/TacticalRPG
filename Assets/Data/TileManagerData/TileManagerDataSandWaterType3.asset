@@ -10,34 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02eca42fb408ac44ba4f20578d174bdf, type: 3}
-  m_Name: TileManagerDataSnowType2
+  m_Name: TileManagerDataSandWaterType3
   m_EditorClassIdentifier: 
-  <Column>k__BackingField: 20
-  <Row>k__BackingField: 20
-  <TileGap>k__BackingField: 1.05
+  <Column>k__BackingField: 12
+  <Row>k__BackingField: 17
+  <TileGap>k__BackingField: 1.1
   <WaterTileMaterial>k__BackingField: {fileID: 2100000, guid: 9a83b3add70658840ab78f3ffa5ea9a2, type: 2}
   <WaterfallTileMaterial>k__BackingField: {fileID: 2100000, guid: b2b9569c66147424fa3645cd2e6ae10d, type: 2}
   <DecorsPrefab>k__BackingField:
   - {fileID: 1221223343915000744, guid: 54c4f10c9f438c248996ebbefdeec087, type: 3}
   - {fileID: 1221223343915000744, guid: a65a131b52d1cff47a9f0cf7a03351e2, type: 3}
-  - {fileID: 6977179289410413689, guid: ad5542dc75b57284f8cf86f19b9ea0a2, type: 3}
-  - {fileID: 6152794974198739282, guid: 1933da8c1d0f15a4ca9a227723a2e1a5, type: 3}
-  - {fileID: 5166930676944978037, guid: cd102b51c0783d64589c2177fcfea46a, type: 3}
-  - {fileID: 3522068559506805592, guid: ba6beab635d60d54abeff43810616e63, type: 3}
   - {fileID: 3522068559506805592, guid: f921691da180dfc4aa5f9c2bf56f0985, type: 3}
   - {fileID: 3522068559506805592, guid: 831ffcc011011a242a8d40df986670f6, type: 3}
   - {fileID: 3522068559506805592, guid: 5ff573728f7062a499528e91a3d732bf, type: 3}
-  - {fileID: 8689998506251213869, guid: 5866e83bd853b59439b4555bee7fd699, type: 3}
-  - {fileID: 8786411560579154549, guid: 2e28f1346ade2f8449028c1758d9f93e, type: 3}
-  - {fileID: 8689998506251213869, guid: c4087647917221b4792dace1bcedc993, type: 3}
-  - {fileID: 8689998506251213869, guid: 64c9435ef7bb86b4e807dff377410d84, type: 3}
-  - {fileID: 6977179289410413689, guid: d22b40c587a2a6e43aecdc9bb999075c, type: 3}
-  - {fileID: 6977179289410413689, guid: a204df6fa1e9bd4468b63b148cf5496f, type: 3}
   - {fileID: 1207176169130477968, guid: 67e9c1326f9a14f4fa5b66ca686d693a, type: 3}
   - {fileID: 1207176169130477968, guid: 6d44ae46f17789f46800e9ed50bba9d1, type: 3}
   - {fileID: 6244284807888854470, guid: 5c01dc93a04f3d240b6de1848b332f15, type: 3}
   - {fileID: 1207176169130477968, guid: cfb07597659d1fa4cad1bf48f24c0f24, type: 3}
   - {fileID: 1608801907519067285, guid: e879cd3daa748f946837758ca33ea767, type: 3}
+  - {fileID: 2121751242824319678, guid: 62f5c402613d9af489729b531bdcfc47, type: 3}
+  - {fileID: 9144517392861045823, guid: a552762a968090e41a3cab38ff7edc36, type: 3}
+  - {fileID: 7159923842247023518, guid: 8cdc58f6893aebb4988b678eed0bcc53, type: 3}
   <_PotionData>k__BackingField:
   - {fileID: 11400000, guid: 6a84eb21caa3ea847945118cf738d94c, type: 2}
   - {fileID: 11400000, guid: 2a6073c7b7838d646be01869f3f0c365, type: 2}
@@ -54,21 +47,21 @@ MonoBehaviour:
   - {fileID: 2921842315418363760, guid: edceeb8fd48ed9f4b84934d909adc699, type: 3}
   - {fileID: 2921842315418363760, guid: 12fe3373dc9a9ad45ab5e1faec0e95cf, type: 3}
   - {fileID: 2921842315418363760, guid: 225a79b9348a4354984ade5b9dd4f9d8, type: 3}
-  <NumberOfDecor>k__BackingField: 20
-  <NumberOfPotion>k__BackingField: 3
-  <NumberOfSmallRock>k__BackingField: 30
-  <NumberGroundBackgroundTilesRow>k__BackingField: 20
-  <NumberGroundBackgroundTilesColumn>k__BackingField: 15
-  <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: bda9e799f4b326843bd9d2032f0f13ee, type: 3}
+  <NumberOfDecor>k__BackingField: 10
+  <NumberOfPotion>k__BackingField: 1
+  <NumberOfSmallRock>k__BackingField: 15
+  <NumberGroundBackgroundTilesRow>k__BackingField: 30
+  <NumberGroundBackgroundTilesColumn>k__BackingField: 20
+  <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: a5b5115e51712874896578cde3a2debe, type: 3}
   <BoardTileHeight>k__BackingField: 2
-  <TilePrefab>k__BackingField: {fileID: 8509529549589060079, guid: d6ae0c918e1c35244baa3c51a3b19739, type: 3}
+  <TilePrefab>k__BackingField: {fileID: 1697866597926677902, guid: 1ca411a11cc2e924b93a41c37afbd09d, type: 3}
   <SecondTilePrefab>k__BackingField: {fileID: 0}
   <EmptyTileMudPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 9e14e9b51365aa340a389d0290dad14a, type: 3}
   <BridgeTilePrefab>k__BackingField: {fileID: 1529764958922325314, guid: bacc6766caf81cb42acb7f49711645d1, type: 3}
   <BridgeTile4SidePrefab>k__BackingField: {fileID: 899418911075475694, guid: 82cc002f40911a240bd340fc85870de7, type: 3}
-  <HeightChance>k__BackingField: 40
-  <WaterChance>k__BackingField: 100
-  <WaterChanceBackgroundTiles>k__BackingField: 40
-  <HeightChanceBackgroundTiles>k__BackingField: 40
-  <decorsChanceBackgroundTiles>k__BackingField: 3
+  <HeightChance>k__BackingField: 15
+  <WaterChance>k__BackingField: 80
+  <WaterChanceBackgroundTiles>k__BackingField: 10
+  <HeightChanceBackgroundTiles>k__BackingField: 70
+  <decorsChanceBackgroundTiles>k__BackingField: 30
   <WantColumn>k__BackingField: 0
