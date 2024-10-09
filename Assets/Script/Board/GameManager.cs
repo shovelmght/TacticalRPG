@@ -1107,13 +1107,14 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.3f);
         }
+        
         TempBoardVCam.gameObject.SetActive(false);
         Vector3 vCamLeftPosition = theAttacker.VCamLeft.transform.position;
         Vector3 vCamRightPosition = theAttacker.VCamRight.transform.position;
         float vCamLeftDistance = Vector3.Distance(_CurrentCamera.position, vCamLeftPosition);
         float vCamRightDistance = Vector3.Distance(_CurrentCamera.position, vCamRightPosition);
         bool vCamLeftIsNear = vCamLeftDistance < vCamRightDistance;
-        Debug.Log("SetBattleCamera attackDirection = " + attackDirection + " vCamLeftdistance = " + vCamLeftDistance + "  vCamRightdistance = " + vCamRightDistance);
+        Debug.Log("SetBattleCamera attackDirection = " + attackDirection + "  vCamLeftdistance = " + vCamLeftDistance + "  vCamRightdistance = " + vCamRightDistance + "  _Attack = "+ StateAttackCharacter._Attack);
         _CinemachineBrain.m_DefaultBlend.m_Time = _CinemachineBlendTimeZoomBattle;
         
         if (!isCounter)

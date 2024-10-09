@@ -400,7 +400,6 @@ public class Character : MonoBehaviour
         GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.75f);
         yield return MoveTo(tile.Position, 0.05f);
-        _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         CurrentTile.UnSetCharacter();
         tile.SetCharacter(GameManager.Instance.CurrentCharacter);
@@ -411,7 +410,10 @@ public class Character : MonoBehaviour
         {
             Character character = tile.PreviousMoveTilesList[i].CharacterReference;
             if(character == null || character == this) {continue;}
-            
+
+            Debug.Log("Character ::  MoveAttackGO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile  + "  charactarAttacked = " + character.gameObject.name + "  Tile = " +  tile.CoordX + " " + tile.CoordY);
+            _attackTarget = character;
+            character._IncomingAttacker = this;
             if (character.GetIsBlock(character._attackDirection))
             {
                 AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
@@ -419,8 +421,6 @@ public class Character : MonoBehaviour
   
                 character._isCounterAttack = _isCounterAttack;
                 character.OnHealthPctChange(0, 0, 0, true);
-                Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
-
             }
             else
             {
@@ -431,7 +431,6 @@ public class Character : MonoBehaviour
         
         _tileManager.DeselectTiles();
         Destroy(particleEffect);
-        _gameManager.Wait = false;
         _gameManager.ActivateUIButtonCharacter?.Invoke();
         _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
@@ -466,7 +465,13 @@ public class Character : MonoBehaviour
             
         }
         
-        if (HaveMoved)
+        if (_attackTarget && !_attackTarget.HaveCounterAbility)
+        {
+            Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
+            _gameManager.Wait = false;
+        }
+        
+        if (HaveMoved && !IsAI)
         {
             if (!_isCounterAttack)
             {

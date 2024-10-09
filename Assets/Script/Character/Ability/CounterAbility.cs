@@ -18,8 +18,9 @@ public class CounterAbility
 
     private void Counter()
     {
+        GetAttackDirection.AttackDirection attackDirection =  GetAttackDirection.SetAttackDirection(_character.transform.position, _gameManager.CurrentCharacter.transform);
         _gameManager.StateAttackCharacter._Attack = _character._Attack;
-        _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_character, _gameManager.CurrentCharacter, GetAttackDirection.AttackDirection.Front, true));
-        _character.StartCoroutine(_character.Attack( _gameManager.CurrentCharacterTurn.CurrentTile, true, GetAttackDirection.AttackDirection.Front, _character._Attack));
+        _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_character, _gameManager.CurrentCharacter, attackDirection, true));
+        _character.StartCoroutine(_character.Attack( _gameManager.CurrentCharacterTurn.CurrentTile, true, attackDirection, _character._Attack));
     }
 }
