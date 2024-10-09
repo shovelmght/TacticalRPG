@@ -2820,7 +2820,7 @@ MonoBehaviour:
   - {fileID: 7822381192538179067}
   - {fileID: 6095461909415138095}
   <MaxHealth>k__BackingField: 100
-  <Strength>k__BackingField: 3
+  <Strength>k__BackingField: 30
   <MovementPoint>k__BackingField: 4
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 5302907934503677982}
@@ -7686,7 +7686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7eb83b8398219e4fb3da8a49a958150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _LifeTime: 10
 --- !u!4 &4472712769983169452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5844977238807070033, guid: fa5bfa93c5f44d8438869bd607f0d462, type: 3}

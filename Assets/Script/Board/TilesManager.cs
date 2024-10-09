@@ -1634,14 +1634,15 @@ public class TilesManager: MonoBehaviour
             float approximateHeight = (9f / 7f) * inputHeight + 21.43f;
             return Mathf.RoundToInt(approximateHeight); // Round to nearest integer
         }
-        
+
+        [SerializeField] private Transform cameraTest;
         [ContextMenu("SartTransitionToBattleScene")]
         public void StarTransitionToMapScene()
         {
-            StartCoroutine(TransitionToMapScene());
+            StartCoroutine(CameraTransitionToMapScene(cameraTest));
         }
 
-        public IEnumerator TransitionToMapScene()
+        public IEnumerator TileTransitionToMapScene()
         {
             while (true)
             {
@@ -1664,4 +1665,40 @@ public class TilesManager: MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
             }
         }
+
+        public IEnumerator CharacterTransitionToMapScene(List<Transform> characters)
+        {
+            Vector3 _yPostitionLerpSpeed = new Vector3(0, 0.4f, 0);
+            while (true)
+            {
+                foreach (var element in characters)
+                {
+                    if (element != null)
+                    {
+                        if (element.gameObject.activeInHierarchy)
+                        {
+                            element.transform.position -= _yPostitionLerpSpeed;
+
+
+                        }
+
+                    }
+
+                    yield return new WaitForSeconds(0.001f);
+                }
+            }
+        }
+        
+        public IEnumerator CameraTransitionToMapScene(Transform cameraTransform)
+        {
+            float rotationSpeed = 0.75f;
+            Quaternion targetRotation = Quaternion.Euler(-32f, -90f, 0f); // Final desired rotation
+
+            while (Quaternion.Angle(cameraTransform.rotation, targetRotation) > 4f) // Continue until close enough
+            {
+                cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
+
 }

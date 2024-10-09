@@ -1529,6 +1529,7 @@ MonoBehaviour:
   _tileData: {fileID: 11400000, guid: 397c361350e42e94d87cb856ff82fd8f, type: 2}
   _buildingTime: 0
   _waterSpeed: 0.002
+  cameraTest: {fileID: 1097121896}
 --- !u!4 &477867674
 Transform:
   m_ObjectHideFlags: 0
@@ -1792,7 +1793,7 @@ MonoBehaviour:
   _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
   _RandomMap: 0
-  _ForceTileManager: 1
+  _ForceTileManager: 0
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
@@ -1826,6 +1827,7 @@ MonoBehaviour:
   _IsStartScene: 0
   _IsMapScene: 0
   CharacterList: []
+  AllCharacterGo: []
   PossibleMapMoveTileIsFinished: 0
   PossibleMoveTileIsFinished: 0
   PossibleAttackTileIsFinished: 0
@@ -5029,7 +5031,7 @@ Transform:
   m_GameObject: {fileID: 1511022128}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.61, z: 2.98}
+  m_LocalPosition: {x: 0, y: 6.6, z: -39.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

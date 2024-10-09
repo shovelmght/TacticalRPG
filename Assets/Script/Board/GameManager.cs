@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     public bool _IsMapScene;
 
     public List<Character> CharacterList = new List<Character>();
+    public List<Transform> AllCharacterGo = new List<Transform>();
     public Tile TileSelected { get; set; } = null;
     public Tile TilePreSelected { get; set; } = null;
     public Tile LastSpawnTile { get; set; } = null;
@@ -224,6 +225,7 @@ public class GameManager : MonoBehaviour
 
         if (_IsMapScene)
         {
+            StartCoroutine(_MapTilesManager_Lava.CameraTransitionToMapScene(BoardCamera));
             StartCoroutine(_MapTilesManager_Lava.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Grass.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Desert.SetBoardTiles());
@@ -426,9 +428,10 @@ public class GameManager : MonoBehaviour
                 new CounterAbility(characterReference, this);
                 break;
         }
-
+        
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
+        AllCharacterGo.Add(character.transform);
         return true;
     }
 
@@ -453,6 +456,7 @@ public class GameManager : MonoBehaviour
 
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
+        AllCharacterGo.Add(character.transform);
     }
 
     public void SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
@@ -937,16 +941,18 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            CurrentCharacterTurn.RemoveUIPopUpCharacterInfo(true);
             RemoveUICharacter?.Invoke();
             CameraButton.SetActive(false);
             Time.timeScale = 1f;
-            StartCoroutine(_tileManager.TransitionToMapScene());
-            yield return new WaitForSeconds(2);
+            StartCoroutine(_tileManager.TileTransitionToMapScene());
+            StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
+            yield return new WaitForSeconds(1);
+            yield return StartCoroutine(_tileManager.CameraTransitionToMapScene(BoardCamera));
             SceneManager.LoadScene("MapScene");
-            
         }
-        
     }
+    
 
     //Go to next character turn
     public void NextCharacterTurn()

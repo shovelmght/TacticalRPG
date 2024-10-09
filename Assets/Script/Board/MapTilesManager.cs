@@ -1410,6 +1410,26 @@ public class MapTilesManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
+    
+    [SerializeField] private Transform cameraTest;
+    [ContextMenu("SartTransitionToBattleScene")]
+    public void StarTransitionToMapScene()
+    {
+        StartCoroutine(CameraTransitionToMapScene(cameraTest));
+    }
+    
+    public IEnumerator CameraTransitionToMapScene(Transform cameraTransform)
+    {
+        float rotationSpeed = 0.75f;
+        Vector3 targetDirection = new Vector3(-45, -90, 0); // The direction you want the camera to look at
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        while (Quaternion.Angle(cameraTransform.rotation, targetRotation) > 4f) // Continue until close enough
+        {
+            cameraTransform.rotation = Quaternion.Lerp(cameraTransform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }
 
 public enum Environement

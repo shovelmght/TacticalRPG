@@ -12,7 +12,6 @@ public class MoveAttack : Attack
     {
         character.StartCoroutine(character.RotateTo(tile.Position));
         
-        
         if (tile.CharacterReference)
         {
             tile.CharacterReference._IncomingAttacker = character;

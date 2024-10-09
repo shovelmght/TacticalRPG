@@ -32,10 +32,9 @@ public class Tile
     private Transform[] _cameraFarTransform = new Transform[4];
     private int _index;
     private TileData _tileData;
-    private const int CHILD_INDEX_FLOOR_PARTICLE = 8;
-    private const int CHILD_INDEX_LOD1 = 9;
-    private const int CHILD_INDEX_LOD2 = 10;
-    private const int CHILD_INDEX_LOD3 = 11;
+    private const int CHILD_INDEX_LOD1 = 8;
+    private const int CHILD_INDEX_LOD2 = 9;
+    private const int CHILD_INDEX_LOD3 = 10;
     
     public Tile( TileData tileData, GameObject gameObject, int coordX, int coordY, Vector3 position, float height, MapTilesManager mapTilesManager)
     {

@@ -420,11 +420,7 @@ public class Character : MonoBehaviour
                 character._isCounterAttack = _isCounterAttack;
                 character.OnHealthPctChange(0, 0, 0, true);
                 Debug.Log("Character IsAttacked Set _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile);
-                if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
-                {
-                    CharacterAnimator.SetTrigger(HandUp);
-                }
-                
+
             }
             else
             {
@@ -540,15 +536,18 @@ public class Character : MonoBehaviour
             HitParticleSystem.Play();
             CurrentHealth -= damage;
             
-            OnHealthPctChange(CurrentHealth, damage, MaxHealth, true);
+          
             if (CurrentHealth <= 0)
             {
+                CurrentHealth = 0;
                 StartCoroutine(Vanish());
             }
             else
             {
                 CharacterAnimator.SetTrigger(TakeHit);
             }
+            
+            OnHealthPctChange(CurrentHealth, damage, MaxHealth, true);
     }
 
     private void ResetTimeScale()
