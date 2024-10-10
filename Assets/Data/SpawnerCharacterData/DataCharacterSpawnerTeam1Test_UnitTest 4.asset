@@ -28,4 +28,4 @@ MonoBehaviour:
     Ability1: 1
     Name: Pater
     Class: ss
-  TeamColor: {fileID: 0}
+  TeamColor: 2

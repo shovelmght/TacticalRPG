@@ -2326,6 +2326,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -6.030001
       objectReference: {fileID: 0}
+    - target: {fileID: 8905619393911135350, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9162954242655478353, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
       propertyPath: m_Name
       value: RobotTurret
@@ -2349,6 +2353,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4878718650073225107, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
   m_PrefabInstance: {fileID: 4880567198902436123}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &434844277424833445 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5022536763059733182, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 4880567198902436123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &542586108307561002 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4917056898319719217, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
@@ -2362,6 +2371,21 @@ GameObject:
 --- !u!1 &2091953780515627632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6823902191177933675, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 4880567198902436123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2525615380764793771 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6969192660573575856, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 4880567198902436123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2534580829708385464 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6960280065481948579, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 4880567198902436123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2684057421324184915 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7387295384898874440, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
   m_PrefabInstance: {fileID: 4880567198902436123}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2899417236922770589 stripped
@@ -2423,6 +2447,11 @@ Transform:
 --- !u!1 &6272443724958125014 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1492785322923199181, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
+  m_PrefabInstance: {fileID: 4880567198902436123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6830833089991058519 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2121402696826512716, guid: 7957402b40ddce24999c0d69fe36d869, type: 3}
   m_PrefabInstance: {fileID: 4880567198902436123}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7263802768817542022 stripped
@@ -3794,16 +3823,10 @@ MonoBehaviour:
   VCamRight: {fileID: 4642988446760057589}
   VCamFront: {fileID: 163731329795092168}
   VCamBehind: {fileID: 100185087782078910}
-  _CinemachineImpulseSources:
-  - {fileID: 1350183712963328051}
-  - {fileID: 2297172984101479998}
-  - {fileID: 6299672120335443745}
-  - {fileID: 272083054222489175}
   _waterParticleEffect: []
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 6
   <MovementPoint>k__BackingField: 4
-  <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 8674312839228666649}
   <MovingSpeed>k__BackingField: 0.1
@@ -3814,8 +3837,21 @@ MonoBehaviour:
   _SkinnedMeshRenderer: {fileID: 0}
   _Materials: []
   _StartPositionProjectile: {fileID: 24253393604172541}
+  PotionHandPostion: {fileID: 0}
   _TrailParticleEffect: {fileID: 0}
   _DieFloorParticleEffect: {fileID: 0}
+  _Potion: {fileID: 0}
+  _CinemachineImpulseSources:
+  - {fileID: 1350183712963328051}
+  - {fileID: 2297172984101479998}
+  - {fileID: 6299672120335443745}
+  - {fileID: 272083054222489175}
+  _MeshRenderersTeamColor:
+  - {fileID: 2534580829708385464}
+  - {fileID: 434844277424833445}
+  - {fileID: 6830833089991058519}
+  - {fileID: 2525615380764793771}
+  - {fileID: 2684057421324184915}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -3825,13 +3861,15 @@ MonoBehaviour:
   _Attack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
+  _IsSelfDestruct: 0
   _frontHitSuccesChance: 100
   _sideHitSuccesChance: 100
   _behindHitSuccesChance: 100
   _attackDirection: 0
   _attackTarget: {fileID: 0}
   _isCounterAttack: 0
-  _TimePathFinding: 1.25
+  _IsDead: 0
+  _NbrRepeatAttack: 0
 --- !u!114 &1350183712963328051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6409916126584354737, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}

@@ -1846,8 +1846,8 @@ MonoBehaviour:
   AllTransitionElement: []
   AllTransitionElementToDeactivate: []
   AllTransitionElementToDeactivate2: []
-  _AllPossibleCharacterMaterials: {fileID: 0}
   _CameraRotation: {fileID: 0}
+  _AllPossibleCharacterMaterials: {fileID: 11400000, guid: afcafd932bce3f94aaee90f7ef6094ca, type: 2}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   _MapCharacterData: {fileID: 0}

@@ -24,14 +24,18 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
     private void Awake()
     {
+        Debug.Log("Awake called, initializing playerInput 1 ");
         if (Instance != null && Instance != this) 
         { 
+            Debug.Log("Awake called, initializing playerInput 2");
             Destroy(this); 
         } 
         else 
         { 
             Instance = this; 
         }
+        
+        Debug.Log("Awake called, initializing playerInput 3");
         playerInput = new BattlesTacticInputAction();
     }
 
@@ -50,7 +54,15 @@ public class InputManager : MonoBehaviour
     
     public void OnEnable()
     {
-        playerInput.Enable();
+        Debug.Log("OnEnable called, trying to enable playerInput");
+        if (playerInput != null)
+        {
+            playerInput.Enable();
+        }
+        else
+        {
+            Debug.LogError("playerInput is null in OnEnable");
+        }
     }
     public void OnDisable()
     {

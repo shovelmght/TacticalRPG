@@ -540,10 +540,9 @@ public class Character : MonoBehaviour
         Debug.Log("Character :: IsAttacked Set _isCounterAttack = " + isAcounterAttack + " Character = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
         HitParticleSystem.startColor = Color.red;
-            HitParticleSystem.Play();
-            CurrentHealth -= damage;
-            
-          
+        HitParticleSystem.Play();
+        CurrentHealth -= damage;
+        
             if (CurrentHealth <= 0)
             {
                 CurrentHealth = 0;

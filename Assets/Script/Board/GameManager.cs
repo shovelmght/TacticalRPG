@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Transform> AllTransitionElement;
     [SerializeField] private List<GameObject> AllTransitionElementToDeactivate;
     [SerializeField] private List<GameObject> AllTransitionElementToDeactivate2;
-    [SerializeField] private CharacterMaterial _AllPossibleCharacterMaterials;
     [SerializeField] private GameObject _CameraRotation;
+    public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
@@ -213,6 +213,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int _IndexTeam2TeamColor;
+
     private IEnumerator InitializeGame()
     {
         _tileManager = TilesManager.Instance;
@@ -336,6 +338,7 @@ public class GameManager : MonoBehaviour
         if (_UnitTest)
         {
             DataCharacterSpawner dataCharacterSpawner = CharacterAIDataTeam2UnitTest[Random.Range(0, CharacterAIDataTeam2UnitTest.Count - 1)];
+            _IndexTeam2TeamColor = dataCharacterSpawner.TeamColor;
 
             foreach (var character in dataCharacterSpawner.DataSpawn)
             {
@@ -421,7 +424,7 @@ public class GameManager : MonoBehaviour
             waterParticleEffect.SetActive(tile.IsWater);
         }
 
-        characterReference.CurrentTeam = dataCharacterSpawner.Team;
+       
         switch (dataCharacterSpawner.Ability1)
         {
             case DataCharacterSpawner.CharactersAbility1.None:
@@ -434,6 +437,25 @@ public class GameManager : MonoBehaviour
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         AllCharacterGo.Add(character.transform);
+        characterReference.CurrentTeam = dataCharacterSpawner.Team;
+        int indexMaterial = FBPP.GetInt("TeamColor");
+        if (characterReference.CurrentTeam == Character.Team.Team1)
+        {
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+        }
+        else
+        {
+            if (_IndexTeam2TeamColor == indexMaterial)
+            {
+                _IndexTeam2TeamColor++;
+            }
+
+            if (_IndexTeam2TeamColor > _AllPossibleCharacterMaterials.AllPossibleMaterials.Length - 1)
+            {
+                _IndexTeam2TeamColor = 0;
+            }
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
+        }
         return true;
     }
 
@@ -459,6 +481,16 @@ public class GameManager : MonoBehaviour
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         AllCharacterGo.Add(character.transform);
+        if (CurrentCharacter.CurrentTeam == Character.Team.Team1)
+        {
+            int indexMaterial = FBPP.GetInt("TeamColor");
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+        }
+        else
+        {
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
+        }
+        
     }
 
     public void SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
@@ -1011,7 +1043,7 @@ public class GameManager : MonoBehaviour
         
         SetInteractableWaitButton?.Invoke();
         CurrentCharacterTurn = CheckCharacterTime();
-        while (CurrentCharacterTurn == null)
+        while (CurrentCharacterTurn == null || CurrentCharacterTurn.CurrentHealth <= 0)
         {
             ReduceCharacterTimeRemaining();
             CurrentCharacterTurn = CheckCharacterTime();
@@ -1368,7 +1400,12 @@ public class GameManager : MonoBehaviour
         {
             _ZoomCinemachineImpulseSource.GenerateImpulse();
         }
-        CurrentCharacter.StartCinemachineImpulseSource();
+
+        if (CurrentCharacter != null)
+        {
+            CurrentCharacter.StartCinemachineImpulseSource();
+        }
+        
     }
 
     private bool _CanressRepeatableAttack = true;

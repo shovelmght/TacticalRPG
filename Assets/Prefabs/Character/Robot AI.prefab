@@ -2824,6 +2824,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
   m_PrefabInstance: {fileID: 3695402554326156930}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5866314869348527672 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7071182760956848314, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
+  m_PrefabInstance: {fileID: 3695402554326156930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3709176401761088293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5175,6 +5180,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5707345424290096751, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 5352607525804560258}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &831353477564765433 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4738287885665524603, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1089474552833195670 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -5211,18 +5221,12 @@ MonoBehaviour:
   VCamRight: {fileID: 4642988446760057589}
   VCamFront: {fileID: 163731329795092168}
   VCamBehind: {fileID: 100185087782078910}
-  _CinemachineImpulseSources:
-  - {fileID: 1350183712963328051}
-  - {fileID: 2297172984101479998}
-  - {fileID: 6299672120335443745}
-  - {fileID: 272083054222489175}
   _waterParticleEffect:
   - {fileID: 1760976400737487229}
   - {fileID: 2224538938078715053}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 4
   <MovementPoint>k__BackingField: 5
-  <AttackLenght>k__BackingField: 1
   <Speed>k__BackingField: 41
   CharacterAnimator: {fileID: 279221548384583580}
   <MovingSpeed>k__BackingField: 0.2
@@ -5237,6 +5241,16 @@ MonoBehaviour:
   _TrailParticleEffect: {fileID: 0}
   _DieFloorParticleEffect: {fileID: 4284941947372724981, guid: 7db57e43faca8404c8d7b601c0f1344e, type: 3}
   _Potion: {fileID: 7085322030078006738}
+  _CinemachineImpulseSources:
+  - {fileID: 1350183712963328051}
+  - {fileID: 2297172984101479998}
+  - {fileID: 6299672120335443745}
+  - {fileID: 272083054222489175}
+  _MeshRenderersTeamColor:
+  - {fileID: 6456307401799444057}
+  - {fileID: 831353477564765433}
+  - {fileID: 6815490663006831603}
+  - {fileID: 5866314869348527672}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -5244,8 +5258,9 @@ MonoBehaviour:
   CanMove: 1
   _CanSpawnParticle: 1
   _Attack: {fileID: 11400000, guid: 6d4f2163863cbcd4496917d2c466ef3e, type: 2}
-  _SkillAttack: {fileID: 11400000, guid: 007fa6b3915fa8d45b431ea94ccaa02e, type: 2}
+  _SkillAttack: {fileID: 11400000, guid: 98856cf766e10cb47b687c39e85fd152, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
+  _IsSelfDestruct: 0
   _frontHitSuccesChance: 35
   _sideHitSuccesChance: 60
   _behindHitSuccesChance: 85
@@ -5317,6 +5332,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &6815490663006831603 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1503415620457876593, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7085322030078006738 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2890280682802993744, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -5826,6 +5846,11 @@ GameObject:
 --- !u!4 &5319390540178185526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 66daca12b806fa24db24bf56396d2f73, type: 3}
+  m_PrefabInstance: {fileID: 5645540301538441949}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6456307401799444057 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 66daca12b806fa24db24bf56396d2f73, type: 3}
   m_PrefabInstance: {fileID: 5645540301538441949}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5690864875549136111

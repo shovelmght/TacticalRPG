@@ -17,28 +17,6 @@ public class AreaAttack : Attack
 
         character.StartCoroutine(ExplosionAttack(character));
         Debug.Log(GameManager.Instance.OccupiedTiles.Length);
-
-        /*if (tile.CharacterReference)
-        {
-            character._attackTarget = tile.CharacterReference;
-            character._attackTarget._attackDirection = attackDirection;
-        }
-
-        if (PreSfx != null)
-        {
-            AudioManager._Instance.SpawnSound(PreSfx);
-        }
-        character.CharacterAnimator.SetTrigger(AttackAnimationName);
-        character._isCounterAttack = isAcounterAttack;
-
-        if (tile.CharacterReference == null)
-        {
-            character.StartCoroutine(character.ThrowProjectile((tile.Position + new Vector3(0,_HeightGabToAdd,0)), _SpawnProjectileDelay, _ProjectilePrefab, _MovementSpeed, SfxAtSpawn));
-            return;
-        }
-        
-        tile.CharacterReference._IncomingAttacker = character;
-        character.StartCoroutine(character.ThrowProjectile((tile.CharacterReference.gameObject.transform.position + new Vector3(0,_HeightGabToAdd,0)), _SpawnProjectileDelay, _ProjectilePrefab, _MovementSpeed, SfxAtSpawn));*/
     }
 
     private IEnumerator ExplosionAttack(Character character)

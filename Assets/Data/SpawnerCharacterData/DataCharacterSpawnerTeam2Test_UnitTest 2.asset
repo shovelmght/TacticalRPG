@@ -23,4 +23,4 @@ MonoBehaviour:
     Ability1: 1
     Name: Mark
     Class: ss
-  TeamColor: {fileID: 0}
+  TeamColor: 7

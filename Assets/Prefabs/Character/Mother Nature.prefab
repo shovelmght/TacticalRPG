@@ -3466,6 +3466,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8513859187771203891, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
   m_PrefabInstance: {fileID: 3695402554326156930}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5866314869348527672 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7071182760956848314, guid: 1ccff8d3c4d718d448df6f338ae0be37, type: 3}
+  m_PrefabInstance: {fileID: 3695402554326156930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3913848852728181427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6679,9 +6684,29 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _MeshRenderersTeamColor.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _waterParticleEffect.Array.data[0]
       value: 
       objectReference: {fileID: 5002689822577975635}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _MeshRenderersTeamColor.Array.data[0]
+      value: 
+      objectReference: {fileID: 279221548984905654}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _MeshRenderersTeamColor.Array.data[2]
+      value: 
+      objectReference: {fileID: 5866314869348527672}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _MeshRenderersTeamColor.Array.data[4]
+      value: 
+      objectReference: {fileID: 7776129585900140991}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _MeshRenderersTeamColor.Array.data[5]
+      value: 
+      objectReference: {fileID: 7362995897053002139}
     - target: {fileID: 8716171402086324990, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -3.1058283
@@ -6770,6 +6795,11 @@ Transform:
 --- !u!1 &279221548984905651 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5302907934178074673, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &279221548984905654 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5302907934178074676, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 5352607525804560258}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1089474552833195670 stripped
@@ -8526,6 +8556,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5230412256700411150, guid: 712a2ac1eb4a9834495ebb9177680f9f, type: 3}
   m_PrefabInstance: {fileID: 7393956998755011523}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &7776129585900140991 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 970174012170039932, guid: 712a2ac1eb4a9834495ebb9177680f9f, type: 3}
+  m_PrefabInstance: {fileID: 7393956998755011523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7735035569603169255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8619,6 +8654,11 @@ GameObject:
 --- !u!4 &2580129250427234025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5230412256700411150, guid: 712a2ac1eb4a9834495ebb9177680f9f, type: 3}
+  m_PrefabInstance: {fileID: 7735035569603169255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7362995897053002139 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 970174012170039932, guid: 712a2ac1eb4a9834495ebb9177680f9f, type: 3}
   m_PrefabInstance: {fileID: 7735035569603169255}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7859135073392993198

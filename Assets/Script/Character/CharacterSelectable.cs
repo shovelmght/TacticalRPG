@@ -87,6 +87,9 @@ public class CharacterSelectable : MonoBehaviour
         characterGameObject.transform.localPosition = Vector3.zero;
         characterGameObject.transform.localRotation = Quaternion.identity;
         characterGameObject.transform.localScale = new Vector3(3, 3, 3);
+        Character character = characterGameObject.GetComponent<Character>();
+        int indexMaterial = FBPP.GetInt("TeamColor");
+        character.SetCharacterColor(GameManager.Instance._AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
     }
 
     public bool HasRemainingCharacters()

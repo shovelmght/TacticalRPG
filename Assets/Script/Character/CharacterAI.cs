@@ -457,7 +457,15 @@ public class CharacterAI : Character
                     }
                     else
                     {
-                        _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                        if (_WaterAttack != null)
+                        {
+                            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                        }
+                        else
+                        {
+                            _gameManager.StateAttackCharacter._Attack =  _Attack;
+                        }
+                       
                     }
 
                     Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);

@@ -28,4 +28,4 @@ MonoBehaviour:
     Ability1: 1
     Name: Link
     Class: ss
-  TeamColor: {fileID: 0}
+  TeamColor: 3
