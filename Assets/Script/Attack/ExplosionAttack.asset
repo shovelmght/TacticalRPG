@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e662688f0b5143349ae3abe305c5d83f, type: 3}
+  m_Name: ExplosionAttack
+  m_EditorClassIdentifier: 
+  Power: 25
+  AttackLenght: 3
+  AttackName: Explostion
+  AttackAnimationName: Shake
+  IsProjectile: 0
+  IsLineAttack: 0
+  IsDashAttack: 0
+  IsWaterAttack: 0
+  IsSpawnSkill: 0
+  IsReapeatableAttack: 0
+  SoftBattleZoom: 1
+  PreSfx:
+    _AudioClip: {fileID: 8300000, guid: 60b414a3a002dd6428ad3ce0ef915577, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 0.9
+    _MaxRandomPitch: 1.1
+  SfxAtSpawn:
+    _AudioClip: {fileID: 8300000, guid: 92d1d101e18c82e469b21c7b38116d19, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 0.9
+    _MaxRandomPitch: 1.1
+  ImpactSfx:
+    _AudioClip: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
+    _RelativeVolume: 0.25
+    _MinRandomPitch: 1.1
+    _MaxRandomPitch: 1.3
+  NoTargetSfx:
+    _AudioClip: {fileID: 0}
+    _RelativeVolume: 0
+    _MinRandomPitch: 0
+    _MaxRandomPitch: 0
+  _ParticleEffectPrefab: {fileID: 7226888052703040409, guid: 718197018998fdd46931159af0a9f632, type: 3}
+  _SpawnProjectileDelay: 1
+  _HeightGabToAdd: 10
+  _MovementSpeed: 10

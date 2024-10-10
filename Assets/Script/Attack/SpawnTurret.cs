@@ -9,6 +9,7 @@ public class SpawnTurret : MonoBehaviour
     [SerializeField] private GameObject VisualMesh;
     [SerializeField] private float _LerpScaleSpeed = 0.005f;
     [SerializeField] private bool SpawnMob = true;
+    [SerializeField] private bool _CanMove;
     void Start()
     {
         StartCoroutine(AddCharacterTurret());
@@ -22,7 +23,7 @@ public class SpawnTurret : MonoBehaviour
       
         if (SpawnMob)
         {
-            GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, false);
+            GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, _CanMove);
             VisualMesh.SetActive(false);
         }
         
@@ -67,7 +68,7 @@ public class SpawnTurret : MonoBehaviour
         
         if (SpawnMob)
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
       
         

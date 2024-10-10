@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f6c3b676f50ede47ac9daa6763419e8, type: 3}
-  m_Name: SpawnTurretAttack
+  m_Name: SpawnSelfDestructMobAttack
   m_EditorClassIdentifier: 
   Power: 10
   AttackLenght: 1
-  AttackName: Turret
+  AttackName: SD Bot
   AttackAnimationName: Craft
   IsProjectile: 0
   IsLineAttack: 0
@@ -42,4 +42,4 @@ MonoBehaviour:
     _RelativeVolume: 0
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
-  SpawnPrefab: {fileID: 6977179289410413689, guid: a87f75e4e7c91554cb56263e4d5320aa, type: 3}
+  SpawnPrefab: {fileID: 6977179289410413689, guid: c1a6acfcd3099f34c867782789a27fc4, type: 3}

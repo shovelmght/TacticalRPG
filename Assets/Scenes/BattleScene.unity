@@ -1863,6 +1863,8 @@ MonoBehaviour:
   RobotPrefab: {fileID: 1089474552833195670, guid: 26981f732161d4a44b3b184a0fd119df, type: 3}
   RobotAIPrefab: {fileID: 1089474552833195670, guid: b87947269b2403248882875275da7654, type: 3}
   TurretPrefab: {fileID: 1089474552833195670, guid: f4ba0a3c25ff1e741b7215c4afb63dae, type: 3}
+  SelfDestructRobotPrefab: {fileID: 1089474552833195670, guid: 78d452e736cd3274293571f4b2a2ce9b, type: 3}
+  SelfDestructRobotAIPrefab: {fileID: 1089474552833195670, guid: 46daf5072df5218469007d90721ea9c5, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   CameraButton: {fileID: 354677815}
   <BoardCamera>k__BackingField: {fileID: 1097121896}

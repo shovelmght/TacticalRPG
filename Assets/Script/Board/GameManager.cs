@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     public GameObject RobotPrefab;
     public GameObject RobotAIPrefab;
     public GameObject TurretPrefab;
+    public GameObject SelfDestructRobotPrefab;
+    public GameObject SelfDestructRobotAIPrefab;
     public GameObject ArrowsPrefab;
     public GameObject CameraButton;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
@@ -551,6 +553,20 @@ public class GameManager : MonoBehaviour
         {
             return Instantiate(TurretPrefab, position, Quaternion.identity);
         }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.SelfDestructRobot)
+        {
+            GameObject SelfDestructRobotGo = Instantiate(SelfDestructRobotPrefab, position, Quaternion.identity);
+            SelfDestructRobotGo.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            return SelfDestructRobotGo;
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.SelfDestructRobotAI)
+        {
+            GameObject SelfDestructRobotAIGo = Instantiate(SelfDestructRobotAIPrefab, position, Quaternion.identity);
+            SelfDestructRobotAIGo.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            return SelfDestructRobotAIGo;
+        }
 
         return null;
     }
@@ -941,13 +957,23 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            CurrentCharacterTurn.RemoveUIPopUpCharacterInfo(true);
-            RemoveUICharacter?.Invoke();
+   
+       
             CameraButton.SetActive(false);
             Time.timeScale = 1f;
             StartCoroutine(_tileManager.TileTransitionToMapScene());
             StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
-            yield return new WaitForSeconds(1);
+            CurrentCharacterTurn.RemoveUIPopUpCharacterInfo(true);
+            RemoveUICharacter?.Invoke();
+            yield return new WaitForSeconds(0.5f);
+            foreach (var character in CharacterList)
+            {
+                if (character != null)
+                {
+                    character.gameObject.SetActive(false);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
             yield return StartCoroutine(_tileManager.CameraTransitionToMapScene(BoardCamera));
             SceneManager.LoadScene("MapScene");
         }

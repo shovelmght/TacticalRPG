@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
     public GameObject[] _waterParticleEffect;
 
     [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
-    [field: SerializeField] public int Strength { get; private set; }  = 25;
+    [field: SerializeField] public int Strength { get; private set; }  = 2;
     [field: SerializeField] public int MovementPoint { get; private set; } = 4;
     [field: SerializeField] public int Speed { get; private set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
@@ -76,6 +76,7 @@ public class Character : MonoBehaviour
     public Attack _Attack;
     public Attack _SkillAttack;
     public Attack _WaterAttack;
+    public bool _IsSelfDestruct;
 
 
     public event Action<int, int, int, bool> OnHealthPctChange = delegate { };
@@ -229,14 +230,11 @@ public class Character : MonoBehaviour
         {
             StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
         }
-
-
+        
         foreach (var waterParticleEffect in _waterParticleEffect)
         {
             waterParticleEffect.SetActive(tile.IsWater);
         }
-        
-
 
         if (tile.IsPotionTile)
         {
@@ -346,10 +344,14 @@ public class Character : MonoBehaviour
         Hit();
     }
     
-    public IEnumerator SpawnAttack(AudioManager.SfxClass sfxAtSpawn, GameObject spawnPrefab, Tile tile)
+    public IEnumerator SpawnAttack(AudioManager.SfxClass preSfx, AudioManager.SfxClass sfxAtSpawn, GameObject spawnPrefab, Tile tile)
     {
         _tileManager.DeselectTiles();
         yield return new WaitForSeconds(0.75f);
+        if (preSfx != null)
+        {
+            AudioManager._Instance.SpawnSound(preSfx);
+        }
         _gameManager.LastSpawnTile = tile;
         Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
         _gameManager.Wait = false;
@@ -529,7 +531,7 @@ public class Character : MonoBehaviour
         _turn = false;
     }
 
-    private void IsAttacked(int damage, bool isAcounterAttack)
+    public void IsAttacked(int damage, bool isAcounterAttack)
     {
         Time.timeScale = 0.5f;
         Invoke(nameof(ResetTimeScale), 0.2f);

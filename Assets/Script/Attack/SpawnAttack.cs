@@ -12,15 +12,12 @@ public class SpawnAttack : Attack
     {
         character.StartCoroutine(character.RotateTo(tile.Position));
         
-        if (PreSfx != null)
-        {
-            AudioManager._Instance.SpawnSound(PreSfx);
-        }
+
         if (!tile.CharacterReference)
         {
             character.CharacterAnimator.SetTrigger(AttackAnimationName);
             tile.IsOccupied = true;
-            character.StartCoroutine(character.SpawnAttack(SfxAtSpawn, SpawnPrefab, tile));
+            character.StartCoroutine(character.SpawnAttack(PreSfx,SfxAtSpawn, SpawnPrefab, tile));
         }
         
     }

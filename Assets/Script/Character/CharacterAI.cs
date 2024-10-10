@@ -52,25 +52,34 @@ public class CharacterAI : Character
         //If he can already Attack his enemy
         yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
         Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
-        
-        _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
-        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-        yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-        if (_TimePathfindingCoroutine != null)
+
+        if (!_IsSelfDestruct)
         {
-            StopCoroutine(_TimePathfindingCoroutine);
+            if (_WaterAttack != null)
+            {
+                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+            }
+            else
+            {
+                _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+            }
+            
+            _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+            yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+            if (_TimePathfindingCoroutine != null)
+            {
+                StopCoroutine(_TimePathfindingCoroutine);
+            }
         }
 
         Tile enemyTile = CheckIfOccupiedTileAreEnemy();
-        
-        
         bool isSkillAttack = false;
 
         if (enemyTile == null)
         {
             Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile == null :: Character = " + gameObject.name);
             isSkillAttack = true;
-            if (!_SkillAttack.IsSpawnSkill)
+            if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
             {
                 _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
@@ -276,7 +285,15 @@ public class CharacterAI : Character
                 yield return new WaitUntil(() => !_gameManager.Wait);
                 Debug.Log("CharacterAI :: Before ShowPossibleAttack2 :: Character = " + gameObject.name);
 
-                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+                if (_WaterAttack != null)
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+                }
+                else
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+                }
+                
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
                 yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
                 if (_TimePathfindingCoroutine != null)
@@ -291,7 +308,7 @@ public class CharacterAI : Character
                 {
                     isSkillAttack = true;
 
-                    if (!_SkillAttack.IsSpawnSkill)
+                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
                     {
                         _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                         _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
@@ -322,7 +339,15 @@ public class CharacterAI : Character
                     }
                     else
                     {
-                        _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                        if (_WaterAttack != null)
+                        {
+                            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                        }
+                        else
+                        {
+                            _gameManager.StateAttackCharacter._Attack =  _Attack;
+                        }
+                       
                     }
 
                     yield return new WaitForSeconds(0.5f);
@@ -378,7 +403,15 @@ public class CharacterAI : Character
                 yield return new WaitUntil(() => !_gameManager.Wait);
                 Debug.Log("CharacterAI :: Before ShowPossibleAttack3 :: Character = " + gameObject.name);
                 
-                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+                if (_WaterAttack != null)
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+                }
+                else
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+                }
+                
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
                 yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
                 if (_TimePathfindingCoroutine != null)
@@ -393,7 +426,7 @@ public class CharacterAI : Character
                 {
                      Debug.Log("CharacterAI :: Before ShowPossibleAttack4 :: Character = " + gameObject.name);
                     isSkillAttack = true;
-                    if (!_SkillAttack.IsSpawnSkill)
+                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
                     {
                         _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
                         _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
@@ -447,7 +480,7 @@ public class CharacterAI : Character
                     }
                 }
 
-                if (_SkillAttack.IsSpawnSkill && enemyTile == null)
+                if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null)
                 {
                     Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);

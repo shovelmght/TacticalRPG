@@ -6,7 +6,6 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "new ProjectileAttack", menuName = "ProjectileAttack")]
 public class ProjectileAttack : Attack
 {
-    protected static readonly int Attack = Animator.StringToHash("Attack");
     [SerializeField] private GameObject _ProjectilePrefab;
     [SerializeField] private float _SpawnProjectileDelay = 1.0f;
     [SerializeField] private float _HeightGabToAdd = 10.0f;

@@ -30,7 +30,15 @@ public class StateAttackCharacter : State
                 _gameManager.IsCharactersAttacking = true;
                 attackDirection = GetAttackDirection.SetAttackDirection(_gameManager.CurrentCharacter.transform.position,
                     _characterAttactedSelected.transform);
-                _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection, false));
+                if (_Attack.SoftBattleZoom)
+                {
+                    _gameManager.StartCoroutine(_gameManager.ZoomBattleCamera(2.5f));
+                }
+                else
+                {
+                    _gameManager.StartCoroutine(_gameManager.SetBattleCamera(_gameManager.CurrentCharacter, tile.CharacterReference, attackDirection, false));
+                }
+                
                 _gameManager.CurrentCharacter.StartCoroutine(_gameManager.CurrentCharacter.Attack(tile, false, attackDirection, _Attack));
                 _gameManager.DesableAttackCharacterUIButtons();
                 _gameManager.SetInteractableAttackButton?.Invoke(false);
