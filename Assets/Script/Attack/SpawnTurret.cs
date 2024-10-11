@@ -63,7 +63,12 @@ public class SpawnTurret : MonoBehaviour
         // After scaling is done, deactivate all GameObjects
 
         yield return new WaitForSeconds(0.1f);
-        _ParticleEffect.SetActive(false);
+        
+        if (_ParticleEffect != null)
+        {
+            _ParticleEffect.SetActive(false);
+        }
+        
         yield return new WaitForSeconds(3);
         
         if (SpawnMob)

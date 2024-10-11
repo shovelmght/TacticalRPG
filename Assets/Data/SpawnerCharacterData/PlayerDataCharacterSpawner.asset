@@ -18,14 +18,4 @@ MonoBehaviour:
     Ability1: 1
     Name: Franck
     Class: Knight
-  - CharactersPrefab: 0
-    Team: 1
-    Ability1: 1
-    Name: Max
-    Class: Dragon
-  - CharactersPrefab: 4
-    Team: 1
-    Ability1: 1
-    Name: Max
-    Class: Dragon
-  TeamColor: {fileID: 2100000, guid: fc82180b7e861024dbce5bf467ddb99c, type: 2}
+  TeamColor: 0

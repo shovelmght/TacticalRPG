@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam2Test
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 8
+  - CharactersPrefab: 3
     Team: 2
     Ability1: 0
     Name: 'Mark '
     Class: Father Nature
-  TeamColor: {fileID: 0}
+  - CharactersPrefab: 9
+    Team: 2
+    Ability1: 1
+    Name: 'Mark '
+    Class: Father Nature
+  TeamColor: 0

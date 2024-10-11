@@ -15,6 +15,7 @@ public abstract  class Attack : ScriptableObject
     public bool IsSpawnSkill;
     public bool IsReapeatableAttack;
     public bool SoftBattleZoom;
+    public bool _IsPoison;
     public AudioManager.SfxClass PreSfx;
     public AudioManager.SfxClass SfxAtSpawn;
     public AudioManager.SfxClass ImpactSfx;

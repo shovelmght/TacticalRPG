@@ -45,8 +45,8 @@ MonoBehaviour:
   <NumberOfPotion>k__BackingField: 1
   <NumberOfSmallRock>k__BackingField: 10
   <_SecondTileChance>k__BackingField: 20
-  <NumberGroundBackgroundTilesRow>k__BackingField: 30
-  <NumberGroundBackgroundTilesColumn>k__BackingField: 20
+  <NumberGroundBackgroundTilesRow>k__BackingField: 27
+  <NumberGroundBackgroundTilesColumn>k__BackingField: 27
   <EmptyTileNormalPrefab>k__BackingField: {fileID: 8488611330263178597, guid: b31784b828de7794ebb01d381ab43681, type: 3}
   <EmptyTileSecondPrefab>k__BackingField: {fileID: 8488611330263178597, guid: 8db7f4213384379489a81961baf09510, type: 3}
   <BoardTileHeight>k__BackingField: 4
@@ -61,3 +61,5 @@ MonoBehaviour:
   <HeightChanceBackgroundTiles>k__BackingField: 10
   <decorsChanceBackgroundTiles>k__BackingField: 18
   <WantColumn>k__BackingField: 0
+  _IsLava: 0
+  _IsPoison: 1

@@ -5891,6 +5891,10 @@ PrefabInstance:
       propertyPath: _MeshRenderersTeamColor.Array.data[5]
       value: 
       objectReference: {fileID: 5896119139673917208}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _ElementSwordParticleEffect.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8716171402086324990, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -3.1058283

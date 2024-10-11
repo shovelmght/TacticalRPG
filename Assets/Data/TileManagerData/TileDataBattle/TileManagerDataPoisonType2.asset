@@ -61,3 +61,5 @@ MonoBehaviour:
   <HeightChanceBackgroundTiles>k__BackingField: 30
   <decorsChanceBackgroundTiles>k__BackingField: 0
   <WantColumn>k__BackingField: 1
+  _IsLava: 0
+  _IsPoison: 1

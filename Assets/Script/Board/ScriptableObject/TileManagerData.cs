@@ -33,5 +33,8 @@ public class TileManagerData : ScriptableObject
     [field: SerializeField] public float WaterChanceBackgroundTiles{ get; private set; } 
     [field: SerializeField] public float HeightChanceBackgroundTiles{ get; private set; }
     [field: SerializeField] public float decorsChanceBackgroundTiles{ get; private set; } 
-    [field: SerializeField] public bool WantColumn{ get; private set; } 
+    [field: SerializeField] public bool WantColumn{ get; private set; }
+
+    public bool _IsLava;
+    public bool _IsPoison;
 }

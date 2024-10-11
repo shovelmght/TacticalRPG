@@ -419,12 +419,6 @@ public class GameManager : MonoBehaviour
         character.name = dataCharacterSpawner.Name;
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
-        foreach (var waterParticleEffect in characterReference._waterParticleEffect)
-        {
-            waterParticleEffect.SetActive(tile.IsWater);
-        }
-
-       
         switch (dataCharacterSpawner.Ability1)
         {
             case DataCharacterSpawner.CharactersAbility1.None:
@@ -455,6 +449,11 @@ public class GameManager : MonoBehaviour
                 _IndexTeam2TeamColor = 0;
             }
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
+        }
+        
+        if (!_IsMapScene)
+        {
+            characterReference.SetElementEffect(tile.IsWater);
         }
         return true;
     }
@@ -934,6 +933,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CheckWinCondition()
     {
+        if (_GameIsFinish)
+        {
+            yield break;
+        }
         int team = 0;
 
         bool team1IsAlreadyCount = false;
@@ -967,16 +970,25 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
         yield return new WaitForSeconds(0.25f);
-        if (CharacterList[0].CurrentTeam != Character.Team.Team1)
+
+        if (CharacterList.Count > 0)
         {
-            _WinLooseText.text = "You Lost";
+            if (CharacterList[0].CurrentTeam != Character.Team.Team1)
+            {
+                _WinLooseText.text = "You Lost";
+            }
         }
+        else
+        {
+            if (CharacterList[0].CurrentTeam != Character.Team.Team1)
+            {
+                _WinLooseText.text = "You Lost";
+            }
+        }
+
         _WinLooseAnimator.SetActive(true);
         Time.timeScale = 0.2f;
         _GameIsFinish = true;
-        
-        
-        
         yield return new WaitForSeconds(0.3f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         yield return new WaitForSeconds(0.5f);
@@ -994,7 +1006,14 @@ public class GameManager : MonoBehaviour
             CameraButton.SetActive(false);
             Time.timeScale = 1f;
             StartCoroutine(_tileManager.TileTransitionToMapScene());
-            StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
+            foreach (var characterGo in AllCharacterGo)
+            {
+                if (characterGo != null)
+                {
+                    characterGo.gameObject.SetActive(false);
+                }
+            }
+            //StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
             CurrentCharacterTurn.RemoveUIPopUpCharacterInfo(true);
             RemoveUICharacter?.Invoke();
             yield return new WaitForSeconds(0.5f);
@@ -1047,6 +1066,11 @@ public class GameManager : MonoBehaviour
         {
             ReduceCharacterTimeRemaining();
             CurrentCharacterTurn = CheckCharacterTime();
+
+            if (_GameIsFinish)
+            {
+                yield break;
+            }
         }
 
         if (CurrentCharacterTurn != null)
@@ -1368,9 +1392,12 @@ public class GameManager : MonoBehaviour
     {
         foreach (var character in CharacterList)
         {
-            if (character.TurnTimeRemaining < 0)
+            if (character != null)
             {
-                return character;
+                if (character.TurnTimeRemaining < 0)
+                {
+                    return character;
+                }
             }
         }
 

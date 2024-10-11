@@ -15,16 +15,17 @@ public class Character : MonoBehaviour
         Team3 = 3
     }
 
-   
+
     public ParticleSystem HitParticleSystem;
     public GameObject VCamLeft;
     public GameObject VCamRight;
     public GameObject VCamFront;
     public GameObject VCamBehind;
-    public GameObject[] _waterParticleEffect;
+    public ParticleSystem[] _ElementSwordParticleEffect;
+    public ParticleSystem[] _ElemenCharactertParticleEffect;
 
-    [field: SerializeField] public int MaxHealth { get; private set; }  = 100;
-    [field: SerializeField] public int Strength { get; private set; }  = 2;
+    [field: SerializeField] public int MaxHealth { get; private set; } = 100;
+    [field: SerializeField] public int Strength { get; private set; } = 2;
     [field: SerializeField] public int MovementPoint { get; private set; } = 4;
     [field: SerializeField] public int Speed { get; private set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
@@ -43,20 +44,21 @@ public class Character : MonoBehaviour
     [SerializeField] private GameObject _Potion;
     [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
     [SerializeField] private MeshRenderer[] _MeshRenderersTeamColor;
+    [SerializeField] protected GameObject _PoisonParticleEffect;
 
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
-    private int _rotationSpeed  = 10;
+    private int _rotationSpeed = 10;
 
     [Header("the smaller the value, the greater the speed")] [SerializeField]
-    private int _lerpScalingSpeed  = 5;
+    private int _lerpScalingSpeed = 5;
 
 
     [SerializeField] [Header("This should be not 0")]
-    private float DownDistanceWhenDie  = 1;
+    private float DownDistanceWhenDie = 1;
 
     [SerializeField] [Header("This should be not 0")]
-    private float ForwardDistanceWhenDie  = 0.6f;
+    private float ForwardDistanceWhenDie = 0.6f;
 
     public float TurnTimeRemaining { get; protected set; } = 100;
     public Tile CurrentTile { get; set; }
@@ -66,16 +68,18 @@ public class Character : MonoBehaviour
     public bool IsAI { get; set; }
 
     public bool CanMove = true;
-    
+
     public bool _CanSpawnParticle = true;
     public bool HaveCounterAbility { get; set; }
-    public Character _IncomingAttacker{ get; set; }
+    public Character _IncomingAttacker { get; set; }
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
 
     public Attack _Attack;
     public Attack _SkillAttack;
     public Attack _WaterAttack;
+    public Attack _PoisonAttack;
+    public Attack _FireAttack;
     public bool _IsSelfDestruct;
 
 
@@ -87,30 +91,31 @@ public class Character : MonoBehaviour
     public Action DestroyCharacterRelated;
     public Action RemoveHealthBar;
     public Action<string, string> ShowBuffDebuffPotionEffect;
-    
-    
+
+    protected int _IsPoisoned;
     protected GameManager _gameManager;
     protected TilesManager _tileManager;
     protected const float START_TIME_TURN = 100;
 
-    [SerializeField] private float _frontHitSuccesChance  = 35;
+    [SerializeField] private float _frontHitSuccesChance = 35;
     [SerializeField] private float _sideHitSuccesChance = 60;
     [SerializeField] private float _behindHitSuccesChance = 85f;
 
     public GetAttackDirection.AttackDirection _attackDirection;
     public Character _attackTarget;
-
-    private bool _CanHit = false;
-    private bool _turn;
     public bool _isCounterAttack;
     public bool _IsDead;
     public int _NbrRepeatAttack = 0;
     
+    private bool _SkipCounter;
+    private bool _CanHit = false;
+    private bool _turn;
+
     private const float ROATION_TIME = 1;
-    
+
     private static readonly int Move = Animator.StringToHash("Move");
     private static readonly int Attack1 = Animator.StringToHash("Attack");
-    private static readonly int TakeHit = Animator.StringToHash("TakeHit");
+    protected static readonly int TakeHit = Animator.StringToHash("TakeHit");
     private static readonly int Die = Animator.StringToHash("Die");
     private static readonly int Block = Animator.StringToHash("Block");
     private static readonly int HandUp = Animator.StringToHash("HandUp");
@@ -120,20 +125,20 @@ public class Character : MonoBehaviour
     public void SetCharacterColor(Material materail)
     {
         int indexMaterial = FBPP.GetInt("TeamColor");
-        
+
         foreach (var characterMaterial in _MeshRenderersTeamColor)
         {
             characterMaterial.material = materail;
         }
-       
+
     }
-    
+
     protected virtual void Start()
     {
         _gameManager = GameManager.Instance;
         _tileManager = TilesManager.Instance;
         CurrentHealth = MaxHealth;
-        
+
         if (_CanSpawnParticle)
         {
             HitParticleSystem.startColor = Color.blue;
@@ -146,22 +151,60 @@ public class Character : MonoBehaviour
             _SkinnedMeshRenderer.material = _Materials[randomMaterialIndex];
         }
     }
-    
+
     public virtual void ResetCharacterTurn()
     {
+        if (_IsPoisoned > 0)
+        {
+            StartCoroutine(SetPoisonDamage());
+        }
+
         HaveMoved = false;
         HaveAttacked = false;
         _gameManager.CurrentCharacter = this;
         _attackTarget = null;
         _IncomingAttacker = null;
-        TurnTimeRemaining = START_TIME_TURN ;
+        TurnTimeRemaining = START_TIME_TURN;
+    }
+
+    protected IEnumerator SetPoisonDamage()
+    {
+        yield return new WaitForSeconds(0.35f);
+        _IsPoisoned--;
+        if (_IsPoisoned <= 0)
+        {
+            _PoisonParticleEffect.SetActive(false);
+        }
+
+        HitParticleSystem.startColor = Color.green;
+        HitParticleSystem.Play();
+        CurrentHealth -= 100;
+        CurrentHealth -= (MaxHealth / 8);
+
+        if (CurrentHealth <= 0)
+        {
+            CurrentHealth = 0;
+            if (IsAI)
+            {
+                _gameManager.NextCharacterTurn();
+            }
+
+            StartCoroutine(Vanish());
+        }
+        else
+        {
+            _SkipCounter = true;
+            CharacterAnimator.SetTrigger(TakeHit);
+        }
+
+        OnHealthPctChange(CurrentHealth, MaxHealth / 8, MaxHealth, true);
     }
 
     public void SetMovementCharacter(Tile tile)
     {
         StartCoroutine(MoveCharacter(tile));
     }
-    
+
     public void TurnCharacter(Tile tile)
     {
         StartCoroutine(RotateTo(tile.Position));
@@ -172,18 +215,18 @@ public class Character : MonoBehaviour
         _gameManager.Wait = true;
         CharacterAnimator.SetBool(Move, true);
         StartCoroutine(RotateTo(tile.Position));
-    
+
         for (int i = 0; i < tile.GetPreviousMoveTileLenght(); i++)
         {
             if (_gameManager._IsMapScene && _gameManager.IsController)
             {
-                
+
             }
             else
             {
                 tile.SetTopMaterial(_tileManager.PathTileMaterial);
             }
-            
+
             yield return MoveTo(tile.PreviousMoveTilesList[i].Position, MovingSpeed);
         }
 
@@ -196,12 +239,12 @@ public class Character : MonoBehaviour
             }
             else
             {
-                spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);  
+                spawnPosition = tile.Position + new Vector3(0, 0.1f, 0);
             }
         }
         else if (_gameManager._IsMapScene)
         {
-            spawnPosition = tile.Position + new Vector3(0, 0.2f, 0);  
+            spawnPosition = tile.Position + new Vector3(0, 0.2f, 0);
         }
 
         StartCoroutine(MoveTo(spawnPosition, MovingSpeed));
@@ -209,7 +252,7 @@ public class Character : MonoBehaviour
 
         if (_gameManager._IsMapScene && _gameManager.IsController)
         {
-            
+
         }
         else
         {
@@ -220,9 +263,9 @@ public class Character : MonoBehaviour
         {
             tile.PotionAnimator.SetTrigger(GetPotion);
         }
-       
+
         yield return new WaitForSeconds(WaitToDeselectedTiles);
-  
+
         _tileManager.DeselectTiles();
         _turn = false;
         CurrentTile = tile;
@@ -230,16 +273,13 @@ public class Character : MonoBehaviour
         {
             StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
         }
-        
-        foreach (var waterParticleEffect in _waterParticleEffect)
-        {
-            waterParticleEffect.SetActive(tile.IsWater);
-        }
+
+        SetElementEffect(tile.IsWater);
 
         if (tile.IsPotionTile)
         {
             tile.IsPotionTile = false;
-            AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
+            AudioManager._Instance.SpawnSound(AudioManager._Instance._GetPotion);
             yield return new WaitForSeconds(1);
             CharacterAnimator.SetTrigger(Drink);
             StartCoroutine(_gameManager.ZoomBattleCamera(4));
@@ -255,11 +295,11 @@ public class Character : MonoBehaviour
 
             yield return new WaitForSeconds(2);
             SetPotionEffect(tile.PotionData.PotionType);
-            AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
+            AudioManager._Instance.SpawnSound(AudioManager._Instance._ShowBuffDebuffStats);
             yield return new WaitForSeconds(1);
             HaveMoved = true;
             _gameManager.Wait = false;
-            
+
             if (!IsAI && !HaveAttacked && _gameManager.IsController)
             {
                 _gameManager.SelectCharacter?.Invoke();
@@ -274,7 +314,7 @@ public class Character : MonoBehaviour
         {
             HaveMoved = true;
             _gameManager.Wait = false;
-            
+
             if (!IsAI && !HaveAttacked && _gameManager.IsController)
             {
                 _gameManager.SelectCharacter?.Invoke();
@@ -286,7 +326,7 @@ public class Character : MonoBehaviour
             }
         }
     }
-    
+
     private IEnumerator GameObjectMoveTo(GameObject go, Vector3 destination, float speed)
     {
         Vector3 startPosition = go.transform.position;
@@ -297,6 +337,7 @@ public class Character : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
         go.transform.position = destination;
     }
 
@@ -310,18 +351,20 @@ public class Character : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
         transform.position = destination;
     }
-    
+
     public IEnumerator Attack(Tile tile, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection, Attack attack)
     {
         _gameManager.Wait = true;
         yield return new WaitForSeconds(1f);
-        attack.DoAttack(this,tile, isAcounterAttack, attackDirection);
+        attack.DoAttack(this, tile, isAcounterAttack, attackDirection);
     }
-    
-    
-    public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab, float MovementProjectilSpeed, AudioManager.SfxClass sfxAtSpawn)
+
+
+    public IEnumerator ThrowProjectile(Vector3 endPositionProjectile, float delay, GameObject projectilePrefab, float MovementProjectilSpeed,
+        AudioManager.SfxClass sfxAtSpawn)
     {
         Debug.Log("Character ThrowProjectile");
         yield return new WaitForSeconds(delay);
@@ -329,21 +372,23 @@ public class Character : MonoBehaviour
         {
             AudioManager._Instance.SpawnSound(sfxAtSpawn);
         }
-        
+
         GameObject gameObjectProjectile = Instantiate(projectilePrefab, _StartPositionProjectile.position, _StartPositionProjectile.rotation);
 
         float speed = MovementProjectilSpeed;
         while (Vector3.Distance(gameObjectProjectile.transform.position, endPositionProjectile) > 0.1f)
         {
-            gameObjectProjectile.transform.position = Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
+            gameObjectProjectile.transform.position =
+                Vector3.MoveTowards(gameObjectProjectile.transform.position, endPositionProjectile, speed * Time.deltaTime);
             yield return null;
         }
+
         Destroy(gameObjectProjectile, 2);
         gameObjectProjectile.transform.GetChild(0).gameObject.SetActive(false);
         _CanHit = true;
         Hit();
     }
-    
+
     public IEnumerator SpawnAttack(AudioManager.SfxClass preSfx, AudioManager.SfxClass sfxAtSpawn, GameObject spawnPrefab, Tile tile)
     {
         _tileManager.DeselectTiles();
@@ -352,6 +397,7 @@ public class Character : MonoBehaviour
         {
             AudioManager._Instance.SpawnSound(preSfx);
         }
+
         _gameManager.LastSpawnTile = tile;
         Instantiate(spawnPrefab, tile.Position, Quaternion.identity);
         _gameManager.Wait = false;
@@ -360,12 +406,12 @@ public class Character : MonoBehaviour
 
         InputManager.Instance._TempSelectTileMaterial = _gameManager._tileManager.MoveTileMaterial;
         yield return new WaitForSeconds(0.3f);
-        
+
         if (sfxAtSpawn != null)
         {
             AudioManager._Instance.SpawnSound(sfxAtSpawn);
         }
-        
+
         yield return new WaitForSeconds(0.75f);
 
         if (HaveMoved)
@@ -382,6 +428,7 @@ public class Character : MonoBehaviour
                 _gameManager.SelectCharacter?.Invoke();
             }
         }
+
         HaveAttacked = true;
     }
 
@@ -390,14 +437,14 @@ public class Character : MonoBehaviour
     {
         _tileManager.DeselectTiles();
     }
-    
+
     public IEnumerator MoveAttack(AudioManager.SfxClass sfxAtSpawn, GameObject particleEffectPrefab, Tile tile)
     {
         if (sfxAtSpawn != null)
         {
             AudioManager._Instance.SpawnSound(sfxAtSpawn);
         }
-        
+
         _TrailParticleEffect.SetActive(true);
         GameObject particleEffect = Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.75f);
@@ -411,16 +458,21 @@ public class Character : MonoBehaviour
         for (int i = 0; i < tile.GetPreviousMoveTileLenght(); i++)
         {
             Character character = tile.PreviousMoveTilesList[i].CharacterReference;
-            if(character == null || character == this) {continue;}
+            if (character == null || character == this)
+            {
+                continue;
+            }
 
-            Debug.Log("Character ::  MoveAttackGO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" + _gameManager.StateAttackCharacter._Attack.IsProjectile  + "  charactarAttacked = " + character.gameObject.name + "  Tile = " +  tile.CoordX + " " + tile.CoordY);
+            Debug.Log("Character ::  MoveAttackGO = " + gameObject.name + "StateAttackCharacter._Attack.IsProjectile =" +
+                      _gameManager.StateAttackCharacter._Attack.IsProjectile + "  charactarAttacked = " + character.gameObject.name + "  Tile = " +
+                      tile.CoordX + " " + tile.CoordY);
             _attackTarget = character;
             character._IncomingAttacker = this;
             if (character.GetIsBlock(character._attackDirection))
             {
-                AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
+                AudioManager._Instance.SpawnSound(AudioManager._Instance._BlockSound);
                 character.CharacterAnimator.SetTrigger(Block);
-  
+
                 character._isCounterAttack = _isCounterAttack;
                 character.OnHealthPctChange(0, 0, 0, true);
             }
@@ -430,7 +482,7 @@ public class Character : MonoBehaviour
                 character.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
         }
-        
+
         _tileManager.DeselectTiles();
         Destroy(particleEffect);
         _gameManager.ActivateUIButtonCharacter?.Invoke();
@@ -439,11 +491,12 @@ public class Character : MonoBehaviour
         if (tile.IsPotionTile)
         {
             tile.PotionAnimator.SetTrigger(GetPotion);
-            AudioManager._Instance.SpawnSound( AudioManager._Instance._GetPotion);
+            AudioManager._Instance.SpawnSound(AudioManager._Instance._GetPotion);
         }
+
         yield return new WaitForSeconds(0.75f);
         _TrailParticleEffect.SetActive(false);
-        
+
         if (tile.IsPotionTile)
         {
             tile.IsPotionTile = false;
@@ -462,17 +515,18 @@ public class Character : MonoBehaviour
 
             yield return new WaitForSeconds(2);
             SetPotionEffect(tile.PotionData.PotionType);
-            AudioManager._Instance.SpawnSound( AudioManager._Instance._ShowBuffDebuffStats);
+            AudioManager._Instance.SpawnSound(AudioManager._Instance._ShowBuffDebuffStats);
             yield return new WaitForSeconds(1);
-            
+
         }
-        
+
         if (_attackTarget && !_attackTarget.HaveCounterAbility)
         {
-            Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
+            Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name +
+                      ":: Character = " + gameObject.name);
             _gameManager.Wait = false;
         }
-        
+
         if (HaveMoved && !IsAI)
         {
             if (!_isCounterAttack)
@@ -487,11 +541,12 @@ public class Character : MonoBehaviour
                 _gameManager.SelectCharacter?.Invoke();
             }
         }
-        
-        foreach (var waterParticleEffect in _waterParticleEffect)
+
+        if (!_gameManager._IsMapScene)
         {
-            waterParticleEffect.SetActive(tile.IsWater);
+            SetElementEffect(tile.IsWater);
         }
+
 
         HaveAttacked = true;
     }
@@ -519,9 +574,10 @@ public class Character : MonoBehaviour
             {
                 break;
             }
+
             yield return null;
         }
-        
+
 
         transform.rotation = toRotationEnd;
     }
@@ -531,7 +587,79 @@ public class Character : MonoBehaviour
         _turn = false;
     }
 
-    public void IsAttacked(int damage, bool isAcounterAttack)
+    public void SetElementEffect(bool isWater)
+    {
+        if (isWater)
+        {
+            if (GameManager.Instance._tileManager.TileManagerData._IsLava)
+            {
+                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                {
+                    elementSwordParticleEffect.gameObject.SetActive(true);
+                    elementSwordParticleEffect.startColor = Color.red;
+                }
+
+                foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+                {
+                    elemenCharactertParticleEffect.gameObject.SetActive(true);
+                    elemenCharactertParticleEffect.startColor = Color.red;
+                }
+            }
+            else if (GameManager.Instance._tileManager.TileManagerData._IsPoison)
+            {
+                IsPoisoned();
+
+                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                {
+                    elementSwordParticleEffect.gameObject.SetActive(true);
+                    elementSwordParticleEffect.startColor = Color.green;
+                }
+
+                foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+                {
+                    elemenCharactertParticleEffect.gameObject.SetActive(true);
+                    elemenCharactertParticleEffect.startColor = Color.green;
+                }
+            }
+            else
+            {
+
+                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                {
+                    elementSwordParticleEffect.gameObject.SetActive(true);
+                    elementSwordParticleEffect.startColor = Color.cyan;
+                }
+
+                foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+                {
+                    elemenCharactertParticleEffect.gameObject.SetActive(true);
+                    elemenCharactertParticleEffect.startColor = Color.cyan;
+                }
+
+
+            }
+        }
+        else
+        {
+            foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+            {
+                elementSwordParticleEffect.gameObject.SetActive(false);
+            }
+
+            foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+            {
+                elemenCharactertParticleEffect.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    protected void InvokeOnHealthPctChange(int currentHealth, int damage, int maxHealth, bool isDamage)
+    {
+        OnHealthPctChange(currentHealth, damage,maxHealth, isDamage);
+    }
+
+
+public void IsAttacked(int damage, bool isAcounterAttack)
     {
         Time.timeScale = 0.5f;
         Invoke(nameof(ResetTimeScale), 0.2f);
@@ -556,13 +684,19 @@ public class Character : MonoBehaviour
             OnHealthPctChange(CurrentHealth, damage, MaxHealth, true);
     }
 
+
+    private void IsPoisoned()
+    {
+        _IsPoisoned += 3;
+        _PoisonParticleEffect.SetActive(true);
+    }
+
     private void ResetTimeScale()
     {
         if (!_gameManager._GameIsFinish)
         {
             Time.timeScale = 1f;
         }
-        
     }
 
     //Impact Time when this character hit another gameObject
@@ -583,26 +717,33 @@ public class Character : MonoBehaviour
         {
             if (_attackTarget.GetIsBlock(_attackTarget._attackDirection))
             {
-                AudioManager._Instance.SpawnSound(  AudioManager._Instance._BlockSound);
+                AudioManager._Instance.SpawnSound(AudioManager._Instance._BlockSound);
                 _attackTarget.CharacterAnimator.SetTrigger(Block);
-  
+
                 _attackTarget._isCounterAttack = _isCounterAttack;
                 _attackTarget.OnHealthPctChange(0, 0, 0, true);
-                Debug.Log("Character :: IsAttacked Set _isCounterAttack _Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
+                Debug.Log("Character :: IsAttacked Set _isCounterAttack _Attack = " + _gameManager.StateAttackCharacter._Attack.name +
+                          ":: Character = " + gameObject.name);
                 if (!_gameManager.StateAttackCharacter._Attack.IsProjectile)
                 {
                     CharacterAnimator.SetTrigger(HandUp);
                 }
-                
+
             }
             else
             {
                 AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
-                Debug.Log("Chatacter :: Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name + ":: Character = " + gameObject.name);
+                Debug.Log("Chatacter :: Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name +
+                          ":: Character = " + gameObject.name);
                 _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
 
-            if (_gameManager.CurrentCharacter != null)
+            if (_gameManager.StateAttackCharacter._Attack._IsPoison)
+            {
+                _attackTarget.IsPoisoned();
+            }
+
+        if (_gameManager.CurrentCharacter != null)
             {
                 _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             }
@@ -656,7 +797,14 @@ public class Character : MonoBehaviour
     //THIS METHODE IS CALLED BY ANIMATOR (TakeHit/Block)
     public void Counter()
     {
-        StartCoroutine(CheckIfCanCounterAttack());
+        if (!_SkipCounter)
+        {
+            StartCoroutine(CheckIfCanCounterAttack());
+        }
+        else
+        {
+            _SkipCounter = false;
+        }
     }
 
     private IEnumerator CheckIfCanCounterAttack()
@@ -735,7 +883,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private IEnumerator Vanish()
+    protected IEnumerator Vanish()
     {
         RemoveHealthBar?.Invoke();
         DestroyCharacterRelated?.Invoke();

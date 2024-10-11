@@ -3823,7 +3823,8 @@ MonoBehaviour:
   VCamRight: {fileID: 4642988446760057589}
   VCamFront: {fileID: 163731329795092168}
   VCamBehind: {fileID: 100185087782078910}
-  _waterParticleEffect: []
+  _ElementSwordParticleEffect: []
+  _ElemenCharactertParticleEffect: []
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 6
   <MovementPoint>k__BackingField: 4
@@ -3852,6 +3853,7 @@ MonoBehaviour:
   - {fileID: 6830833089991058519}
   - {fileID: 2525615380764793771}
   - {fileID: 2684057421324184915}
+  _PoisonParticleEffect: {fileID: 8277610363720992640}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -3861,6 +3863,8 @@ MonoBehaviour:
   _Attack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
+  _PoisonAttack: {fileID: 0}
+  _FireAttack: {fileID: 0}
   _IsSelfDestruct: 0
   _frontHitSuccesChance: 100
   _sideHitSuccesChance: 100
@@ -3913,6 +3917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8277610363720992640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4077924712461060098, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 5352607525804560258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5557735562813645013
 PrefabInstance:
   m_ObjectHideFlags: 0

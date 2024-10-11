@@ -28,6 +28,11 @@ public class CharacterAI : Character
     
     public override void ResetCharacterTurn()
     {
+        if (_IsPoisoned > 0)
+        {
+            StartCoroutine(SetPoisonDamage());
+
+        }
         HaveMoved = false;
         HaveAttacked = false;
         _gameManager.CurrentCharacter = this;
@@ -45,25 +50,82 @@ public class CharacterAI : Character
         yield return new WaitForSeconds(TIME_PATHFINDING);
         _TimePathfindingIsFinish = true;
     }
-    
- // Enemy AI
-    private IEnumerator EnemyTurn()
-    {
-        //If he can already Attack his enemy
-        yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
-        Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
 
-        if (!_IsSelfDestruct)
+    private void ShowNormalPossibleAttack()
+    {
+        if (_WaterAttack != null)
         {
-            if (_WaterAttack != null)
+            if (CurrentTile.IsWater)
             {
-                _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
+                if (_gameManager._tileManager.TileManagerData._IsLava)
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _FireAttack);
+                }
+                else if (_gameManager._tileManager.TileManagerData._IsPoison)
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _PoisonAttack);
+                }
+                else
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _WaterAttack);
+                }
             }
             else
             {
                 _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
             }
-            
+        }
+        else
+        {
+            _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
+        }
+    }
+    
+    private void SetNormalAttackState()
+    {
+        if (_WaterAttack != null)
+        {
+            if (CurrentTile.IsWater)
+            {
+                if (_gameManager._tileManager.TileManagerData._IsLava)
+                {
+                    _gameManager.StateAttackCharacter._Attack =  _FireAttack;
+                }
+                else if (_gameManager._tileManager.TileManagerData._IsPoison)
+                {
+                    _gameManager.StateAttackCharacter._Attack =  _PoisonAttack;
+                }
+                else
+                {
+                    _gameManager.StateAttackCharacter._Attack =  _WaterAttack;
+                }
+            }
+            else
+            {
+                _gameManager.StateAttackCharacter._Attack =  _Attack;
+            }
+        }
+        else
+        {
+            _gameManager.StateAttackCharacter._Attack =  _Attack;
+        }
+    }
+ // Enemy AI
+ private IEnumerator EnemyTurn()
+ {
+     yield return new WaitForSeconds(.4f);
+     if (CurrentHealth <= 0)
+     {
+         yield break;
+     }
+
+ //If he can already Attack his enemy
+        yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
+        Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
+
+        if (!_IsSelfDestruct)
+        {
+            ShowNormalPossibleAttack();
             _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
             yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
             if (_TimePathfindingCoroutine != null)
@@ -112,7 +174,7 @@ public class CharacterAI : Character
             }
             else
             {
-                _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
+                SetNormalAttackState();
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -178,9 +240,7 @@ public class CharacterAI : Character
                 yield return new WaitForSeconds(TIME_MOVECHARACTER);
                 yield return new WaitUntil(() => HaveMoved);
                 yield return new WaitUntil(() => !_gameManager.Wait);
-
                 Debug.Log("CharacterAI :: Before GetNearestTile1 :: Character = " + gameObject.name);
-
                 Tile NearestTile = null;
                 while (NearestTile == null)
                 {
@@ -284,16 +344,7 @@ public class CharacterAI : Character
                 yield return new WaitUntil(() => HaveMoved);
                 yield return new WaitUntil(() => !_gameManager.Wait);
                 Debug.Log("CharacterAI :: Before ShowPossibleAttack2 :: Character = " + gameObject.name);
-
-                if (_WaterAttack != null)
-                {
-                    _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
-                }
-                else
-                {
-                    _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
-                }
-                
+                ShowNormalPossibleAttack();
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
                 yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
                 if (_TimePathfindingCoroutine != null)
@@ -339,15 +390,7 @@ public class CharacterAI : Character
                     }
                     else
                     {
-                        if (_WaterAttack != null)
-                        {
-                            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
-                        }
-                        else
-                        {
-                            _gameManager.StateAttackCharacter._Attack =  _Attack;
-                        }
-                       
+                        SetNormalAttackState();
                     }
 
                     yield return new WaitForSeconds(0.5f);
@@ -387,8 +430,6 @@ public class CharacterAI : Character
                     }
                     _gameManager.SelectTile(TryFoundBetterTile(tile));
                     yield break;
-                   
-                    Debug.Log("CharacterAI :: after wait :: Character = " + gameObject.name);
                 }
             }
             else
@@ -402,16 +443,7 @@ public class CharacterAI : Character
                 yield return new WaitUntil(() => HaveMoved);
                 yield return new WaitUntil(() => !_gameManager.Wait);
                 Debug.Log("CharacterAI :: Before ShowPossibleAttack3 :: Character = " + gameObject.name);
-                
-                if (_WaterAttack != null)
-                {
-                    _gameManager.ShowPossibleAttack(CurrentTile, false, CurrentTile.IsWater ? _WaterAttack : _Attack);
-                }
-                else
-                {
-                    _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
-                }
-                
+                ShowNormalPossibleAttack();
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
                 yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
                 if (_TimePathfindingCoroutine != null)
@@ -457,15 +489,7 @@ public class CharacterAI : Character
                     }
                     else
                     {
-                        if (_WaterAttack != null)
-                        {
-                            _gameManager.StateAttackCharacter._Attack = CurrentTile.IsWater ? _WaterAttack : _Attack;
-                        }
-                        else
-                        {
-                            _gameManager.StateAttackCharacter._Attack =  _Attack;
-                        }
-                       
+                        SetNormalAttackState();
                     }
 
                     Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
