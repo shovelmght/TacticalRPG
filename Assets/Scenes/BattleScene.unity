@@ -1892,7 +1892,7 @@ MonoBehaviour:
   _MapTilesManager_Corner3: {fileID: 0}
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
-  _UnitTest: 0
+  _UnitTest: 1
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}
@@ -6301,6 +6301,11 @@ MonoBehaviour:
   _AudioPoolLength: 10
   _MainVolume: 0.5
   _MainMusicVolume: 0.5
+  _PoisonDamage:
+    _AudioClip: {fileID: 8300000, guid: 68331cc792076f748ac78ad5040d2799, type: 3}
+    _RelativeVolume: 0.1
+    _MinRandomPitch: 0.7
+    _MaxRandomPitch: 1.4
   _ShowBuffDebuffStats:
     _AudioClip: {fileID: 8300000, guid: bdab27a6d06509b41882611197f0327c, type: 3}
     _RelativeVolume: 0.5

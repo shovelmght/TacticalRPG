@@ -22,6 +22,8 @@ MonoBehaviour:
   IsWaterAttack: 0
   IsSpawnSkill: 0
   IsReapeatableAttack: 1
+  SoftBattleZoom: 0
+  _IsPoison: 0
   PreSfx:
     _AudioClip: {fileID: 0}
     _RelativeVolume: 0
@@ -34,8 +36,8 @@ MonoBehaviour:
     _MaxRandomPitch: 0
   ImpactSfx:
     _AudioClip: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
-    _RelativeVolume: 0.25
-    _MinRandomPitch: 1.1
+    _RelativeVolume: 0.1
+    _MinRandomPitch: 0.8
     _MaxRandomPitch: 1.3
   NoTargetSfx:
     _AudioClip: {fileID: 8300000, guid: e032da58aec479d45973fa5288f6fa64, type: 3}

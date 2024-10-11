@@ -22,6 +22,6 @@ public class MoveAttack : Attack
         character.CharacterAnimator.SetTrigger(AttackAnimationName);
         character._isCounterAttack = isAcounterAttack;
 
-        character.StartCoroutine(character.MoveAttack(PreSfx, _ParticleEffectPrefab, tile));
+        character.StartCoroutine(character.MoveAttack(PreSfx, NoTargetSfx,ImpactSfx,_ParticleEffectPrefab, tile));
     }
 }

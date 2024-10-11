@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -490,6 +491,8 @@ public class GameManager : MonoBehaviour
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
         }
         
+        characterReference.SetElementEffect(tile.IsWater);
+        
     }
 
     public void SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
@@ -973,17 +976,14 @@ public class GameManager : MonoBehaviour
 
         if (CharacterList.Count > 0)
         {
-            if (CharacterList[0].CurrentTeam != Character.Team.Team1)
+            if (CharacterList[0] == null || CharacterList[0].CurrentTeam != Character.Team.Team1)
             {
                 _WinLooseText.text = "You Lost";
             }
         }
         else
         {
-            if (CharacterList[0].CurrentTeam != Character.Team.Team1)
-            {
-                _WinLooseText.text = "You Lost";
-            }
+            _WinLooseText.text = "You Lost";
         }
 
         _WinLooseAnimator.SetActive(true);
@@ -1001,8 +1001,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-   
-       
             CameraButton.SetActive(false);
             Time.timeScale = 1f;
             StartCoroutine(_tileManager.TileTransitionToMapScene());
@@ -1062,13 +1060,16 @@ public class GameManager : MonoBehaviour
         
         SetInteractableWaitButton?.Invoke();
         CurrentCharacterTurn = CheckCharacterTime();
+        int itteration = 0;
         while (CurrentCharacterTurn == null || CurrentCharacterTurn.CurrentHealth <= 0)
         {
+            itteration++;
             ReduceCharacterTimeRemaining();
             CurrentCharacterTurn = CheckCharacterTime();
 
-            if (_GameIsFinish)
+            if (_GameIsFinish || itteration > 100)
             {
+                Debug.Log("GameManager :: BeginOfTurn  _GameIsFinish || itteration > 100    yield break itteration = " + itteration);
                 yield break;
             }
         }

@@ -176,9 +176,9 @@ public class Character : MonoBehaviour
             _PoisonParticleEffect.SetActive(false);
         }
 
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._PoisonDamage);
         HitParticleSystem.startColor = Color.green;
         HitParticleSystem.Play();
-        CurrentHealth -= 100;
         CurrentHealth -= (MaxHealth / 8);
 
         if (CurrentHealth <= 0)
@@ -438,7 +438,7 @@ public class Character : MonoBehaviour
         _tileManager.DeselectTiles();
     }
 
-    public IEnumerator MoveAttack(AudioManager.SfxClass sfxAtSpawn, GameObject particleEffectPrefab, Tile tile)
+    public IEnumerator MoveAttack(AudioManager.SfxClass sfxAtSpawn,AudioManager.SfxClass noTargetSfx, AudioManager.SfxClass impactSfx,GameObject particleEffectPrefab, Tile tile)
     {
         if (sfxAtSpawn != null)
         {
@@ -478,7 +478,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
+                AudioManager._Instance.SpawnSound(impactSfx);
                 character.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack);
             }
         }
@@ -493,7 +493,7 @@ public class Character : MonoBehaviour
             tile.PotionAnimator.SetTrigger(GetPotion);
             AudioManager._Instance.SpawnSound(AudioManager._Instance._GetPotion);
         }
-
+        AudioManager._Instance.SpawnSound(noTargetSfx);
         yield return new WaitForSeconds(0.75f);
         _TrailParticleEffect.SetActive(false);
 
@@ -520,7 +520,7 @@ public class Character : MonoBehaviour
 
         }
 
-        if (_attackTarget && !_attackTarget.HaveCounterAbility)
+        if (_attackTarget == null || _attackTarget && !_attackTarget.HaveCounterAbility)
         {
             Debug.Log("Character :: Hit Set _gameManager.Wait(false) 111 _Attack = " + _gameManager.StateAttackCharacter._Attack.name +
                       ":: Character = " + gameObject.name);
@@ -607,7 +607,7 @@ public class Character : MonoBehaviour
             }
             else if (GameManager.Instance._tileManager.TileManagerData._IsPoison)
             {
-                IsPoisoned();
+                StartCoroutine(IsPoisoned());
 
                 foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
                 {
@@ -685,9 +685,12 @@ public void IsAttacked(int damage, bool isAcounterAttack)
     }
 
 
-    private void IsPoisoned()
+    private IEnumerator IsPoisoned()
     {
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._PoisonDamage);
         _IsPoisoned += 3;
+        _PoisonParticleEffect.SetActive(false);
+        yield return new WaitForSeconds(0.01f);
         _PoisonParticleEffect.SetActive(true);
     }
 
@@ -740,7 +743,7 @@ public void IsAttacked(int damage, bool isAcounterAttack)
 
             if (_gameManager.StateAttackCharacter._Attack._IsPoison)
             {
-                _attackTarget.IsPoisoned();
+                StartCoroutine(_attackTarget.IsPoisoned());
             }
 
         if (_gameManager.CurrentCharacter != null)

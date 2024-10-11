@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public float _MainVolume = 0.5f;
     public float _MainMusicVolume = 0.5f;
     
+    public SfxClass _PoisonDamage;
     public SfxClass _ShowBuffDebuffStats;
     public SfxClass _GetPotion;
     public SfxClass _ZoomSFX;
