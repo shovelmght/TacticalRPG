@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _UnZoomVCam;
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
-    [SerializeField] private bool _RandomMap = true;
-    [SerializeField] private bool _ForceTileManager = true;
     [SerializeField] private Animator _ZommEffectAnimator;
     [SerializeField] private GameObject _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
@@ -317,7 +315,10 @@ public class GameManager : MonoBehaviour
 
         if (_UnitTest || _RandomMap)
         {
-            _tileManager.SetRandomTileManagerData();
+            if (!_ForceTileManager)
+            {
+                _tileManager.SetRandomTileManagerData();
+            }
         }
         else if(_ForceTileManager)
         {
@@ -454,7 +455,7 @@ public class GameManager : MonoBehaviour
         
         if (!_IsMapScene)
         {
-            characterReference.SetElementEffect(tile.IsWater);
+            characterReference.SetElementEffect(tile.IsWater, true);
         }
         return true;
     }
@@ -491,7 +492,7 @@ public class GameManager : MonoBehaviour
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
         }
         
-        characterReference.SetElementEffect(tile.IsWater);
+        characterReference.SetElementEffect(tile.IsWater ,true);
         
     }
 
@@ -1453,6 +1454,8 @@ public class GameManager : MonoBehaviour
 
     //-------------------------------DEBUG---------------------------------
     
+    [SerializeField] private bool _RandomMap = true;
+    [SerializeField] private bool _ForceTileManager = true;
     [SerializeField] private bool _UnitTest;
     public bool AddOccupiedTileOnClick;
     public List<DataCharacterSpawner> CharacterAIDataTeam1UnitTest;

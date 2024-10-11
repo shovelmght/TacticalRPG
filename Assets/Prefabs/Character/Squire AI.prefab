@@ -332,6 +332,8 @@ MonoBehaviour:
   - {fileID: 2623463864589548646}
   - {fileID: 4370412415811540806}
   - {fileID: 424596748872679743}
+  _ElemenFireCharactertParticleEffect: {fileID: 6784369377360821650}
+  _HitFireParticleEffect: {fileID: 4951584930462284161}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 3
   <MovementPoint>k__BackingField: 4
@@ -390,6 +392,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4077924712461060098, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 8739042105776096779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4951584930462284161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4463278594933063562, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &5293854914093508129 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3472517761073717290, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -413,6 +420,11 @@ GameObject:
 --- !u!198 &6742274220512397449 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2654325317234921090, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+  m_PrefabInstance: {fileID: 8739042105776096779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6784369377360821650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2837756491943279513, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   m_PrefabInstance: {fileID: 8739042105776096779}
   m_PrefabAsset: {fileID: 0}
 --- !u!198 &6938328614420882797 stripped

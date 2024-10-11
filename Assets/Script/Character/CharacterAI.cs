@@ -30,7 +30,7 @@ public class CharacterAI : Character
     {
         if (_IsPoisoned > 0)
         {
-            StartCoroutine(SetPoisonDamage());
+            StartCoroutine(DealPoisonDamage());
 
         }
         HaveMoved = false;
@@ -196,7 +196,11 @@ public class CharacterAI : Character
 
             if (CurrentHealth <= 0)
             {
-                _gameManager.NextCharacterTurn();
+                if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
+                {
+                    _gameManager.NextCharacterTurn();
+                }
+                
                 yield break;
             }
 
@@ -204,6 +208,7 @@ public class CharacterAI : Character
 
             if (CanMove)
             {
+                yield return new WaitForSeconds(0.25f);
                 _gameManager.ShowPossibleMove(CurrentTile);
                 _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
                 yield return new WaitUntil(() => _gameManager.PossibleMoveTileIsFinished || _TimePathfindingIsFinish);
@@ -232,8 +237,6 @@ public class CharacterAI : Character
                     yield break;
                 }
                 
-           
-         
                 _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght())));
                 _gameManager.Wait = true;
                 HaveMoved = false;
@@ -241,6 +244,7 @@ public class CharacterAI : Character
                 yield return new WaitUntil(() => HaveMoved);
                 yield return new WaitUntil(() => !_gameManager.Wait);
                 Debug.Log("CharacterAI :: Before GetNearestTile1 :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
                 Tile NearestTile = null;
                 while (NearestTile == null)
                 {
@@ -260,6 +264,7 @@ public class CharacterAI : Character
             else
             {
                 Debug.Log("CharacterAI :: EndOfCharacterTurn :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
                 Tile tile = null;
                 while (tile == null)
                 {
@@ -283,6 +288,7 @@ public class CharacterAI : Character
             if (!CanMove)
             {
                 Debug.Log("CharacterAI :: !CanMove :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
                 Tile tile = null;
                 while (tile == null)
                 {
@@ -313,6 +319,7 @@ public class CharacterAI : Character
 
             if (_tileManager.GetSelectedTileLenght() <= 1)
             {
+                yield return new WaitForSeconds(0.25f);
                 Tile tile = null;
                 while (tile == null)
                 {
@@ -411,10 +418,15 @@ public class CharacterAI : Character
                     
                     if (CurrentHealth <= 0)
                     {
-                        _gameManager.NextCharacterTurn();
+                        if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
+                        {
+                            _gameManager.NextCharacterTurn();
+                        }
+                        
                         yield break;
                     }
                     
+                    yield return new WaitForSeconds(0.25f);
                     Tile tile = null;
                     while (tile == null)
                     {
@@ -507,11 +519,19 @@ public class CharacterAI : Character
                     yield return new WaitUntil(() => HaveAttacked);
                     if (CurrentHealth <= 0)
                     {
-                        _gameManager.NextCharacterTurn();
+                        if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
+                        {
+                            _gameManager.NextCharacterTurn();
+                        }
+
                         yield break;
                     }
                 }
 
+                if (CurrentHealth <= 0)
+                {
+                    yield break;
+                }
                 if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null)
                 {
                     Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
@@ -543,7 +563,7 @@ public class CharacterAI : Character
 
                 }
                 
-
+                yield return new WaitForSeconds(0.25f);
                 Tile tile = null;
                 while (tile == null)
                 {

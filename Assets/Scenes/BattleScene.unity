@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05228360d69a949a3b7536e6f1e749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 487043f0b4fd6634c95a2fc21ec22fc5, type: 2}
+  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 81c18fe24b009fc42aa83452c088f914, type: 2}
   <RandomTileManagerData>k__BackingField:
   - {fileID: 11400000, guid: 19fe4a8b652b04947976000c6136f496, type: 2}
   - {fileID: 11400000, guid: e3d5d09cd6e22e040a76c2dcfcf288ad, type: 2}
@@ -1837,8 +1837,6 @@ MonoBehaviour:
   _UnZoomVCam: {fileID: 1511022128}
   _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
-  _RandomMap: 0
-  _ForceTileManager: 1
   _ZommEffectAnimator: {fileID: 640783994}
   _WinLooseAnimator: {fileID: 473145300}
   _LavaWaterPlane: {fileID: 0}
@@ -1892,7 +1890,9 @@ MonoBehaviour:
   _MapTilesManager_Corner3: {fileID: 0}
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
-  _UnitTest: 1
+  _RandomMap: 0
+  _ForceTileManager: 1
+  _UnitTest: 0
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}
@@ -6301,6 +6301,11 @@ MonoBehaviour:
   _AudioPoolLength: 10
   _MainVolume: 0.5
   _MainMusicVolume: 0.5
+  _FireDamage:
+    _AudioClip: {fileID: 8300000, guid: 5457cbc64defb9c48a8cfc202089d4c3, type: 3}
+    _RelativeVolume: 0.1
+    _MinRandomPitch: 0.7
+    _MaxRandomPitch: 1.4
   _PoisonDamage:
     _AudioClip: {fileID: 8300000, guid: 68331cc792076f748ac78ad5040d2799, type: 3}
     _RelativeVolume: 0.1

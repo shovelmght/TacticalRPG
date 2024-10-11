@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Power: 22
   AttackLenght: 3
-  AttackName: Water Attack
+  AttackName: Fire Attack
   AttackAnimationName: Attack
   IsProjectile: 1
   IsLineAttack: 1
@@ -24,13 +24,14 @@ MonoBehaviour:
   IsReapeatableAttack: 0
   SoftBattleZoom: 0
   _IsPoison: 0
+  _IsFire: 0
   PreSfx:
-    _AudioClip: {fileID: 8300000, guid: 68331cc792076f748ac78ad5040d2799, type: 3}
-    _RelativeVolume: 0.1
-    _MinRandomPitch: 2
-    _MaxRandomPitch: 2
+    _AudioClip: {fileID: 8300000, guid: 0d59d2d3754fead459824e3077908c14, type: 3}
+    _RelativeVolume: 0.4
+    _MinRandomPitch: 0.2
+    _MaxRandomPitch: 0.2
   SfxAtSpawn:
-    _AudioClip: {fileID: 8300000, guid: 4a90aaa6c05710a4e9ccce8a1254b502, type: 3}
+    _AudioClip: {fileID: 8300000, guid: 5457cbc64defb9c48a8cfc202089d4c3, type: 3}
     _RelativeVolume: 0.5
     _MinRandomPitch: 0.65
     _MaxRandomPitch: 0.8

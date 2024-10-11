@@ -3825,6 +3825,8 @@ MonoBehaviour:
   VCamBehind: {fileID: 100185087782078910}
   _ElementSwordParticleEffect: []
   _ElemenCharactertParticleEffect: []
+  _ElemenFireCharactertParticleEffect: {fileID: 1258292126908695817}
+  _HitFireParticleEffect: {fileID: 6192896420335278850}
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 6
   <MovementPoint>k__BackingField: 4
@@ -3863,8 +3865,8 @@ MonoBehaviour:
   _Attack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _SkillAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
-  _PoisonAttack: {fileID: 0}
-  _FireAttack: {fileID: 0}
+  _PoisonAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
+  _FireAttack: {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _IsSelfDestruct: 0
   _frontHitSuccesChance: 100
   _sideHitSuccesChance: 100
@@ -4906,6 +4908,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 798157bad7358b04499c9d71cd3c0d9b, type: 3}
+--- !u!1 &6192896420335278850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 763799897560185588, guid: 798157bad7358b04499c9d71cd3c0d9b, type: 3}
+  m_PrefabInstance: {fileID: 6874772930557026806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6192896420335278851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 763799897560185589, guid: 798157bad7358b04499c9d71cd3c0d9b, type: 3}
@@ -5327,6 +5334,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
+--- !u!1 &1258292126908695817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
+  m_PrefabInstance: {fileID: 7259545263256564911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6681979258698415182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4036418579442813153, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
