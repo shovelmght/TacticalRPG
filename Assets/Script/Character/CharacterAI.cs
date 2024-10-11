@@ -7,9 +7,13 @@ using Random = UnityEngine.Random;
 
 public class CharacterAI : Character
 {
+    private bool _TimePathfindingIsFinish;
+    private Coroutine _TimePathfindingCoroutine;
+    
     private const float TIME_PATHFINDING = 0.75f;
     private const float TIME_MOVECHARACTER = 0.75f;
     private const float TIME_ATTACKCHARACTER = 2.25f;
+
 
     protected override void Start()
     {
@@ -23,7 +27,6 @@ public class CharacterAI : Character
             int randomMaterialIndex = Random.Range(0, _Materials.Length);
             _SkinnedMeshRenderer.material = _Materials[randomMaterialIndex];
         }
-
     }
     
     public override void ResetCharacterTurn()
@@ -41,10 +44,465 @@ public class CharacterAI : Character
         TurnTimeRemaining = START_TIME_TURN;
     }
 
-    private bool _TimePathfindingIsFinish;
-    private Coroutine _TimePathfindingCoroutine;
 
-    private IEnumerator TimePathFinding()
+    // Enemy AI
+ private IEnumerator EnemyTurn()
+ {
+     yield return new WaitForSeconds(.4f);
+     
+     if(CheckIfDead()) {yield break;}
+
+     //If he can already Attack his enemy
+        yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
+        Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
+
+        if (!_IsSelfDestruct)
+        {
+            ShowNormalPossibleAttack();
+            _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+            yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+            if (_TimePathfindingCoroutine != null)
+            {
+                StopCoroutine(_TimePathfindingCoroutine);
+            }
+        }
+
+        Tile enemyTile = CheckIfOccupiedTileAreEnemy();
+        bool isSkillAttack = false;
+
+        if (enemyTile == null)
+        {
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile == null :: Character = " + gameObject.name);
+            isSkillAttack = true;
+            if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
+            {
+                if(CheckIfDead()) {yield break;}
+                _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished ||_TimePathfindingIsFinish );
+                if (_TimePathfindingCoroutine != null)
+                {
+                    StopCoroutine(_TimePathfindingCoroutine);
+                }
+                enemyTile = CheckIfOccupiedTileAreEnemy();
+            
+                if (enemyTile != null && _SkillAttack.IsDashAttack)
+                {
+                    Debug.Log("CharacterAI :: CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                    enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                    if (enemyTile != null)
+                    {
+                        Debug.Log("CharacterAI :: BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                    }
+                } 
+            }
+        }
+
+        if (enemyTile != null )
+        {
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile != null :: Character = " + gameObject.name);
+            
+            if (isSkillAttack)
+            {
+                _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+            }
+            else
+            {
+                SetNormalAttackState();
+            }
+
+            yield return new WaitForSeconds(0.5f);
+            
+            Debug.Log("CharacterAI :: After ShowPossibleAttack1 and Set current attack enemyTile != null :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack);
+            
+            if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+            {
+                _gameManager.SelectTile(enemyTile);
+            }
+            
+            _gameManager.SelectTile(enemyTile);
+
+            HaveAttacked = false;
+            _gameManager.Wait = true;
+            yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
+            yield return new WaitUntil(() => HaveAttacked);
+            yield return new WaitUntil(() => !_gameManager.Wait);
+
+            if(CheckIfDead()) {yield break;}
+
+            Debug.Log("CharacterAI :: Before ShowPossibleMove1 :: Character = " + gameObject.name);
+
+            if (CanMove)
+            {
+                yield return new WaitForSeconds(0.25f);
+                if(CheckIfDead()) {yield break;}
+                _gameManager.ShowPossibleMove(CurrentTile);
+                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                yield return new WaitUntil(() => _gameManager.PossibleMoveTileIsFinished || _TimePathfindingIsFinish);
+                if (_TimePathfindingCoroutine != null)
+                {
+                    StopCoroutine(_TimePathfindingCoroutine);
+                }
+                Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + " :: Character = " + gameObject.name);
+                if (_tileManager.GetSelectedTileLenght() <= 1)
+                {
+                    Tile tile = null;
+                    while (tile == null)
+                    {
+                        if(CheckIfDead()) {yield break;}
+                        StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                        yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                        if (_TimePathfindingCoroutine != null)
+                        {
+                            StopCoroutine(_TimePathfindingCoroutine);
+                        }
+                        tile = GetNearestTile();
+
+                    }
+                    
+                    _gameManager.SelectTile(TryFoundBetterTile(tile));
+                    yield break;
+                }
+                
+                _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght())));
+                _gameManager.Wait = true;
+                HaveMoved = false;
+                yield return new WaitForSeconds(TIME_MOVECHARACTER);
+                yield return new WaitUntil(() => HaveMoved);
+                yield return new WaitUntil(() => !_gameManager.Wait);
+                Debug.Log("CharacterAI :: Before GetNearestTile1 :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
+                Tile NearestTile = null;
+                while (NearestTile == null)
+                {
+                    if(CheckIfDead()) {yield break;}
+                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    NearestTile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(TryFoundBetterTile(NearestTile));
+                yield break;
+            }
+            else
+            {
+                Debug.Log("CharacterAI :: EndOfCharacterTurn :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
+                Tile tile = null;
+                while (tile == null)
+                {
+                    if(CheckIfDead()) {yield break;}
+                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(TryFoundBetterTile(tile));
+                yield break;
+            }
+
+        }
+        else
+        {
+            if (!CanMove)
+            {
+                Debug.Log("CharacterAI :: !CanMove :: Character = " + gameObject.name);
+                yield return new WaitForSeconds(0.25f);
+                Tile tile = null;
+                while (tile == null)
+                {
+                    if(CheckIfDead()) {yield break;}
+                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    tile = GetNearestTile();
+
+                }
+
+                _gameManager.SelectTile(TryFoundBetterTile(tile));
+                yield break;
+            }
+
+            //Moves towards his enemy
+            Debug.Log("CharacterAI :: Before ShowPossibleMove2 :: Character = " + gameObject.name);
+            if(CheckIfDead()) {yield break;}
+            _gameManager.ShowPossibleMove(CurrentTile);
+            _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+            yield return new WaitUntil(() => _gameManager.PossibleMoveTileIsFinished || _TimePathfindingIsFinish);
+            if (_TimePathfindingCoroutine != null)
+            {
+                StopCoroutine(_TimePathfindingCoroutine);
+            }
+
+            if (_tileManager.GetSelectedTileLenght() <= 1)
+            {
+                yield return new WaitForSeconds(0.25f);
+                Tile tile = null;
+                while (tile == null)
+                {
+                    if(CheckIfDead()) {yield break;}
+                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(TryFoundBetterTile(tile));
+                yield break;
+            }
+            Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + ":: Character = " + gameObject.name);
+            //If his enemy is a on moveTile
+            enemyTile = FindBestPossibleMoveTile();
+            
+            if (enemyTile != null)
+            {
+                Debug.Log("CharacterAI :: FindBestPossibleMoveTile ::  Character = " + gameObject.name + " bestMatchTile != null");
+                _gameManager.CurrentState = _gameManager.StateMoveCharacter;
+                _gameManager.SelectTile(enemyTile);
+                HaveMoved = false;
+                _gameManager.Wait = true;
+                yield return new WaitForSeconds(TIME_MOVECHARACTER);
+                yield return new WaitUntil(() => HaveMoved);
+                yield return new WaitUntil(() => !_gameManager.Wait);
+                Debug.Log("CharacterAI :: Before ShowPossibleAttack2 :: Character = " + gameObject.name);
+                ShowNormalPossibleAttack();
+                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+                if (_TimePathfindingCoroutine != null)
+                {
+                    StopCoroutine(_TimePathfindingCoroutine);
+                }
+                enemyTile = CheckIfOccupiedTileAreEnemy();
+                
+                isSkillAttack = false;
+
+                if (enemyTile == null)
+                {
+                    isSkillAttack = true;
+
+                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
+                    {
+                        if(CheckIfDead()) {yield break;}
+                        _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                        yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+                        if (_TimePathfindingCoroutine != null)
+                        {
+                            StopCoroutine(_TimePathfindingCoroutine);
+                        }
+                        enemyTile = CheckIfOccupiedTileAreEnemy();
+                    
+                        if (enemyTile != null && _SkillAttack.IsDashAttack)
+                        {
+                            Debug.Log("CharacterAI ::CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                            enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                            if (enemyTile != null)
+                            {
+                                Debug.Log("CharacterAI ::BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                            }
+                        }
+                    }
+                }
+                
+                if (enemyTile != null)
+                {
+                    if (isSkillAttack)
+                    {
+                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    }
+                    else
+                    {
+                        SetNormalAttackState();
+                    }
+
+                    yield return new WaitForSeconds(0.5f);
+                    
+                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+                    {
+                        _gameManager.SelectTile(enemyTile);
+                    }
+                    
+                    _gameManager.SelectTile(enemyTile);
+               
+                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
+                    _gameManager.Wait = true;
+                    HaveAttacked = false;
+                    yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
+                    yield return new WaitUntil(() => !_gameManager.Wait);
+                    yield return new WaitUntil(() => HaveAttacked);
+                    
+                    if(CheckIfDead()) {yield break;}
+                    
+                    yield return new WaitForSeconds(0.25f);
+                    Tile tile = null;
+                    while (tile == null)
+                    {
+                        StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                        yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                        if (_TimePathfindingCoroutine != null)
+                        {
+                            StopCoroutine(_TimePathfindingCoroutine);
+                        }
+                        tile = GetNearestTile();
+
+                    }
+                    _gameManager.SelectTile(TryFoundBetterTile(tile));
+                    yield break;
+                }
+            }
+            else
+            {
+                Debug.Log("CharacterAI :: FindBestPossibleMoveTile :: Character = " + gameObject.name + " bestMatchTile == null");
+                //Select nearest possible MoveTile to reach his enemy 
+                _gameManager.SelectTile(GetNearestTile());
+                HaveMoved = false;
+                _gameManager.Wait = true;
+                yield return new WaitForSeconds(TIME_MOVECHARACTER);
+                yield return new WaitUntil(() => HaveMoved);
+                yield return new WaitUntil(() => !_gameManager.Wait);
+                Debug.Log("CharacterAI :: Before ShowPossibleAttack3 :: Character = " + gameObject.name);
+                ShowNormalPossibleAttack();
+                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+                if (_TimePathfindingCoroutine != null)
+                {
+                    StopCoroutine(_TimePathfindingCoroutine);
+                }
+                enemyTile = CheckIfOccupiedTileAreEnemy();
+                
+                isSkillAttack = false;
+
+                if (enemyTile == null)
+                {
+                     Debug.Log("CharacterAI :: Before ShowPossibleAttack4 :: Character = " + gameObject.name);
+                    isSkillAttack = true;
+                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
+                    {
+                        if(CheckIfDead()) {yield break;}
+                        _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                        yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+                        if (_TimePathfindingCoroutine != null)
+                        {
+                            StopCoroutine(_TimePathfindingCoroutine);
+                        }
+                        enemyTile = CheckIfOccupiedTileAreEnemy();
+
+                        if (enemyTile != null && _SkillAttack.IsDashAttack)
+                        {
+                            Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
+                            enemyTile = FindTileBehind(CurrentTile, enemyTile);
+                            if (enemyTile != null)
+                            {
+                                Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
+                            }
+                        }
+                    }
+                }
+
+                if (enemyTile != null)
+                {
+                    if (isSkillAttack)
+                    {
+                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    }
+                    else
+                    {
+                        SetNormalAttackState();
+                    }
+
+                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
+                    yield return new WaitForSeconds(0.5f);
+                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
+                    {
+                        _gameManager.SelectTile(enemyTile);
+                    }
+                    
+                    _gameManager.SelectTile(enemyTile);
+                    _gameManager.Wait = true;
+                    HaveAttacked = false;
+                    yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
+                    yield return new WaitUntil(() => !_gameManager.Wait);
+                    yield return new WaitUntil(() => HaveAttacked);
+                    if(CheckIfDead()) {yield break;}
+                }
+
+                if(CheckIfDead()) {yield break;}
+                
+                if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null)
+                {
+                    Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
+                    if(CheckIfDead()) {yield break;}
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    _gameManager.StateAttackCharacter._Attack = _SkillAttack;
+                    List<Tile> possibleSpawnTile = new List<Tile>();
+                    
+                    for (int i = 0; i < CurrentTile.SideTiles.Length; i++)
+                    {
+                        if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied && !CurrentTile.SideTiles[i].IsPotionTile)
+                        {
+                            possibleSpawnTile.Add(CurrentTile.SideTiles[i]);
+                        }
+                    }
+
+                    if (possibleSpawnTile.Count > 0)
+                    {
+                        int randomInt = Random.Range(0, possibleSpawnTile.Count);
+                        _gameManager.SelectTile(possibleSpawnTile[randomInt]);
+                    }
+
+                    yield return new WaitForSeconds(4);
+
+                }
+                
+                yield return new WaitForSeconds(0.25f);
+                Tile tile = null;
+                while (tile == null)
+                {
+                    if(CheckIfDead()) {yield break;}
+                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
+                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
+                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
+                    if (_TimePathfindingCoroutine != null)
+                    {
+                        StopCoroutine(_TimePathfindingCoroutine);
+                    }
+                    tile = GetNearestTile();
+
+                }
+                _gameManager.SelectTile(TryFoundBetterTile(tile));
+                yield break;
+            }
+        }
+    }
+ 
+     private IEnumerator TimePathFinding()
     {
         _TimePathfindingIsFinish = false;
         yield return new WaitForSeconds(TIME_PATHFINDING);
@@ -110,476 +568,21 @@ public class CharacterAI : Character
             _gameManager.StateAttackCharacter._Attack =  _Attack;
         }
     }
- // Enemy AI
- private IEnumerator EnemyTurn()
- {
-     yield return new WaitForSeconds(.4f);
-     if (CurrentHealth <= 0)
-     {
-         yield break;
-     }
 
- //If he can already Attack his enemy
-        yield return new WaitUntil(() => !_gameManager.CameraIsMoving);
-        Debug.Log("CharacterAI :: Before ShowPossibleAttack1 :: Character = " + gameObject.name);
-
-        if (!_IsSelfDestruct)
+    private bool CheckIfDead()
+    {
+        if (CurrentHealth <= 0)
         {
-            ShowNormalPossibleAttack();
-            _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-            yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-            if (_TimePathfindingCoroutine != null)
+            if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
             {
-                StopCoroutine(_TimePathfindingCoroutine);
-            }
-        }
-
-        Tile enemyTile = CheckIfOccupiedTileAreEnemy();
-        bool isSkillAttack = false;
-
-        if (enemyTile == null)
-        {
-            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile == null :: Character = " + gameObject.name);
-            isSkillAttack = true;
-            if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
-            {
-                _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
-                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished ||_TimePathfindingIsFinish );
-                if (_TimePathfindingCoroutine != null)
-                {
-                    StopCoroutine(_TimePathfindingCoroutine);
-                }
-                enemyTile = CheckIfOccupiedTileAreEnemy();
-            
-                if (enemyTile != null && _SkillAttack.IsDashAttack)
-                {
-                    Debug.Log("CharacterAI :: CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
-                    enemyTile = FindTileBehind(CurrentTile, enemyTile);
-                    if (enemyTile != null)
-                    {
-                        Debug.Log("CharacterAI :: BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
-                    }
-                } 
-            }
-        }
-
-        if (enemyTile != null )
-        {
-            Debug.Log("CharacterAI :: After ShowPossibleAttack1 enemyTile != null :: Character = " + gameObject.name);
-            
-            if (isSkillAttack)
-            {
-                _gameManager.StateAttackCharacter._Attack = _SkillAttack;
-            }
-            else
-            {
-                SetNormalAttackState();
+                _gameManager.NextCharacterTurn();
             }
 
-            yield return new WaitForSeconds(0.5f);
-            
-            Debug.Log("CharacterAI :: After ShowPossibleAttack1 and Set current attack enemyTile != null :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack);
-            
-            if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
-            {
-                _gameManager.SelectTile(enemyTile);
-            }
-            
-            _gameManager.SelectTile(enemyTile);
-
-            HaveAttacked = false;
-            _gameManager.Wait = true;
-            yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
-            yield return new WaitUntil(() => HaveAttacked);
-            yield return new WaitUntil(() => !_gameManager.Wait);
-
-            if (CurrentHealth <= 0)
-            {
-                if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
-                {
-                    _gameManager.NextCharacterTurn();
-                }
-                
-                yield break;
-            }
-
-            Debug.Log("CharacterAI :: Before ShowPossibleMove1 :: Character = " + gameObject.name);
-
-            if (CanMove)
-            {
-                yield return new WaitForSeconds(0.25f);
-                _gameManager.ShowPossibleMove(CurrentTile);
-                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                yield return new WaitUntil(() => _gameManager.PossibleMoveTileIsFinished || _TimePathfindingIsFinish);
-                if (_TimePathfindingCoroutine != null)
-                {
-                    StopCoroutine(_TimePathfindingCoroutine);
-                }
-                Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + " :: Character = " + gameObject.name);
-                if (_tileManager.GetSelectedTileLenght() <= 1)
-                {
-                    Tile tile = null;
-                    while (tile == null)
-                    {
-                        StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                        yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                        if (_TimePathfindingCoroutine != null)
-                        {
-                            StopCoroutine(_TimePathfindingCoroutine);
-                        }
-                        tile = GetNearestTile();
-
-                    }
-                    
-                    _gameManager.SelectTile(TryFoundBetterTile(tile));
-                    yield break;
-                }
-                
-                _gameManager.SelectTile(_tileManager.GetSelectedTile(Random.Range(1,_tileManager.GetSelectedTileLenght())));
-                _gameManager.Wait = true;
-                HaveMoved = false;
-                yield return new WaitForSeconds(TIME_MOVECHARACTER);
-                yield return new WaitUntil(() => HaveMoved);
-                yield return new WaitUntil(() => !_gameManager.Wait);
-                Debug.Log("CharacterAI :: Before GetNearestTile1 :: Character = " + gameObject.name);
-                yield return new WaitForSeconds(0.25f);
-                Tile NearestTile = null;
-                while (NearestTile == null)
-                {
-                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    NearestTile = GetNearestTile();
-
-                }
-                _gameManager.SelectTile(TryFoundBetterTile(NearestTile));
-                yield break;
-            }
-            else
-            {
-                Debug.Log("CharacterAI :: EndOfCharacterTurn :: Character = " + gameObject.name);
-                yield return new WaitForSeconds(0.25f);
-                Tile tile = null;
-                while (tile == null)
-                {
-                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    tile = GetNearestTile();
-
-                }
-                _gameManager.SelectTile(TryFoundBetterTile(tile));
-                yield break;
-            }
-
+            return true;
         }
         else
         {
-            if (!CanMove)
-            {
-                Debug.Log("CharacterAI :: !CanMove :: Character = " + gameObject.name);
-                yield return new WaitForSeconds(0.25f);
-                Tile tile = null;
-                while (tile == null)
-                {
-                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    tile = GetNearestTile();
-
-                }
-
-                _gameManager.SelectTile(TryFoundBetterTile(tile));
-                yield break;
-            }
-
-            //Moves towards his enemy
-            Debug.Log("CharacterAI :: Before ShowPossibleMove2 :: Character = " + gameObject.name);
-            _gameManager.ShowPossibleMove(CurrentTile);
-            _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-            yield return new WaitUntil(() => _gameManager.PossibleMoveTileIsFinished || _TimePathfindingIsFinish);
-            if (_TimePathfindingCoroutine != null)
-            {
-                StopCoroutine(_TimePathfindingCoroutine);
-            }
-
-            if (_tileManager.GetSelectedTileLenght() <= 1)
-            {
-                yield return new WaitForSeconds(0.25f);
-                Tile tile = null;
-                while (tile == null)
-                {
-                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    tile = GetNearestTile();
-
-                }
-                _gameManager.SelectTile(TryFoundBetterTile(tile));
-                yield break;
-            }
-            Debug.Log("CharacterAI :: Before GetNearestTile1 GetSelectedTileLenght =  " + _tileManager.GetSelectedTileLenght() + ":: Character = " + gameObject.name);
-            //If his enemy is a on moveTile
-            enemyTile = FindBestPossibleMoveTile();
-            
-            if (enemyTile != null)
-            {
-                Debug.Log("CharacterAI :: FindBestPossibleMoveTile ::  Character = " + gameObject.name + " bestMatchTile != null");
-                _gameManager.CurrentState = _gameManager.StateMoveCharacter;
-                _gameManager.SelectTile(enemyTile);
-                HaveMoved = false;
-                _gameManager.Wait = true;
-                yield return new WaitForSeconds(TIME_MOVECHARACTER);
-                yield return new WaitUntil(() => HaveMoved);
-                yield return new WaitUntil(() => !_gameManager.Wait);
-                Debug.Log("CharacterAI :: Before ShowPossibleAttack2 :: Character = " + gameObject.name);
-                ShowNormalPossibleAttack();
-                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-                if (_TimePathfindingCoroutine != null)
-                {
-                    StopCoroutine(_TimePathfindingCoroutine);
-                }
-                enemyTile = CheckIfOccupiedTileAreEnemy();
-                
-                isSkillAttack = false;
-
-                if (enemyTile == null)
-                {
-                    isSkillAttack = true;
-
-                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
-                    {
-                        _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
-                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                        yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-                        if (_TimePathfindingCoroutine != null)
-                        {
-                            StopCoroutine(_TimePathfindingCoroutine);
-                        }
-                        enemyTile = CheckIfOccupiedTileAreEnemy();
-                    
-                        if (enemyTile != null && _SkillAttack.IsDashAttack)
-                        {
-                            Debug.Log("CharacterAI ::CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
-                            enemyTile = FindTileBehind(CurrentTile, enemyTile);
-                            if (enemyTile != null)
-                            {
-                                Debug.Log("CharacterAI ::BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
-                            }
-                        }
-                    }
-                }
-                
-                if (enemyTile != null)
-                {
-                    if (isSkillAttack)
-                    {
-                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
-                    }
-                    else
-                    {
-                        SetNormalAttackState();
-                    }
-
-                    yield return new WaitForSeconds(0.5f);
-                    
-                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
-                    {
-                        _gameManager.SelectTile(enemyTile);
-                    }
-                    
-                    _gameManager.SelectTile(enemyTile);
-               
-                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
-                    _gameManager.Wait = true;
-                    HaveAttacked = false;
-                    yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
-                    yield return new WaitUntil(() => !_gameManager.Wait);
-                    yield return new WaitUntil(() => HaveAttacked);
-                    
-                    if (CurrentHealth <= 0)
-                    {
-                        if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
-                        {
-                            _gameManager.NextCharacterTurn();
-                        }
-                        
-                        yield break;
-                    }
-                    
-                    yield return new WaitForSeconds(0.25f);
-                    Tile tile = null;
-                    while (tile == null)
-                    {
-                        StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                        yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                        if (_TimePathfindingCoroutine != null)
-                        {
-                            StopCoroutine(_TimePathfindingCoroutine);
-                        }
-                        tile = GetNearestTile();
-
-                    }
-                    _gameManager.SelectTile(TryFoundBetterTile(tile));
-                    yield break;
-                }
-            }
-            else
-            {
-                Debug.Log("CharacterAI :: FindBestPossibleMoveTile :: Character = " + gameObject.name + " bestMatchTile == null");
-                //Select nearest possible MoveTile to reach his enemy 
-                _gameManager.SelectTile(GetNearestTile());
-                HaveMoved = false;
-                _gameManager.Wait = true;
-                yield return new WaitForSeconds(TIME_MOVECHARACTER);
-                yield return new WaitUntil(() => HaveMoved);
-                yield return new WaitUntil(() => !_gameManager.Wait);
-                Debug.Log("CharacterAI :: Before ShowPossibleAttack3 :: Character = " + gameObject.name);
-                ShowNormalPossibleAttack();
-                _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-                if (_TimePathfindingCoroutine != null)
-                {
-                    StopCoroutine(_TimePathfindingCoroutine);
-                }
-                enemyTile = CheckIfOccupiedTileAreEnemy();
-                
-                isSkillAttack = false;
-
-                if (enemyTile == null)
-                {
-                     Debug.Log("CharacterAI :: Before ShowPossibleAttack4 :: Character = " + gameObject.name);
-                    isSkillAttack = true;
-                    if (_SkillAttack != null && !_SkillAttack.IsSpawnSkill)
-                    {
-                        _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
-                        _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                        yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-                        if (_TimePathfindingCoroutine != null)
-                        {
-                            StopCoroutine(_TimePathfindingCoroutine);
-                        }
-                        enemyTile = CheckIfOccupiedTileAreEnemy();
-
-                        if (enemyTile != null && _SkillAttack.IsDashAttack)
-                        {
-                            Debug.Log("CurrentTile.CoordX = " + CurrentTile.CoordX + "  CurrentTile.CoordY = " + CurrentTile.CoordY + "  enemyTile.CoordX = " + enemyTile.CoordX + "  enemyTile.CoordY = " + enemyTile.CoordY);
-                            enemyTile = FindTileBehind(CurrentTile, enemyTile);
-                            if (enemyTile != null)
-                            {
-                                Debug.Log("BehindTile.CoordX = " + enemyTile.CoordX + "  BehindTile.CoordY = " + enemyTile.CoordY);
-                            }
-                        }
-                    }
-                }
-
-                if (enemyTile != null)
-                {
-                    if (isSkillAttack)
-                    {
-                        _gameManager.StateAttackCharacter._Attack = _SkillAttack;
-                    }
-                    else
-                    {
-                        SetNormalAttackState();
-                    }
-
-                    Debug.Log("CharacterAI :: after Attack :: Character = " + gameObject.name + " attack = " + _gameManager.StateAttackCharacter._Attack.name);
-                    yield return new WaitForSeconds(0.5f);
-                    if (!_gameManager.StateAttackCharacter._Attack.IsDashAttack)
-                    {
-                        _gameManager.SelectTile(enemyTile);
-                    }
-                    
-                    _gameManager.SelectTile(enemyTile);
-                    _gameManager.Wait = true;
-                    HaveAttacked = false;
-                    yield return new WaitForSeconds(TIME_ATTACKCHARACTER);
-                    yield return new WaitUntil(() => !_gameManager.Wait);
-                    yield return new WaitUntil(() => HaveAttacked);
-                    if (CurrentHealth <= 0)
-                    {
-                        if (_gameManager.CurrentCharacterTurn != null && _gameManager.CurrentCharacterTurn == this)
-                        {
-                            _gameManager.NextCharacterTurn();
-                        }
-
-                        yield break;
-                    }
-                }
-
-                if (CurrentHealth <= 0)
-                {
-                    yield break;
-                }
-                if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null)
-                {
-                    Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
-                    _gameManager.ShowPossibleAttack(CurrentTile, false, _SkillAttack);
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleAttackTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    _gameManager.StateAttackCharacter._Attack = _SkillAttack;
-                    List<Tile> possibleSpawnTile = new List<Tile>();
-                    
-                    for (int i = 0; i < CurrentTile.SideTiles.Length; i++)
-                    {
-                        if (CurrentTile.SideTiles[i] != null && !CurrentTile.SideTiles[i].IsOccupied && !CurrentTile.SideTiles[i].IsPotionTile)
-                        {
-                            possibleSpawnTile.Add(CurrentTile.SideTiles[i]);
-                        }
-                    }
-
-                    if (possibleSpawnTile.Count > 0)
-                    {
-                        int randomInt = Random.Range(0, possibleSpawnTile.Count);
-                        _gameManager.SelectTile(possibleSpawnTile[randomInt]);
-                    }
-
-                    yield return new WaitForSeconds(4);
-
-                }
-                
-                yield return new WaitForSeconds(0.25f);
-                Tile tile = null;
-                while (tile == null)
-                {
-                    StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0));
-                    _TimePathfindingCoroutine = StartCoroutine(TimePathFinding());
-                    yield return new WaitUntil(() => _gameManager.PossibleEndTurnDirectionTileIsFinished || _TimePathfindingIsFinish);
-                    if (_TimePathfindingCoroutine != null)
-                    {
-                        StopCoroutine(_TimePathfindingCoroutine);
-                    }
-                    tile = GetNearestTile();
-
-                }
-                _gameManager.SelectTile(TryFoundBetterTile(tile));
-                yield break;
-            }
+            return false;
         }
     }
     

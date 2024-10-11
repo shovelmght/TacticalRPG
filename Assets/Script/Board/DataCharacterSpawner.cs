@@ -29,7 +29,9 @@ public class DataCharacterSpawner : ScriptableObject
         RobotAI = 9,
         Turret = 10,
         SelfDestructRobot = 11,
-        SelfDestructRobotAI = 12
+        SelfDestructRobotAI = 12,
+        DevilBoss = 13,
+        DevilBossAI = 14
     }
     
     public enum CharactersAbility1

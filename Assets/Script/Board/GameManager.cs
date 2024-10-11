@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     public GameObject TurretPrefab;
     public GameObject SelfDestructRobotPrefab;
     public GameObject SelfDestructRobotAIPrefab;
+    public GameObject DevilBossPrefab;
+    public GameObject DevilBossAIPrefab;
     public GameObject ArrowsPrefab;
     public GameObject CameraButton;
     [field: SerializeField] public Transform BoardCamera { get; private set; }
@@ -602,6 +604,20 @@ public class GameManager : MonoBehaviour
             SelfDestructRobotAIGo.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             return SelfDestructRobotAIGo;
         }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.DevilBoss)
+        {
+            GameObject devilBoss = Instantiate(DevilBossPrefab, position, Quaternion.identity);
+            devilBoss.transform.localScale = new Vector3(2, 2, 2);
+            return devilBoss;
+        }
+        
+        if (charactersPrefab == DataCharacterSpawner.CharactersPrefab.DevilBossAI)
+        {
+            GameObject devilBossAI = Instantiate(DevilBossAIPrefab, position, Quaternion.identity);
+            devilBossAI.transform.localScale = new Vector3(2, 2, 2);
+            return devilBossAI;
+        }
 
         return null;
     }
@@ -1028,11 +1044,15 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("MapScene");
         }
     }
-    
 
+
+    private bool _IsChangingCharacterTurn;
     //Go to next character turn
     public void NextCharacterTurn()
     {
+      if(_IsChangingCharacterTurn == true) {return;}
+
+      _IsChangingCharacterTurn = true;
       
         if (CurrentCharacterTurn != null)
         {
@@ -1105,6 +1125,7 @@ public class GameManager : MonoBehaviour
 
         CurrentState = StateNavigation;
         SelectTile(CurrentCharacterTurn.CurrentTile);
+        _IsChangingCharacterTurn = false;
     }
 
     //Spawn Arrows for chose a Direction (end of character turn)

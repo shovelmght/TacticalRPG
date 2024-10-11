@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerDataCharacterSpawner
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 0
+  - CharactersPrefab: 13
     Team: 1
     Ability1: 1
     Name: Franck

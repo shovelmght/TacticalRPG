@@ -220,7 +220,6 @@ public class Character : MonoBehaviour
         AudioManager._Instance.SpawnSound( AudioManager._Instance._FireDamage);
         HitParticleSystem.startColor = Color.red;
         HitParticleSystem.Play();
-        CurrentHealth -= 50;
         CurrentHealth -= (MaxHealth / 4);
         if (CurrentHealth <= 0)
         {
