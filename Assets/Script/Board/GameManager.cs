@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
     public MapTilesManager _MapTilesManager_Corner3;
     public MapTilesManager _MapTilesManager_Corner4;
 
-    private const int MAX_OCCUPIED_TILES = 30;
+    private const int MAX_OCCUPIED_TILES = 60;
 
     public Action SelectCharacter;
     public Action RemoveUICharacter;
@@ -423,15 +423,6 @@ public class GameManager : MonoBehaviour
         character.name = dataCharacterSpawner.Name;
         Character characterReference = character.GetComponent<Character>();
         characterReference.CurrentTile = tile;
-        switch (dataCharacterSpawner.Ability1)
-        {
-            case DataCharacterSpawner.CharactersAbility1.None:
-                break;
-            case DataCharacterSpawner.CharactersAbility1.AounterAttack:
-                new CounterAbility(characterReference, this);
-                break;
-        }
-        
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
         AllCharacterGo.Add(character.transform);
@@ -455,12 +446,19 @@ public class GameManager : MonoBehaviour
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
         }
         
+        characterReference.SetAbility(dataCharacterSpawner.Ability1);
+        characterReference.SetAbility(dataCharacterSpawner.Ability2);
+        characterReference.SetAbility(characterReference.BaseAbility1);
+        characterReference.SetAbility(characterReference.BaseAbility2);
+        
         if (!_IsMapScene)
         {
             characterReference.SetElementEffect(tile.IsWater, true);
         }
         return true;
     }
+
+
 
     public void SpawnMobCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.CharactersPrefab CharactersPrefab, bool canMove)
     {

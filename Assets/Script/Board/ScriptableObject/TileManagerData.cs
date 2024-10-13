@@ -37,4 +37,5 @@ public class TileManagerData : ScriptableObject
 
     public bool _IsLava;
     public bool _IsPoison;
+    public bool _IsWater;
 }

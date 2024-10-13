@@ -16,11 +16,13 @@ MonoBehaviour:
   - CharactersPrefab: 9
     Team: 2
     Ability1: 0
+    Ability2: 0
     Name: Pops
     Class: ss
-  - CharactersPrefab: 7
+  - CharactersPrefab: 14
     Team: 2
     Ability1: 1
+    Ability2: 0
     Name: Mark
     Class: ss
   TeamColor: 7

@@ -61,3 +61,6 @@ MonoBehaviour:
   <HeightChanceBackgroundTiles>k__BackingField: 60
   <decorsChanceBackgroundTiles>k__BackingField: 50
   <WantColumn>k__BackingField: 0
+  _IsLava: 0
+  _IsPoison: 0
+  _IsWater: 1

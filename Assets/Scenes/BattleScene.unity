@@ -1864,7 +1864,7 @@ MonoBehaviour:
   SelfDestructRobotPrefab: {fileID: 1089474552833195670, guid: 78d452e736cd3274293571f4b2a2ce9b, type: 3}
   SelfDestructRobotAIPrefab: {fileID: 1089474552833195670, guid: 46daf5072df5218469007d90721ea9c5, type: 3}
   DevilBossPrefab: {fileID: 1089474552833195670, guid: 5754de782cdca504baaf6fca5718c039, type: 3}
-  DevilBossAIPrefab: {fileID: 0}
+  DevilBossAIPrefab: {fileID: 1089474552833195670, guid: 11f972519b59b054787154d68f4a022a, type: 3}
   ArrowsPrefab: {fileID: 8831873574968955794, guid: d57a5e8d1b9df8e4299e3572f0b71d80, type: 3}
   CameraButton: {fileID: 354677815}
   <BoardCamera>k__BackingField: {fileID: 1097121896}
@@ -1893,8 +1893,8 @@ MonoBehaviour:
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   _RandomMap: 0
-  _ForceTileManager: 1
-  _UnitTest: 0
+  _ForceTileManager: 0
+  _UnitTest: 1
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}

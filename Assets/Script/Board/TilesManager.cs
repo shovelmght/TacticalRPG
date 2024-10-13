@@ -322,13 +322,11 @@ public class TilesManager: MonoBehaviour
     {
         if (_gameManager._GameIsFinish) { return; }
         
-
-                if (currentTile.IsOccupied)
-                {
-                    _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
-                    _gameManager.IndexOccupiedTiles++;
-                }
-
+        if (currentTile.IsOccupied)
+        {
+            _gameManager.OccupiedTiles[ _gameManager.IndexOccupiedTiles] = currentTile;
+            _gameManager.IndexOccupiedTiles++;
+        }
                 
         int nbrOfContinue = 0;
 

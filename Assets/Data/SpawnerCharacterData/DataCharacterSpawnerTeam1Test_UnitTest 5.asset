@@ -16,16 +16,19 @@ MonoBehaviour:
   - CharactersPrefab: 7
     Team: 1
     Ability1: 0
+    Ability2: 0
     Name: Star
     Class: ss
-  - CharactersPrefab: 3
+  - CharactersPrefab: 14
     Team: 1
     Ability1: 1
+    Ability2: 0
     Name: Pit
     Class: ss
   - CharactersPrefab: 9
     Team: 1
     Ability1: 1
+    Ability2: 0
     Name: Link
     Class: ss
   TeamColor: 3

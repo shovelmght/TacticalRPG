@@ -8,9 +8,10 @@ public class AreaAttack : Attack
 {
     protected static readonly int Attack = Animator.StringToHash("Attack");
     [SerializeField] private GameObject _ParticleEffectPrefab;
-    [SerializeField] private float _SpawnProjectileDelay = 1.0f;
-    [SerializeField] private float _HeightGabToAdd = 10.0f;
-    [SerializeField] private float _MovementSpeed = 10.0f;
+    [SerializeField] private GameObject _TileParticleEffectPrefab;
+    [SerializeField] private bool _SelfDestroyAfterAttack;
+    
+
 
     public override void DoAttack(Character character, Tile tiles, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
@@ -21,6 +22,13 @@ public class AreaAttack : Attack
 
     private IEnumerator ExplosionAttack(Character character)
     {
+        if (_TileParticleEffectPrefab != null)
+        {
+            for (int i = 0; i < TilesManager.Instance.GetSelectedTileLenght(); i++)
+            {
+                Instantiate(_TileParticleEffectPrefab, TilesManager.Instance.GetSelectedTile(i).Position, Quaternion.identity);
+            }
+        }
         TilesManager.Instance.DeselectTiles();
         AudioManager._Instance.SpawnSound(PreSfx);
         character.CharacterAnimator.SetTrigger(AttackAnimationName);
@@ -32,6 +40,7 @@ public class AreaAttack : Attack
         yield return new WaitForSeconds(0.25f);
         Instantiate(_ParticleEffectPrefab, character.transform.position, Quaternion.Euler(-90, 0, 0));
 
+        bool characterAttackedHaveCounterAbility = false;
         for (int i = 0; i < GameManager.Instance.IndexOccupiedTiles; i++)
         {
             Character characterReference = GameManager.Instance.OccupiedTiles[i].CharacterReference;
@@ -43,21 +52,35 @@ public class AreaAttack : Attack
 
             AudioManager._Instance.SpawnSound(GameManager.Instance.StateAttackCharacter._Attack.ImpactSfx);
             characterReference.IsAttacked(Power * character.Strength, character._isCounterAttack, _IsFire);
-        }
-
-        if (character.IsAI)
-        {
-            if (GameManager.Instance.CurrentCharacter != null && GameManager.Instance.CurrentCharacterTurn == character)
-            {
-                GameManager.Instance.NextCharacterTurn();
-            }
             
+            if (characterReference.HaveCounterAbility)
+            {
+                characterAttackedHaveCounterAbility = true;
+            }
         }
-        character.DestroyCharacter();
-       
-        
+
+        if (_SelfDestroyAfterAttack)
+        {
+            character.transform.GetChild(0).gameObject.SetActive(false);
+            if (character.IsAI)
+            {
+                if (GameManager.Instance.CurrentCharacter != null && GameManager.Instance.CurrentCharacterTurn == character)
+                {
+                    GameManager.Instance.NextCharacterTurn();
+                }
+            
+            }
+            character.DestroyCharacter();
+        }
+        else
+        {
+            yield return new WaitForSeconds(3);
+            character.HaveAttacked = true;
+            
+            if (!characterAttackedHaveCounterAbility)
+            {
+                GameManager.Instance.Wait = false;
+            }
+        }
     }
-
-
-
 }

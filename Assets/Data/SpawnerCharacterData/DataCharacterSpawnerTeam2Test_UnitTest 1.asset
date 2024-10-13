@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam2Test_UnitTest 1
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 3
+  - CharactersPrefab: 14
     Team: 2
     Ability1: 0
+    Ability2: 0
     Name: Mac
     Class: ss
   - CharactersPrefab: 3
     Team: 2
     Ability1: 1
+    Ability2: 0
     Name: Cap
     Class: ss
   - CharactersPrefab: 7
     Team: 2
     Ability1: 1
+    Ability2: 0
     Name: Old
     Class: ss
   TeamColor: 5

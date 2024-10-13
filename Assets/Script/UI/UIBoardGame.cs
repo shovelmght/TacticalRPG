@@ -99,12 +99,9 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-
-        
-
-            if (_boardManager.CurrentCharacter.CurrentTile.IsWater)
+            if (_boardManager.CurrentCharacter.CurrentTile.IsWater || GameManager.Instance.CurrentCharacterTurn.GetInFire())
             {
-                if (_boardManager._tileManager.TileManagerData._IsLava)
+                if (_boardManager._tileManager.TileManagerData._IsLava || GameManager.Instance.CurrentCharacterTurn.GetInFire())
                 {
                     NormalAttackName.text = _boardManager.CurrentCharacter._FireAttack.AttackName;
                     ElemantalButtonAnimator.SetBool(Water, false);
@@ -118,7 +115,7 @@ public class UIBoardGame : MonoBehaviour
                     ElemantalButtonAnimator.SetBool(Poison, true);
                     ElemantalButtonAnimator.SetBool(Fire, false);
                 }
-                else
+                else if(_boardManager._tileManager.TileManagerData._IsWater)
                 {
                     NormalAttackName.text = _boardManager.CurrentCharacter._WaterAttack.AttackName;
                     ElemantalButtonAnimator.SetBool(Water, true);
@@ -159,9 +156,9 @@ public class UIBoardGame : MonoBehaviour
         
         if (!_boardManager.CurrentCharacter.HaveAttacked && GameManager.Instance.CurrentCharacter.CurrentTile != null && !_boardManager.Wait)
         {
-            if (GameManager.Instance.CurrentCharacter.CurrentTile.IsWater)
+            if (GameManager.Instance.CurrentCharacter.CurrentTile.IsWater || GameManager.Instance.CurrentCharacterTurn.GetInFire())
             {
-                if (_boardManager._tileManager.TileManagerData._IsLava)
+                if (_boardManager._tileManager.TileManagerData._IsLava || GameManager.Instance.CurrentCharacterTurn.GetInFire())
                 {
                     _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._FireAttack;
                     _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._FireAttack);
@@ -171,7 +168,7 @@ public class UIBoardGame : MonoBehaviour
                     _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._PoisonAttack;
                     _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._PoisonAttack);
                 }
-                else
+                else if(_boardManager._tileManager.TileManagerData._IsWater)
                 {
                     _boardManager.StateAttackCharacter._Attack = GameManager.Instance.CurrentCharacter._WaterAttack;
                     _boardManager.ShowPossibleAttack(GameManager.Instance.CurrentCharacter.CurrentTile, false, GameManager.Instance.CurrentCharacter._WaterAttack);

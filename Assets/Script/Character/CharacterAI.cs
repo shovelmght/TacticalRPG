@@ -511,52 +511,48 @@ public class CharacterAI : Character
 
     private void ShowNormalPossibleAttack()
     {
-        if (_WaterAttack != null)
-        {
-            if (CurrentTile.IsWater)
+     
+            if (CurrentTile.IsWater || InFire)
             {
-                if (_gameManager._tileManager.TileManagerData._IsLava)
+                if (_FireAttack != null && _gameManager._tileManager.TileManagerData._IsLava || _FireAttack != null && InFire)
                 {
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _FireAttack);
                 }
-                else if (_gameManager._tileManager.TileManagerData._IsPoison)
+                else if (_PoisonAttack != null && _gameManager._tileManager.TileManagerData._IsPoison)
                 {
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _PoisonAttack);
                 }
-                else
+                else if(_WaterAttack != null && _gameManager._tileManager.TileManagerData._IsWater)
                 {
                     _gameManager.ShowPossibleAttack(CurrentTile, false, _WaterAttack);
+                }
+                else
+                {
+                    _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
                 }
             }
             else
             {
                 _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
             }
-        }
-        else
-        {
-            _gameManager.ShowPossibleAttack(CurrentTile, false, _Attack);
-        }
+
     }
     
     private void SetNormalAttackState()
     {
-        if (_WaterAttack != null)
+        if (CurrentTile.IsWater || InFire)
         {
-            if (CurrentTile.IsWater)
+            if (_FireAttack != null && _gameManager._tileManager.TileManagerData._IsLava || _FireAttack != null && InFire)
             {
-                if (_gameManager._tileManager.TileManagerData._IsLava)
-                {
-                    _gameManager.StateAttackCharacter._Attack =  _FireAttack;
-                }
-                else if (_gameManager._tileManager.TileManagerData._IsPoison)
-                {
-                    _gameManager.StateAttackCharacter._Attack =  _PoisonAttack;
-                }
-                else
-                {
-                    _gameManager.StateAttackCharacter._Attack =  _WaterAttack;
-                }
+                _gameManager.StateAttackCharacter._Attack =  _FireAttack;
+            }
+            else if (_PoisonAttack != null && _gameManager._tileManager.TileManagerData._IsPoison)
+            {
+                _gameManager.StateAttackCharacter._Attack =  _PoisonAttack;
+            }
+            else if (_WaterAttack != null && _gameManager._tileManager.TileManagerData._IsWater)
+            {
+                _gameManager.StateAttackCharacter._Attack =  _WaterAttack;
             }
             else
             {

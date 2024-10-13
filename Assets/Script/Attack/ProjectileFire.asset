@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed48266c48cfd844b1bf8a24a13a84d, type: 3}
   m_Name: ProjectileFire
   m_EditorClassIdentifier: 
-  Power: 22
-  AttackLenght: 3
+  Power: 35
+  AttackLenght: 2
   AttackName: Fire Attack
   AttackAnimationName: Attack
   IsProjectile: 1

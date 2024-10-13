@@ -16,6 +16,9 @@ MonoBehaviour:
   - CharactersPrefab: 13
     Team: 1
     Ability1: 1
+    Ability2: 0
+    BaseAbility1: 2
+    BaseAbility2: 4
     Name: Franck
     Class: Knight
   TeamColor: 0

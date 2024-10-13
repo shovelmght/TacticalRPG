@@ -5296,6 +5296,8 @@ MonoBehaviour:
   - {fileID: 3957362453746616502}
   _ElemenFireCharactertParticleEffect: {fileID: 7866086857086317595}
   _HitFireParticleEffect: {fileID: 8626794703112581128}
+  BaseAbility1: 3
+  BaseAbility2: 0
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 4
   <MovementPoint>k__BackingField: 5
@@ -5331,7 +5333,7 @@ MonoBehaviour:
   CanMove: 1
   _CanSpawnParticle: 1
   _Attack: {fileID: 11400000, guid: 6d4f2163863cbcd4496917d2c466ef3e, type: 2}
-  _SkillAttack: {fileID: 11400000, guid: 98856cf766e10cb47b687c39e85fd152, type: 2}
+  _SkillAttack: {fileID: 11400000, guid: 007fa6b3915fa8d45b431ea94ccaa02e, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
   _PoisonAttack: {fileID: 11400000, guid: 485d3f8ff9f9cdf478edeea55eb61a3e, type: 2}
   _FireAttack: {fileID: 11400000, guid: 1c1d33adf5dcb0040832efcf63680b29, type: 2}

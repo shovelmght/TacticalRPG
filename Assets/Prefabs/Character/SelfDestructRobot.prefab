@@ -5804,6 +5804,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7226888052703040409, guid: 718197018998fdd46931159af0a9f632, type: 3}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: BaseAbility1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: _SkillAttack
       value: 
       objectReference: {fileID: 0}

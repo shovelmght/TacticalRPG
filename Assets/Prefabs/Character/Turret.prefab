@@ -3827,6 +3827,8 @@ MonoBehaviour:
   _ElemenCharactertParticleEffect: []
   _ElemenFireCharactertParticleEffect: {fileID: 1258292126908695817}
   _HitFireParticleEffect: {fileID: 6192896420335278850}
+  BaseAbility1: 3
+  BaseAbility2: 0
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 6
   <MovementPoint>k__BackingField: 4

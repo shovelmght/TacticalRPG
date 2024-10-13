@@ -25,6 +25,8 @@ public class Character : MonoBehaviour
     public ParticleSystem[] _ElemenCharactertParticleEffect;
     public GameObject _ElemenFireCharactertParticleEffect;
     public GameObject _HitFireParticleEffect;
+    public DataCharacterSpawner.CharactersAbility1 BaseAbility1;
+    public DataCharacterSpawner.CharactersAbility1 BaseAbility2;
 
     [field: SerializeField] public int MaxHealth { get; private set; } = 100;
     [field: SerializeField] public int Strength { get; private set; } = 2;
@@ -70,7 +72,7 @@ public class Character : MonoBehaviour
     public bool IsAI { get; set; }
 
     public bool CanMove = true;
-
+    
     public bool _CanSpawnParticle = true;
     public bool HaveCounterAbility { get; set; }
     public Character _IncomingAttacker { get; set; }
@@ -112,6 +114,9 @@ public class Character : MonoBehaviour
     private bool _SkipCounter;
     private bool _CanHit = false;
     private bool _turn;
+    private bool ImmuneToFire;
+    private bool ImmuneToPoison;
+    protected bool InFire;
 
     private const float ROATION_TIME = 1;
 
@@ -251,7 +256,6 @@ public class Character : MonoBehaviour
         AudioManager._Instance.SpawnSound( AudioManager._Instance._FireDamage);
         HitParticleSystem.startColor = Color.red;
         HitParticleSystem.Play();
-        CurrentHealth -= 50;
         CurrentHealth -= (MaxHealth / 4);
         if (CurrentHealth <= 0)
         {
@@ -667,7 +671,7 @@ public class Character : MonoBehaviour
     {
         if (isWater)
         {
-            if (GameManager.Instance._tileManager.TileManagerData._IsLava)
+            if (GameManager.Instance._tileManager.TileManagerData._IsLava && !ImmuneToFire)
             {
                 if (isSpawn)
                 {
@@ -692,50 +696,57 @@ public class Character : MonoBehaviour
                     elemenCharactertParticleEffect.startColor = Color.red;
                 }
             }
-            else if (GameManager.Instance._tileManager.TileManagerData._IsPoison)
+            else if (GameManager.Instance._tileManager.TileManagerData._IsPoison && !ImmuneToPoison)
             {
                 StartCoroutine(AddPoisonEffect());
-                _ElemenFireCharactertParticleEffect.SetActive(false);
+                if (!InFire)
+                {
+                    _ElemenFireCharactertParticleEffect.SetActive(false);
                 
-                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
-                {
-                    elementSwordParticleEffect.gameObject.SetActive(true);
-                    elementSwordParticleEffect.startColor = Color.green;
+                    foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                    {
+                        elementSwordParticleEffect.gameObject.SetActive(true);
+                        elementSwordParticleEffect.startColor = Color.green;
+                    }
+
+                    foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+                    {
+                        elemenCharactertParticleEffect.gameObject.SetActive(true);
+                        elemenCharactertParticleEffect.startColor = Color.green;
+                    }
                 }
 
-                foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
-                {
-                    elemenCharactertParticleEffect.gameObject.SetActive(true);
-                    elemenCharactertParticleEffect.startColor = Color.green;
-                }
             }
-            else
+            else if(GameManager.Instance._tileManager.TileManagerData._IsWater)
             {
-
-                _ElemenFireCharactertParticleEffect.SetActive(false);
-                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                if (!InFire)
                 {
-                    elementSwordParticleEffect.gameObject.SetActive(true);
-                    elementSwordParticleEffect.startColor = Color.cyan;
+                    _ElemenFireCharactertParticleEffect.SetActive(false);
+                    foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                    {
+                        elementSwordParticleEffect.gameObject.SetActive(true);
+                        elementSwordParticleEffect.startColor = Color.cyan;
+                    }
+
+                    foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
+                    {
+                        elemenCharactertParticleEffect.gameObject.SetActive(true);
+                        elemenCharactertParticleEffect.startColor = Color.cyan;
+                    }
                 }
-
-                foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
-                {
-                    elemenCharactertParticleEffect.gameObject.SetActive(true);
-                    elemenCharactertParticleEffect.startColor = Color.cyan;
-                }
-
-
             }
         }
         else
         {
-            _ElemenFireCharactertParticleEffect.SetActive(false);
-            foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+            if (!InFire)
             {
-                elementSwordParticleEffect.gameObject.SetActive(false);
+                _ElemenFireCharactertParticleEffect.SetActive(false);
+                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                {
+                    elementSwordParticleEffect.gameObject.SetActive(false);
+                }
             }
-
+            
             foreach (var elemenCharactertParticleEffect in _ElemenCharactertParticleEffect)
             {
                 elemenCharactertParticleEffect.gameObject.SetActive(false);
@@ -782,6 +793,8 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
     private IEnumerator AddPoisonEffect()
     {
+        if (ImmuneToPoison) {yield break;}
+    
         AudioManager._Instance.SpawnSound( AudioManager._Instance._PoisonDamage);
         _IsPoisoned += 3;
         _PoisonParticleEffect.SetActive(false);
@@ -1237,6 +1250,38 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 break;
             }
         }
+    }
+    
+    public void SetAbility( DataCharacterSpawner.CharactersAbility1 ability)
+    {
+        switch (ability)
+        {
+            case DataCharacterSpawner.CharactersAbility1.None:
+                break;
+            case DataCharacterSpawner.CharactersAbility1.CounterAttack:
+                new CounterAbility(this, GameManager.Instance);
+                break;
+            case DataCharacterSpawner.CharactersAbility1.ImmuneToFire:
+                ImmuneToFire = true;
+                break;
+            case DataCharacterSpawner.CharactersAbility1.ImmuneToPoison:
+                ImmuneToPoison = true;
+                break;
+            case DataCharacterSpawner.CharactersAbility1.InFire:
+                InFire = true;
+                _ElemenFireCharactertParticleEffect.SetActive(true);
+                foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)
+                {
+                    elementSwordParticleEffect.gameObject.SetActive(true);
+                    elementSwordParticleEffect.startColor = Color.red;
+                }
+                break;
+        }
+    }
+
+    public bool GetInFire()
+    {
+        return InFire;
     }
 }
 

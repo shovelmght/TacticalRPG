@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam1Test_UnitTest 3
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 5
+  - CharactersPrefab: 14
     Team: 1
     Ability1: 0
+    Ability2: 0
     Name: Jack
     Class: ss
   - CharactersPrefab: 7
     Team: 1
     Ability1: 1
+    Ability2: 0
     Name: Marv
     Class: ss
   - CharactersPrefab: 9
     Team: 1
     Ability1: 1
+    Ability2: 0
     Name: Joey
     Class: ss
   TeamColor: 1

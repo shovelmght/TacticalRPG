@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e662688f0b5143349ae3abe305c5d83f, type: 3}
-  m_Name: ExplosionAttack
+  m_Name: FireAreaAttack
   m_EditorClassIdentifier: 
   Power: 25
-  AttackLenght: 3
-  AttackName: Explostion
-  AttackAnimationName: Shake
+  AttackLenght: 5
+  AttackName: Fire Wave
+  AttackAnimationName: Spell
   IsProjectile: 0
   IsLineAttack: 0
   IsDashAttack: 0
@@ -24,17 +24,17 @@ MonoBehaviour:
   IsReapeatableAttack: 0
   SoftBattleZoom: 1
   _IsPoison: 0
-  _IsFire: 0
+  _IsFire: 1
   PreSfx:
-    _AudioClip: {fileID: 8300000, guid: 60b414a3a002dd6428ad3ce0ef915577, type: 3}
-    _RelativeVolume: 0.2
-    _MinRandomPitch: 0.9
-    _MaxRandomPitch: 1.1
+    _AudioClip: {fileID: 8300000, guid: 0d59d2d3754fead459824e3077908c14, type: 3}
+    _RelativeVolume: 0.4
+    _MinRandomPitch: 0.2
+    _MaxRandomPitch: 0.2
   SfxAtSpawn:
-    _AudioClip: {fileID: 8300000, guid: 92d1d101e18c82e469b21c7b38116d19, type: 3}
+    _AudioClip: {fileID: 8300000, guid: 5457cbc64defb9c48a8cfc202089d4c3, type: 3}
     _RelativeVolume: 0.5
-    _MinRandomPitch: 0.9
-    _MaxRandomPitch: 1.1
+    _MinRandomPitch: 0.65
+    _MaxRandomPitch: 0.8
   ImpactSfx:
     _AudioClip: {fileID: 8300000, guid: ac2ce78b699ad1d4fb0965ed7046b51c, type: 3}
     _RelativeVolume: 0.1
@@ -45,6 +45,6 @@ MonoBehaviour:
     _RelativeVolume: 0
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
-  _ParticleEffectPrefab: {fileID: 7226888052703040409, guid: 718197018998fdd46931159af0a9f632, type: 3}
-  _TileParticleEffectPrefab: {fileID: 0}
-  _SelfDestroyAfterAttack: 1
+  _ParticleEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
+  _TileParticleEffectPrefab: {fileID: 8172849020266659018, guid: 2f78035ccd7aa4b4e98fa54abb174a31, type: 3}
+  _SelfDestroyAfterAttack: 0
