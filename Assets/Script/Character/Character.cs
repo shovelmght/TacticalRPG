@@ -15,7 +15,6 @@ public class Character : MonoBehaviour
         Team3 = 3
     }
 
-
     public ParticleSystem HitParticleSystem;
     public GameObject VCamLeft;
     public GameObject VCamRight;
@@ -78,6 +77,8 @@ public class Character : MonoBehaviour
     public Character _IncomingAttacker { get; set; }
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
+    
+    public DataCharacterSpawner.CharactersPrefab CharacterType { get; set; }
 
     public Attack _Attack;
     public Attack _SkillAttack;
@@ -128,6 +129,7 @@ public class Character : MonoBehaviour
     private static readonly int HandUp = Animator.StringToHash("HandUp");
     private static readonly int GetPotion = Animator.StringToHash("GetPotion");
     private static readonly int Drink = Animator.StringToHash("Drink");
+    private static readonly int Kneel = Animator.StringToHash("Kneel");
 
     public void SetCharacterColor(Material materail)
     {
@@ -421,7 +423,7 @@ public class Character : MonoBehaviour
         go.transform.position = destination;
     }
 
-    private IEnumerator MoveTo(Vector3 destination, float speed)
+    public IEnumerator MoveTo(Vector3 destination, float speed)
     {
         Vector3 startPosition = transform.position;
         float elapsedTime = 0;
@@ -908,7 +910,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
     //THIS METHODE IS CALLED BY ANIMATOR (TakeHit/Block)
     public void Counter()
     {
-        if (!_SkipCounter)
+        if (!_SkipCounter && !_IsDead)
         {
             StartCoroutine(CheckIfCanCounterAttack());
         }
@@ -1000,21 +1002,31 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
         DestroyCharacterRelated?.Invoke();
         bool isCharacterTurn = _gameManager.CurrentCharacter == this;
         _gameManager.RemoveCharacter(this);
-        CharacterAnimator.SetTrigger(Die);
-        yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
-        CurrentTile.UnSetCharacter();
-        
-        if (_DieFloorParticleEffect != null)
+      
+        bool isBoss = _gameManager._IsRobotBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.RobotAI || _gameManager._IsFatherNatureBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.MotherNatureAI || _gameManager._IsWizardBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.WizardAI;
+        if (!isBoss)
         {
-             GameObject dieFloorParticleEffect = Instantiate(_DieFloorParticleEffect, CurrentTile.Position + new Vector3(0,0.4f,0), Quaternion.identity);
-             dieFloorParticleEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        }
+            CharacterAnimator.SetTrigger(Die);
+            yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
+            CurrentTile.UnSetCharacter();
         
-        StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
-        yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, 0.25f));
-        _gameManager.Wait = false;
+            if (_DieFloorParticleEffect != null)
+            {
+                GameObject dieFloorParticleEffect = Instantiate(_DieFloorParticleEffect, CurrentTile.Position + new Vector3(0,0.4f,0), Quaternion.identity);
+                dieFloorParticleEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            }
+        
+            StartCoroutine(LerpScale(Vector3.zero, _lerpScalingSpeed));
+            yield return StartCoroutine(MoveTo(transform.position + transform.TransformDirection(Vector3.forward) * ForwardDistanceWhenDie, 0.25f));
+            _gameManager.Wait = false;
 
-        yield return MoveTo(transform.position + Vector3.down * DownDistanceWhenDie,DyingMoveSpeed);
+            yield return MoveTo(transform.position + Vector3.down * DownDistanceWhenDie,DyingMoveSpeed);
+        }
+        else
+        {
+            CharacterAnimator.SetTrigger(Kneel);
+        }
+
         
         if (!IsAI && isCharacterTurn && _gameManager.CurrentCharacter == null || _gameManager.CurrentCharacterTurn == this)
         {

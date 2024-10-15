@@ -2217,6 +2217,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 03dc98f2935c86748984e0dbd366d846, type: 2}
     - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
+      propertyPath: _FireAttack
+      value: 
+      objectReference: {fileID: 11400000, guid: 35ff945873b62fa42930a52ea74e0e05, type: 2}
+    - target: {fileID: 8569594777688759964, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
       propertyPath: BaseAbility1
       value: 2
       objectReference: {fileID: 0}

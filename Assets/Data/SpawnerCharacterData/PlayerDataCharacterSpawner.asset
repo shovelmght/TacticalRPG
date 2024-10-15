@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: PlayerDataCharacterSpawner
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 13
+  - CharactersPrefab: 8
     Team: 1
     Ability1: 1
     Ability2: 0
-    BaseAbility1: 2
-    BaseAbility2: 4
+    Name: Franck
+    Class: Knight
+  - CharactersPrefab: 0
+    Team: 1
+    Ability1: 1
+    Ability2: 0
     Name: Franck
     Class: Knight
   TeamColor: 0

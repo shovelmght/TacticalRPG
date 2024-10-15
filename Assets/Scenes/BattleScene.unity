@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05228360d69a949a3b7536e6f1e749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 81c18fe24b009fc42aa83452c088f914, type: 2}
+  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 7a5337e77ca25c1418a666f6971adbab, type: 2}
   <RandomTileManagerData>k__BackingField:
   - {fileID: 11400000, guid: 19fe4a8b652b04947976000c6136f496, type: 2}
   - {fileID: 11400000, guid: e3d5d09cd6e22e040a76c2dcfcf288ad, type: 2}
@@ -1848,6 +1848,10 @@ MonoBehaviour:
   _AllPossibleCharacterMaterials: {fileID: 11400000, guid: afcafd932bce3f94aaee90f7ef6094ca, type: 2}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
+  CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
+  CharacterWizardBossAIData: {fileID: 11400000, guid: 8e639cd2476ef8944895299d3927f257, type: 2}
+  CharacterRobotBossAIData: {fileID: 11400000, guid: d36050e16b75d0c42ad75f83ad91ff7f, type: 2}
+  CharacterFatherNatureBossAIData: {fileID: 11400000, guid: 654c00b4358eb2547980006802c0c073, type: 2}
   _MapCharacterData: {fileID: 0}
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -1894,7 +1898,7 @@ MonoBehaviour:
   Vector3test: {x: 0, y: 0, z: 0}
   _RandomMap: 0
   _ForceTileManager: 0
-  _UnitTest: 1
+  _UnitTest: 0
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
   - {fileID: 11400000, guid: 1065d22a6436511458727260521f274c, type: 2}

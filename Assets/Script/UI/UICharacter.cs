@@ -52,6 +52,8 @@ public class UICharacter : MonoBehaviour
     [SerializeField] private TMP_Text _BuffText;
     [SerializeField] private TMP_Text _DebuffText;
     [SerializeField] private Animator _DebuffAnimator;
+    [SerializeField] private Animator _DialogueBubble;
+    [SerializeField] private TMP_Text _DialogueText;
     private static readonly int ShowBuffDebuff = Animator.StringToHash("ShowBuffDebuff");
 
     private bool _canClose;
@@ -218,5 +220,17 @@ public class UICharacter : MonoBehaviour
         _BuffText.text = buffText;
         _DebuffText.text = debuffText;
         _DebuffAnimator.SetTrigger(ShowBuffDebuff);
+    }
+    
+    public void ShowDialogueBubble(bool value)
+    {
+        if (value)
+        {
+            _DialogueBubble.gameObject.SetActive(true);
+        }
+        else
+        {
+            _DialogueBubble.SetTrigger(Close);
+        }
     }
 }

@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam2
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 2
+  - CharactersPrefab: 5
     Team: 2
     Ability1: 0
+    Ability2: 0
     Name: 
     Class: 
-  - CharactersPrefab: 3
+  - CharactersPrefab: 1
     Team: 2
     Ability1: 1
+    Ability2: 0
     Name: 
     Class: 
+  TeamColor: 0

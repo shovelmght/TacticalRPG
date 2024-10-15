@@ -11,6 +11,11 @@ public class StateMoveCharacter : State
         if(tile == _gameManager.TileSelected) return;
         if (tile.CanInteract)
         {
+            if (_gameManager._IsMapScene && tile.CharacterReference != null)
+            {
+                _gameManager.StartCoroutine(_gameManager.MapSceneToBattleScene(tile.CharacterReference.gameObject.gameObject.name));
+            }
+            
             tile.CharacterReference =  GameManager.Instance.CurrentCharacter;
             _gameManager.TileSelected.UnSetCharacter();
             tile.SetCharacter(GameManager.Instance.CurrentCharacter);

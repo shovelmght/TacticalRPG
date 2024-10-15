@@ -97,10 +97,7 @@ public class TilesManager: MonoBehaviour
         {
             Instance = this;
         }
-
-      
     }
-
     
 
     private void Update()

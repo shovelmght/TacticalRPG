@@ -1130,7 +1130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580332, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6710139492206580334, guid: d6d099d1a329b9246b42ace54e80fbb4, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -2657,7 +2657,7 @@ MonoBehaviour:
   _SkillAttack: {fileID: 11400000, guid: 49fca830b1c794147a0ca8bf9ae5ccc7, type: 2}
   _WaterAttack: {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
   _PoisonAttack: {fileID: 11400000, guid: 485d3f8ff9f9cdf478edeea55eb61a3e, type: 2}
-  _FireAttack: {fileID: 11400000, guid: 1c1d33adf5dcb0040832efcf63680b29, type: 2}
+  _FireAttack: {fileID: 11400000, guid: 35ff945873b62fa42930a52ea74e0e05, type: 2}
   _IsSelfDestruct: 0
   _frontHitSuccesChance: 25
   _sideHitSuccesChance: 36

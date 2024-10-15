@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam1Test_UnitTest 4
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 14
+  - CharactersPrefab: 9
     Team: 1
     Ability1: 0
     Ability2: 0
     Name: Ico
     Class: ss
-  - CharactersPrefab: 3
+  - CharactersPrefab: 5
     Team: 1
     Ability1: 1
     Ability2: 0

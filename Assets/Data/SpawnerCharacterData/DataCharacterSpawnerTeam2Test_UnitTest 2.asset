@@ -19,7 +19,7 @@ MonoBehaviour:
     Ability2: 0
     Name: Pops
     Class: ss
-  - CharactersPrefab: 14
+  - CharactersPrefab: 1
     Team: 2
     Ability1: 1
     Ability2: 0

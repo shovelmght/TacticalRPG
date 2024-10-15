@@ -32,13 +32,20 @@ public class AreaAttack : Attack
         TilesManager.Instance.DeselectTiles();
         AudioManager._Instance.SpawnSound(PreSfx);
         character.CharacterAnimator.SetTrigger(AttackAnimationName);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
+        if (_SelfDestroyAfterAttack)
+        {
+            character.transform.GetChild(0).gameObject.SetActive(false);
+        }
         AudioManager._Instance.SpawnSound(SfxAtSpawn);
         GameObject _ParticleEffectGo =
             Instantiate(_ParticleEffectPrefab, character.transform.position + new Vector3(0, 0.25f, 0), Quaternion.Euler(-90, 0, 0));
         _ParticleEffectGo.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
+
         Instantiate(_ParticleEffectPrefab, character.transform.position, Quaternion.Euler(-90, 0, 0));
+        yield return new WaitForSeconds(0.25f);
+  
 
         bool characterAttackedHaveCounterAbility = false;
         for (int i = 0; i < GameManager.Instance.IndexOccupiedTiles; i++)
@@ -61,7 +68,7 @@ public class AreaAttack : Attack
 
         if (_SelfDestroyAfterAttack)
         {
-            character.transform.GetChild(0).gameObject.SetActive(false);
+          
             if (character.IsAI)
             {
                 if (GameManager.Instance.CurrentCharacter != null && GameManager.Instance.CurrentCharacterTurn == character)

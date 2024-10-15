@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam2Test_UnitTest
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 9
+  - CharactersPrefab: 0
     Team: 2
     Ability1: 0
+    Ability2: 0
     Name: Ecu
     Class: ss
-  - CharactersPrefab: 1
+  - CharactersPrefab: 8
     Team: 2
     Ability1: 1
+    Ability2: 0
     Name: Min
     Class: ss
   TeamColor: 6

@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _CameraRotation;
     public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
+    public DataCharacterSpawner CharacterDevilBossAIData;
+    public DataCharacterSpawner CharacterWizardBossAIData;
+    public DataCharacterSpawner CharacterRobotBossAIData;
+    public DataCharacterSpawner CharacterFatherNatureBossAIData;
     public DataCharacterSpawner _MapCharacterData;
     public CharacterSelectable _PlayerCharacterSpawnerList;
     public GameObject SquirePrefab;
@@ -82,6 +86,11 @@ public class GameManager : MonoBehaviour
     public bool IsCharactersAttacking { get; set; }
     public int IndexOccupiedTiles { get; set; }
     public bool RepeatableAttackInputIsPress { get; set; }
+    
+    public bool _IsWizardBoss { get; set; }
+    public bool _IsRobotBoss { get; set; }
+    public bool _IsFatherNatureBoss { get; set; }
+    
     public Tile[] OccupiedTiles { get; private set; }
 
     /*private void Update()
@@ -241,10 +250,15 @@ public class GameManager : MonoBehaviour
             StartCoroutine(_MapTilesManager_Corner3.SetBoardTiles());
             yield return _MapTilesManager_Corner4.SetBoardTiles();
             _LavaWaterPlane.SetActive(true);
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(4);
 
             Tile spawnTile = null;
             MapTilesManager mapTilesManager = null;
+            FBPP.SetBool("IsDevilBoss",  false);
+            FBPP.SetBool("IsRobotBoss",  false);
+            FBPP.SetBool("IsFatherNatureBoss",  false);
+            FBPP.SetBool("IsWizardBoss",  false);
+            FBPP.Save();
             int tileCoordX = FBPP.GetInt("PositionTileCoordX");
             int tileCoordY = FBPP.GetInt("PositionTileCoordY");
             int environment = FBPP.GetInt("Environment");
@@ -257,58 +271,67 @@ public class GameManager : MonoBehaviour
             
             if (environment == (int)_MapTilesManager_Grass._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Grass;
             }
             
             if (environment == (int)_MapTilesManager_Desert._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Desert;
             }
             
             if (environment == (int)_MapTilesManager_Snow._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Snow;
             }
             
             if (environment == (int)_MapTilesManager_Poison._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Poison;
             }
             
             if (environment == (int)_MapTilesManager_Corner1._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Corner1;
             }
             
             if (environment == (int)_MapTilesManager_Corner2._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Corner2;
             }
             
             if (environment == (int)_MapTilesManager_Corner3._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Corner3;
             }
             
             if (environment == (int)_MapTilesManager_Corner4._Environement)
             {
-                mapTilesManager = _MapTilesManager_Lava;
+                mapTilesManager = _MapTilesManager_Corner4;
             }
+            
+          
 
             if (mapTilesManager != null)
             {
-                spawnTile = mapTilesManager.GetTile(tileCoordX, tileCoordY);
+                if (tileCoordX == 99)
+                {
+                    spawnTile = mapTilesManager.GetTile(_MapTilesManager_Lava.TileManagerData.Row - 2, _MapTilesManager_Lava.TileManagerData.Column / 2);
+                }
+                else
+                {
+                    spawnTile = mapTilesManager.GetTile(tileCoordX, tileCoordY);
+                }
             }
             
             if (spawnTile == null)
             {
-                SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0]);
+                SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
             }
             else
             {
-                SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0]);
+                SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
             }
-            
+
             CameraButton.SetActive(true);
             ShowPossibleMapMove(TileSelected);
             TilePreSelected = CurrentCharacter.CurrentTile;
@@ -332,9 +355,42 @@ public class GameManager : MonoBehaviour
         else
         {
             bool isWaterTile = FBPP.GetBool("isWaterTile");
+            _IsFatherNatureBoss = FBPP.GetBool("IsFatherNatureBoss");
+            _IsWizardBoss = FBPP.GetBool("IsWizardBoss");
+            _IsRobotBoss = FBPP.GetBool("IsRobotBoss");
+            bool isDevilBoss = FBPP.GetBool("IsDevilBoss");
             int environment = FBPP.GetInt("Environment");
 
-            _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
+            if (isDevilBoss)
+            {
+                CharacterAIData.Clear();
+                CharacterAIData.Add(CharacterDevilBossAIData);
+                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
+                    
+            }
+            else if (_IsWizardBoss)
+            {
+                CharacterAIData.Clear();
+                CharacterAIData.Add(CharacterWizardBossAIData);
+                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
+            }
+            if (_IsFatherNatureBoss)
+            {
+                CharacterAIData.Clear();
+                CharacterAIData.Add(CharacterFatherNatureBossAIData);
+                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
+            }
+            if (_IsRobotBoss)
+            {
+                CharacterAIData.Clear();
+                CharacterAIData.Add(CharacterRobotBossAIData);
+                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
+            }
+            else
+            {
+                _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
+            }
+            
         }
 
         yield return _tileManager.SetBoardTiles();
@@ -361,8 +417,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+           
             foreach (var characterSpawner in CharacterAIData)
             {
+                _IndexTeam2TeamColor = characterSpawner.TeamColor;
                 foreach (var character in characterSpawner.DataSpawn)
                 {
                     yield return new WaitForSeconds(1);
@@ -496,7 +554,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner)
+    public Character SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner, bool isDevilBoss , bool isPlayerCharacter)
     {
         if (tile.IsOccupied)
         {
@@ -521,14 +579,25 @@ public class GameManager : MonoBehaviour
         Character characterReference = characterGameObject.GetComponent<Character>();
         characterReference.CurrentTile = tile;
         tile.SetCharacter(characterReference);
-        characterGameObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
-        CurrentCharacter = characterReference;
-        CurrentState = StateMoveCharacter;
-        TileSelected = tile;
-        StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+        
+        if (!isDevilBoss)
+        {
+            characterGameObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        }
+
+        if (isPlayerCharacter)
+        {
+            CurrentCharacter = characterReference;
+            CurrentState = StateMoveCharacter;
+            TileSelected = tile;
+            StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+        }
+        
+       
         int indexMaterial = FBPP.GetInt("TeamColor");
         characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
         AllTransitionElement.Add(characterGameObject.transform);
+        return characterReference;
 
     }
 
@@ -806,11 +875,16 @@ public class GameManager : MonoBehaviour
     {
         if (_IsMapScene)
         {
-            if (_DoOnceStartBattle && Random.Range(0, 6) == 1)
+            if (tile.CharacterReference != CurrentCharacter && tile.CharacterReference != null)
+            {
+                StartCoroutine(MapSceneToBattleScene(""));
+                return;
+            }
+            /*if (_DoOnceStartBattle && Random.Range(0, 4) == 1)
             {
                 StartCoroutine(MapSceneToBattleScene());
                 return;
-            }
+            }*/
 
             _DoOnceStartBattle = true;
         }
@@ -849,8 +923,25 @@ public class GameManager : MonoBehaviour
         CurrentState = StateMoveCharacter;
     }
 
-    private IEnumerator MapSceneToBattleScene()
+    public IEnumerator MapSceneToBattleScene(string characterType)
     {
+        if (characterType == "14")
+        {
+            FBPP.SetBool("IsDevilBoss", true);
+        }
+        else if (characterType == "7")
+        {
+            FBPP.SetBool("IsFatherNatureBoss", true);
+        }
+        else if (characterType == "5")
+        {
+            FBPP.SetBool("IsWizardBoss", true);
+        }
+        else if (characterType == "9")
+        {
+            FBPP.SetBool("IsRobotBoss", true);
+        }
+        
         FBPP.SetBool("IsWaterTile", TileSelected.IsWater);
         FBPP.SetInt("PositionTileCoordX", TileSelected.CoordX);
         FBPP.SetInt("PositionTileCoordY", TileSelected.CoordY);
@@ -988,17 +1079,40 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
         yield return new WaitForSeconds(0.25f);
+        bool playerWin = true;
 
         if (CharacterList.Count > 0)
         {
             if (CharacterList[0] == null || CharacterList[0].CurrentTeam != Character.Team.Team1)
             {
+                playerWin = false;
                 _WinLooseText.text = "You Lost";
             }
         }
         else
         {
+            playerWin = false;
             _WinLooseText.text = "You Lost";
+        }
+
+        if (playerWin)
+        {
+            if (_IsWizardBoss)
+            {
+                FBPP.SetBool("WizardBossIsDead", true);
+            }
+            else if (_IsFatherNatureBoss)
+            {
+                FBPP.SetBool("FatherNatureBossIsDead", true);
+            }
+            else if (_IsRobotBoss)
+            {
+                FBPP.SetBool("RobotBossIsDead", true);
+            }
+            else if (FBPP.GetBool("IsDevilBoss"))
+            {
+                FBPP.SetBool("DevilBossIsDead", true);
+            }
         }
 
         _WinLooseAnimator.SetActive(true);

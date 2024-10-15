@@ -19,7 +19,7 @@ MonoBehaviour:
     Ability2: 0
     Name: Mac
     Class: ss
-  - CharactersPrefab: 3
+  - CharactersPrefab: 7
     Team: 2
     Ability1: 1
     Ability2: 0
