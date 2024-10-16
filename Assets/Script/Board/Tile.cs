@@ -73,7 +73,11 @@ public class Tile
 
     public void SetCharacter(Character character)
     {
-        IsOccupied = true;
+        if (!GameManager.Instance._IsMapScene)
+        {
+            IsOccupied = true;
+        }
+        
         CharacterReference = character;
     }
     

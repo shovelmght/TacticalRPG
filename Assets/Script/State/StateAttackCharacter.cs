@@ -67,7 +67,7 @@ public class StateAttackCharacter : State
     {
         if (_characterAttactedSelected != null)
         {
-            _characterAttactedSelected.RemoveUIPopUpCharacterInfo(false);
+            _characterAttactedSelected.ActionRemoveUIPopUpCharacterInfo(false);
             _characterAttactedSelected = null;
         }
     }

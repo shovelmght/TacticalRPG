@@ -3847,6 +3847,9 @@ MonoBehaviour:
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
+  CharacterWizardBossAIData: {fileID: 0}
+  CharacterRobotBossAIData: {fileID: 0}
+  CharacterFatherNatureBossAIData: {fileID: 0}
   _MapCharacterData: {fileID: 0}
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
@@ -3878,7 +3881,6 @@ MonoBehaviour:
   PossibleMoveTileIsFinished: 0
   PossibleAttackTileIsFinished: 0
   PossibleEndTurnDirectionTileIsFinished: 0
-  _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
   _MapTilesManager_Lava: {fileID: 0}
@@ -9880,26 +9882,31 @@ MonoBehaviour:
   _AudioPoolLength: 10
   _MainVolume: 0.5
   _MainMusicVolume: 0.5
+  _ButtonClick:
+    _AudioClip: {fileID: 8300000, guid: 2c6e31f962735ca4393da43de1eb2ea5, type: 3}
+    _RelativeVolume: 1
+    _MinRandomPitch: 0.5
+    _MaxRandomPitch: 1.5
   _FireDamage:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: 5457cbc64defb9c48a8cfc202089d4c3, type: 3}
+    _RelativeVolume: 0.1
+    _MinRandomPitch: 0.7
+    _MaxRandomPitch: 1.4
   _PoisonDamage:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: 68331cc792076f748ac78ad5040d2799, type: 3}
+    _RelativeVolume: 0.1
+    _MinRandomPitch: 0.7
+    _MaxRandomPitch: 1.4
   _ShowBuffDebuffStats:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: bdab27a6d06509b41882611197f0327c, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 1
+    _MaxRandomPitch: 1
   _GetPotion:
-    _AudioClip: {fileID: 0}
-    _RelativeVolume: 0
-    _MinRandomPitch: 0
-    _MaxRandomPitch: 0
+    _AudioClip: {fileID: 8300000, guid: a22f0176f24e0fb46abd58b17ac53ce0, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 0.6
+    _MaxRandomPitch: 1.4
   _ZoomSFX:
     _AudioClip: {fileID: 8300000, guid: 614ad9eceac81ff46adc21418819c7be, type: 3}
     _RelativeVolume: 0.5

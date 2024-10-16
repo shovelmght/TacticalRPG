@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _CinemachineBlendTimeZoomBattle = 0.5f;
     [SerializeField] private float _CinemachineBlendTimeMovementBattle = 2;
     [SerializeField] private Animator _ZommEffectAnimator;
-    [SerializeField] private GameObject _WinLooseAnimator;
+    [SerializeField] private Animator _WinLooseAnimator;
     [SerializeField] private GameObject _LavaWaterPlane;
     [SerializeField] private TMP_Text _WinLooseText;
     [SerializeField] private List<Transform> AllTransitionElement;
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
     public StateNavigation StateNavigation { get; set; }
     public bool NeedResetTiles { get; set; }
 
-    public bool _GameIsFinish { get; private set; }
+    public bool _GameIsFinish { get; set; }
     public bool CameraIsMoving { get; private set; }
     public bool IsCameraNear { get; set; }
     public bool MenuIsOpen { get; set; } = false;
@@ -92,17 +92,7 @@ public class GameManager : MonoBehaviour
     public bool _IsFatherNatureBoss { get; set; }
     
     public Tile[] OccupiedTiles { get; private set; }
-
-    /*private void Update()
-    {
-        foreach (var occupiedTile in OccupiedTiles)
-        {
-            if(occupiedTile != null && occupiedTile.CharacterReference != null)
-            {
-                Debug.Log(occupiedTile.CharacterReference.gameObject.name);
-            }
-        }
-    }*/
+    
 
     public Character CurrentCharacter { get; set; }
     public Character CurrentCharacterTurn { get; private set; }
@@ -138,12 +128,8 @@ public class GameManager : MonoBehaviour
     }
 
     private bool _wait;
-
-    [SerializeField] private Direction _Enemiesdirection;
-
     public Direction _direction;
     private int _SpawnMobItteration;
-    private int _characterCount;
     private bool _DoOnceStartBattle;
     private Vector3 _ScaleLerpSpeed = new Vector3(0.05f, 0.05f, 0.05f);
 
@@ -239,6 +225,16 @@ public class GameManager : MonoBehaviour
 
         if (_IsMapScene)
         {
+            FBPP.SetBool("IsDevilBoss",  false);
+            FBPP.SetBool("IsRobotBoss",  false);
+            FBPP.SetBool("IsFatherNatureBoss",  false);
+            FBPP.SetBool("IsWizardBoss",  false);
+            FBPP.Save();
+            int tileCoordX = FBPP.GetInt("PositionTileCoordX");
+            int tileCoordY = FBPP.GetInt("PositionTileCoordY");
+            int environment = FBPP.GetInt("Environment");
+            bool isWaterTile = FBPP.GetBool("isWaterTile");
+            
             StartCoroutine(_MapTilesManager_Lava.CameraTransitionToMapScene(BoardCamera));
             StartCoroutine(_MapTilesManager_Lava.SetBoardTiles());
             StartCoroutine(_MapTilesManager_Grass.SetBoardTiles());
@@ -250,20 +246,9 @@ public class GameManager : MonoBehaviour
             StartCoroutine(_MapTilesManager_Corner3.SetBoardTiles());
             yield return _MapTilesManager_Corner4.SetBoardTiles();
             _LavaWaterPlane.SetActive(true);
-            yield return new WaitForSeconds(4);
-
-            Tile spawnTile = null;
+            
             MapTilesManager mapTilesManager = null;
-            FBPP.SetBool("IsDevilBoss",  false);
-            FBPP.SetBool("IsRobotBoss",  false);
-            FBPP.SetBool("IsFatherNatureBoss",  false);
-            FBPP.SetBool("IsWizardBoss",  false);
-            FBPP.Save();
-            int tileCoordX = FBPP.GetInt("PositionTileCoordX");
-            int tileCoordY = FBPP.GetInt("PositionTileCoordY");
-            int environment = FBPP.GetInt("Environment");
-            bool isWaterTile = FBPP.GetBool("isWaterTile");
-
+            
             if (environment == (int)_MapTilesManager_Lava._Environement)
             {
                 mapTilesManager = _MapTilesManager_Lava;
@@ -309,8 +294,8 @@ public class GameManager : MonoBehaviour
                 mapTilesManager = _MapTilesManager_Corner4;
             }
             
-          
-
+            Tile spawnTile = null;
+            
             if (mapTilesManager != null)
             {
                 if (tileCoordX == 99)
@@ -323,6 +308,16 @@ public class GameManager : MonoBehaviour
                 }
             }
             
+            if (environment == 1 || environment == 6 || environment == 7)
+            {
+                //TileSelected = spawnTile;
+                _direction = Direction.North;
+               // StartCoroutine(MoveCamera(TileSelected.GetCameraTransform((int)_direction, IsCameraNear)));
+            }
+            yield return new WaitForSeconds(2);
+
+
+            
             if (spawnTile == null)
             {
                 SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
@@ -332,6 +327,7 @@ public class GameManager : MonoBehaviour
                 SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
             }
 
+ 
             CameraButton.SetActive(true);
             ShowPossibleMapMove(TileSelected);
             TilePreSelected = CurrentCharacter.CurrentTile;
@@ -365,31 +361,25 @@ public class GameManager : MonoBehaviour
             {
                 CharacterAIData.Clear();
                 CharacterAIData.Add(CharacterDevilBossAIData);
-                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
-                    
             }
             else if (_IsWizardBoss)
             {
                 CharacterAIData.Clear();
                 CharacterAIData.Add(CharacterWizardBossAIData);
-                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
             }
             if (_IsFatherNatureBoss)
             {
                 CharacterAIData.Clear();
                 CharacterAIData.Add(CharacterFatherNatureBossAIData);
-                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
             }
             if (_IsRobotBoss)
             {
                 CharacterAIData.Clear();
                 CharacterAIData.Add(CharacterRobotBossAIData);
-                _tileManager.SetEnvironmentTileManagerData(0, isWaterTile);
             }
-            else
-            {
-                _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
-            }
+
+            
+            _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
             
         }
 
@@ -477,9 +467,9 @@ public class GameManager : MonoBehaviour
 
         GameObject character = InstantiateCharacter(dataCharacterSpawner.CharactersPrefab, spawnPosition);
         character.transform.Rotate(rotation);
-        _characterCount++;
         character.name = dataCharacterSpawner.Name;
         Character characterReference = character.GetComponent<Character>();
+        characterReference.CharacterType = dataCharacterSpawner.CharactersPrefab;
         characterReference.CurrentTile = tile;
         CharacterList.Add(characterReference);
         tile.SetCharacter(characterReference);
@@ -528,10 +518,9 @@ public class GameManager : MonoBehaviour
 
         GameObject character = InstantiateCharacter(CharactersPrefab, spawnPosition);
         Character characterReference = character.GetComponent<Character>();
-        CurrentCharacter.DestroyCharacterRelated += characterReference.DestroyCharacter;
+        CurrentCharacter.ActionDestroyCharacterRelated += characterReference.DestroyCharacter;
         characterReference.CanMove = canMove;
         character.transform.Rotate(rotation);
-        _characterCount++;
         _SpawnMobItteration++;
         character.name += _SpawnMobItteration;
         characterReference.CurrentTile = tile;
@@ -769,7 +758,7 @@ public class GameManager : MonoBehaviour
         {
             if (CurrentCharacter)
             {
-                CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
+                CurrentCharacter.ActionRemoveUIPopUpCharacterInfo(false);
             }
 
             if (_IsMapScene)
@@ -925,6 +914,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator MapSceneToBattleScene(string characterType)
     {
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
         if (characterType == "14")
         {
             FBPP.SetBool("IsDevilBoss", true);
@@ -952,25 +942,113 @@ public class GameManager : MonoBehaviour
         {
             elementToDeactivate.SetActive(false);
         }
-        StartCoroutine(_MapTilesManager_Snow.TransitionToBattleScene());
+
+        if (TileSelected.MapTilesManager != _MapTilesManager_Snow)
+        {
+            StartCoroutine(_MapTilesManager_Snow.TransitionToBattleScene());
+        }
+      
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Grass.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Grass)
+        {
+            StartCoroutine(_MapTilesManager_Grass.TransitionToBattleScene());
+        }
+    
+        AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Lava.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Lava)
+        {
+            StartCoroutine(_MapTilesManager_Lava.TransitionToBattleScene());
+        }
+     
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Poison.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Poison)
+        {
+            StartCoroutine(_MapTilesManager_Poison.TransitionToBattleScene());
+        }
+  
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Desert.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Desert)
+        {
+            StartCoroutine(_MapTilesManager_Desert.TransitionToBattleScene());
+        }
+      
+        if (TileSelected.MapTilesManager != _MapTilesManager_Corner1)
+        {
+            StartCoroutine(_MapTilesManager_Corner1.TransitionToBattleScene());
+        }
+       
         yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Corner1.TransitionToBattleScene());
-        yield return new WaitForSeconds(0.2f);
-        StartCoroutine(_MapTilesManager_Corner2.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Corner2)
+        {
+            StartCoroutine(_MapTilesManager_Corner2.TransitionToBattleScene());
+        }
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Corner3)
+        {
+            StartCoroutine(_MapTilesManager_Corner3.TransitionToBattleScene());
+        }
+        
         yield return new WaitForSeconds(0.15f);
-        StartCoroutine(_MapTilesManager_Corner3.TransitionToBattleScene());
-        yield return new WaitForSeconds(0.15f);
-        StartCoroutine(_MapTilesManager_Corner4.TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager != _MapTilesManager_Corner4)
+        {
+            StartCoroutine(_MapTilesManager_Corner4.TransitionToBattleScene());
+        }
+     
         yield return new WaitForSeconds(0.15f);
         StartCoroutine(TransitionToBattleScene());
+        
+        if (TileSelected.MapTilesManager == _MapTilesManager_Snow)
+        {
+            StartCoroutine(_MapTilesManager_Snow.TransitionToBattleScene());
+        }
+        
+        if (TileSelected.MapTilesManager == _MapTilesManager_Grass)
+        {
+            StartCoroutine(_MapTilesManager_Grass.TransitionToBattleScene());
+        }
+
+        if (TileSelected.MapTilesManager != _MapTilesManager_Lava)
+        {
+            StartCoroutine(_MapTilesManager_Lava.TransitionToBattleScene());
+        }
+
+        if (TileSelected.MapTilesManager == _MapTilesManager_Poison)
+        {
+            StartCoroutine(_MapTilesManager_Poison.TransitionToBattleScene());
+        }
+          
+        if (TileSelected.MapTilesManager == _MapTilesManager_Desert)
+        {
+            StartCoroutine(_MapTilesManager_Desert.TransitionToBattleScene());
+        }
+      
+        if (TileSelected.MapTilesManager == _MapTilesManager_Corner1)
+        {
+            StartCoroutine(_MapTilesManager_Corner1.TransitionToBattleScene());
+        }
+
+        if (TileSelected.MapTilesManager == _MapTilesManager_Corner2)
+        {
+            StartCoroutine(_MapTilesManager_Corner2.TransitionToBattleScene());
+        }
+        
+        if (TileSelected.MapTilesManager == _MapTilesManager_Corner3)
+        {
+            StartCoroutine(_MapTilesManager_Corner3.TransitionToBattleScene());
+        }
+        
+        
+        if (TileSelected.MapTilesManager == _MapTilesManager_Corner4)
+        {
+            StartCoroutine(_MapTilesManager_Corner4.TransitionToBattleScene());
+        }
         
         yield return new WaitForSeconds(2.5f);
         foreach (var element in AllTransitionElementToDeactivate2)
@@ -1076,46 +1154,51 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        StartCoroutine(SetEndGame(false));
+
+    }
+
+    [ContextMenu("SetEndGameTest")]
+    public void SetEndGameTest()
+    {
+        StartCoroutine(SetEndGame(true));
+    }
+
+    public IEnumerator SetEndGame(bool forcePlayerWin)
+    {
         yield return new WaitForSeconds(0.25f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
         yield return new WaitForSeconds(0.25f);
         bool playerWin = true;
+        
 
         if (CharacterList.Count > 0)
         {
             if (CharacterList[0] == null || CharacterList[0].CurrentTeam != Character.Team.Team1)
             {
                 playerWin = false;
-                _WinLooseText.text = "You Lost";
+                if (!forcePlayerWin)
+                {
+                    _WinLooseText.text = "You Lost";
+                }
+                
             }
         }
         else
         {
             playerWin = false;
-            _WinLooseText.text = "You Lost";
+            if (!forcePlayerWin)
+            {
+                _WinLooseText.text = "You Lost";
+            }
         }
 
-        if (playerWin)
+        if (forcePlayerWin)
         {
-            if (_IsWizardBoss)
-            {
-                FBPP.SetBool("WizardBossIsDead", true);
-            }
-            else if (_IsFatherNatureBoss)
-            {
-                FBPP.SetBool("FatherNatureBossIsDead", true);
-            }
-            else if (_IsRobotBoss)
-            {
-                FBPP.SetBool("RobotBossIsDead", true);
-            }
-            else if (FBPP.GetBool("IsDevilBoss"))
-            {
-                FBPP.SetBool("DevilBossIsDead", true);
-            }
+            playerWin = true;
         }
-
-        _WinLooseAnimator.SetActive(true);
+        
+        _WinLooseAnimator.gameObject.SetActive(true);
         Time.timeScale = 0.2f;
         _GameIsFinish = true;
         yield return new WaitForSeconds(0.3f);
@@ -1131,6 +1214,54 @@ public class GameManager : MonoBehaviour
         else
         {
             CameraButton.SetActive(false);
+
+            
+            if (playerWin)
+            {
+                if (_IsWizardBoss)
+                {
+                    FBPP.SetBool("WizardBossIsDead", true);
+                    _WinLooseText.color = Color.yellow;
+                    _WinLooseText.text = "The Wizard Joins Your Ranks";
+                    _WinLooseAnimator.SetTrigger("NewCharacter");
+                    yield return new WaitForSeconds(0.3f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.5f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                else if (_IsFatherNatureBoss)
+                {
+                    FBPP.SetBool("FatherNatureBossIsDead", true);
+                    _WinLooseText.color = Color.yellow;
+                    _WinLooseText.text = "This Weird Man Joins You";
+                    _WinLooseAnimator.SetTrigger("NewCharacter");
+                    yield return new WaitForSeconds(0.3f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.5f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                else if (_IsRobotBoss)
+                {
+                    FBPP.SetBool("RobotBossIsDead", true);
+                    _WinLooseText.color = Color.yellow;
+                    _WinLooseText.text = "The Robot Joins Your Ranks";
+                    _WinLooseAnimator.SetTrigger("NewCharacter");
+                    yield return new WaitForSeconds(0.3f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.5f);
+                    AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    yield return new WaitForSeconds(0.2f);
+                }
+                else if (FBPP.GetBool("IsDevilBoss"))
+                {
+                    FBPP.SetBool("DevilBossIsDead", true);
+                }
+                
+                FBPP.Save();
+            }
+            
             Time.timeScale = 1f;
             StartCoroutine(_tileManager.TileTransitionToMapScene());
             foreach (var characterGo in AllCharacterGo)
@@ -1141,9 +1272,15 @@ public class GameManager : MonoBehaviour
                 }
             }
             //StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
-            CurrentCharacterTurn.RemoveUIPopUpCharacterInfo(true);
+            if (CurrentCharacterTurn != null)
+            {
+                CurrentCharacterTurn.ActionRemoveUIPopUpCharacterInfo(true);
+            }
+           
             RemoveUICharacter?.Invoke();
+            Debug.Log("GameManager :: SetEndGame  0");
             yield return new WaitForSeconds(0.5f);
+            Debug.Log("GameManager :: SetEndGame  1");
             foreach (var character in CharacterList)
             {
                 if (character != null)
@@ -1152,7 +1289,9 @@ public class GameManager : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(0.5f);
+            Debug.Log("GameManager :: SetEndGame  2");
             yield return StartCoroutine(_tileManager.CameraTransitionToMapScene(BoardCamera));
+            Debug.Log("GameManager :: SetEndGame  3");
             SceneManager.LoadScene("MapScene");
         }
     }
@@ -1162,7 +1301,7 @@ public class GameManager : MonoBehaviour
     //Go to next character turn
     public void NextCharacterTurn()
     {
-      if(_IsChangingCharacterTurn == true) {return;}
+      if(_IsChangingCharacterTurn || _GameIsFinish) {return;}
 
       _IsChangingCharacterTurn = true;
       
@@ -1219,7 +1358,7 @@ public class GameManager : MonoBehaviour
         
         if (CurrentCharacter)
         {
-            CurrentCharacter.RemoveUIPopUpCharacterInfo(false);
+            CurrentCharacter.ActionRemoveUIPopUpCharacterInfo(false);
         }
         
         //Reset Move/Attack character
@@ -1430,7 +1569,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => !Wait);
         yield return new WaitForSeconds(0.75f);
         Debug.Log("SetBattleCamera end of waiting ");
-        TempBoardVCam.gameObject.SetActive(false);
+        if (!_GameIsFinish)
+        {
+            TempBoardVCam.gameObject.SetActive(false);
+        } 
+        
     }
     
     private IEnumerator MoveCamera(Vector3 destination)
@@ -1492,6 +1635,7 @@ public class GameManager : MonoBehaviour
     //When a Character die, remove it of the game
     public void RemoveCharacter(Character character)
     {
+        if(_GameIsFinish) { return;}
         if (character == CurrentCharacter)
         {
             CurrentCharacter = null;
@@ -1619,4 +1763,15 @@ public class GameManager : MonoBehaviour
     {
         Wait = true;
     }
+    
+    /*private void Update()
+{
+    foreach (var occupiedTile in OccupiedTiles)
+    {
+        if(occupiedTile != null && occupiedTile.CharacterReference != null)
+        {
+            Debug.Log(occupiedTile.CharacterReference.gameObject.name);
+        }
+    }
+}*/
 }

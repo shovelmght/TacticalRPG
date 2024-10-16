@@ -65,24 +65,29 @@ public class UICharacter : MonoBehaviour
     private static readonly int OpenLeftQuick = Animator.StringToHash("OpenLeftQuick");
     private static readonly int GainHealth = Animator.StringToHash("GainHealth");
 
+    
     public void Start()
     {
         _Character.OnHealthPctChange += HandleHealthChanged;//It adds event callback
-        _Character.ShowUIPopUpCharacterInfo += ShowPopUpCharacterInfo;
-        _Character.ShowUIHitSuccess += ShowHitSuccessPct;
-        _Character.RemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
-        _Character.RemoveHealthBar += HideHealthBar;
-        _Character.ShowBuffDebuffPotionEffect += ShowBuffDebuffPotionEffect;
+        _Character.ActionShowUIPopUpCharacterInfo += ShowPopUpCharacterInfo;
+        _Character.ActionShowUIHitSuccess += ShowHitSuccessPct;
+        _Character.ActionRemoveUIPopUpCharacterInfo += RemoveUIPopUpCharacterInfo;
+        _Character.ActionShowHideHealthBar += HideHealthBar;
+        _Character.ActionShowBuffDebuffPotionEffect += ShowBuffDebuffPotionEffect;
+        _Character.ActionStartDialogue += StartNewDialogueText;
+        _Character.ActionShowDialogueBubble += ShowDialogueBubble;
     }
 
     private void OnDestroy()
     {
         _Character.OnHealthPctChange -= HandleHealthChanged;//It adds event callback
-        _Character.ShowUIPopUpCharacterInfo -= ShowPopUpCharacterInfo;
-        _Character.ShowUIHitSuccess -= ShowHitSuccessPct;
-        _Character.RemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
-        _Character.RemoveHealthBar -= HideHealthBar;
-        _Character.ShowBuffDebuffPotionEffect -= ShowBuffDebuffPotionEffect;
+        _Character.ActionShowUIPopUpCharacterInfo -= ShowPopUpCharacterInfo;
+        _Character.ActionShowUIHitSuccess -= ShowHitSuccessPct;
+        _Character.ActionRemoveUIPopUpCharacterInfo -= RemoveUIPopUpCharacterInfo;
+        _Character.ActionShowHideHealthBar -= HideHealthBar;
+        _Character.ActionShowBuffDebuffPotionEffect -= ShowBuffDebuffPotionEffect;
+        _Character.ActionStartDialogue -= StartNewDialogueText;
+        _Character.ActionShowDialogueBubble -= ShowDialogueBubble;
     }
 
     //make ui element face to the camera
@@ -136,10 +141,10 @@ public class UICharacter : MonoBehaviour
         _fillBar.fillAmount = pct; //make sure to go to the correct amount
     }
 
-    private void HideHealthBar()
+    private void HideHealthBar(bool newValue)
     {
-        _BackgroundImage.enabled = false;
-        _fillBar.enabled = false;
+        _BackgroundImage.enabled = newValue;
+        _fillBar.enabled = newValue;
     }
     
     private void ShowPopUpCharacterInfo(bool isRight, bool isQuick)
@@ -222,8 +227,16 @@ public class UICharacter : MonoBehaviour
         _DebuffAnimator.SetTrigger(ShowBuffDebuff);
     }
     
-    public void ShowDialogueBubble(bool value)
+    
+    private void StartNewDialogueText(string text)
     {
+        StartCoroutine(DialogueTextManager.Instance.StarDialogue(text, _DialogueText));
+    }
+
+    
+    private void ShowDialogueBubble(bool value)
+    {
+        HideHealthBar(!value);
         if (value)
         {
             _DialogueBubble.gameObject.SetActive(true);

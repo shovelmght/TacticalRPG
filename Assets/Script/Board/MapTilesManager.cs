@@ -1420,7 +1420,7 @@ public class MapTilesManager : MonoBehaviour
     
     public IEnumerator CameraTransitionToMapScene(Transform cameraTransform)
     {
-        float rotationSpeed = 0.75f;
+        float rotationSpeed = 3.25f;
         Vector3 targetDirection = new Vector3(-45, -90, 0); // The direction you want the camera to look at
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 

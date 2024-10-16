@@ -89,13 +89,15 @@ public class Character : MonoBehaviour
 
 
     public event Action<int, int, int, bool> OnHealthPctChange = delegate { };
-    public Action CounterAttack;
-    public Action<bool, bool> ShowUIPopUpCharacterInfo;
-    public Action<bool> RemoveUIPopUpCharacterInfo;
-    public Action<int> ShowUIHitSuccess;
-    public Action DestroyCharacterRelated;
-    public Action RemoveHealthBar;
-    public Action<string, string> ShowBuffDebuffPotionEffect;
+    public Action ActionCounterAttack;
+    public Action<bool, bool> ActionShowUIPopUpCharacterInfo;
+    public Action<bool> ActionRemoveUIPopUpCharacterInfo;
+    public Action<int> ActionShowUIHitSuccess;
+    public Action ActionDestroyCharacterRelated;
+    public Action<bool> ActionShowHideHealthBar;
+    public Action<string, string> ActionShowBuffDebuffPotionEffect;
+    public Action<string> ActionStartDialogue;
+    public Action<bool> ActionShowDialogueBubble;
 
     protected int _IsPoisoned;
     protected GameManager _gameManager;
@@ -106,11 +108,11 @@ public class Character : MonoBehaviour
     [SerializeField] private float _sideHitSuccesChance = 60;
     [SerializeField] private float _behindHitSuccesChance = 85f;
 
-    public GetAttackDirection.AttackDirection _attackDirection;
-    public Character _attackTarget;
-    public bool _isCounterAttack;
-    public bool _IsDead;
-    public int _NbrRepeatAttack = 0;
+    public GetAttackDirection.AttackDirection _attackDirection{ get; set; }
+    public Character _attackTarget{ get; set; }
+    public bool _isCounterAttack{ get; set; }
+    public bool _IsDead{ get; set; }
+    public int _NbrRepeatAttack{ get; set; }
     
     private bool _SkipCounter;
     private bool _CanHit = false;
@@ -922,7 +924,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
     private IEnumerator CheckIfCanCounterAttack()
     {
-        RemoveUIPopUpCharacterInfo(false);
+        ActionRemoveUIPopUpCharacterInfo(false);
         Debug.Log("Character :: Counter check for _isCounterAttack = " + _isCounterAttack + " GO = " + gameObject.name);
         if (!_isCounterAttack)
         {
@@ -961,7 +963,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 { Debug.Log("Character :: Counter check for Is in front GO = " + gameObject.name);
                 
                 }
-                CounterAttack();
+                ActionCounterAttack();
             }
             else
             {
@@ -998,14 +1000,15 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
     protected IEnumerator Vanish()
     {
-        RemoveHealthBar?.Invoke();
-        DestroyCharacterRelated?.Invoke();
+        ActionShowHideHealthBar?.Invoke(false);
+        ActionDestroyCharacterRelated?.Invoke();
         bool isCharacterTurn = _gameManager.CurrentCharacter == this;
-        _gameManager.RemoveCharacter(this);
+
       
         bool isBoss = _gameManager._IsRobotBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.RobotAI || _gameManager._IsFatherNatureBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.MotherNatureAI || _gameManager._IsWizardBoss && CharacterType == DataCharacterSpawner.CharactersPrefab.WizardAI;
         if (!isBoss)
         {
+            _gameManager.RemoveCharacter(this);
             CharacterAnimator.SetTrigger(Die);
             yield return StartCoroutine(MoveTo(transform.position + Vector3.up * DeathGapZPosition, 0.5f));
             CurrentTile.UnSetCharacter();
@@ -1024,7 +1027,17 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
         }
         else
         {
+            Time.timeScale = 1f;
+            _gameManager._GameIsFinish = true;
             CharacterAnimator.SetTrigger(Kneel);
+            yield return new WaitForSeconds(3);
+            ActionShowDialogueBubble(true);
+            yield return new WaitForSeconds(1);
+            ActionStartDialogue("plz spare me");
+            yield return new WaitForSeconds(3);
+            ActionStartDialogue("I will join you");
+            yield return new WaitForSeconds(3);
+            _gameManager.StartCoroutine(_gameManager.SetEndGame(true));
         }
 
         
@@ -1034,7 +1047,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
             _gameManager.NextCharacterTurn();
         }
 
-        RemoveUIPopUpCharacterInfo(true);
+        ActionRemoveUIPopUpCharacterInfo(true);
         _IsDead = true;
         CurrentTile = null;
     }
@@ -1128,8 +1141,8 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
     public void ShowCharacterHitSuccess(int pct)
     {
-        ShowUIPopUpCharacterInfo(true, false);
-        ShowUIHitSuccess(pct);
+        ActionShowUIPopUpCharacterInfo(true, false);
+        ActionShowUIHitSuccess(pct);
     }
 
     public void SetRemaininTimeTurn()
@@ -1160,7 +1173,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
                 string bufftext = "+50% HP";
                 string debufftext = "-" + debuffSpeed + " Speed";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
                 OnHealthPctChange(CurrentHealth, heathRecover, MaxHealth, false);
                 break;
             }
@@ -1178,7 +1191,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+" + buffSpeed + " Speed";
                 string debufftext = "-25% HP";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
                 OnHealthPctChange(CurrentHealth, debuffHealth, MaxHealth, true);
                 break;
             }
@@ -1196,7 +1209,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+" + maxHP + " MaxHP";
                 string debufftext = "-25% HP";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
                 OnHealthPctChange(CurrentHealth, debuffHealth, MaxHealth, true);
                 break;
             }
@@ -1215,7 +1228,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+50% HP";
                 string debufftext  = "-" + debuffMaxHealth + " MaxHP";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext); 
                 OnHealthPctChange(CurrentHealth, heathRecover, MaxHealth, false);
                 break;
             }
@@ -1230,7 +1243,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+ " + buffStrenght + " Strenght";
                 string debufftext  = "-" + debuffSpeed + " Speed";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
                 break;
             }
             case E_Potion.MoveBoostPowerPenalty:
@@ -1242,7 +1255,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+1 Move";
                 string debufftext  = "-" + Strength + " Strength";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
                 break;
             }
             case E_Potion.PowerBoostMovePenalty:
@@ -1258,7 +1271,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 
                 string bufftext = "+ " + buffStrenght + " Strenght";
                 string debufftext  = "-1 Move";
-                ShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
+                ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
                 break;
             }
         }

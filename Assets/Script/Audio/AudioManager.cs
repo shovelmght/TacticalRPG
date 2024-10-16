@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioPoolObject> _AudioPool;
     public float _MainVolume = 0.5f;
     public float _MainMusicVolume = 0.5f;
-    
+    public SfxClass _ButtonClick;
     public SfxClass _FireDamage;
     public SfxClass _PoisonDamage;
     public SfxClass _ShowBuffDebuffStats;

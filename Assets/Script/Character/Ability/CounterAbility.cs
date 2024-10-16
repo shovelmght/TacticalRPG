@@ -13,7 +13,7 @@ public class CounterAbility
         _character = character;
         _gameManager = gameManager;
         _character.HaveCounterAbility = true;
-        character.CounterAttack += Counter;
+        character.ActionCounterAttack += Counter;
     }
 
     private void Counter()

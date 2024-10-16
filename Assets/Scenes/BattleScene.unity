@@ -1838,7 +1838,7 @@ MonoBehaviour:
   _CinemachineBlendTimeZoomBattle: 0.65
   _CinemachineBlendTimeMovementBattle: 1
   _ZommEffectAnimator: {fileID: 640783994}
-  _WinLooseAnimator: {fileID: 473145300}
+  _WinLooseAnimator: {fileID: 473145302}
   _LavaWaterPlane: {fileID: 0}
   _WinLooseText: {fileID: 1664193198}
   AllTransitionElement: []
@@ -1883,7 +1883,6 @@ MonoBehaviour:
   PossibleMoveTileIsFinished: 0
   PossibleAttackTileIsFinished: 0
   PossibleEndTurnDirectionTileIsFinished: 0
-  _Enemiesdirection: 2
   _direction: 0
   _tileManager: {fileID: 0}
   _MapTilesManager_Lava: {fileID: 0}
@@ -6284,6 +6283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1938357282}
   - component: {fileID: 1938357281}
+  - component: {fileID: 1938357283}
   m_Layer: 0
   m_Name: AudioSystem
   m_TagString: Untagged
@@ -6307,6 +6307,11 @@ MonoBehaviour:
   _AudioPoolLength: 10
   _MainVolume: 0.5
   _MainMusicVolume: 0.5
+  _ButtonClick:
+    _AudioClip: {fileID: 8300000, guid: 2c6e31f962735ca4393da43de1eb2ea5, type: 3}
+    _RelativeVolume: 1
+    _MinRandomPitch: 0.5
+    _MaxRandomPitch: 1.5
   _FireDamage:
     _AudioClip: {fileID: 8300000, guid: 5457cbc64defb9c48a8cfc202089d4c3, type: 3}
     _RelativeVolume: 0.1
@@ -6387,6 +6392,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1938357283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938357280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad68ff64c70829e4ba371493aaa7f00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TypeSpeed: 0.03
+  _WaitingTimeBeforeStart: 0
 --- !u!1 &1962282028
 GameObject:
   m_ObjectHideFlags: 0

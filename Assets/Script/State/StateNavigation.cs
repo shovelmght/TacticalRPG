@@ -14,13 +14,13 @@ public class StateNavigation : State
         
         if (tile.CharacterReference != _gameManager.CurrentCharacter )
         {
-            _gameManager.CurrentCharacter.RemoveUIPopUpCharacterInfo(true);
-            tile.CharacterReference.ShowUIPopUpCharacterInfo(false, true);
+            _gameManager.CurrentCharacter.ActionRemoveUIPopUpCharacterInfo(true);
+            tile.CharacterReference.ActionShowUIPopUpCharacterInfo(false, true);
             _gameManager.RemoveUICharacter();
         }
         else
         {
-            tile.CharacterReference.ShowUIPopUpCharacterInfo(false, false);
+            tile.CharacterReference.ActionShowUIPopUpCharacterInfo(false, false);
         }
 
         if (_gameManager._IsMapScene)
