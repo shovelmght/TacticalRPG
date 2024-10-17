@@ -15,18 +15,21 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 14
     Team: 2
+    SkillAttack: 3
     Ability1: 0
     Ability2: 0
     Name: Mac
     Class: ss
   - CharactersPrefab: 7
     Team: 2
+    SkillAttack: 11
     Ability1: 1
     Ability2: 0
     Name: Cap
     Class: ss
   - CharactersPrefab: 7
     Team: 2
+    SkillAttack: 11
     Ability1: 1
     Ability2: 0
     Name: Old

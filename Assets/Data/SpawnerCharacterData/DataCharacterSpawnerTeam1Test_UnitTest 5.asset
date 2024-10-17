@@ -15,18 +15,21 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 7
     Team: 1
+    SkillAttack: 11
     Ability1: 0
     Ability2: 0
     Name: Star
     Class: ss
   - CharactersPrefab: 1
     Team: 1
+    SkillAttack: 1
     Ability1: 1
     Ability2: 0
     Name: Pit
     Class: ss
   - CharactersPrefab: 9
     Team: 1
+    SkillAttack: 10
     Ability1: 1
     Ability2: 0
     Name: Link

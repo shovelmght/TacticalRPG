@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Attack[] _SkillAttack; 
     [SerializeField] private CinemachineImpulseSource _TempVcamCinemachineImpulseSource;
     [SerializeField] private CinemachineImpulseSource _CinemachineImpulseSource;
     [SerializeField] private CinemachineImpulseSource _ZoomCinemachineImpulseSource;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _CameraRotation;
     public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
+    public DataCharacterSpawner PlayerDataCharacterSpawner;
     public DataCharacterSpawner CharacterDevilBossAIData;
     public DataCharacterSpawner CharacterWizardBossAIData;
     public DataCharacterSpawner CharacterRobotBossAIData;
@@ -210,6 +212,7 @@ public class GameManager : MonoBehaviour
     }
 
     private int _IndexTeam2TeamColor;
+    
 
     private IEnumerator InitializeGame()
     {
@@ -222,6 +225,67 @@ public class GameManager : MonoBehaviour
             yield return _tileManager.SetBoardTiles();
             yield break;
         }
+        
+        
+        PlayerDataCharacterSpawner.DataSpawn.Clear();
+
+        DataCharacterSpawner.DataSpawner squireDataSpawner = new DataCharacterSpawner.DataSpawner()
+        {
+            CharactersPrefab = DataCharacterSpawner.CharactersPrefab.Squire,
+            Team = Character.Team.Team1,
+            SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("SquireSkillAttack")),
+            Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("SquireAbility1")),
+            Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("SquireAbility2")),
+            Name = FBPP.GetString("SquireName")
+        };
+        
+        PlayerDataCharacterSpawner.DataSpawn.Add(squireDataSpawner);
+
+        if (FBPP.GetBool("WizardBossIsDead"))
+        {
+            DataCharacterSpawner.DataSpawner wizardDataSpawner = new DataCharacterSpawner.DataSpawner()
+            {
+                CharactersPrefab = DataCharacterSpawner.CharactersPrefab.Wizard,
+                Team = Character.Team.Team1,
+                SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("WizardSkillAttack")),
+                Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility1")),
+                Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility2")),
+                Name = FBPP.GetString("SquireName")
+            };
+        
+            PlayerDataCharacterSpawner.DataSpawn.Add(wizardDataSpawner);
+        }
+        
+        if (FBPP.GetBool("RobotBossIsDead"))
+        {
+            DataCharacterSpawner.DataSpawner robotDataSpawner = new DataCharacterSpawner.DataSpawner()
+            {
+                CharactersPrefab = DataCharacterSpawner.CharactersPrefab.Robot,
+                Team = Character.Team.Team1,
+                SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("RobotSkillAttack")),
+                Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility1")),
+                Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility2")),
+                Name = FBPP.GetString("SquireName")
+            };
+        
+            PlayerDataCharacterSpawner.DataSpawn.Add(robotDataSpawner);
+        }
+        
+        if (FBPP.GetBool("FatherNatureBossIsDead"))
+        {
+            DataCharacterSpawner.DataSpawner fatherNatureDataSpawner = new DataCharacterSpawner.DataSpawner()
+            {
+                CharactersPrefab = DataCharacterSpawner.CharactersPrefab.MotherNature,
+                Team = Character.Team.Team1,
+                SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("FatherNatureSkillAttack")),
+                Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility1")),
+                Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility2")),
+                Name = FBPP.GetString("SquireName")
+            };
+        
+            PlayerDataCharacterSpawner.DataSpawn.Add(fatherNatureDataSpawner);
+        }
+        
 
         if (_IsMapScene)
         {
@@ -493,7 +557,8 @@ public class GameManager : MonoBehaviour
             }
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
         }
-        
+
+        characterReference._SkillAttack = _SkillAttack[(int)dataCharacterSpawner.SkillAttack];
         characterReference.SetAbility(dataCharacterSpawner.Ability1);
         characterReference.SetAbility(dataCharacterSpawner.Ability2);
         characterReference.SetAbility(characterReference.BaseAbility1);
@@ -505,8 +570,6 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
-
-
 
     public void SpawnMobCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.CharactersPrefab CharactersPrefab, bool canMove)
     {
@@ -914,6 +977,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator MapSceneToBattleScene(string characterType)
     {
+        _GameIsFinish = true;
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOver);
         if (characterType == "14")
         {
@@ -1206,7 +1270,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
         
-        yield return new WaitForSeconds(0.75f);
+      
         if (_UnitTest)
         {
             SceneManager.LoadScene("BattleScene");
@@ -1218,6 +1282,7 @@ public class GameManager : MonoBehaviour
             
             if (playerWin)
             {
+                yield return new WaitForSeconds(0.2f);
                 if (_IsWizardBoss)
                 {
                     FBPP.SetBool("WizardBossIsDead", true);
@@ -1262,6 +1327,7 @@ public class GameManager : MonoBehaviour
                 FBPP.Save();
             }
             
+            yield return new WaitForSeconds(0.5f);
             Time.timeScale = 1f;
             StartCoroutine(_tileManager.TileTransitionToMapScene());
             foreach (var characterGo in AllCharacterGo)
@@ -1271,16 +1337,14 @@ public class GameManager : MonoBehaviour
                     characterGo.gameObject.SetActive(false);
                 }
             }
-            //StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
+            StartCoroutine(_tileManager.CharacterTransitionToMapScene(AllCharacterGo));
             if (CurrentCharacterTurn != null)
             {
                 CurrentCharacterTurn.ActionRemoveUIPopUpCharacterInfo(true);
             }
            
             RemoveUICharacter?.Invoke();
-            Debug.Log("GameManager :: SetEndGame  0");
             yield return new WaitForSeconds(0.5f);
-            Debug.Log("GameManager :: SetEndGame  1");
             foreach (var character in CharacterList)
             {
                 if (character != null)
@@ -1288,10 +1352,9 @@ public class GameManager : MonoBehaviour
                     character.gameObject.SetActive(false);
                 }
             }
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("GameManager :: SetEndGame  2");
+            yield return new WaitForSeconds(0.25f);
+            TempBoardVCam.gameObject.SetActive(false);
             yield return StartCoroutine(_tileManager.CameraTransitionToMapScene(BoardCamera));
-            Debug.Log("GameManager :: SetEndGame  3");
             SceneManager.LoadScene("MapScene");
         }
     }
@@ -1568,12 +1631,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return new WaitUntil(() => !Wait);
         yield return new WaitForSeconds(0.75f);
-        Debug.Log("SetBattleCamera end of waiting ");
+
         if (!_GameIsFinish)
         {
             TempBoardVCam.gameObject.SetActive(false);
-        } 
-        
+        }
     }
     
     private IEnumerator MoveCamera(Vector3 destination)

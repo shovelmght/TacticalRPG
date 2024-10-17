@@ -15,6 +15,7 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 9
     Team: 2
+    SkillAttack: 10
     Ability1: 1
     Ability2: 0
     Name: 

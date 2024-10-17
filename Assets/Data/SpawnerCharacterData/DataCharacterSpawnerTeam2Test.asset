@@ -15,18 +15,21 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 5
     Team: 2
+    SkillAttack: 7
     Ability1: 0
     Ability2: 0
     Name: 'Mark '
     Class: Father Nature
-  - CharactersPrefab: 0
+  - CharactersPrefab: 1
     Team: 2
+    SkillAttack: 1
     Ability1: 0
     Ability2: 0
     Name: 'Mark '
     Class: Father Nature
-  - CharactersPrefab: 9
+  - CharactersPrefab: 3
     Team: 2
+    SkillAttack: 4
     Ability1: 0
     Ability2: 0
     Name: 'Mark '

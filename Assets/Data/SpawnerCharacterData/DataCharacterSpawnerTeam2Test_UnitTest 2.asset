@@ -15,12 +15,14 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 9
     Team: 2
+    SkillAttack: 12
     Ability1: 0
     Ability2: 0
     Name: Pops
     Class: ss
   - CharactersPrefab: 1
     Team: 2
+    SkillAttack: 1
     Ability1: 1
     Ability2: 0
     Name: Mark

@@ -15,18 +15,21 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 9
     Team: 1
-    Ability1: 0
+    SkillAttack: 12
+    Ability1: 1
     Ability2: 0
     Name: Ico
     Class: ss
-  - CharactersPrefab: 5
+  - CharactersPrefab: 3
     Team: 1
+    SkillAttack: 4
     Ability1: 1
     Ability2: 0
     Name: Glass
     Class: ss
   - CharactersPrefab: 9
     Team: 1
+    SkillAttack: 12
     Ability1: 1
     Ability2: 0
     Name: Pater

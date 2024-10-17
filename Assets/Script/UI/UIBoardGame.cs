@@ -138,8 +138,17 @@ public class UIBoardGame : MonoBehaviour
             NormalAttackButton.gameObject.SetActive(true);
             SkillAttackButton.gameObject.SetActive(true);
             ReturnToMenuFromAttackButton.gameObject.SetActive(true);
-            
-            SkillAttackName.text = _boardManager.CurrentCharacter._SkillAttack.AttackName;
+
+            if (_boardManager.CurrentCharacter._SkillAttack == null)
+            {
+                SkillAttackButton.interactable = false;
+                SkillAttackName.text = "Skill";
+            }
+            else
+            {
+                SkillAttackName.text = _boardManager.CurrentCharacter._SkillAttack.AttackName;
+            }
+           
             if (_boardManager.IsController)
             {
                 NormalAttackButton.Select();

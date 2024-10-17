@@ -76,9 +76,11 @@ public class MoveAIMapCharacter : MonoBehaviour
             spawnTile = _Character.CurrentTile.SideTiles[Random.Range(0, 4)];
         }
 
-        StartCoroutine(MoveCharacter(spawnTile));
-        StartCoroutine(MoveToNextTile());
-
+        if (!_GameManager._GameIsFinish)
+        {
+            StartCoroutine(MoveCharacter(spawnTile));
+            StartCoroutine(MoveToNextTile());
+        }
     }
     
     private IEnumerator MoveCharacter(Tile tile)

@@ -1827,6 +1827,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2878fa75fbe4d24c83ca7762cf31eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SkillAttack:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 5fde674708986594eaccb78734e4d9a8, type: 2}
+  - {fileID: 11400000, guid: 3133babde09e3cb47926a128b72ccecc, type: 2}
+  - {fileID: 11400000, guid: 49fca830b1c794147a0ca8bf9ae5ccc7, type: 2}
+  - {fileID: 11400000, guid: 4173e1585cd4cf2459a03a6dfbd15d04, type: 2}
+  - {fileID: 11400000, guid: 1c1d33adf5dcb0040832efcf63680b29, type: 2}
+  - {fileID: 11400000, guid: 35ff945873b62fa42930a52ea74e0e05, type: 2}
+  - {fileID: 11400000, guid: 22808b68c98843241b3e7b78fd3c21fc, type: 2}
+  - {fileID: 11400000, guid: 485d3f8ff9f9cdf478edeea55eb61a3e, type: 2}
+  - {fileID: 11400000, guid: 9f89a22a9f33b744b8f0a3c34dc13a5f, type: 2}
+  - {fileID: 11400000, guid: 98856cf766e10cb47b687c39e85fd152, type: 2}
+  - {fileID: 11400000, guid: 3eb4a70ac183261438e4d350081724bf, type: 2}
+  - {fileID: 11400000, guid: 007fa6b3915fa8d45b431ea94ccaa02e, type: 2}
+  - {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
   _TempVcamCinemachineImpulseSource: {fileID: 1390828294}
   _CinemachineImpulseSource: {fileID: 1079926050}
   _ZoomCinemachineImpulseSource: {fileID: 158688941}
@@ -1847,7 +1862,8 @@ MonoBehaviour:
   _CameraRotation: {fileID: 0}
   _AllPossibleCharacterMaterials: {fileID: 11400000, guid: afcafd932bce3f94aaee90f7ef6094ca, type: 2}
   CharacterAIData:
-  - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
+  - {fileID: 11400000, guid: 3d385258b94a4094098596cb63dcfb77, type: 2}
+  PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
   CharacterWizardBossAIData: {fileID: 11400000, guid: 8e639cd2476ef8944895299d3927f257, type: 2}
   CharacterRobotBossAIData: {fileID: 11400000, guid: d36050e16b75d0c42ad75f83ad91ff7f, type: 2}

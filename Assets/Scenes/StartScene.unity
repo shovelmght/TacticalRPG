@@ -3825,6 +3825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2878fa75fbe4d24c83ca7762cf31eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SkillAttack: []
   _TempVcamCinemachineImpulseSource: {fileID: 1390828294}
   _CinemachineImpulseSource: {fileID: 1079926050}
   _ZoomCinemachineImpulseSource: {fileID: 158688941}
@@ -3846,6 +3847,7 @@ MonoBehaviour:
   _AllPossibleCharacterMaterials: {fileID: 0}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
+  PlayerDataCharacterSpawner: {fileID: 0}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
   CharacterWizardBossAIData: {fileID: 0}
   CharacterRobotBossAIData: {fileID: 0}
@@ -9884,7 +9886,7 @@ MonoBehaviour:
   _MainMusicVolume: 0.5
   _ButtonClick:
     _AudioClip: {fileID: 8300000, guid: 2c6e31f962735ca4393da43de1eb2ea5, type: 3}
-    _RelativeVolume: 1
+    _RelativeVolume: 0.15
     _MinRandomPitch: 0.5
     _MaxRandomPitch: 1.5
   _FireDamage:

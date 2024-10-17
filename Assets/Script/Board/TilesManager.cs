@@ -1673,10 +1673,7 @@ public class TilesManager: MonoBehaviour
                         if (element.gameObject.activeInHierarchy)
                         {
                             element.transform.position -= _yPostitionLerpSpeed;
-
-
                         }
-
                     }
 
                     yield return new WaitForSeconds(0.001f);

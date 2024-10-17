@@ -76,7 +76,49 @@ public class CharacterSelectable : MonoBehaviour
     private void SetSelectableCharacter()
     {
         _CharacterName.text = _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].Name;
-        _CharacterClass.text = _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].Class;
+
+        if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.Squire ||
+            _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.SquireAI)
+        {
+            _CharacterClass.text = "Squire";
+        }
+        
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.Dragon ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.DragonAI)
+        {
+            _CharacterClass.text = "Dragon";
+        }
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.Robot ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.RobotAI)
+        {                                                                                                                                         
+            _CharacterClass.text = "Robot";                                                                                                      
+        }   
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.Turret)
+        {                                                                                                                                         
+            _CharacterClass.text = "Turret";                                                                                                      
+        }     
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.Wizard ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.WizardAI)
+        {                                                                                                                                         
+            _CharacterClass.text = "Wizard";                                                                                                      
+        }     
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.DevilBoss ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.DevilBossAI)
+        {                                                                                                                                         
+            _CharacterClass.text = "Devil";                                                                                                      
+        }   
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNature ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.MotherNatureAI)
+        {                                                                                                                                         
+            _CharacterClass.text = "FatherNature";                                                                                                      
+        }
+        else if (_PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.SelfDestructRobot ||
+                 _PlayerDataCharacterSpawner.DataSpawn[_CurrentCharacterIndex].CharactersPrefab == DataCharacterSpawner.CharactersPrefab.SelfDestructRobotAI)
+        {                                                                                                                                         
+            _CharacterClass.text = "Mini Robot";                                                                                                      
+        }     
+        
+
         for (int i = 0; i < _CharacterContainer.childCount; i++)
         {
             Destroy(_CharacterContainer.GetChild(i).gameObject);

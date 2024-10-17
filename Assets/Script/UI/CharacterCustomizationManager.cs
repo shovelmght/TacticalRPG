@@ -125,7 +125,7 @@ public class CharacterCustomizationManager : MonoBehaviour
         dataSpawner.Name = _Name.text;
         _DataCharacterSpawner.DataSpawn[0] = dataSpawner;
         FBPP.SetInt("TeamColor", _IndexMaterial);
-        FBPP.SetString("Name1",  _Name.text);
+        FBPP.SetString("SquireName",  _Name.text);
         FBPP.SetBool("IsDevilBoss",  true);
         FBPP.SetInt("PositionTileCoordX", 99);
         FBPP.Save();

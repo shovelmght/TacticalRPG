@@ -24,8 +24,8 @@ public class Character : MonoBehaviour
     public ParticleSystem[] _ElemenCharactertParticleEffect;
     public GameObject _ElemenFireCharactertParticleEffect;
     public GameObject _HitFireParticleEffect;
-    public DataCharacterSpawner.CharactersAbility1 BaseAbility1;
-    public DataCharacterSpawner.CharactersAbility1 BaseAbility2;
+    public DataCharacterSpawner.CharacterAbility BaseAbility1;
+    public DataCharacterSpawner.CharacterAbility BaseAbility2;
 
     [field: SerializeField] public int MaxHealth { get; private set; } = 100;
     [field: SerializeField] public int Strength { get; private set; } = 2;
@@ -1277,22 +1277,22 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
         }
     }
     
-    public void SetAbility( DataCharacterSpawner.CharactersAbility1 ability)
+    public void SetAbility( DataCharacterSpawner.CharacterAbility ability)
     {
         switch (ability)
         {
-            case DataCharacterSpawner.CharactersAbility1.None:
+            case DataCharacterSpawner.CharacterAbility.None:
                 break;
-            case DataCharacterSpawner.CharactersAbility1.CounterAttack:
+            case DataCharacterSpawner.CharacterAbility.CounterAttack:
                 new CounterAbility(this, GameManager.Instance);
                 break;
-            case DataCharacterSpawner.CharactersAbility1.ImmuneToFire:
+            case DataCharacterSpawner.CharacterAbility.ImmuneToFire:
                 ImmuneToFire = true;
                 break;
-            case DataCharacterSpawner.CharactersAbility1.ImmuneToPoison:
+            case DataCharacterSpawner.CharacterAbility.ImmuneToPoison:
                 ImmuneToPoison = true;
                 break;
-            case DataCharacterSpawner.CharactersAbility1.InFire:
+            case DataCharacterSpawner.CharacterAbility.InFire:
                 InFire = true;
                 _ElemenFireCharactertParticleEffect.SetActive(true);
                 foreach (var elementSwordParticleEffect in _ElementSwordParticleEffect)

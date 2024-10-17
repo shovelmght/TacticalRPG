@@ -26,6 +26,10 @@ public class SpawnTurret : MonoBehaviour
             GameManager.Instance.SpawnMobCharacter(GameManager.Instance.LastSpawnTile, Vector3.zero, _CharactersPrefab, _CanMove);
             VisualMesh.SetActive(false);
         }
+        else
+        {
+            GameManager.Instance.AllCharacterGo.Add(transform);
+        }
         
     }
     
