@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private CheckIfButtonIsSelect[] _ButtonsCanBeSelect;
     [SerializeField] private Button _FirstSelecableButton;
     [SerializeField] private Button _SecondSelecableButton;
+    [SerializeField] private Button _ThirdSelecableButton;
     private int _TreshHoldItteration = 2;
     private bool Canselect;
     private bool _OneOfButtonIsSelected;
@@ -117,9 +118,13 @@ public class InputManager : MonoBehaviour
                 {
                     _FirstSelecableButton.Select();
                 }
-                else
+                else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                 {
                     _SecondSelecableButton.Select();
+                }
+                else
+                {
+                    _ThirdSelecableButton.Select();
                 }
                 
                 Debug.Log(" _ConfirmButton.Select();");
@@ -135,9 +140,13 @@ public class InputManager : MonoBehaviour
                     {
                         _FirstSelecableButton.Select();
                     }
-                    else
+                    else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                     {
                         _SecondSelecableButton.Select();
+                    }
+                    else
+                    {
+                        _ThirdSelecableButton.Select();
                     }
                 }
             }
@@ -252,9 +261,13 @@ public class InputManager : MonoBehaviour
                 {
                     _FirstSelecableButton.Select();
                 }
-                else
+                else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                 {
                     _SecondSelecableButton.Select();
+                }
+                else
+                {
+                    _ThirdSelecableButton.Select();
                 }
                 
                 Debug.Log(" _ConfirmButton.Select();");
@@ -270,9 +283,13 @@ public class InputManager : MonoBehaviour
                     {
                         _FirstSelecableButton.Select();
                     }
-                    else
+                    else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                     {
                         _SecondSelecableButton.Select();
+                    }
+                    else
+                    {
+                        _ThirdSelecableButton.Select();
                     }
                 }
             }
@@ -388,9 +405,13 @@ public class InputManager : MonoBehaviour
                 {
                     _FirstSelecableButton.Select();
                 }
-                else
+                else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                 {
                     _SecondSelecableButton.Select();
+                }
+                else
+                {
+                    _ThirdSelecableButton.Select();
                 }
                 
                 Debug.Log(" _ConfirmButton.Select();");
@@ -406,9 +427,13 @@ public class InputManager : MonoBehaviour
                     {
                         _FirstSelecableButton.Select();
                     }
-                    else
+                    else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                     {
                         _SecondSelecableButton.Select();
+                    }
+                    else
+                    {
+                        _ThirdSelecableButton.Select();
                     }
                 }
             }
@@ -524,9 +549,13 @@ public class InputManager : MonoBehaviour
                 {
                     _FirstSelecableButton.Select();
                 }
-                else
+                else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                 {
                     _SecondSelecableButton.Select();
+                }
+                else
+                {
+                    _ThirdSelecableButton.Select();
                 }
                 
                 Debug.Log(" _ConfirmButton.Select();");
@@ -542,9 +571,13 @@ public class InputManager : MonoBehaviour
                     {
                         _FirstSelecableButton.Select();
                     }
-                    else
+                    else if(_SecondSelecableButton.gameObject.activeInHierarchy)
                     {
                         _SecondSelecableButton.Select();
+                    }
+                    else
+                    {
+                        _ThirdSelecableButton.Select();
                     }
                 }
             }

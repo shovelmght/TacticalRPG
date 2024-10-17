@@ -992,14 +992,16 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
 
     public void DestroyCharacter()
     {
-        if (!_IsDead)
-        {
-            StartCoroutine(Vanish());
-        }
+        StartCoroutine(Vanish());
     }
+
+    private bool _DoOnceVanish;
 
     protected IEnumerator Vanish()
     {
+        if(_IsDead || _DoOnceVanish ) {yield break;}
+
+        _DoOnceVanish = true;
         ActionShowHideHealthBar?.Invoke(false);
         ActionDestroyCharacterRelated?.Invoke();
         bool isCharacterTurn = _gameManager.CurrentCharacter == this;

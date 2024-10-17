@@ -18,6 +18,7 @@ public class CharacterCustomizationManager : MonoBehaviour
     [SerializeField] private GameObject _VirtualKeyboard;
     [SerializeField] private GameObject[] _GameObjectToDeactivate;
     [SerializeField] private Animator _Animator;
+    [SerializeField] private bool _IsAddChatacter;
     private int _IndexMaterial;
    
     void Start()
@@ -50,13 +51,28 @@ public class CharacterCustomizationManager : MonoBehaviour
         {
             if (_VirtualKeyboard.activeInHierarchy)
             {
-                _Animator.enabled = true;
-                foreach (var gameObjectToDeactivate in _GameObjectToDeactivate)
+                if (_IsAddChatacter)
                 {
-                    gameObjectToDeactivate.SetActive(true);
-                }
+                    OnConfirmAddCharacterButtonClick();
+                    _Animator.enabled = true;
+                    foreach (var gameObjectToDeactivate in _GameObjectToDeactivate)
+                    {
+                        gameObjectToDeactivate.SetActive(true);
+                    }
         
-                _VirtualKeyboard.SetActive(false);
+                    _VirtualKeyboard.SetActive(false);
+                }
+                else
+                {
+                    _Animator.enabled = true;
+                    foreach (var gameObjectToDeactivate in _GameObjectToDeactivate)
+                    {
+                        gameObjectToDeactivate.SetActive(true);
+                    }
+        
+                    _VirtualKeyboard.SetActive(false);
+                }
+
             }
             else
             {
@@ -130,5 +146,24 @@ public class CharacterCustomizationManager : MonoBehaviour
         FBPP.SetInt("PositionTileCoordX", 99);
         FBPP.Save();
         SceneManager.LoadScene("BattleScene");
+    }
+    
+    public void OnConfirmAddCharacterButtonClick()
+    {
+        GameManager.Instance.Wait = false;
+        AudioManager._Instance.SpawnSelectSfx();
+        if (FBPP.GetBool("IsFatherNatureBoss"))
+        {
+            FBPP.SetString("FatherNatureName", _Name.text );
+        }
+        else if (FBPP.GetBool("IsRobotBoss"))
+        {
+            FBPP.SetString("RobotName", _Name.text );
+        }
+        else if (FBPP.GetBool("IsWizardBoss"))
+        {
+            FBPP.SetString("WizardName", _Name.text );
+        }
+        FBPP.Save();
     }
 }

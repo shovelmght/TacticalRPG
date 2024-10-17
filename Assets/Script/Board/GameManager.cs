@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> AllTransitionElementToDeactivate;
     [SerializeField] private List<GameObject> AllTransitionElementToDeactivate2;
     [SerializeField] private GameObject _CameraRotation;
+    [SerializeField] private Animator AddCharacterAnimator;
+    [SerializeField] private GameObject AddCharacterWizard;
+    [SerializeField] private GameObject AddCharacterRobot;
+    [SerializeField] private GameObject AddCharacterFatherNature;
     public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner PlayerDataCharacterSpawner;
@@ -250,7 +254,7 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("WizardSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility2")),
-                Name = FBPP.GetString("SquireName")
+                Name = FBPP.GetString("WizardName")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(wizardDataSpawner);
@@ -265,7 +269,7 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("RobotSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility2")),
-                Name = FBPP.GetString("SquireName")
+                Name = FBPP.GetString("RobotName")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(robotDataSpawner);
@@ -280,7 +284,7 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("FatherNatureSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility2")),
-                Name = FBPP.GetString("SquireName")
+                Name = FBPP.GetString("FatherNatureName")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(fatherNatureDataSpawner);
@@ -637,17 +641,30 @@ public class GameManager : MonoBehaviour
             characterGameObject.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         }
 
+        int indexMaterial = FBPP.GetInt("TeamColor");
+        
         if (isPlayerCharacter)
         {
             CurrentCharacter = characterReference;
             CurrentState = StateMoveCharacter;
             TileSelected = tile;
             StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, IsCameraNear)));
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
         }
-        
-       
-        int indexMaterial = FBPP.GetInt("TeamColor");
-        characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+        else
+        {
+            if (_IndexTeam2TeamColor == indexMaterial)
+            {
+                _IndexTeam2TeamColor++;
+            }
+
+            if (_IndexTeam2TeamColor > _AllPossibleCharacterMaterials.AllPossibleMaterials.Length - 1)
+            {
+                _IndexTeam2TeamColor = 0;
+            }
+            characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
+        }
+
         AllTransitionElement.Add(characterGameObject.transform);
         return characterReference;
 
@@ -1283,6 +1300,11 @@ public class GameManager : MonoBehaviour
             if (playerWin)
             {
                 yield return new WaitForSeconds(0.2f);
+                RemoveUICharacter?.Invoke();
+                if (CurrentCharacterTurn != null)
+                {
+                    CurrentCharacterTurn.ActionRemoveUIPopUpCharacterInfo(true);
+                }
                 if (_IsWizardBoss)
                 {
                     FBPP.SetBool("WizardBossIsDead", true);
@@ -1292,8 +1314,18 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(0.3f);
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
                     yield return new WaitForSeconds(0.5f);
+                    MenuIsOpen = true;
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    Time.timeScale = 1f;
                     yield return new WaitForSeconds(0.2f);
+                    AddCharacterAnimator.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterWizard.SetActive(true);
+                    Wait = true;
+                    yield return new WaitUntil(() => !Wait);
+                    AddCharacterAnimator.SetTrigger("Hide");
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterWizard.SetActive(false);
                 }
                 else if (_IsFatherNatureBoss)
                 {
@@ -1304,8 +1336,18 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(0.3f);
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
                     yield return new WaitForSeconds(0.5f);
+                    MenuIsOpen = true;
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    Time.timeScale = 1f;
                     yield return new WaitForSeconds(0.2f);
+                    AddCharacterAnimator.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterFatherNature.SetActive(true);
+                    Wait = true;
+                    yield return new WaitUntil(() => !Wait);
+                    AddCharacterAnimator.SetTrigger("Hide");
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterFatherNature.SetActive(false);
                 }
                 else if (_IsRobotBoss)
                 {
@@ -1316,8 +1358,18 @@ public class GameManager : MonoBehaviour
                     yield return new WaitForSeconds(0.3f);
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
                     yield return new WaitForSeconds(0.5f);
+                    MenuIsOpen = true;
                     AudioManager._Instance.SpawnSound( AudioManager._Instance._GameIsOverMoveTxt);
+                    Time.timeScale = 1f;
                     yield return new WaitForSeconds(0.2f);
+                    AddCharacterAnimator.gameObject.SetActive(true);
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterRobot.SetActive(true);
+                    Wait = true;
+                    yield return new WaitUntil(() => !Wait);
+                    AddCharacterAnimator.SetTrigger("Hide");
+                    yield return new WaitForSeconds(0.35f);
+                    AddCharacterRobot.SetActive(false);
                 }
                 else if (FBPP.GetBool("IsDevilBoss"))
                 {
