@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner PlayerDataCharacterSpawner;
+    public DataCharacterSpawner PlayerTestDataCharacterSpawner;
     public DataCharacterSpawner CharacterDevilBossAIData;
     public DataCharacterSpawner CharacterWizardBossAIData;
     public DataCharacterSpawner CharacterRobotBossAIData;

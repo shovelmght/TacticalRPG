@@ -64,7 +64,7 @@ public class TilesManager: MonoBehaviour
     private const float  COEF_SCALE_MULTIP_WATERFALL_TILE = 5;
     private const int  GAP_BORDER_WATERFALL = 5;
     private List<Tile> _waterTilesList = new List<Tile>();
-    private const float HEIGHT_GAP = 0.5f;
+    public const float HEIGHT_GAP = 0.5f;
     
     private enum CoordXYZ
     {
@@ -1431,6 +1431,7 @@ public class TilesManager: MonoBehaviour
             BoxCollider tileCollider =  tile.CurrentGameObject.GetComponent<BoxCollider>();
             tileCollider.size = new Vector3(tileCollider.size.x, 2.25f, tileCollider.size.z);
             tile.IsWater = false;
+            tile.IsBridge = true;
             tile.Height++;
             Vector3 newTileLocation =  new Vector3(0, HEIGHT_GAP, 0);
             tile.Position += (newTileLocation + new Vector3(0, HEIGHT_GAP, 0));
@@ -1692,5 +1693,11 @@ public class TilesManager: MonoBehaviour
                 yield return null;
             }
         }
+
+        public Tile[] GetAllTiles()
+        {
+            return _tiles;
+        }
+        
 
 }

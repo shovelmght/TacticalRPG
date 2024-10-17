@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05228360d69a949a3b7536e6f1e749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 7a5337e77ca25c1418a666f6971adbab, type: 2}
+  <TileManagerData>k__BackingField: {fileID: 11400000, guid: 04766f91e980e394a89e4d8ef7ed33b3, type: 2}
   <RandomTileManagerData>k__BackingField:
   - {fileID: 11400000, guid: 19fe4a8b652b04947976000c6136f496, type: 2}
   - {fileID: 11400000, guid: e3d5d09cd6e22e040a76c2dcfcf288ad, type: 2}
@@ -2932,6 +2932,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3eb4a70ac183261438e4d350081724bf, type: 2}
   - {fileID: 11400000, guid: 007fa6b3915fa8d45b431ea94ccaa02e, type: 2}
   - {fileID: 11400000, guid: 84d4ae624840587469749454be96a367, type: 2}
+  - {fileID: 11400000, guid: 97f9d5e2ee3b8c9479e69b69e9b86a54, type: 2}
+  - {fileID: 11400000, guid: d4500e92b1003af44ae11dde64139677, type: 2}
   _TempVcamCinemachineImpulseSource: {fileID: 1390828294}
   _CinemachineImpulseSource: {fileID: 1079926050}
   _ZoomCinemachineImpulseSource: {fileID: 158688941}
@@ -2958,11 +2960,12 @@ MonoBehaviour:
   CharacterAIData:
   - {fileID: 11400000, guid: 3d385258b94a4094098596cb63dcfb77, type: 2}
   PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
+  PlayerTestDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
   CharacterWizardBossAIData: {fileID: 11400000, guid: 8e639cd2476ef8944895299d3927f257, type: 2}
   CharacterRobotBossAIData: {fileID: 11400000, guid: d36050e16b75d0c42ad75f83ad91ff7f, type: 2}
   CharacterFatherNatureBossAIData: {fileID: 11400000, guid: 654c00b4358eb2547980006802c0c073, type: 2}
-  _MapCharacterData: {fileID: 0}
+  _MapCharacterData: {fileID: 11400000, guid: 2fde036ad02016147b82d4b182a1befe, type: 2}
   _PlayerCharacterSpawnerList: {fileID: 1465328666}
   SquirePrefab: {fileID: 4996426552043041044, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}
   SquireAIPrefab: {fileID: 4328397966154774303, guid: a5b1f13310623f7429b9f6915d142ff4, type: 3}
@@ -2994,7 +2997,7 @@ MonoBehaviour:
   PossibleAttackTileIsFinished: 0
   PossibleEndTurnDirectionTileIsFinished: 0
   _direction: 0
-  _tileManager: {fileID: 0}
+  _tileManager: {fileID: 477867673}
   _MapTilesManager_Lava: {fileID: 0}
   _MapTilesManager_Grass: {fileID: 0}
   _MapTilesManager_Snow: {fileID: 0}
@@ -3006,7 +3009,7 @@ MonoBehaviour:
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
   _RandomMap: 0
-  _ForceTileManager: 0
+  _ForceTileManager: 1
   _UnitTest: 0
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
@@ -8230,7 +8233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803b8adfdd0b17645a11214e5bd36ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
+  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   _CharacterName: {fileID: 1573938128}
   _CharacterClass: {fileID: 99746762}
   _CharacterContainer: {fileID: 1362431551}

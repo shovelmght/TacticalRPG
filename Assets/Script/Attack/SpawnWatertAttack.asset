@@ -9,34 +9,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6c3b676f50ede47ac9daa6763419e8, type: 3}
-  m_Name: SpawnTreeAttack
+  m_Script: {fileID: 11500000, guid: 9514cfc9b34d0a349b1f3f236f50f32a, type: 3}
+  m_Name: SpawnWatertAttack
   m_EditorClassIdentifier: 
   Power: 10
-  AttackLenght: 2
-  AttackName: Plant Tree
+  AttackLenght: 3
+  AttackName: Terraform
   AttackAnimationName: Spell
   IsProjectile: 0
   IsLineAttack: 0
   IsDashAttack: 0
   IsWaterAttack: 0
-  IsSpawnSkill: 1
+  IsSpawnSkill: 0
   IsReapeatableAttack: 0
   SoftBattleZoom: 0
   _IsPoison: 0
   _IsFire: 0
+  _IsCrossAttack: 0
   PreSfx:
     _AudioClip: {fileID: 8300000, guid: a22f0176f24e0fb46abd58b17ac53ce0, type: 3}
     _RelativeVolume: 0.1
-    _MinRandomPitch: 2
-    _MaxRandomPitch: 2
+    _MinRandomPitch: 1.5
+    _MaxRandomPitch: 0.5
   SfxAtSpawn:
     _AudioClip: {fileID: 8300000, guid: d22fdacc326742b4183fc8db0bf5015a, type: 3}
     _RelativeVolume: 0.05
     _MinRandomPitch: 1
     _MaxRandomPitch: 1.2
   ImpactSfx:
-    _AudioClip: {fileID: 8300000, guid: d22fdacc326742b4183fc8db0bf5015a, type: 3}
+    _AudioClip: {fileID: 0}
     _RelativeVolume: 0
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
@@ -45,4 +46,5 @@ MonoBehaviour:
     _RelativeVolume: 0
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
-  SpawnPrefab: {fileID: 6977179289410413689, guid: aacc311b28f7eb646a1dc3217fbe6d15, type: 3}
+  _ParticleEffectPrefab: {fileID: 6977179289410413689, guid: 1b68f505b0e5db84f877b6dd00bb172a, type: 3}
+  _TileParticleEffectPrefab: {fileID: 8656522925564163052, guid: 566610a1ec0e4264099c5f1809d21e24, type: 3}

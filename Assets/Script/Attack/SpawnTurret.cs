@@ -53,13 +53,13 @@ public class SpawnTurret : MonoBehaviour
             Vector3 currentScale = _ParticleEffect.transform.localScale;
             // If the object's scale is above the threshold, continue scaling it down
             
-                if (currentScale.x > 0.2f)
+                if (currentScale.x > 0.05f)
                 {
                     Debug.Log("LerpScaleAndDeactivateGameObjects bug 3" );
                     allScaledDown = false; // At least one object is still above the threshold
                     _ParticleEffect.transform.localScale = Vector3.Max(
                         currentScale - new Vector3(_LerpScaleSpeed, _LerpScaleSpeed, _LerpScaleSpeed),
-                        new Vector3(0.2f, 0.2f, 0.2f) // Prevent scaling below the threshold
+                        new Vector3( 0.05f,  0.05f,  0.05f) // Prevent scaling below the threshold
                     );
                 }
             

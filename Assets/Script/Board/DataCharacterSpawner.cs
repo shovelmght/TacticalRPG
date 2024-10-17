@@ -42,7 +42,8 @@ public class DataCharacterSpawner : ScriptableObject
         CounterAttack = 1,
         ImmuneToFire = 2,
         ImmuneToPoison = 3,
-        InFire = 4
+        InFire = 4,
+        SpeedBoost = 5
     }
     
     public enum CharacterSkillAttack
@@ -61,6 +62,8 @@ public class DataCharacterSpawner : ScriptableObject
         SpawnTree = 11,
         SpawnTurret = 12,
         TurretAttack = 13,
+        SpawnWaterTile = 14,
+        RemoveWater = 15
     }
 
     public CharacterAbility GetCharacterAbility(int index)
@@ -114,6 +117,10 @@ public class DataCharacterSpawner : ScriptableObject
                 return CharacterSkillAttack.SpawnTurret;
             case 13:
                 return CharacterSkillAttack.TurretAttack;
+            case 14:
+                return CharacterSkillAttack.SpawnWaterTile;
+            case 15:
+                return CharacterSkillAttack.RemoveWater;
         }
         
         return CharacterSkillAttack.None;

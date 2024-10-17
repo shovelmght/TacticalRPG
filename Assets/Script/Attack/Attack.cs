@@ -17,6 +17,7 @@ public abstract  class Attack : ScriptableObject
     public bool SoftBattleZoom;
     public bool _IsPoison;
     public bool _IsFire;
+    public bool _IsCrossAttack;
     public AudioManager.SfxClass PreSfx;
     public AudioManager.SfxClass SfxAtSpawn;
     public AudioManager.SfxClass ImpactSfx;

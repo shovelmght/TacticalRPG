@@ -858,7 +858,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 StartCoroutine(_attackTarget.AddPoisonEffect());
             }
 
-        if (_gameManager.CurrentCharacter != null)
+            if (_gameManager.CurrentCharacter != null)
             {
                 _gameManager.TilePreSelected = _gameManager.CurrentCharacter.CurrentTile;
             }
@@ -1302,6 +1302,10 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                     elementSwordParticleEffect.gameObject.SetActive(true);
                     elementSwordParticleEffect.startColor = Color.red;
                 }
+                break;
+            case DataCharacterSpawner.CharacterAbility.SpeedBoost:
+                Speed *= 2;
+                CharacterAnimator.speed *= 2;
                 break;
         }
     }

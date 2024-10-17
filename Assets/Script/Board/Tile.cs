@@ -19,6 +19,7 @@ public class Tile
     public bool CanInteract { get;  set; }
     public bool IsValidSpawnTile { get;  set; }
     public bool IsWater { get; set; }
+    public bool IsBridge { get;  set; }
     public int Height { get;  set; }
     public int WaterLenghtNorthSouth { get;  set; }
     public int WaterLenghtEstWest { get;  set; }

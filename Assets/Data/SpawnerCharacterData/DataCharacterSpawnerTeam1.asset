@@ -13,18 +13,11 @@ MonoBehaviour:
   m_Name: DataCharacterSpawnerTeam1
   m_EditorClassIdentifier: 
   DataSpawn:
-  - CharactersPrefab: 1
+  - CharactersPrefab: 6
     Team: 1
+    SkillAttack: 14
     Ability1: 1
-  - CharactersPrefab: 1
-    Team: 1
-    Ability1: 1
-  - CharactersPrefab: 1
-    Team: 1
-    Ability1: 1
-  - CharactersPrefab: 1
-    Team: 1
-    Ability1: 1
-  - CharactersPrefab: 1
-    Team: 1
-    Ability1: 1
+    Ability2: 5
+    Name: 
+    Class: 
+  TeamColor: 0

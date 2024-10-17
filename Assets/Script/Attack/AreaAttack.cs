@@ -15,9 +15,7 @@ public class AreaAttack : Attack
 
     public override void DoAttack(Character character, Tile tiles, bool isAcounterAttack, GetAttackDirection.AttackDirection attackDirection)
     {
-
         character.StartCoroutine(ExplosionAttack(character));
-        Debug.Log(GameManager.Instance.OccupiedTiles.Length);
     }
 
     private IEnumerator ExplosionAttack(Character character)

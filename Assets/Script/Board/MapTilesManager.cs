@@ -42,7 +42,7 @@ public class MapTilesManager : MonoBehaviour
     private const float COEF_SCALE_MULTIP_WATERFALL_TILE = 5;
     private const int GAP_BORDER_WATERFALL = 5;
     private List<Tile> _waterTilesList = new List<Tile>();
-    private const float HEIGHT_GAP = 0.5f;
+    public const float HEIGHT_GAP = 0.5f;
     
 
     private enum CoordXYZ
