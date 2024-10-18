@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject AddCharacterWizard;
     [SerializeField] private GameObject AddCharacterRobot;
     [SerializeField] private GameObject AddCharacterFatherNature;
+    [SerializeField] private GameObject _CriticalText;
     public CharacterMaterial _AllPossibleCharacterMaterials;
     public List<DataCharacterSpawner> CharacterAIData;
     public DataCharacterSpawner PlayerDataCharacterSpawner;
@@ -1805,28 +1806,34 @@ public class GameManager : MonoBehaviour
             character.SetRemaininTimeTurn();
         }
     }
-
-    [ContextMenu("StartCinemachineImpulseSource")]
-    public void StartCinemachineImpulseSource()
+    
+    public void StartCinemachineImpulseSource(bool isCritical)
     {
-        if (_TempVcamCinemachineImpulseSource.gameObject.activeInHierarchy)
+        if (isCritical)
         {
-            _TempVcamCinemachineImpulseSource.GenerateImpulse();
+            AudioManager._Instance.SpawnSound( AudioManager._Instance._CriticalHit);
+            _TempVcamCinemachineImpulseSource.GenerateImpulseWithForce(3);
         }
-        if (_CinemachineImpulseSource.gameObject.activeInHierarchy)
+        else
         {
-            _CinemachineImpulseSource.GenerateImpulse();
-        }
-        if (_ZoomCinemachineImpulseSource.gameObject.activeInHierarchy)
-        {
-            _ZoomCinemachineImpulseSource.GenerateImpulse();
-        }
+            if (_TempVcamCinemachineImpulseSource.gameObject.activeInHierarchy)
+            {
+                _TempVcamCinemachineImpulseSource.GenerateImpulse();
+            }
+            if (_CinemachineImpulseSource.gameObject.activeInHierarchy)
+            {
+                _CinemachineImpulseSource.GenerateImpulse();
+            }
+            if (_ZoomCinemachineImpulseSource.gameObject.activeInHierarchy)
+            {
+                _ZoomCinemachineImpulseSource.GenerateImpulse();
+            }
 
-        if (CurrentCharacter != null)
-        {
-            CurrentCharacter.StartCinemachineImpulseSource();
+            /*if (CurrentCharacter != null)
+            {
+                CurrentCharacter.StartCinemachineImpulseSource();
+            }*/
         }
-        
     }
 
     private bool _CanressRepeatableAttack = true;
@@ -1842,6 +1849,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("RepeatableAttackInputIsPress = false;");
         yield return new WaitForSeconds(0.9f);
         _CanressRepeatableAttack = true;
+    }
+    
+    public void ShowCriticalText()
+    {
+        _CriticalText.SetActive(true);
     }
 
     //-------------------------------DEBUG---------------------------------

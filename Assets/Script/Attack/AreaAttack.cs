@@ -56,7 +56,7 @@ public class AreaAttack : Attack
             }
 
             AudioManager._Instance.SpawnSound(GameManager.Instance.StateAttackCharacter._Attack.ImpactSfx);
-            characterReference.IsAttacked(Power * character.Strength, character._isCounterAttack, _IsFire);
+            characterReference.IsAttacked(Power * character.Strength, character._isCounterAttack, _IsFire, false);
             
             if (characterReference.HaveCounterAbility)
             {

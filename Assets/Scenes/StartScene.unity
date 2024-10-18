@@ -1935,10 +1935,12 @@ MonoBehaviour:
   AddCharacterWizard: {fileID: 0}
   AddCharacterRobot: {fileID: 0}
   AddCharacterFatherNature: {fileID: 0}
+  _CriticalText: {fileID: 0}
   _AllPossibleCharacterMaterials: {fileID: 0}
   CharacterAIData:
   - {fileID: 11400000, guid: 7eac704a603bdda489045a08c6315a54, type: 2}
   PlayerDataCharacterSpawner: {fileID: 0}
+  PlayerTestDataCharacterSpawner: {fileID: 0}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
   CharacterWizardBossAIData: {fileID: 0}
   CharacterRobotBossAIData: {fileID: 0}
@@ -6772,6 +6774,11 @@ MonoBehaviour:
   _AudioPoolLength: 10
   _MainVolume: 0.5
   _MainMusicVolume: 0.5
+  _CriticalHit:
+    _AudioClip: {fileID: 8300000, guid: 208e2dc0974638e48bb4354c3eed7308, type: 3}
+    _RelativeVolume: 0.5
+    _MinRandomPitch: 0.35
+    _MaxRandomPitch: 0.35
   _ButtonClick:
     _AudioClip: {fileID: 8300000, guid: 2c6e31f962735ca4393da43de1eb2ea5, type: 3}
     _RelativeVolume: 0.05
@@ -7311,6 +7318,7 @@ MonoBehaviour:
   - {fileID: 238772994}
   _FirstSelecableButton: {fileID: 1714507656088467744}
   _SecondSelecableButton: {fileID: 1275534294}
+  _ThirdSelecableButton: {fileID: 0}
   _TempSelectTileMaterial: {fileID: 0}
   _BackButtons:
   - {fileID: 6525330723364443630}

@@ -563,7 +563,7 @@ public class Character : MonoBehaviour
             else
             {
                 AudioManager._Instance.SpawnSound(impactSfx);
-                character.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack, _gameManager.StateAttackCharacter._Attack._IsFire);
+                character.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack, _gameManager.StateAttackCharacter._Attack._IsFire, false);
             }
         }
 
@@ -764,11 +764,11 @@ public class Character : MonoBehaviour
     }
 
 
-public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
+public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack, bool isCritical)
     {
         Time.timeScale = 0.5f;
         Invoke(nameof(ResetTimeScale), 0.2f);
-        _gameManager.StartCinemachineImpulseSource();
+        _gameManager.StartCinemachineImpulseSource(isCritical);
         StartCinemachineImpulseSource();
         Debug.Log("Character :: IsAttacked Set _isCounterAttack = " + isAcounterAttack + " Character = " + gameObject.name);
         _isCounterAttack = isAcounterAttack;
@@ -850,7 +850,16 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 AudioManager._Instance.SpawnSound(_gameManager.StateAttackCharacter._Attack.ImpactSfx);
                 Debug.Log("Chatacter :: Hit _gameManager.StateAttackCharacter._Attack = " + _gameManager.StateAttackCharacter._Attack.name +
                           ":: Character = " + gameObject.name);
-                _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack,_gameManager.StateAttackCharacter._Attack._IsFire);
+                if (_attackTarget._attackDirection == GetAttackDirection.AttackDirection.Behind)
+                {
+                    _gameManager.ShowCriticalText();
+                    _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength * 2, _isCounterAttack,_gameManager.StateAttackCharacter._Attack._IsFire, true);
+                }
+                else
+                {
+                    _attackTarget.IsAttacked(_gameManager.StateAttackCharacter._Attack.Power * Strength, _isCounterAttack,_gameManager.StateAttackCharacter._Attack._IsFire, false);
+                }
+                
             }
 
             if (_gameManager.StateAttackCharacter._Attack._IsPoison)
@@ -1305,7 +1314,6 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack)
                 break;
             case DataCharacterSpawner.CharacterAbility.SpeedBoost:
                 Speed *= 2;
-                CharacterAnimator.speed *= 2;
                 break;
         }
     }
