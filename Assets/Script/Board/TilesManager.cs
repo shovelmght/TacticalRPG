@@ -1047,54 +1047,54 @@ public class TilesManager: MonoBehaviour
         {
             //Spawn Column
             yield return new WaitForSeconds(_buildingTime);
-        StartCoroutine(SpawnBackgroundTiles(-1, 0, -TileManagerData.TileGap, 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow
+        StartCoroutine(SpawnBackgroundTiles(-1, 0, -TileManagerData.TileGap, 0, CoordXYZ.CoordY, 3
             , TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false)); ;
-        StartCoroutine(SpawnBackgroundTiles(1, 0, -TileManagerData.TileGap, 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, 
+        StartCoroutine(SpawnBackgroundTiles(1, 0, -TileManagerData.TileGap, 0, CoordXYZ.CoordY, 3, 
             TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, -TileManagerData.TileGap, -TileManagerData.TileGap, 0, CoordXYZ.CoordY, 
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         yield return SpawnBackgroundTiles(1, -TileManagerData.TileGap, -TileManagerData.TileGap, 0, CoordXYZ.CoordY ,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
-        StartCoroutine(SpawnBackgroundTiles(-1, -TileManagerData.TileGap, 0, 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow,
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
+        StartCoroutine(SpawnBackgroundTiles(-1, -TileManagerData.TileGap, 0, 0, CoordXYZ.CoordY, 3,
             TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
-        StartCoroutine(SpawnBackgroundTiles(1, -TileManagerData.TileGap, 0 , 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow
+        StartCoroutine(SpawnBackgroundTiles(1, -TileManagerData.TileGap, 0 , 0, CoordXYZ.CoordY, 3
             , TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap, 0, 0, CoordXYZ.CoordY, 
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap, 0, 0, CoordXYZ.CoordY, 
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         yield return SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap , -TileManagerData.TileGap, 0, CoordXYZ.CoordY,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
         StartCoroutine(SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap , -TileManagerData.TileGap, 0, CoordXYZ.CoordY, 
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap - TileManagerData.TileGap , -TileManagerData.TileGap
-            , 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            , 0, CoordXYZ.CoordY, 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap - TileManagerData.TileGap , -TileManagerData.TileGap,
-            0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            0, CoordXYZ.CoordY, 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY
-            , TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            , 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         yield return SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false); 
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false); 
         StartCoroutine(SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap - TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0,
-            CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            CoordXYZ.CoordY, 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap - TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, TileManagerData.Column * TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap - TileManagerData.TileGap, 0, CoordXYZ.CoordY,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(1, TileManagerData.Column * TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap - TileManagerData.TileGap
-            , 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
-        yield return SpawnBackgroundTiles(-1, 0, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, 
+            , 0, CoordXYZ.CoordY, 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+        yield return SpawnBackgroundTiles(-1, 0, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY, 3, 
             TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
-        StartCoroutine(SpawnBackgroundTiles(1, 0, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, 
+        StartCoroutine(SpawnBackgroundTiles(1, 0, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY, 3, 
             TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, -TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap - TileManagerData.TileGap, 0, CoordXYZ.CoordY,
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(1, -TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap - TileManagerData.TileGap
-            , 0, CoordXYZ.CoordY, TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            , 0, CoordXYZ.CoordY, 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         StartCoroutine(SpawnBackgroundTiles(-1, -TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY
-            , TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
+            , 3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false));
         yield return SpawnBackgroundTiles(1, -TileManagerData.TileGap, TileManagerData.Row * TileManagerData.TileGap, 0, CoordXYZ.CoordY, 
-            TileManagerData.NumberGroundBackgroundTilesRow, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
+            3, TileManagerData.EmptyTileMudPrefab, false, CardinalPoint.Orientation.North, false);
         }
         
     }

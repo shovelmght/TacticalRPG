@@ -216,7 +216,7 @@ public class UICharacter : MonoBehaviour
         {
             characterPart.layer = 1;
         }
-        _popUpCharacterInfoGameObject.SetActive(false);
+        //_popUpCharacterInfoGameObject.SetActive(false);
     }
     
 
