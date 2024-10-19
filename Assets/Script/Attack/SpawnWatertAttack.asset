@@ -20,7 +20,7 @@ MonoBehaviour:
   IsLineAttack: 0
   IsDashAttack: 0
   IsWaterAttack: 0
-  IsSpawnSkill: 0
+  IsSpawnSkill: 1
   IsReapeatableAttack: 0
   SoftBattleZoom: 0
   _IsPoison: 0
@@ -47,4 +47,4 @@ MonoBehaviour:
     _MinRandomPitch: 0
     _MaxRandomPitch: 0
   _ParticleEffectPrefab: {fileID: 6977179289410413689, guid: 1b68f505b0e5db84f877b6dd00bb172a, type: 3}
-  _TileParticleEffectPrefab: {fileID: 8656522925564163052, guid: 566610a1ec0e4264099c5f1809d21e24, type: 3}
+  _RemoveWater: 0

@@ -1616,7 +1616,7 @@ MonoBehaviour:
   _CharactersPrefab: 0
   _ParticleEffect: {fileID: 2845532533218440361}
   VisualMesh: {fileID: 2845532533218440361}
-  _LerpScaleSpeed: 0.004
+  _LerpScaleSpeed: 0.01
   SpawnMob: 0
   _CanMove: 0
 --- !u!1 &7089998469796090047

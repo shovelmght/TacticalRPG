@@ -21,6 +21,33 @@ public class AreaCrossAttack : Attack
         
         if (_RemoveWater)
         {
+            if (character.IsAI)
+            {
+                bool canUseSkill = false;
+
+                if (tile.IsWater)
+                {
+                    canUseSkill = true;
+                }
+                
+                foreach (var sideTiles in tile.SideTiles)
+                {
+                    if (sideTiles != null && sideTiles.IsWater && !sideTiles.IsOccupied)
+                    {
+                        canUseSkill = true;
+                        break;
+                    }
+                }
+                
+                if (!canUseSkill)
+                {
+                    character.HaveAttacked = true;
+                    GameManager.Instance.Wait = false;
+                    yield break;
+                }
+            }
+
+            
             foreach (var sideTiles in tile.SideTiles)
             {
                 if (sideTiles != null && sideTiles.IsWater && !sideTiles.IsOccupied && _ParticleEffectPrefab != null)
@@ -39,6 +66,33 @@ public class AreaCrossAttack : Attack
         }
         else
         {
+            
+            if (character.IsAI)
+            {
+                bool canUseSkill = false;
+
+                if (!tile.IsWater)
+                {
+                    canUseSkill = true;
+                }
+                
+                foreach (var sideTiles in tile.SideTiles)
+                {
+                    if (sideTiles != null && !sideTiles.IsWater && !sideTiles.IsOccupied)
+                    {
+                        canUseSkill = true;
+                        break;
+                    }
+                }
+                
+                if (!canUseSkill)
+                {
+                    character.HaveAttacked = true;
+                    GameManager.Instance.Wait = false;
+                    yield break;
+                }
+            }
+            
             foreach (var sideTiles in tile.SideTiles)
             {
                 if (sideTiles != null && _ParticleEffectPrefab != null && !sideTiles.IsOccupied && !sideTiles.IsWater && !sideTiles.IsBridge)

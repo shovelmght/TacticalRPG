@@ -20,7 +20,7 @@ MonoBehaviour:
   IsLineAttack: 0
   IsDashAttack: 0
   IsWaterAttack: 0
-  IsSpawnSkill: 0
+  IsSpawnSkill: 1
   IsReapeatableAttack: 0
   SoftBattleZoom: 0
   _IsPoison: 0
