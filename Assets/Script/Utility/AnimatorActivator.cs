@@ -45,7 +45,7 @@ public class AnimatorActivator : MonoBehaviour
         }
         
         AllScaledUp = false;
-        while (!AllScaledUp)
+        while (!AllScaledUp && _GameObjectsToActivate.Length > 0)
         {
             
             foreach (var gameObjectToActivate in _GameObjectsToActivate)
@@ -84,7 +84,7 @@ public class AnimatorActivator : MonoBehaviour
         Debug.Log("LerpScaleAndDeactivateGameObjects bug 1" );
         bool allScaledDown = false;
 
-        while (!allScaledDown)
+        while (!allScaledDown && _GameObjectsToActivate.Length > 0)
         {
             Debug.Log("LerpScaleAndDeactivateGameObjects bug 2" );
       

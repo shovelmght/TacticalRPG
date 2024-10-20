@@ -8349,7 +8349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803b8adfdd0b17645a11214e5bd36ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
+  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
   _CharacterName: {fileID: 1573938128}
   _CharacterClass: {fileID: 99746762}
   _CharacterContainer: {fileID: 1362431551}

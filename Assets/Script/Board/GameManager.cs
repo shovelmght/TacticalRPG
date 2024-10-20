@@ -390,11 +390,11 @@ public class GameManager : MonoBehaviour
             
             if (spawnTile == null)
             {
-                SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
+                SpawnMapCharacter(_MapTilesManager_Lava.GetTile(5, 5), Vector3.zero, _MapCharacterData.DataSpawn[0], false, true, false);
             }
             else
             {
-                SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0], false, true);
+                SpawnMapCharacter(spawnTile, Vector3.zero, _MapCharacterData.DataSpawn[0], false, true, false);
             }
 
  
@@ -612,7 +612,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public Character SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner, bool isDevilBoss , bool isPlayerCharacter)
+    public Character SpawnMapCharacter(Tile tile, Vector3 rotation, DataCharacterSpawner.DataSpawner dataCharacterSpawner, bool isDevilBoss , bool isPlayerCharacter, bool isFollowCharacter)
     {
         if (tile.IsOccupied)
         {
@@ -635,8 +635,12 @@ public class GameManager : MonoBehaviour
         characterGameObject.transform.Rotate(rotation);
         characterGameObject.name = dataCharacterSpawner.Name;
         Character characterReference = characterGameObject.GetComponent<Character>();
-        characterReference.CurrentTile = tile;
-        tile.SetCharacter(characterReference);
+        if (!isFollowCharacter)
+        {
+            characterReference.CurrentTile = tile;
+            tile.SetCharacter(characterReference);
+        }
+       
         
         if (!isDevilBoss)
         {
@@ -647,6 +651,20 @@ public class GameManager : MonoBehaviour
         
         if (isPlayerCharacter)
         {
+            if (tile.IsOccupied)
+            {
+                foreach (var sideTiles in tile.SideTiles)
+                {
+                    if (sideTiles != null && !sideTiles.IsOccupied)
+                    {
+                        tile.CharacterReference = null;
+                        sideTiles.SetCharacter(characterReference);
+                        characterReference.CurrentTile = sideTiles;
+                        tile = sideTiles;
+                        break;
+                    }
+                }
+            }
             CurrentCharacter = characterReference;
             CurrentState = StateMoveCharacter;
             TileSelected = tile;
@@ -668,6 +686,7 @@ public class GameManager : MonoBehaviour
         }
 
         AllTransitionElement.Add(characterGameObject.transform);
+        characterReference.ActionShowHideHealthBar?.Invoke(false);
         return characterReference;
 
     }
@@ -958,6 +977,7 @@ public class GameManager : MonoBehaviour
             }*/
 
             _DoOnceStartBattle = true;
+ 
         }
 
         StateAttackCharacter.ResetAttackData();
