@@ -80,11 +80,7 @@ public class AudioManager : MonoBehaviour
             _MainMusicVolume = value;
         }
     }
-
-    private void Start()
-    {
-
-    }
+    
 
     public void SpawnSound(SfxClass Sfx)
     {

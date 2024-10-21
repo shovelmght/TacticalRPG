@@ -136,6 +136,7 @@ public class CharacterCustomizationManager : MonoBehaviour
 
     public void OnConfirmButtonClick()
     {
+        AudioManager._Instance.DeleteAllFBPPPreftKeys();
         _DataCharacterSpawner.TeamColor = _IndexMaterial;
         var dataSpawner = _DataCharacterSpawner.DataSpawn[0];
         dataSpawner.Name = _Name.text;

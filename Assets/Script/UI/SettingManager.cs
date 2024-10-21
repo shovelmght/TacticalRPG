@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class SettingManager : MonoBehaviour
 {
     [SerializeField] private Slider _SfxSlider;
     [SerializeField] private Slider _MusicSlider;
+    [SerializeField] private TMP_Dropdown _ScreenModeDropdown;
 
     void Start()
     {
@@ -43,5 +45,17 @@ public class SettingManager : MonoBehaviour
     {
         FBPP.SetString("Music", _MusicSlider.value.ToString());
         FBPP.Save();
+    }
+
+    public void SetScreenMode()
+    {
+        if (_ScreenModeDropdown.value == 0)
+        {
+            Screen.fullScreen = true;
+        }
+        else if(_ScreenModeDropdown.value == 1)
+        {
+            Screen.fullScreen = false;
+        }
     }
 }

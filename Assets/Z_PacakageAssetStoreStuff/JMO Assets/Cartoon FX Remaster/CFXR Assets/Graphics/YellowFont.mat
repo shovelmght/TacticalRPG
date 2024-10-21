@@ -103,7 +103,7 @@ Material:
     - _CFXR_DITHERED_SHADOWS: 0
     - _CFXR_OVERLAYBLEND: 0
     - _CFXR_OVERLAYTEX: 0
-    - _Cutoff: 0.139
+    - _Cutoff: 0.001
     - _DetailNormalMapScale: 1
     - _DirLightScreenAtten: 3.86
     - _DirectLightingMix: 0.6
@@ -164,5 +164,5 @@ Material:
     - _DistortScrolling: {r: 0, g: 0, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OverlayTex_Scroll: {r: 0, g: 0, b: 2, a: 2}
-    - _ShadowColor: {r: 1, g: 0.9960785, b: 0, a: 1}
+    - _ShadowColor: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
   m_BuildTextureStacks: []

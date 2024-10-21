@@ -1212,7 +1212,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 13, y: 0}
-  m_SizeDelta: {x: 460, y: 90}
+  m_SizeDelta: {x: 577.672, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292266063
 MonoBehaviour:
@@ -1226,8 +1226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 04926b1d9ef311448ae0090c450a5b89, type: 2}
-  m_Color: {r: 1, g: 0.8235295, b: 0, a: 1}
+  m_Material: {fileID: 5864610764041727382, guid: 9167f684c23faa14c8feede4087dae85, type: 2}
+  m_Color: {r: 1, g: 0, b: 0.051336765, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 3.52, y: 0, z: 0.35, w: 0}
   m_Maskable: 0
@@ -1236,11 +1236,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1989cdda89c9f57448a9c3047a3a2b93, type: 3}
-    m_FontSize: 40
+    m_FontSize: 85
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 54
+    m_MaxSize: 85
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3123,8 +3123,8 @@ MonoBehaviour:
   _MapTilesManager_Corner3: {fileID: 0}
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
-  _RandomMap: 0
-  _ForceTileManager: 1
+  _RandomMap: 1
+  _ForceTileManager: 0
   _UnitTest: 0
   AddOccupiedTileOnClick: 0
   CharacterAIDataTeam1UnitTest:
@@ -6936,7 +6936,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1017840973
 Canvas:
   m_ObjectHideFlags: 0
@@ -6946,7 +6946,7 @@ Canvas:
   m_GameObject: {fileID: 1017840970}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_Camera: {fileID: 2038934546}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -6967,20 +6967,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017840970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 0.25657067, y: 0.25657067, z: 0.25657067}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 179509114}
   - {fileID: 292266062}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2038934547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_SizeDelta: {x: 799.99994, y: 450.05167}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1018851910
 GameObject:
   m_ObjectHideFlags: 0
@@ -8349,7 +8349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803b8adfdd0b17645a11214e5bd36ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
+  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   _CharacterName: {fileID: 1573938128}
   _CharacterClass: {fileID: 99746762}
   _CharacterContainer: {fileID: 1362431551}
@@ -10413,7 +10413,8 @@ Transform:
   m_LocalPosition: {x: 12.66, y: 9.162, z: 6.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1017840974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!114 &2038934548
@@ -11408,4 +11409,3 @@ SceneRoots:
   - {fileID: 1097121896}
   - {fileID: 1390828291}
   - {fileID: 1938357282}
-  - {fileID: 1017840974}
