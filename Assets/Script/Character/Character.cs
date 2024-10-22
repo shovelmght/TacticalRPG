@@ -498,12 +498,10 @@ public class Character : MonoBehaviour
 
         yield return new WaitForSeconds(0.75f);
 
-        if (HaveMoved)
+        if (HaveMoved && !IsAI)
         {
-            if (!_isCounterAttack)
-            {
-                StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
-            }
+            StartCoroutine(_gameManager.ShowPossibleTileDirectionEndOfCharacterTurn(0.75f));
+            
         }
         else
         {
