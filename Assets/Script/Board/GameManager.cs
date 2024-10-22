@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
     public MapTilesManager _MapTilesManager_Corner3;
     public MapTilesManager _MapTilesManager_Corner4;
 
-    private const int MAX_OCCUPIED_TILES = 60;
+    private const int MAX_OCCUPIED_TILES = 120;
 
     public Action SelectCharacter;
     public Action RemoveUICharacter;
@@ -228,6 +228,7 @@ public class GameManager : MonoBehaviour
 
         if (_IsStartScene)
         {
+            _tileManager.SetRandomTileManagerData();
             yield return _tileManager.SetBoardTiles();
             yield break;
         }
@@ -409,6 +410,7 @@ public class GameManager : MonoBehaviour
             if (!_ForceTileManager)
             {
                 _tileManager.SetRandomTileManagerData();
+                Debug.Log(" _tileManager.TileManagerData = " + _tileManager.TileManagerData.name);
             }
         }
         else if(_ForceTileManager)
