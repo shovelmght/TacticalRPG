@@ -10,7 +10,7 @@ public class CharacterAI : Character
     private bool _TimePathfindingIsFinish;
     private Coroutine _TimePathfindingCoroutine;
     
-    private const float TIME_PATHFINDING = 0.75f;
+    private const float TIME_PATHFINDING = 1.5f;
     private const float TIME_MOVECHARACTER = 0.75f;
     private const float TIME_ATTACKCHARACTER = 2.25f;
 
@@ -213,7 +213,7 @@ public class CharacterAI : Character
             }
 
         }
-        else
+        else  // enemyTile == null Show Attack
         {
             if (!CanMove)
             {
@@ -370,7 +370,7 @@ public class CharacterAI : Character
                     yield break;
                 }
             }
-            else
+            else  // enemyTile == null) Possible Move
             {
                 Debug.Log("CharacterAI :: FindBestPossibleMoveTile :: Character = " + gameObject.name + " bestMatchTile == null");
                 //Select nearest possible MoveTile to reach his enemy 
@@ -449,7 +449,7 @@ public class CharacterAI : Character
 
                 if(CheckIfDead()) {yield break;}
                 
-                if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null)
+                if (_SkillAttack != null && _SkillAttack.IsSpawnSkill && enemyTile == null) // Spawn Skill
                 {
                     Debug.Log("CharacterAI :: Before ShowPossible SpawnSkill :: Character = " + gameObject.name);
                     if(CheckIfDead()) {yield break;}
