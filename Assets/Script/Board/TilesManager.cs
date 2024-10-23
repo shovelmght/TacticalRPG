@@ -37,6 +37,16 @@ public class TilesManager: MonoBehaviour
     [field: SerializeField] public TileManagerData[] EnvironmentCorner4TileManagerData{ get; private set; }
     [field: SerializeField] public TileManagerData[] EnvironmentCorner4WaterTileManagerData{ get; private set; }
     
+    [SerializeField] private DataCharacterSpawner[] _StoneDataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _GrassDataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _DesertDataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _PoisonDataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _SnowDataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _Corner1DataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _Corner2DataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _Corner3DataCharacterSpawners;
+    [SerializeField] private DataCharacterSpawner[] _Corner4DataCharacterSpawners;
+    
     
 
     [field: SerializeField] public Material MoveTileMaterial { get; private set; }
@@ -1466,7 +1476,7 @@ public class TilesManager: MonoBehaviour
             TileManagerData = RandomTileManagerData[Random.Range(0, RandomTileManagerData.Length - 1)];
         }
         
-        public void SetEnvironmentTileManagerData(int environmentIndex, bool isWaterTile)
+        public DataCharacterSpawner SetEnvironmentTileManagerData(int environmentIndex, bool isWaterTile)
         {
             if (environmentIndex == 0)
             {
@@ -1482,7 +1492,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _StoneDataCharacterSpawners[Random.Range(0, _StoneDataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 1)
@@ -1499,7 +1509,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _GrassDataCharacterSpawners[Random.Range(0, _GrassDataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 2)
@@ -1516,7 +1526,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _DesertDataCharacterSpawners[Random.Range(0, _DesertDataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 3)
@@ -1533,7 +1543,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _SnowDataCharacterSpawners[Random.Range(0, _SnowDataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 4)
@@ -1550,7 +1560,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _PoisonDataCharacterSpawners[Random.Range(0, _PoisonDataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 5)
@@ -1567,7 +1577,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _Corner1DataCharacterSpawners[Random.Range(0, _Corner1DataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 6)
@@ -1584,7 +1594,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _Corner2DataCharacterSpawners[Random.Range(0, _Corner2DataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 7)
@@ -1601,7 +1611,7 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
-                return;
+                return _Corner3DataCharacterSpawners[Random.Range(0, _Corner3DataCharacterSpawners.Length)];
             }
             
             if (environmentIndex == 8)
@@ -1618,9 +1628,10 @@ public class TilesManager: MonoBehaviour
                 int backgroundTile  = GetApproximateHeight(TileManagerData.BoardTileHeight);
                 TileManagerData.NumberGroundBackgroundTilesColumn = backgroundTile;
                 TileManagerData.NumberGroundBackgroundTilesRow = backgroundTile;
+                return _Corner4DataCharacterSpawners[Random.Range(0, _Corner4DataCharacterSpawners.Length)];
 
             }
-            
+            return _StoneDataCharacterSpawners[Random.Range(0, _StoneDataCharacterSpawners.Length)]; 
         }
         
             

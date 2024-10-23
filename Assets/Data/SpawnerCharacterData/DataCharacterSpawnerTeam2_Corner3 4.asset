@@ -10,21 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91c1a44352a1b3849a357cb840152c3a, type: 3}
-  m_Name: DataCharacterSpawnerTeam2Test_UnitTest
+  m_Name: DataCharacterSpawnerTeam2_Corner3 4
   m_EditorClassIdentifier: 
   DataSpawn:
+  - CharactersPrefab: 0
+    Team: 2
+    SkillAttack: 0
+    Ability1: 5
+    Ability2: 0
+    Name: 
+    Class: 
+  - CharactersPrefab: 0
+    Team: 2
+    SkillAttack: 0
+    Ability1: 1
+    Ability2: 0
+    Name: 
+    Class: 
+  - CharactersPrefab: 0
+    Team: 2
+    SkillAttack: 0
+    Ability1: 1
+    Ability2: 0
+    Name: 
+    Class: 
   - CharactersPrefab: 1
     Team: 2
     SkillAttack: 1
-    Ability1: 0
-    Ability2: 0
-    Name: Ecu
-    Class: ss
-  - CharactersPrefab: 9
-    Team: 2
-    SkillAttack: 12
     Ability1: 1
     Ability2: 0
-    Name: Min
-    Class: ss
-  TeamColor: 6
+    Name: 
+    Class: 
+  - CharactersPrefab: 1
+    Team: 2
+    SkillAttack: 1
+    Ability1: 1
+    Ability2: 0
+    Name: 
+    Class: 
+  TeamColor: 0

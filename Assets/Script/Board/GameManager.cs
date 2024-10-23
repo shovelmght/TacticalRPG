@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
     private bool _wait;
     public Direction _direction;
     private int _SpawnMobItteration;
-    private bool _DoOnceStartBattle;
+    private int _ItterationMapMove;
     private Vector3 _ScaleLerpSpeed = new Vector3(0.05f, 0.05f, 0.05f);
 
     public TilesManager _tileManager;
@@ -405,6 +405,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        // is Battle scene
         if (_UnitTest || _RandomMap)
         {
             if (!_ForceTileManager)
@@ -451,7 +452,7 @@ public class GameManager : MonoBehaviour
             }
 
             
-            _tileManager.SetEnvironmentTileManagerData(environment, isWaterTile);
+            CharacterAIData.Add(_tileManager.SetEnvironmentTileManagerData(environment, isWaterTile));
             
         }
 
@@ -492,7 +493,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Tile tile = _tileManager.GetTile(_tileManager.TileManagerData.Column / 2, _tileManager.TileManagerData.Row / 2);
+        Tile tile = _tileManager.GetTile(_tileManager.TileManagerData.Column / 4, _tileManager.TileManagerData.Row / 2);
         TilePreSelected = tile;
         StartCoroutine(MoveCamera(tile.GetCameraTransform((int)_direction, false)));
 
@@ -972,13 +973,13 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(MapSceneToBattleScene(""));
                 return;
             }
-            /*if (_DoOnceStartBattle && Random.Range(0, 4) == 1)
+            if ( _ItterationMapMove > 5 || _ItterationMapMove > 1 && Random.Range(0, 4) == 1)
             {
-                StartCoroutine(MapSceneToBattleScene());
+                StartCoroutine(MapSceneToBattleScene(""));
                 return;
-            }*/
+            }
 
-            _DoOnceStartBattle = true;
+            _ItterationMapMove++;
  
         }
 

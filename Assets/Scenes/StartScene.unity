@@ -2076,6 +2076,15 @@ MonoBehaviour:
   <EnvironmentCorner3WaterTileManagerData>k__BackingField: []
   <EnvironmentCorner4TileManagerData>k__BackingField: []
   <EnvironmentCorner4WaterTileManagerData>k__BackingField: []
+  _StoneDataCharacterSpawners: []
+  _GrassDataCharacterSpawners: []
+  _DesertDataCharacterSpawners: []
+  _PoisonDataCharacterSpawners: []
+  _SnowDataCharacterSpawners: []
+  _Corner1DataCharacterSpawners: []
+  _Corner2DataCharacterSpawners: []
+  _Corner3DataCharacterSpawners: []
+  _Corner4DataCharacterSpawners: []
   <MoveTileMaterial>k__BackingField: {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
   <AttackTileMaterial>k__BackingField: {fileID: 2100000, guid: cdec29bca6fda2744aa7fbcc339fee3f, type: 2}
   <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
@@ -2083,7 +2092,7 @@ MonoBehaviour:
   <WoodTileMaterial>k__BackingField: {fileID: 2100000, guid: d994ec918c35a83469584dd64dc8b17d, type: 2}
   _timePathFinding: 0.05
   _tileData: {fileID: 11400000, guid: 397c361350e42e94d87cb856ff82fd8f, type: 2}
-  _buildingTime: 0.1
+  _buildingTime: 0
   _waterSpeed: 0.002
   cameraTest: {fileID: 0}
 --- !u!4 &477867674

@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e05228360d69a949a3b7536e6f1e749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileManagerData>k__BackingField: {fileID: 11400000, guid: a5fefd62160b4274d8a6ba484c1f7929, type: 2}
+  <TileManagerData>k__BackingField: {fileID: 11400000, guid: ff5f323816c9e704880dde58e1030243, type: 2}
   <RandomTileManagerData>k__BackingField:
   - {fileID: 11400000, guid: 19fe4a8b652b04947976000c6136f496, type: 2}
   - {fileID: 11400000, guid: e3d5d09cd6e22e040a76c2dcfcf288ad, type: 2}
@@ -1891,6 +1891,48 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a689437c78cc7d3439b97136b78695bf, type: 2}
   - {fileID: 11400000, guid: 8e613c39d84e0144f91880123362a514, type: 2}
   - {fileID: 11400000, guid: 602afb09e9bac3c498ec7bad06d56030, type: 2}
+  _StoneDataCharacterSpawners:
+  - {fileID: 11400000, guid: 227f69653d656214e8214ca6663d7c92, type: 2}
+  - {fileID: 11400000, guid: ed8f841765a505040a3d500e7ee21a95, type: 2}
+  - {fileID: 11400000, guid: 2d26c3e6d280f4d4b9843161d0699a13, type: 2}
+  - {fileID: 11400000, guid: 5ad23e906c7f55c4d822fcf5d6159a36, type: 2}
+  - {fileID: 11400000, guid: 96ef42d3498022f45b6ceb03c8f57795, type: 2}
+  - {fileID: 11400000, guid: 28bcfafbd756380428605752abf3b541, type: 2}
+  - {fileID: 11400000, guid: ea222a908025c7041bfe44f22c37c78b, type: 2}
+  _GrassDataCharacterSpawners:
+  - {fileID: 11400000, guid: 9ff8aaeba434ee040947e63e767af505, type: 2}
+  - {fileID: 11400000, guid: 451a2747ead3bc14e86cd80077b088f0, type: 2}
+  - {fileID: 11400000, guid: 23ca133a4ecfd0e48b34f5eb6c2d729b, type: 2}
+  - {fileID: 11400000, guid: d5d529b6058f97f4f97d0f352f3e7b31, type: 2}
+  - {fileID: 11400000, guid: e2367c66aa739e641ba38df0ab48df08, type: 2}
+  - {fileID: 11400000, guid: 4dd63aefafe390f4a866e7ac87dd60ec, type: 2}
+  - {fileID: 11400000, guid: a194f37ab8ac5c646a05755909a84b44, type: 2}
+  - {fileID: 11400000, guid: 0e59219f26f9d8d4294f6e555bd46a1e, type: 2}
+  - {fileID: 11400000, guid: 7fe63b831ece88b42b8384ccec44d83d, type: 2}
+  - {fileID: 11400000, guid: c97c5abc19fe6db4a8f43508200bdffd, type: 2}
+  _DesertDataCharacterSpawners: []
+  _PoisonDataCharacterSpawners: []
+  _SnowDataCharacterSpawners: []
+  _Corner1DataCharacterSpawners: []
+  _Corner2DataCharacterSpawners:
+  - {fileID: 11400000, guid: c5ba7643c888d844fbd2e5bbc90c8c7e, type: 2}
+  - {fileID: 11400000, guid: 0e80ce66a4d95704b87de0559411193a, type: 2}
+  - {fileID: 11400000, guid: efe03d24f3a8cf840860f2a6772d897b, type: 2}
+  - {fileID: 11400000, guid: 47eea7090585fe54c80a1541b56c48c1, type: 2}
+  - {fileID: 11400000, guid: 54949f16655935b4bbd9d79e36539d3b, type: 2}
+  - {fileID: 11400000, guid: f96928ed12f68f247a7f29f9cb6e87ce, type: 2}
+  - {fileID: 11400000, guid: f0ec7b0d985c6db458f74feda4888006, type: 2}
+  - {fileID: 11400000, guid: 27dcb599608bb7f48adb5abbd09d6c3f, type: 2}
+  _Corner3DataCharacterSpawners:
+  - {fileID: 11400000, guid: 9ae40be4a085e3a4f829aa1fe5f20c62, type: 2}
+  - {fileID: 11400000, guid: 226cb325d7471e54b891db9555955ae3, type: 2}
+  - {fileID: 11400000, guid: f6a11d466fe398145b4adcf5b15e86ba, type: 2}
+  - {fileID: 11400000, guid: 80730c21c5275ae408132884a062d770, type: 2}
+  - {fileID: 11400000, guid: 7ce3ef21841ec7840b499e4fc678e1f8, type: 2}
+  - {fileID: 11400000, guid: 0c98b5a9f2bcd2445bbc7bdf36b97da6, type: 2}
+  - {fileID: 11400000, guid: ff6e79dfd0d19c8488e950982eb0c2f5, type: 2}
+  - {fileID: 11400000, guid: 98a6d34f6edbb8945b5b3ac3716d6bbc, type: 2}
+  _Corner4DataCharacterSpawners: []
   <MoveTileMaterial>k__BackingField: {fileID: 2100000, guid: 9bc6f69c693e95f449daede578cbe90b, type: 2}
   <AttackTileMaterial>k__BackingField: {fileID: 2100000, guid: cdec29bca6fda2744aa7fbcc339fee3f, type: 2}
   <PathTileMaterial>k__BackingField: {fileID: 2100000, guid: 1d7c6764509f9424d8e6f293140e3080, type: 2}
@@ -3072,8 +3114,7 @@ MonoBehaviour:
   AddCharacterFatherNature: {fileID: 151582878}
   _CriticalText: {fileID: 292266061}
   _AllPossibleCharacterMaterials: {fileID: 11400000, guid: afcafd932bce3f94aaee90f7ef6094ca, type: 2}
-  CharacterAIData:
-  - {fileID: 11400000, guid: 3d385258b94a4094098596cb63dcfb77, type: 2}
+  CharacterAIData: []
   PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
   PlayerTestDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
   CharacterDevilBossAIData: {fileID: 11400000, guid: 96c100a180f02de4fa9db7f2d3bf1c5f, type: 2}
@@ -3123,7 +3164,7 @@ MonoBehaviour:
   _MapTilesManager_Corner3: {fileID: 0}
   _MapTilesManager_Corner4: {fileID: 0}
   Vector3test: {x: 0, y: 0, z: 0}
-  _RandomMap: 1
+  _RandomMap: 0
   _ForceTileManager: 0
   _UnitTest: 0
   AddOccupiedTileOnClick: 0
@@ -8349,7 +8390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803b8adfdd0b17645a11214e5bd36ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: cdd4d2f058e4c994ba9baf2d502a6979, type: 2}
+  _PlayerDataCharacterSpawner: {fileID: 11400000, guid: 09b829270415bf843a2025602fcc76eb, type: 2}
   _CharacterName: {fileID: 1573938128}
   _CharacterClass: {fileID: 99746762}
   _CharacterContainer: {fileID: 1362431551}

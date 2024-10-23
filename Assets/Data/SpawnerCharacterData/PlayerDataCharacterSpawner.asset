@@ -15,12 +15,7 @@ MonoBehaviour:
   DataSpawn:
   - CharactersPrefab: 8
     Team: 1
-    Ability1: 1
-    Ability2: 0
-    Name: Franck
-    Class: Knight
-  - CharactersPrefab: 0
-    Team: 1
+    SkillAttack: 0
     Ability1: 1
     Ability2: 0
     Name: Franck

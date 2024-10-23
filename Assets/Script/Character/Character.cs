@@ -1263,7 +1263,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack, boo
                 
                 
                 string bufftext = "+1 Move";
-                string debufftext  = "-" + Strength + " Strength";
+                string debufftext  = "-" + Strength + " debuffPower";
                 ActionShowBuffDebuffPotionEffect?.Invoke(bufftext, debufftext);
                 break;
             }
