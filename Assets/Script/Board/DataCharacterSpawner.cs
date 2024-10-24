@@ -14,7 +14,9 @@ public class DataCharacterSpawner : ScriptableObject
         public CharacterAbility Ability1;
         public CharacterAbility Ability2;
         public string Name;
-        public string Class;
+        public int Level = 1;
+        public int CurrentXP = 1;
+        public int NextXP = 1;
     }
     
     public enum CharactersPrefab

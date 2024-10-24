@@ -16,6 +16,8 @@ public class UICharacter : MonoBehaviour
     [SerializeField]
     private TMP_Text _hitSuccessChance;
     [SerializeField]
+    private TMP_Text _XpEarnedText;
+    [SerializeField]
     private Character _Character;
     [SerializeField]
     private Animator _damageAnimator;
@@ -51,13 +53,13 @@ public class UICharacter : MonoBehaviour
     private Vector3 _leftCharacterUihpRectTransformPosition;
     [SerializeField] private TMP_Text _BuffText;
     [SerializeField] private TMP_Text _DebuffText;
-    [SerializeField] private Animator _DebuffAnimator;
+    [SerializeField] private Animator _CanvasAnimator;
     [SerializeField] private Animator _DialogueBubble;
     [SerializeField] private TMP_Text _DialogueText;
+    
     private static readonly int ShowBuffDebuff = Animator.StringToHash("ShowBuffDebuff");
-
     private bool _canClose;
-
+    private int XpEarned;
     private string BlockTexte = "Block";
     private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
     private static readonly int Close = Animator.StringToHash("Close");
@@ -76,6 +78,7 @@ public class UICharacter : MonoBehaviour
         _Character.ActionShowBuffDebuffPotionEffect += ShowBuffDebuffPotionEffect;
         _Character.ActionStartDialogue += StartNewDialogueText;
         _Character.ActionShowDialogueBubble += ShowDialogueBubble;
+        _Character.SetXpEarned += SetXpEarnedText;
     }
 
     private void OnDestroy()
@@ -88,6 +91,7 @@ public class UICharacter : MonoBehaviour
         _Character.ActionShowBuffDebuffPotionEffect -= ShowBuffDebuffPotionEffect;
         _Character.ActionStartDialogue -= StartNewDialogueText;
         _Character.ActionShowDialogueBubble -= ShowDialogueBubble;
+        _Character.SetXpEarned -= SetXpEarnedText;
     }
 
     //make ui element face to the camera
@@ -224,13 +228,48 @@ public class UICharacter : MonoBehaviour
     {
         _BuffText.text = buffText;
         _DebuffText.text = debuffText;
-        _DebuffAnimator.SetTrigger(ShowBuffDebuff);
+        _CanvasAnimator.SetTrigger(ShowBuffDebuff);
     }
     
     
     private void StartNewDialogueText(string text)
     {
         StartCoroutine(DialogueTextManager.Instance.StarDialogue(text, _DialogueText));
+    }
+
+    private bool _DoOnceSetXpEarnedText;
+    private void SetXpEarnedText(int newValue)
+    {
+        if(_DoOnceSetXpEarnedText) {return;}
+
+        _DoOnceSetXpEarnedText = true;
+        StartCoroutine(StartXpEarnedText(newValue));
+    }
+
+    private IEnumerator StartXpEarnedText(int newValue, float duration = 1f)
+    {
+        AudioManager._Instance.SpawnSound(AudioManager._Instance._GetXP);
+        _CanvasAnimator.SetTrigger("ShowXp");
+        int startValue = XpEarned;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration && XpEarned < newValue)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+        
+            // Interpolate XP earned value
+            XpEarned = Mathf.RoundToInt(Mathf.Lerp(startValue, newValue, t));
+            _XpEarnedText.text = XpEarned.ToString();
+
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure we set the final value
+        XpEarned = newValue;
+        _XpEarnedText.text = newValue.ToString();
+
+        _DoOnceSetXpEarnedText = false;
     }
 
     

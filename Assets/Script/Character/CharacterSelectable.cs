@@ -155,4 +155,16 @@ public class CharacterSelectable : MonoBehaviour
         return tempCharacterDataSpawner;
     }
 
+    public List<DataCharacterSpawner.DataSpawner> GetCharactersAlreadySPawn()
+    {
+        List<DataCharacterSpawner.DataSpawner> charactersAlreadySPawn = new List<DataCharacterSpawner.DataSpawner>();
+
+        foreach (var characterIndexAlreadySpawn in CharacterIndexAlreadySpawn)
+        {
+            charactersAlreadySPawn.Add(_PlayerDataCharacterSpawner.DataSpawn[characterIndexAlreadySpawn]);
+        }
+
+        return charactersAlreadySPawn;
+    }
+
 }

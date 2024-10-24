@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     public SfxClass _FireDamage;
     public SfxClass _PoisonDamage;
     public SfxClass _ShowBuffDebuffStats;
+    public SfxClass _GetXP;
     public SfxClass _GetPotion;
     public SfxClass _ZoomSFX;
     public SfxClass _SwordHit;

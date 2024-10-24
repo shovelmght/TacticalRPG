@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     public bool PossibleAttackTileIsFinished;
     public bool PossibleEndTurnDirectionTileIsFinished;
 
+    public bool _WaitLonger = false;
     public bool Wait
     {
         get => _wait;
@@ -117,6 +118,12 @@ public class GameManager : MonoBehaviour
         {
             if (value)
             {
+                if (_WaitLonger)
+                {
+                    Invoke(nameof(SetUnwait), 2);
+                    return;
+                }
+
                 if (DeactivateUIButtonCharacter != null)
                 {
                     DeactivateUIButtonCharacter();
@@ -135,6 +142,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetUnwait()
+    {
+        Wait = false;
+    }
     private bool _wait;
     public Direction _direction;
     private int _SpawnMobItteration;
@@ -243,7 +254,10 @@ public class GameManager : MonoBehaviour
             SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("SquireSkillAttack")),
             Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("SquireAbility1")),
             Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("SquireAbility2")),
-            Name = FBPP.GetString("SquireName")
+            Name = FBPP.GetString("SquireName"),
+            Level = FBPP.GetInt("SquireLevel"),
+            CurrentXP = FBPP.GetInt("SquireXP"),
+            NextXP = FBPP.GetInt("SquireNextXP")
         };
         
         PlayerDataCharacterSpawner.DataSpawn.Add(squireDataSpawner);
@@ -257,7 +271,10 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("WizardSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("WizardAbility2")),
-                Name = FBPP.GetString("WizardName")
+                Name = FBPP.GetString("WizardName"),
+                Level = FBPP.GetInt("WizardLevel"),
+                CurrentXP = FBPP.GetInt("WizardXP"),
+                NextXP = FBPP.GetInt("WizardNextXP")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(wizardDataSpawner);
@@ -272,7 +289,10 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("RobotSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("RobotAbility2")),
-                Name = FBPP.GetString("RobotName")
+                Name = FBPP.GetString("RobotName"),
+                Level = FBPP.GetInt("RobotLevel"),
+                CurrentXP = FBPP.GetInt("RobotXP"),
+                NextXP = FBPP.GetInt("RobotNextXP")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(robotDataSpawner);
@@ -287,7 +307,10 @@ public class GameManager : MonoBehaviour
                 SkillAttack = CharacterDevilBossAIData.GetCharacterSkillAttack(FBPP.GetInt("FatherNatureSkillAttack")),
                 Ability1 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility1")),
                 Ability2 = CharacterDevilBossAIData.GetCharacterAbility(FBPP.GetInt("FatherNatureAbility2")),
-                Name = FBPP.GetString("FatherNatureName")
+                Name = FBPP.GetString("FatherNatureName"),
+                Level = FBPP.GetInt("FatherNatureLevel"),
+                CurrentXP = FBPP.GetInt("FatherNatureXP"),
+                NextXP = FBPP.GetInt("FatherNatureXP")
             };
         
             PlayerDataCharacterSpawner.DataSpawn.Add(fatherNatureDataSpawner);
@@ -552,6 +575,12 @@ public class GameManager : MonoBehaviour
         if (characterReference.CurrentTeam == Character.Team.Team1)
         {
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[indexMaterial]);
+            if (CheatStrenght)
+            {
+                characterReference.Strength = 300;
+                characterReference.MovementPoint = 12;
+                characterReference.Speed = 300;
+            }
         }
         else
         {
@@ -572,6 +601,18 @@ public class GameManager : MonoBehaviour
         characterReference.SetAbility(dataCharacterSpawner.Ability2);
         characterReference.SetAbility(characterReference.BaseAbility1);
         characterReference.SetAbility(characterReference.BaseAbility2);
+
+        if (dataCharacterSpawner.Level == 0)
+        {
+            dataCharacterSpawner.Level = 1;
+        }
+
+        characterReference.Strength *= dataCharacterSpawner.Level;
+        characterReference.MaxHealth *= dataCharacterSpawner.Level;
+        characterReference.Speed *= dataCharacterSpawner.Level;
+        characterReference.NextXPLevel = dataCharacterSpawner.NextXP;
+        characterReference.CurrentXP = dataCharacterSpawner.CurrentXP;
+        characterReference.Level = dataCharacterSpawner.Level;
         
         if (!_IsMapScene)
         {
@@ -611,6 +652,11 @@ public class GameManager : MonoBehaviour
             characterReference.SetCharacterColor(_AllPossibleCharacterMaterials.AllPossibleMaterials[_IndexTeam2TeamColor]);
         }
         
+        characterReference.Strength *= CurrentCharacterTurn.Level;
+        characterReference.MaxHealth *= CurrentCharacterTurn.Level;
+        characterReference.Speed *= CurrentCharacterTurn.Level;
+        characterReference.Level = CurrentCharacterTurn.Level;
+        characterReference._CharacterRelated = CurrentCharacterTurn;
         characterReference.SetElementEffect(tile.IsWater ,true);
         
     }
@@ -1406,6 +1452,14 @@ public class GameManager : MonoBehaviour
             
             yield return new WaitForSeconds(0.5f);
             Time.timeScale = 1f;
+
+            if (playerWin)
+            {
+                AddCharacterAnimator.gameObject.SetActive(true);
+                AddCharacterAnimator.SetTrigger("ShowXP");
+                yield return _EndBattleXPManager.StartGiveXp(CharacterList);
+            }
+            
             StartCoroutine(_tileManager.TileTransitionToMapScene());
             foreach (var characterGo in AllCharacterGo)
             {
@@ -1435,6 +1489,8 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("MapScene");
         }
     }
+
+    [SerializeField] private EndBattleXPManager _EndBattleXPManager;
 
 
     private bool _IsChangingCharacterTurn;
@@ -1878,9 +1934,11 @@ public class GameManager : MonoBehaviour
     {
         _CriticalText.SetActive(true);
     }
+    
 
     //-------------------------------DEBUG---------------------------------
     
+    [SerializeField] private bool CheatStrenght;
     [SerializeField] private bool _RandomMap = true;
     [SerializeField] private bool _ForceTileManager = true;
     [SerializeField] private bool _UnitTest;

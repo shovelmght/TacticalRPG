@@ -6859,6 +6859,8 @@ MonoBehaviour:
   - {fileID: 3957362453746616502}
   _ElemenFireCharactertParticleEffect: {fileID: 7866086857086317595}
   _HitFireParticleEffect: {fileID: 8626794703112581128}
+  BaseAbility1: 0
+  BaseAbility2: 0
   <MaxHealth>k__BackingField: 100
   <Strength>k__BackingField: 2
   <MovementPoint>k__BackingField: 5
@@ -6889,6 +6891,7 @@ MonoBehaviour:
   - {fileID: 7776129585900140991}
   - {fileID: 7362995897053002139}
   _PoisonParticleEffect: {fileID: 8277610363720992640}
+  XpEarnPrefab: {fileID: 3155027954899694650, guid: 2a7826c743e54224ebb6432816420e39, type: 3}
   _rotationSpeed: 10
   _lerpScalingSpeed: 5
   DownDistanceWhenDie: 1
@@ -6904,11 +6907,6 @@ MonoBehaviour:
   _frontHitSuccesChance: 75
   _sideHitSuccesChance: 85
   _behindHitSuccesChance: 95
-  _attackDirection: 0
-  _attackTarget: {fileID: 0}
-  _isCounterAttack: 0
-  _IsDead: 0
-  _NbrRepeatAttack: 0
 --- !u!198 &1128656102720397007 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5035449420503585101, guid: fa84765bf4d9c5d458799cdf32ee1b90, type: 3}

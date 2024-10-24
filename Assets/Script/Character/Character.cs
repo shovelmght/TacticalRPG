@@ -27,10 +27,10 @@ public class Character : MonoBehaviour
     public DataCharacterSpawner.CharacterAbility BaseAbility1;
     public DataCharacterSpawner.CharacterAbility BaseAbility2;
 
-    [field: SerializeField] public int MaxHealth { get; private set; } = 100;
-    [field: SerializeField] public int Strength { get; private set; } = 2;
-    [field: SerializeField] public int MovementPoint { get; private set; } = 4;
-    [field: SerializeField] public int Speed { get; private set; } = 41;
+    [field: SerializeField] public int MaxHealth { get;  set; } = 100;
+    [field: SerializeField] public int Strength { get;  set; } = 2;
+    [field: SerializeField] public int MovementPoint { get;  set; } = 4;
+    [field: SerializeField] public int Speed { get;  set; } = 41;
     [field: SerializeField] public Animator CharacterAnimator;
     [field: SerializeField] public float MovingSpeed { get; private set; } = 0.2f;
     [field: SerializeField] public float DyingMoveSpeed { get; private set; } = 1.0f;
@@ -48,8 +48,8 @@ public class Character : MonoBehaviour
     [SerializeField] private CinemachineImpulseSource[] _CinemachineImpulseSources;
     [SerializeField] private MeshRenderer[] _MeshRenderersTeamColor;
     [SerializeField] protected GameObject _PoisonParticleEffect;
-
-
+    [SerializeField] private GameObject XpEarnPrefab;
+    
     [Header("the smaller the value, the greater the speed")] [SerializeField]
     private int _rotationSpeed = 10;
 
@@ -63,11 +63,18 @@ public class Character : MonoBehaviour
     [SerializeField] [Header("This should be not 0")]
     private float ForwardDistanceWhenDie = 0.6f;
 
-    public float TurnTimeRemaining { get; protected set; } = 100;
+
     public Tile CurrentTile { get; set; }
+    public float TurnTimeRemaining { get; protected set; } = 100;
+    public DataCharacterSpawner.CharactersPrefab Class { get; set; }
     public bool HaveMoved { get; set; }
     public bool HaveAttacked { get; set; }
     public int CurrentHealth { get; set; }
+    public int XPEarned { get; set; }
+    public int NextXPLevel { get; set; }
+    
+    public int CurrentXP { get; set; }
+    public int Level { get; set; }
     public bool IsAI { get; set; }
 
     public bool CanMove = true;
@@ -75,6 +82,7 @@ public class Character : MonoBehaviour
     public bool _CanSpawnParticle = true;
     public bool HaveCounterAbility { get; set; }
     public Character _IncomingAttacker { get; set; }
+    public Character _CharacterRelated { get; set; }
     public Team CurrentTeam { get; set; }
     public int UniqueID { get; private set; }
     
@@ -93,6 +101,7 @@ public class Character : MonoBehaviour
     public Action<bool, bool> ActionShowUIPopUpCharacterInfo;
     public Action<bool> ActionRemoveUIPopUpCharacterInfo;
     public Action<int> ActionShowUIHitSuccess;
+    public Action<int> SetXpEarned;
     public Action ActionDestroyCharacterRelated;
     public Action<bool> ActionShowHideHealthBar;
     public Action<string, string> ActionShowBuffDebuffPotionEffect;
@@ -120,6 +129,7 @@ public class Character : MonoBehaviour
     private bool ImmuneToFire;
     private bool ImmuneToPoison;
     protected bool InFire;
+    private bool _DoOnceVanish;
 
     private const float ROATION_TIME = 1;
 
@@ -996,18 +1006,34 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack, boo
             }
         }
     }
-
+    
     public void DestroyCharacter()
     {
         StartCoroutine(Vanish());
     }
-
-    private bool _DoOnceVanish;
+    
 
     protected IEnumerator Vanish()
     {
         if(_IsDead || _DoOnceVanish ) {yield break;}
 
+        _gameManager.Wait = true;
+
+        if (_IncomingAttacker != null)
+        {
+            if (_IncomingAttacker.Class == DataCharacterSpawner.CharactersPrefab.SelfDestructRobotAI ||
+                _IncomingAttacker.Class == DataCharacterSpawner.CharactersPrefab.Turret)
+            {
+                _IncomingAttacker = _IncomingAttacker._CharacterRelated;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject xpEarnGameObject = Instantiate(XpEarnPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
+                XpParticleEffect xpParticleEffect = xpEarnGameObject.GetComponent<XpParticleEffect>();
+                _gameManager.StartCoroutine(xpParticleEffect.StartXpParticleEffect(_IncomingAttacker,  Level * 100));
+
+            }
+        }
         _DoOnceVanish = true;
         ActionShowHideHealthBar?.Invoke(false);
         ActionDestroyCharacterRelated?.Invoke();
@@ -1049,7 +1075,7 @@ public void IsAttacked(int damage, bool isAcounterAttack, bool isFireAttack, boo
             _gameManager.StartCoroutine(_gameManager.SetEndGame(true));
         }
 
-        
+        _gameManager.Wait = false;
         if (!IsAI && isCharacterTurn && _gameManager.CurrentCharacter == null || _gameManager.CurrentCharacterTurn == this)
         {
             Debug.Log("Character :: _gameManager.CurrentCharacter == this :: Character = " + gameObject.name);
